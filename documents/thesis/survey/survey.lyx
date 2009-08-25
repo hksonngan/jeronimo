@@ -42,8 +42,177 @@
 
 \begin_body
 
+\begin_layout Title
+Extraction and tracking of a body skeleton from multiple views: A survey
+\end_layout
+
+\begin_layout Author
+Alexander Pinzon Fernandez 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Alexander Pinzon Fernandez, Bioingenium Research Group
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+This paper presents a general survey of the skeleton extraction and medial
+ axis methods.
+ 
+\end_layout
+
+\begin_layout Keywords
+Skeleton extraction, motion capture, visual tracking.
+\end_layout
+
 \begin_layout Standard
-Skeleton Extraction
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout MarkBoth
+Master of Engineering in Computer and Systems Engineering
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}{
+\end_layout
+
+\end_inset
+
+National University of Colombia
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+The capture motion of articulated body is of interest in several knowledge
+ areas.
+ Such as human anatomy, engineering and the arts.
+ Diagnosis of pathologies associated with the gait.
+\end_layout
+
+\begin_layout Standard
+While the 3D representation is invaluable, many applications require alternate
+ “compact” representations of these models
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cornea2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Motivation
+\end_layout
+
+\begin_layout Standard
+What is needed is an analysis of the desired properties of the curve-skeleton,
+ as required by the various applications, and how the various existing curve-ske
+letonization methods satisfy these properties
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cornea2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Previous Work
+\end_layout
+
+\begin_layout Standard
+What is needed is an analysis of the desired properties of the curve-skeleton,
+ as required by the various applications, and how the various existing curve-ske
+letoni- zation methods satisfy these properties.
+\end_layout
+
+\begin_layout Subsection
+Definitions
+\end_layout
+
+\begin_layout Description
+Medial
+\begin_inset space ~
+\end_inset
+
+axis: The medial axis of an object is the set of all points having more
+ than one closest point on the object's boundary
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blum1967"
+
+\end_inset
+
+, in 3D case is called 
+\series bold
+medial surface
+\series default
+.
+\end_layout
+
+\begin_layout Section
+Problem Definition
+\end_layout
+
+\begin_layout Standard
+unorganized point cloud processing 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cornea2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Applications
+\end_layout
+
+\begin_layout Standard
+Examples of applications that use a curve- skeleton include: virtual navigation,
+ registration, anima- tion, morphing, scientific analysis, shape recognition,
+ and shape retrieval
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cornea2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Conclusions
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "K:/personal/maestria/tesis/estado_del_arte/listado_inicial"
+options "plain"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
