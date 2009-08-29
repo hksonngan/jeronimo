@@ -117,8 +117,35 @@ key "Cornea2007"
 .
 \end_layout
 
+\begin_layout Standard
+Skeletonization is a way to reduce dimensionality of digital objects
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Svensson2002"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Section
 Motivation
+\end_layout
+
+\begin_layout Standard
+Technological advances in the ﬁelds of telecommunication, graphic hardware
+ and geometry processing during the last decade, have contributed to an
+ evolution of the digital data being manipulated and transmitted over the
+ Internet.
+ Nowa- days, static and dynamic three-dimensional meshes con- stitute the
+ emerging multimedia content
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lavoue2008"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -128,6 +155,13 @@ letonization methods satisfy these properties
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Cornea2007"
+
+\end_inset
+
+, because the requirements of a skeleton differ with applications
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ma2003"
 
 \end_inset
 
@@ -144,17 +178,82 @@ What is needed is an analysis of the desired properties of the curve-skeleton,
 letoni- zation methods satisfy these properties.
 \end_layout
 
+\begin_layout Standard
+Mesh partitioning and skeletonisation are fun- damental for many computer
+ graphics and animation techniques.
+ Because of the close link between an object’s skeleton and it’s boundary,
+ these two problems are in many cases complementary.
+ Any partitioning of the ob- ject can assist in the creation of a skeleton
+ and any seg- mentation of the skeleton can infer a partitioning of the
+ object
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Shapira2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In this paper we investigate the use of probabilistic graphical models to
+ resolve both issues: incorporate the spatial de- pendencies between the
+ vertices into the clustering process, while providing a globally optimal
+ solution.
+ In particular, we base our framework on Markov Gibbs Random Fields (MRF).
+ The main idea is the following: for a given number of clusters and a 3D
+ mesh associated with any kind of attributes or features (curvature, roughness,
+ saliency etc.) our approach provides, for each vertex, the appropriate cluster
+ label 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lavoue2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We present an algorithm to extract such a skeleton on-the-ﬂy, both from
+ point clouds and polygonal meshes.
+ The algorithm is based on a deformable model evolution that captures the
+ object’s volumetric shape.
+ The deformable model involves multiple competing fronts which evolve inside
+ the object in a coarse-to-ﬁne manner.
+ We ﬁrst track these fronts’ centers, and then merge and ﬁlter the resulting
+ arcs to obtain a curve-skeleton of the object
+\begin_inset CommandInset citation
+LatexCommand cite
+key "AndreiSharf2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Geometry contraction using constrained Laplacian smoothing
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsection
 Definitions
 \end_layout
 
-\begin_layout Description
-Medial
-\begin_inset space ~
-\end_inset
+\begin_layout Itemize
 
-axis: The medial axis of an object is the set of all points having more
- than one closest point on the object's boundary
+\series bold
+Medial axis
+\series default
+: The medial axis of an object is the set of all points having more than
+ one closest point on the object's boundary
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blum1967"
@@ -166,6 +265,29 @@ key "blum1967"
 medial surface
 \series default
 .
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Curve Skeleton
+\series default
+: Is a simplified structure 1D representation of the original 3D object
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Svensson2002"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+MRF
+\series default
+: Markov Random Fields
 \end_layout
 
 \begin_layout Section
@@ -183,6 +305,50 @@ key "Cornea2007"
 .
 \end_layout
 
+\begin_layout Standard
+Extract skeleton from points clouds and polygon meshes
+\begin_inset CommandInset citation
+LatexCommand cite
+key "AndreiSharf2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The acquisition process typically requires an intrusion into the scene in
+ the form of optical markers which are used to estimate the parameters of
+ motion as well as the kinematic structure of the performer.
+ Marker-free optical motion capture approaches exist,but due to their dependence
+ on a specific type of a priori model they can hardly be used to track other
+ subjects, e.g.
+ animals
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Aguiar2004"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+we present a exible non-intrusive ap- proach that estimates both, a kinematic
+ model and its pa- rameters of motion from a sequence of voxel-volumes.
+ The volume sequences are reconstructed from multi-view video data by means
+ of a shape-from-silhouette tech- nique.
+ The described method is well-suited for but not limited to motion capture
+ of human subjects
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Aguiar2004"
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Section
 Applications
 \end_layout
@@ -194,6 +360,30 @@ Examples of applications that use a curve- skeleton include: virtual navigation,
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Cornea2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+It is used for diverse applications, including virtual colonoscopy and animation
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cornea2005"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For example, automatic virtual naviga- tion through a human colon uses the
+ colon skeleton, its centerline, to control the movement and orientation
+ of the virtual camera
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Bitter2001"
 
 \end_inset
 
