@@ -61,9 +61,14 @@ Alexander Pinzon Fernandez, Bioingenium Research Group
 \end_layout
 
 \begin_layout Abstract
-This paper presents a general survey of the skeleton extraction and medial
- axis methods.
- 
+This paper presents a survey of the skeleton extraction.
+ The skeleton is the easy way to capture the essential dynamic relationships
+ and movement of a body.
+ The skeletons do not have a formal definition, then not exist accurate
+ way to evaluate them, then looking some features as homotopic, invariant,
+ centeredness, to meet the requirements.
+ For this reason exist are many methods for skeleton extraction, that will
+ be studied in this article.
 \end_layout
 
 \begin_layout Keywords
@@ -99,14 +104,36 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-The capture motion of articulated body is of interest in several knowledge
- areas.
- Such as human anatomy, engineering and the arts.
- Diagnosis of pathologies associated with the gait.
+Body dynamics is an important area of research devoted to detecting people
+ and understanding their dynamic physical behavior in a complex environment
+ that can be used for biometric applications.
+ We are particularly interested in understanding and interpreting human
+ behavior in complex environments.
+ In a number of applications it is important to identify the actions of
+ certain parts of the body, e.g.
+ hand-gestures, gait analysis, and facial expression analysis
+\begin_inset CommandInset citation
+LatexCommand cite
+key "KryPhd05"
+
+\end_inset
+
+.
+ Finally, the modeling of human behavior can be used for a number of application
+s such as generating natural animation or graphics, understanding normal
+ and pathological behaviors, and analysis of data for medical applications
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Wang2003"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-While the 3D representation is invaluable, many applications require alternate
+While the 3D representation is invaluable, many applications require alternative
  “compact” representations of these models
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -118,7 +145,8 @@ key "Cornea2007"
 \end_layout
 
 \begin_layout Standard
-Skeletonization is a way to reduce dimensionality of digital objects
+Skeletonization is a way to reduce dimensionality of digital objects but
+ at the same time a way to capture the essential dynamic relationships
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Svensson2002"
