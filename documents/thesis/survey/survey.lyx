@@ -61,7 +61,8 @@ Alexander Pinzon Fernandez, Bioingenium Research Group
 \end_layout
 
 \begin_layout Abstract
-This paper presents a survey of the skeleton extraction.
+This paper presents a survey of the motion capture process by extracting
+ the skeleton.
  The skeleton is the easy way to capture the essential dynamic relationships
  and movement of a body.
  The skeletons do not have a formal definition, then not exist accurate
@@ -72,7 +73,7 @@ This paper presents a survey of the skeleton extraction.
 \end_layout
 
 \begin_layout Keywords
-Skeleton extraction, motion capture, visual tracking.
+Skeleton extraction, motion capture.
 \end_layout
 
 \begin_layout Standard
@@ -104,9 +105,9 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-Body dynamics is an important area of research devoted to detecting people
- and understanding their dynamic physical behavior in a complex environment
- that can be used for biometric applications.
+Body dynamics is an important area of research devoted to understanding
+ their dynamic physical behavior in a complex environment that can be used
+ for biometric applications.
  We are particularly interested in understanding and interpreting human
  behavior in complex environments.
  In a number of applications it is important to identify the actions of
@@ -133,8 +134,10 @@ key "Wang2003"
 \end_layout
 
 \begin_layout Standard
-While the 3D representation is invaluable, many applications require alternative
- “compact” representations of these models
+The skeletons are 1D structures that represent a simplified version of the
+ geometry and topology of a 3D object.
+ While the 3D representation is invaluable, many applications require alternativ
+e representations as a skeleton of these models
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Cornea2007"
@@ -142,11 +145,8 @@ key "Cornea2007"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-Skeletonization is a way to reduce dimensionality of digital objects but
- at the same time a way to capture the essential dynamic relationships
+ Skeletons reduce dimensionality of digital objects but at the same time
+ a way to capture the essential dynamic relationships
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Svensson2002"
@@ -165,11 +165,272 @@ Technological advances in the ﬁelds of telecommunication, graphic hardware
  and geometry processing during the last decade, have contributed to an
  evolution of the digital data being manipulated and transmitted over the
  Internet.
- Nowa- days, static and dynamic three-dimensional meshes con- stitute the
- emerging multimedia content
+ Nowadays, static and dynamic three-dimensional meshes constitute the emerging
+ multimedia content
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Lavoue2008"
+
+\end_inset
+
+.
+ For this reason it is vitally important to develop methods for manipulating
+ and modeling of three-dimensional meshes, which can be useful in numerous
+ applications.
+\end_layout
+
+\begin_layout Section
+Previous Work
+\end_layout
+
+\begin_layout Standard
+The extraction and skeleton tracking is achieved using a set of organized
+ activities inside a process.
+ These activities are: data acquisition from a real object, the 3D reconstructio
+n from data capture, skeleton extraction from object reconstructed three-dimensi
+onal, and tracking the skeleton taken as an iterative capture process with
+ a skeleton topologically invariant in time.
+\end_layout
+
+\begin_layout Subsection
+Data Acquisition
+\end_layout
+
+\begin_layout Standard
+There are different approaches in the acquisition of spatial information
+ of real objects, some based on image processing, sensor-based other (mechanical
+, electromagnetic and inertial among others), and others like laser scanner,
+ tomography, ultrasound and so on 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Gavrila1999"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The acquisition methods based on signal processing using sequences of images
+ produced by one or more cameras.
+ When using multiple cameras is exploited spatial coherence given by stereoscopi
+c vision through the use of markers (bright, reflective, or detected by
+ filters), and the silhouettes of the objects obtained by segmenting images
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Wang2003"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+When using a single image using a priori models are also added restrictions
+ on the search for solutions, these models can be based on probabilistic
+ approaches and machine learning.
+\end_layout
+
+\begin_layout Subsection
+Image segmentation
+\end_layout
+
+\begin_layout Standard
+The image segmentation is a set of methods for dividing an image into regions,
+ given certain characteristics.
+ Segmentation can be automatic ie without user interaction, or semi-manual
+ requiring supervision
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Jin2007"
+
+\end_inset
+
+.
+ Here are some of the most widely used segmentation methods:
+\end_layout
+
+\begin_layout Itemize
+Methods for active contour segmentation 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Flagg2009"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+Snake method using filters with gradient direction.
+ 
+\end_layout
+
+\begin_layout Itemize
+Methods that use space-time consistency constraints forms especially boxes
+ and ellipses 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Landabaso2008"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+Probabilistic methods with Bayesian networks to model the interaction of
+ fields 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ma2003"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Three-dimensional reconstruction
+\end_layout
+
+\begin_layout Standard
+Three-dimensional reconstruction is done with techniques in which real objects
+ are represented by data structures or functions with emphasis on features
+ like volume and shape.
+ There is currently a great deal of reconstruction techniques and methods
+ of 3D Mesh (13), given a set of unconnected 3D points
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Aguiar2005"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Image-based Reconstruction
+\end_layout
+
+\begin_layout Standard
+The image-based reconstruction has two major approaches used with each brand,
+ and one without them, we must also take into account the intrinsic parameters
+ (focal length, distortion, etc..) And extrinsic (position, orientation, etc.).
+ camera 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Campos2006a"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In the reconstruction with the use of markers is filtering the image and
+ locate those markers which are generally little points of any color at
+ the scene as white, red or deep green, are also used markers that emit
+ light and small lights, or the use of black and white images taken with
+ a recognizable pattern.With these points located on the segmented images
+ are necessary to make the solution of the equations of the corresponding
+ linear transformations based on a stereo system with a pinhole camera model
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Thormahlen2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Skeleton Extraction
+\end_layout
+
+\begin_layout Standard
+The extraction of the skeleton is a problem currently is treated from different
+ angles, some estimates made of the skeleton in 2D and then used to estimate
+ a priori information was transformed as the actual three-dimensional skeleton
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Remondino2003"
+
+\end_inset
+
+.
+ Other approaches perform an iterative reduction of the number of polygons
+ with some restrictions on contraction and energy minimization, until found
+ a skeleton irreducible 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Other methods use different topological representation of a three dimensional
+ object by means of graphs, then perform a simplification of the graph,
+ and finally used a skeleton model which transformed to minimize the error
+ between the skeleton and the graph given by some heuristics based on metrics
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Aguiar2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Other methods use of probabilistic graphical models to resolve both issues:
+ incorporate the spatial dependencies between the vertices into the clustering
+ process, while providing a globally optimal solution.
+ In particular, base on Markov Gibbs Random Fields (MRF) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lavoue2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To select a method of extracting is needed is an analysis of the desired
+ properties of the curve-skeleton, as required by the various applications,
+ and how the various existing curve-skeletonization methods satisfy these
+ properties
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Starck2005"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Other methods to extract such a skeleton on-the-ﬂy, both from point clouds
+ and polygonal meshes.
+ The algorithm is based on a deformable model evolution that captures the
+ object’s volumetric shape.
+ The deformable model involves multiple competing fronts which evolve inside
+ the object in a coarse-to-ﬁne manner.
+ Frst track these fronts’ centers, and then merge and ﬁlter the resulting
+ arcs to obtain a curve-skeleton of the object
+\begin_inset CommandInset citation
+LatexCommand cite
+key "AndreiSharf2007"
 
 \end_inset
 
@@ -197,229 +458,26 @@ key "Ma2003"
 \end_layout
 
 \begin_layout Section
-Previous Work
-\end_layout
-
-\begin_layout Standard
-What is needed is an analysis of the desired properties of the curve-skeleton,
- as required by the various applications, and how the various existing curve-ske
-letoni- zation methods satisfy these properties.
-\end_layout
-
-\begin_layout Standard
-Mesh partitioning and skeletonisation are fun- damental for many computer
- graphics and animation techniques.
- Because of the close link between an object’s skeleton and it’s boundary,
- these two problems are in many cases complementary.
- Any partitioning of the ob- ject can assist in the creation of a skeleton
- and any seg- mentation of the skeleton can infer a partitioning of the
- object
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Shapira2008"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-In this paper we investigate the use of probabilistic graphical models to
- resolve both issues: incorporate the spatial de- pendencies between the
- vertices into the clustering process, while providing a globally optimal
- solution.
- In particular, we base our framework on Markov Gibbs Random Fields (MRF).
- The main idea is the following: for a given number of clusters and a 3D
- mesh associated with any kind of attributes or features (curvature, roughness,
- saliency etc.) our approach provides, for each vertex, the appropriate cluster
- label 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Lavoue2008"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-We present an algorithm to extract such a skeleton on-the-ﬂy, both from
- point clouds and polygonal meshes.
- The algorithm is based on a deformable model evolution that captures the
- object’s volumetric shape.
- The deformable model involves multiple competing fronts which evolve inside
- the object in a coarse-to-ﬁne manner.
- We ﬁrst track these fronts’ centers, and then merge and ﬁlter the resulting
- arcs to obtain a curve-skeleton of the object
-\begin_inset CommandInset citation
-LatexCommand cite
-key "AndreiSharf2007"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Geometry contraction using constrained Laplacian smoothing
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Au2008"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsection
-Definitions
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Medial axis
-\series default
-: The medial axis of an object is the set of all points having more than
- one closest point on the object's boundary
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blum1967"
-
-\end_inset
-
-, in 3D case is called 
-\series bold
-medial surface
-\series default
-.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-Curve Skeleton
-\series default
-: Is a simplified structure 1D representation of the original 3D object
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Svensson2002"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Itemize
-
-\series bold
-MRF
-\series default
-: Markov Random Fields
-\end_layout
-
-\begin_layout Section
 Problem Definition
 \end_layout
 
 \begin_layout Standard
-unorganized point cloud processing 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Cornea2007"
-
-\end_inset
-
-.
+The motion tracking is performed with expensive conventional capture systems
+ ranging from 70.000 to approximately 200.000 dollars.
+ This track of the movement has these disadvantages.
 \end_layout
 
-\begin_layout Standard
-Extract skeleton from points clouds and polygon meshes
-\begin_inset CommandInset citation
-LatexCommand cite
-key "AndreiSharf2007"
-
-\end_inset
-
-.
+\begin_layout Itemize
+Use markers in the form of clothing and devices attached to the body and
+ limbs, which alter the naturalness of the movements.
+ In addition, experts need to position the markers because the markers must
+ be located in specific anthropometric points.
 \end_layout
 
-\begin_layout Standard
-The acquisition process typically requires an intrusion into the scene in
- the form of optical markers which are used to estimate the parameters of
- motion as well as the kinematic structure of the performer.
- Marker-free optical motion capture approaches exist,but due to their dependence
- on a specific type of a priori model they can hardly be used to track other
- subjects, e.g.
- animals
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Aguiar2004"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-we present a exible non-intrusive ap- proach that estimates both, a kinematic
- model and its pa- rameters of motion from a sequence of voxel-volumes.
- The volume sequences are reconstructed from multi-view video data by means
- of a shape-from-silhouette tech- nique.
- The described method is well-suited for but not limited to motion capture
- of human subjects
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Aguiar2004"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Section
-Applications
-\end_layout
-
-\begin_layout Standard
-Examples of applications that use a curve- skeleton include: virtual navigation,
- registration, anima- tion, morphing, scientific analysis, shape recognition,
- and shape retrieval
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Cornea2007"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-It is used for diverse applications, including virtual colonoscopy and animation
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Cornea2005"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-For example, automatic virtual naviga- tion through a human colon uses the
- colon skeleton, its centerline, to control the movement and orientation
- of the virtual camera
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Bitter2001"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Section
-Conclusions
+\begin_layout Itemize
+Stereo systems that perform a three-dimensional reconstruction from multiple
+ viewpoints handle large volumes of data for the geometry of the body, which
+ requires high performance machines.
 \end_layout
 
 \begin_layout Standard
