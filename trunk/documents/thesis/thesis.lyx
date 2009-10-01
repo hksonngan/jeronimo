@@ -19,7 +19,7 @@
 \paperfontsize default
 \spacing single
 \use_hyperref false
-\papersize default
+\papersize letterpaper
 \use_geometry false
 \use_amsmath 1
 \use_esint 1
@@ -114,11 +114,125 @@ LatexCommand tableofcontents
 \end_layout
 
 \begin_layout Abstract
-sadas
+El estudio y registro del movimiento de un cuerpo con extremidades articuladas,
+ como una persona o un animal, ha sido de interés en varias aéreas del conocimie
+nto.
+ Por ejemplo, la anatomía humana y animal, la ingeniería y las artes.
+ El registro de movimiento ha sido usado para resolver distintos tipos de
+ problemas, por ejemplo: en el diagnostico de patologías asociadas a la
+ marcha en seres humanos, la captura del movimiento de un actor para dar
+ vida a un personaje animado, o el análisis ergonómico para el diseño de
+ productos y herramientas.
+ 
+\end_layout
+
+\begin_layout Abstract
+El seguimiento de movimiento se realiza convencionalmente con costosos sistemas
+ ópticos de captura que varían entre los 150 y 400 millones de pesos aproximadam
+ente 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Estos datos fueron recopilados durante mayo del año 2009 de cotizaciones
+ realizadas a empresas de Suecia, Estados unidos y Italia
+\end_layout
+
+\end_inset
+
+.
+ Este seguimiento del movimiento presenta inconvenientes como el uso de
+ marcadores en forma de trajes y dispositivos pegados al cuerpo y sus extremidad
+es, que alteran la naturalidad de los movimientos.
+ Además, se necesita de expertos para posicionar los marcadores, pues los
+ marcadores deben estar localizados en puntos antropométricos específicos.
+ Otro inconveniente de estos sistemas estereoscópicos que realizan una reconstru
+cción tridimensional desde múltiples puntos de vista es que manejan grandes
+ volúmenes de datos correspondientes a la geometría del cuerpo, con lo cual
+ se requiere maquinas de alto rendimiento.
+ 
+\end_layout
+
+\begin_layout Abstract
+En este sistema se propone eliminar el uso de marcadores sujetos al cuerpo
+ junto con el uso de cámaras de bajo costo.
+ Los datos de este sistema calibrado de cámaras, son usados para segmentar
+ las siluetas mediante el método Sigma-Delta, con los cuales se realiza
+ un reconstrucción estereoscópica 3D del cuerpo.
+ una vez reconstruido se realiza una extracción del esqueleto mediante la
+ contracción suavizada del volumen por medio de cálculos vectoriales con
+ el operador de Laplace-Beltrami.
+ Por último para validar nuestros resultados, se compara el método contra
+ otros desarrollados, midiendo su eficacia en características como la homotopía
+ con respecto al cuerpo original, la invariancia bajo transformaciones isométric
+as, y lo centrado con respecto a la superficie media.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+selectlanguage{english}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+
+\lang english
+Aca pongo la traduccion en ingles
 \end_layout
 
 \begin_layout Chapter
 Introducción
+\end_layout
+
+\begin_layout Standard
+El registro de movimiento se refiere a la medición realizada por un observador
+ de la posición con respecto al tiempo de una partícula en un sistema de
+ referencia.
+\end_layout
+
+\begin_layout Standard
+Desde que la antiguedad se a estudiado el movimiento algunas veces con la
+ intencion de reproducirlo en robots y animales mecanicos, como el ave mecanica
+ del griego Arquitas del siglo IV antes de cristo.
+\end_layout
+
+\begin_layout Standard
+Leonardo Da vinci diseño un robot humanoide querealizaba movimientos como
+ sentarse, alzar los brazos y mover la cabeza y la mandíbula
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Taddei2007"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "bibliografia/listado_inicial"
+options "bibtotoc,plain"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
