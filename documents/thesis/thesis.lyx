@@ -16,10 +16,10 @@
 \font_tt_scale 100
 
 \graphics default
-\paperfontsize default
-\spacing single
+\paperfontsize 12
+\spacing onehalf
 \use_hyperref false
-\papersize letterpaper
+\papersize a4paper
 \use_geometry false
 \use_amsmath 1
 \use_esint 1
@@ -28,7 +28,7 @@
 \paperorientation portrait
 \secnumdepth 3
 \tocdepth 3
-\paragraph_separation indent
+\paragraph_separation skip
 \defskip medskip
 \quotes_language english
 \papercolumns 1
@@ -43,24 +43,48 @@
 \begin_body
 
 \begin_layout Title
-Universidad Nacional de Colombia
-\begin_inset Newline newline
-\end_inset
-
-Facultad de Ingeniería
-\begin_inset Newline newline
-\end_inset
-
 Extracción y Seguimiento del Esqueleto de un Cuerpo a Partir de Múltiples
  Vistas
 \end_layout
 
 \begin_layout Author
+Universidad Nacional de Colombia
+\begin_inset Newline newline
+\end_inset
+
+Facultad de Ingeniería
+\noun on
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
 Alexander Pinzón Fernández
+\noun default
+
 \begin_inset Newline newline
 \end_inset
 
 Maestría en Ingeniería de Sistemas y Computación
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
 \begin_inset Newline newline
 \end_inset
 
@@ -81,11 +105,27 @@ Facultad de Medicina
 \begin_inset Newline newline
 \end_inset
 
-Bogotá D.C., dia de mes de 2010
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
 \begin_inset Newline newline
 \end_inset
 
 Grupo de Investigación Bioingenium
+\begin_inset Newline newline
+\end_inset
+
+Bogotá D.C.
 \end_layout
 
 \begin_layout Standard
@@ -158,7 +198,7 @@ En este sistema se propone eliminar el uso de marcadores sujetos al cuerpo
  junto con el uso de cámaras de bajo costo.
  Los datos de este sistema calibrado de cámaras, son usados para segmentar
  las siluetas mediante el método Sigma-Delta, con los cuales se realiza
- un reconstrucción estereoscópica 3D del cuerpo.
+ una reconstrucción estereoscópica 3D del cuerpo.
  una vez reconstruido se realiza una extracción del esqueleto mediante la
  contracción suavizada del volumen por medio de cálculos vectoriales con
  el operador de Laplace-Beltrami.
@@ -166,7 +206,6 @@ En este sistema se propone eliminar el uso de marcadores sujetos al cuerpo
  otros desarrollados, midiendo su eficacia en características como la homotopía
  con respecto al cuerpo original, la invariancia bajo transformaciones isométric
 as, y lo centrado con respecto a la superficie media.
- 
 \end_layout
 
 \begin_layout Standard
@@ -188,7 +227,64 @@ selectlanguage{english}
 \begin_layout Abstract
 
 \lang english
-Aca pongo la traduccion en ingles
+The study and record of the movement of a body with extremities articulated,
+ such as a person or an animal, it has been of interest in several areas
+ of knowledge.
+ For instance, the human anatomy and animal, engineering and arts.
+ The record of movement has been used to resolve several types of problems,
+ for instance: In the I diagnose of correlated pathologies the march in
+ human beings, the capture of the movement of an actor to give an animate
+ character life, or the ergonomic analysis for the design of products and
+ tools.
+ 
+\end_layout
+
+\begin_layout Abstract
+
+\lang english
+The tracking of movement is done conventionally with costly optic systems
+ of capture that they vary between the 55.000 and 220.000 us dollars approximately
+ 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\lang english
+These data were collected during May of the year 2009 of quotations accomplished
+ to Swedish, united States and Italy companies.
+\end_layout
+
+\end_inset
+
+.
+ This tracking of the movement presents inconveniences like the use of markers
+ in the form of suits and attached devices to the body and its extremities,
+ that they alter the spontaneity of the movements.
+ Also, it is needed of experts to position markers, because markers must
+ be located at anthropometric specific points.
+ Another inconvenience of these stereoscopic systems that accomplish a three-dim
+ensional reconstruction from multiple points of view is the fact that the
+ big volumes of correspondent data drive the geometry of the body, with
+ which requires high-performance machines itself.
+ 
+\end_layout
+
+\begin_layout Abstract
+
+\lang english
+It is proposed eliminating the use of fastened markers to the body along
+ with the use of low-cost cameras in this system.
+ The data of this system calibration of cameras, Sigma Delta, the one with
+ which a stereoscopic reconstruction the one is accomplished are used to
+ segment the silhouettes by means of the method 3D of the body once reconstructe
+d accomplishes an extraction of the skeleton by means of the contraction
+ softened of the volume by means of vectorial calculations with Laplace
+ Beltrami's operator itself.
+ Finally to validate our results, the method against developed others is
+ compared, measuring his efficacy in characteristics like the homotopy regarding
+ the original body, the low invariance isometric transformations, and what's
+ centered regarding the half a surface.
 \end_layout
 
 \begin_layout Chapter
@@ -196,23 +292,380 @@ Introducción
 \end_layout
 
 \begin_layout Standard
-El registro de movimiento se refiere a la medición realizada por un observador
- de la posición con respecto al tiempo de una partícula en un sistema de
- referencia.
-\end_layout
-
-\begin_layout Standard
-Desde que la antiguedad se a estudiado el movimiento algunas veces con la
- intencion de reproducirlo en robots y animales mecanicos, como el ave mecanica
- del griego Arquitas del siglo IV antes de cristo.
-\end_layout
-
-\begin_layout Standard
-Leonardo Da vinci diseño un robot humanoide querealizaba movimientos como
- sentarse, alzar los brazos y mover la cabeza y la mandíbula
+El estudio del movimiento de los objetos a cautivado al hombre desde la
+ antigüedad, algunas veces con la intención de reproducirlo en robots y
+ animales mecánicos, como el ave mecánica del griego Arquitas del siglo
+ IV antes de cristo 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Taddei2007"
+
+\end_inset
+
+, o en el caso de Leonardo Da vinci quien diseño un robot humanoide que
+ realizaba movimientos como sentarse, alzar los brazos, mover la cabeza
+ y mover la mandíbula basado en sus conocimientos de anatomatica 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Taddei2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Una definición formal para estudiar el movimiento de los objetos se encuentra
+ mediante el registro de movimiento el cual se refiere a la medición realizada
+ por un observador de la posición con respecto al tiempo de una partícula
+ en un sistema de referencia.
+\end_layout
+
+\begin_layout Standard
+El registro del movimiento del cuerpo humano se ha especializado a lo largo
+ de los años con la llegada de nuevas tecnologías que ayudan a realizarlo
+ de forma mas precisa como en el caso de los sensores inerciales y los rotoscopi
+os, otra de las tecnologías para registrar el movimiento del cuerpo humano
+ son los sistemas ópticos en los cuales se usan una o mas cámaras para grabar
+ a un actor, para posteriormente mediante procesamiento fotogametrico encontrar
+ las posiciones exactas del cuerpo y sus partes a lo largo del vídeo
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Campos2006"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+En el registro del movimiento de un cuerpo humano generalmente se usa un
+ esqueleto modelo que representa cada una de las extremidades y sus articulacion
+es dado que el esqueleto es una representación sintetizada del cuerpo.
+ Encontrar el correspondiente esqueleto de un cuerpo humano, animal o de
+ algún objeto, en general es estudiado dentro del área de la computación
+ gráfica denominada extracción del esqueleto
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cornea2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Aproximaciones Clave
+\end_layout
+
+\begin_layout Standard
+El registro de movimiento del cuerpo humano se realiza tradicionalmente
+ hoy día con sistemas ópticos que usan marcadores y hacen uso de un esqueleto
+ modelo conocido a priori.
+\end_layout
+
+\begin_layout Subsection
+Sistemas Ópticos
+\end_layout
+
+\begin_layout Standard
+Los sistemas ópticos para el registro de movimiento tiene dos enfoques important
+es uno con el uso de marcas, y otro sin ellas.
+ En el registro con el uso de leds o reflectores como marcadores se hace
+ un filtrado de la imagen para localizar estos puntos, con estos puntos
+ segmentados y localizados en las imágenes se procede a realizar una estimación
+ tridimensional de cada punto, con lo que se registra el movimiento de cada
+ parte del cuerpo en el cual habian marcadores presentes 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Thormahlen2008"
+
+\end_inset
+
+.
+ En el registro sin el uso de marcadores se realiza primero una reconstrucción
+ tridimensional del cuerpo mediante el uso de las siluetas y puntos característi
+cos encontrados en los vídeos mediante procesamiento de imágenes, con el
+ cuerpo reconstruido se realiza una estimación de la pose de un esqueleto
+ modelo, la pose del esqueleto es el registro del movimiento como tal de
+ actor que se observo 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Zou2009"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Extracción del Esqueleto
+\end_layout
+
+\begin_layout Standard
+La extracción del esqueleto se realiza convencionalmente con técnicas en
+ las cuales hay una reducción iterativa del la forma tridimensional con
+ ciertas restricciones de contracción y minimización de energía, hasta encontrar
+ un esqueleto irreducible 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+.
+ Otros métodos utilizan distintas representaciones topológicas de un objeto
+ tridimensional mediante grafos, luego realizan una simplificación de este
+ grafo, y por ultimo utilizan un esqueleto modelo el cual transforman para
+ minimizar el error entre el esqueleto y el grafo dado por medio de alguna
+ métrica basada en heurísticas 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Aguiar2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Organización del Documento
+\end_layout
+
+\begin_layout Standard
+Este documento esta organizado la siguiente forma.
+ En el capitulo 2 se proporciona un estado del arte sobre los sistemas ópticos
+ de captura de movimiento y la extracción del esqueleto.
+ En el capitulo 3 se habla de la captura de los vídeos desde varias cámaras
+ a un mismo actor, tomando en cuenta puntos como la calibración, la sincronizaci
+ón, la iluminación, y la ubicación de las cámaras.
+ En el capitulo 4 mostraremos la extracción de la silueta del actor desde
+ los vídeos mediante la implementación del método 
+\begin_inset Formula $\Sigma-\Delta$
+\end_inset
+
+ para sustracción del fondo.
+ En el capitulo 5 se hablara sobre los puntos característicos en una imagen,
+ de como estos puntos son invariantes a través del tiempo y como se les
+ puede hacer seguimiento a lo largo de un vídeo.
+ En el capitulo 6 se mostrara como usando las siluetas y los puntos característi
+cos se realiza una estimación del cuerpo tridimensional del actor.
+ En el capitulo 7 se desarrollara un método para extraer el esqueleto de
+ una representación tridimensional del actor, usando métodos de contracción
+ suavizada del volumen, además se compara este método con otras técnicas
+ de extracción del esqueleto.
+ En el capitulo 8 se mostrara una estrategia para realizar la estimación
+ de pose del esqueleto encontrado a lo largo del vídeo y también se compara
+ con otros métodos de estimación de pose basados en modelos.
+ En el capitulo 9 se describirá el programa de computadora desarrollado
+ para el sistema de visualización, en este sistema es posible ver el esqueleto
+ sobrepuesto en cada uno de los vídeos capturados.
+ Por ultimo se hablara de los resultados obtenidos sobre la extracción y
+ seguimiento del esqueleto y se hablara sobre el trabajo futuro que deja
+ esta tesis, 
+\end_layout
+
+\begin_layout Chapter
+Trabajo Relacionado
+\end_layout
+
+\begin_layout Standard
+La dinámica del cuerpo es un área importante de investigación dedicada a
+ entender su comportamiento físico y dinámico en un ambiente complejo que
+ puede servir para aplicaciones biométricas.
+ Nuestro interes en particular es entender e interpretar el comportamiento
+ humano en ambientes complejos.
+ 
+\end_layout
+
+\begin_layout Standard
+En cierto número de aplicaciones es importante identificar las acciones
+ de ciertas partes del cuerpo, por ejemplo la gesticulacion de mano, análisis
+ de la marcha, y análisis de la expresión facial 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "KryPhd05"
+
+\end_inset
+
+.
+ Finalmente, el modelado de comportamiento humano puede servir para un gran
+ número de aplicaciones como generar gráficos computarizados o la animación,
+ entender comportamientos normales y patológicos, y el análisis de datos
+ para aplicaciones médicas 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Wang2003"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Los esqueletos son estructuras 1D que representan una versión simplificada
+ de la geometría y topología de un objeto 3D.
+ Mientras la representación 3D es invaluable, muchas aplicaciones requieren
+ representaciones alternativas como un esqueleto de estos modelos 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cornea2007"
+
+\end_inset
+
+.
+ Los esqueletos reducen la dimensionalidad de objetos digitales pero en
+ el mismo tiempo un camino para capturar las relaciones dinámicas esenciales
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Svensson2002"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+La extracción y seguimiento del esqueleto se logra mediante la utilización
+ de un conjunto de actividades organizadas dentro de un proceso.
+ Estas actividades son: la adquisición de datos desde un objeto real, la
+ reconstrucción 3D a partir de los datos de la captura, la extracción del
+ esqueleto del objeto tridimensional reconstruido, y el seguimiento del
+ esqueleto tomado como un proceso iterativo de captura con un esqueleto
+ invariante topológicamente en el tiempo.
+\end_layout
+
+\begin_layout Section
+Adquisición de Datos
+\end_layout
+
+\begin_layout Standard
+Existen diferentes enfoques en la adquisición de la información espacial
+ de objetos reales, algunos basados en el procesamiento de imágenes, otros
+ basados en sensores (mecánicos, electromagnéticos, e inerciales entre otros),
+ y otros como el escáner de laser, la tomografía, el ultrasonido, etc 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cheung2003"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Los métodos de adquisición basados en el procesamiento de señales utilizan
+ las secuencias de imágenes producidas por una o varias cámaras.
+ Cuando se utilizan varias cámaras se explota la coherencia espacial dada
+ por la visión estereoscópica, mediante el uso de puntos característicos
+ como marcadores (luminosos, reflectivos, o detectados mediante filtros),
+ y las siluetas de los objetos obtenidos mediante la segmentación de las
+ imágenes 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lin2008"
+
+\end_inset
+
+.
+ Cuando se utiliza una única imagen se hace uso de modelos a priori y además
+ se añaden restricciones en las búsquedas de soluciones, estos modelos pueden
+ basarse en aproximaciones probabilísticas o aprendizaje de máquina.
+\end_layout
+
+\begin_layout Section
+Segmentacion de Imagenes
+\end_layout
+
+\begin_layout Standard
+La segmentación de imágenes son un conjunto de métodos para dividir una
+ imagen en regiones, dadas ciertas características.
+ La segmentación puede ser automática es decir sin interacción del usuario,
+ o semiautomáticas que requieren la supervisión manual 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Jin2007"
+
+\end_inset
+
+.
+ A continuación mostraremos algunos de los métodos de segmentación más usados:
+\end_layout
+
+\begin_layout Itemize
+Métodos de segmentación de contorno activos 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Flagg2009"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+Método Snake con uso de filtros de gradiente de dirección.
+ 
+\end_layout
+
+\begin_layout Itemize
+Métodos que utilizan la coherencia espacio temporal de formas limitantes
+ especialmente cajas y elipses 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Landabaso2008"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+Métodos probabilísticos con redes bayesianas para modelar la interacción
+ de campos 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ma2003"
+
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Section
+Reconstruccion Tridimensional
+\end_layout
+
+\begin_layout Standard
+La reconstrucción tridimensional, son un conjunto de técnicas mediante las
+ cuales objetos reales, son representados mediante estructuras de datos
+ o funciones, haciendo énfasis en características como volumen y forma.
+ Existe actualmente una gran cantidad de técnicas de reconstrucción y métodos
+ de mallado 3D, dado un conjunto de puntos 3D no conectados 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Aguiar2005"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Reconstrucción Basada en Imágenes 
+\end_layout
+
+\begin_layout Standard
+La reconstrucción basada en imágenes, tiene dos enfoques importantes uno
+ con el uso de marcas, y otro sin ellas, además hay que tomar en cuenta
+ los parámetros intrínsecos (distancia focal, distorsión, etc.) y extrínsecos
+ (posición, orientación, etc.) de la cámara 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Campos2006a"
 
 \end_inset
 
@@ -221,7 +674,257 @@ key "Taddei2007"
 \end_layout
 
 \begin_layout Standard
+En la reconstrucción con el uso de marcas se hace un filtrado de la imagen
+ para localizar estos marcadores los cuales son en general puntos de algún
+ color poco presente en la escena como el blanco, un rojo o verde intenso,
+ también se usan marcadores que emiten luz como pequeños bombillos, o el
+ uso de imágenes en blanco y negro que tienen un patrón dado reconocible.
+ Con estos puntos segmentados y localizados en las imágenes se procede a
+ realizar la solución de las ecuaciones de las transformaciones lineales
+ correspondientes basadas en un sistema estéreo con un modelo de cámara
+ pinhole 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Thormahlen2008"
 
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Extracción del Esqueleto
+\end_layout
+
+\begin_layout Standard
+La extracción del esqueleto es un problema que actualmente es tratado desde
+ distintos enfoques, algunos realizan estimaciones del esqueleto en 2D,
+ y luego utilizan información a priori para estimar como fue transformado
+ el esqueleto tridimensional real 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Remondino2003"
+
+\end_inset
+
+, otros enfoques realizan una reducción iterativa del volumen del cuerpo
+ usando restricciones de contracción y minimización de energía, hasta encontrar
+ un esqueleto irreducible 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Otros métodos utilizan distintas representaciones topológicas de un objeto
+ tridimensional mediante grafos, luego realizan una simplificación de este
+ grafo, y por ultimo utilizan un esqueleto modelo el cual transforman para
+ minimizar el error entre el esqueleto y el grafo dado por medio de alguna
+ métrica basada en heurísticas 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Aguiar2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Otros métodos usan modelos probabilísticos para resolver ambas cosas: Incorporar
+ las dependencias espaciales entre los vértices en el proceso de agrupamiento,
+ y proveer una solución globalmente óptima.
+ En particular, basados en Campos Aleatorios de Markov Gibbs (MRF) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lavoue2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Para seleccionar un método de extracción es necesario es un análisis de
+ las propiedades deseadas del esqueleto de curvas, según se requiera por
+ las distintas aplicaciones, y un estudio de cómo los métodos existentes
+ satisfacen estas propiedades 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Starck2005"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Chapter
+Sistema de Captura con Videocamaras
+\end_layout
+
+\begin_layout Section
+Ubicación de las Cámaras
+\end_layout
+
+\begin_layout Section
+Calibración de Cámaras
+\end_layout
+
+\begin_layout Section
+Captura Sincronizada de Vídeos
+\end_layout
+
+\begin_layout Section
+Resultados Experimentales
+\end_layout
+
+\begin_layout Chapter
+Extracción de las Siluetas Mediante el Método 
+\begin_inset Formula $\Sigma-\triangle$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Sustracción de Fondo
+\end_layout
+
+\begin_layout Section
+Extracción de Fondo Estatico 
+\begin_inset Formula $\Sigma-\triangle$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Segmentacion de Video
+\end_layout
+
+\begin_layout Section
+Resultados Experimentales
+\end_layout
+
+\begin_layout Chapter
+Extracción de Puntos Característicos
+\end_layout
+
+\begin_layout Section
+Puntos Característicos
+\end_layout
+
+\begin_layout Section
+Segmentación de Puntos Característicos
+\end_layout
+
+\begin_layout Section
+Seguimiento de Puntos Característicos
+\end_layout
+
+\begin_layout Section
+Resultados Experimentales
+\end_layout
+
+\begin_layout Chapter
+Reconstrucción Tridimensional del Cuerpo
+\end_layout
+
+\begin_layout Section
+Reconstrucción Estereoscópico
+\end_layout
+
+\begin_layout Section
+Triangulación de Delaunay
+\end_layout
+
+\begin_layout Section
+Forma desde las siluetas
+\end_layout
+
+\begin_layout Section
+Resultados Experimentales
+\end_layout
+
+\begin_layout Chapter
+Extracción del Esqueleto
+\end_layout
+
+\begin_layout Section
+Mallado de una Superficie
+\end_layout
+
+\begin_layout Section
+Suavizado Laplaciano
+\end_layout
+
+\begin_layout Section
+Funciones de Costo y Penalización
+\end_layout
+
+\begin_layout Section
+Ecuación de Energía
+\end_layout
+
+\begin_layout Section
+Reducción de Polígonos
+\end_layout
+
+\begin_layout Section
+Comparación Experimental
+\end_layout
+
+\begin_layout Section
+Resultados Experimentales
+\end_layout
+
+\begin_layout Chapter
+Seguimiento del Esqueleto
+\end_layout
+
+\begin_layout Section
+Coherencia espacial y Temporal
+\end_layout
+
+\begin_layout Section
+Estimación de Pose
+\end_layout
+
+\begin_layout Section
+Comparación Experimental
+\end_layout
+
+\begin_layout Section
+Resultados Experimentales
+\end_layout
+
+\begin_layout Chapter
+Programa de Computadora Desarrollado
+\end_layout
+
+\begin_layout Section
+Sistema de Visualizacion
+\end_layout
+
+\begin_layout Section
+Diseño del Sistema
+\end_layout
+
+\begin_layout Section
+Descripcion de la Implementacion
+\end_layout
+
+\begin_layout Chapter
+Conclusiones
+\end_layout
+
+\begin_layout Section
+Trabajo Futuro
 \end_layout
 
 \begin_layout Standard
