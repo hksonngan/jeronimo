@@ -353,6 +353,37 @@
   url = {http://dx.doi.org/10.1111/j.1467-8659.2007.01054.x}
 }
 
+@INPROCEEDINGS{Aouada2009,
+  author = {Aouada, D. and Krim, H.},
+  title = {Novel similarity invariant for space curves using turning angles
+	and its application to object recognition},
+  booktitle = {Acoustics, Speech and Signal Processing, 2009. ICASSP 2009. IEEE
+	International Conference on},
+  year = {2009},
+  pages = {1277-1280},
+  month = {April},
+  abstract = {We present a new similarity invariant signature for space curves.
+	This signature is based on the information contained in the turning
+	angles of both the tangent and the binormal vectors at each point
+	on the curve. For an accurate comparison of these signatures, we
+	define a Riemannian metric on the space of the invariant. We show
+	through relevant examples that, unlike classical invariants, the
+	one we define in this paper enjoys multiple important properties
+	at the same time, namely, a high discrimination level, independence
+	of any reference point, uniqueness property, as well as a good preservation
+	of the correspondence between curves. Moreover, we illustrate how
+	to match 3D objects by extracting and comparing the invariant signatures
+	of their curved skeletons.},
+  doi = {10.1109/ICASSP.2009.4959824},
+  file = {:./Aouada2009/Aouada2009.pdf:PDF},
+  issn = {1520-6149},
+  keywords = {curve fitting, object recognitionbinormal vector, object recognition,
+	similarity invariant signature, space curve, tangent vector, turning
+	angle},
+  owner = {apinzonf},
+  timestamp = {2009.10.19}
+}
+
 @ARTICLE{Attali2007,
   author = {D. Attali and J.-D. Boissonnat and H. Edelsbrunner},
   title = {Stability and Computation of the Medial Axis --- a State-of-the-Art
@@ -882,6 +913,33 @@
   timestamp = {2009.03.17}
 }
 
+@INPROCEEDINGS{Chen2008a,
+  author = {Chen, Hongqian and Huang, Tianyu and Li, Fengxia and Zhan, Shouyi},
+  title = {Shape Manipulation on GPU},
+  booktitle = {Image and Signal Processing, 2008. CISP '08. Congress on},
+  year = {2008},
+  volume = {3},
+  pages = {518-522},
+  month = {May},
+  abstract = {This paper proposes a novel hardware-accelerating deformation algorithm
+	based on curve-skeleton model for 2D shape manipulation. The deformation
+	algorithm can achieve real-time interactive shape manipulation without
+	any pre-computing step. The deforming regions of shapes are demarcated
+	with a simple skeleton frame and are simulated by a curve-skeleton
+	model consisting of triangle-strips. The algorithm obtains two properties
+	that smooth flexion and preservation of area. Smooth flexion is guaranteed
+	due to the continuous derivative of the curve function, and preservation
+	of area is achieved via adjusting the parameters of the control curves.
+	GPGPU technique is adopted to reduce the workload on CPU and to accelerate
+	the rendering. Our algorithm can be used to 2D shape manipulation,
+	character animation and cartoon-like objects deformation. It has
+	been proved feasible and valid by our experiments.},
+  doi = {10.1109/CISP.2008.443},
+  file = {:./Chen2008a/Chen2008a.pdf:PDF},
+  owner = {apinzonf},
+  timestamp = {2009.10.19}
+}
+
 @ARTICLE{Chen2008,
   author = {Chen, Mang and Liu, Yun-cai},
   title = {Connection skeleton extraction based on contour connectedness},
@@ -1095,6 +1153,63 @@
   number = {CMU-RI-TR-03-44},
   owner = {apinzonf},
   timestamp = {2009.04.01}
+}
+
+@INPROCEEDINGS{Cornea2005b,
+  author = { Cornea, N.D. and Demirci, M.F. and Silver, D. and Shokoufandeh and
+	Dickinson, S.J. and Kantor, P.B.},
+  title = {3D object retrieval using many-to-many matching of curve skeletons},
+  booktitle = {Shape Modeling and Applications, 2005 International Conference},
+  year = {2005},
+  pages = { 366-371},
+  month = {June},
+  note = {Skeleton Extraction},
+  abstract = {We present a 3D matching framework based on a many-to-many matching
+	algorithm that works with skeletal representations of 3D volumetric
+	objects. We demonstrate the performance of this approach on a large
+	database of 3D objects containing more than 1000 exemplars. The method
+	is especially suited to matching objects with distinct part structure
+	and is invariant to part articulation. Skeletal matching has an intuitive
+	quality that helps in defining the search and visualizing the results.
+	In particular, the matching algorithm produces a direct correspondence
+	between two skeletons and their parts, which can be used for registration
+	and juxtaposition.},
+  doi = {10.1109/SMI.2005.1},
+  file = {:./Cornea2005b/cornea2005b.pdf:PDF},
+  keywords = { curve fitting, data visualisation, image matching, image registration,
+	object recognition, very large databases 3D object retrieval, 3D
+	volumetric objects, curve skeletons, large database, many-to-many
+	matching, scientific visualization},
+  owner = {apinzonf},
+  timestamp = {2009.10.19}
+}
+
+@INPROCEEDINGS{Cornea2005a,
+  author = {Cornea, N.D. and Silver, D. and Min, P.},
+  title = {Curve-skeleton applications},
+  booktitle = {Visualization, 2005. VIS 05. IEEE},
+  year = {2005},
+  pages = { 95-102},
+  month = {Oct.},
+  note = {Skeleton Extraction Survey},
+  abstract = {Curve-skeletons are a 1D subset of the medial surface of a 3D object
+	and are useful for many visualization tasks including virtual navigation,
+	reduced-model formulation, visualization improvement, mesh repair,
+	animation, etc. There are many algorithms in the literature describing
+	extraction methodologies for different applications; however, it
+	is unclear how general and robust they are. In this paper, we provide
+	an overview of many curve-skeleton applications and compile a set
+	of desired properties of such representations. We also give a taxonomy
+	of methods and analyze the advantages and drawbacks of each class
+	of algorithms.},
+  doi = {10.1109/VISUAL.2005.1532783},
+  file = {:./Cornea2005/vis05.pdf:PDF},
+  keywords = { computational geometry, curve fitting, data visualisation, image
+	representation, image thinning, set theory, solid modelling 1D subset,
+	3D object, curve-skeleton applications, medial surface, visualization
+	tasks},
+  owner = {apinzonf},
+  timestamp = {2009.10.19}
 }
 
 @ARTICLE{Cornea2007,
@@ -1680,6 +1795,53 @@
   timestamp = {2009.04.02}
 }
 
+@ARTICLE{Gyulassy2007,
+  author = {Gyulassy, A.G. and Duchaineau, M.A. and Vijay Natarajan and Pascucci,
+	V. and Bringa, E.M. and Higginbotham, A. and Hamann, B.},
+  title = {Topologically Clean Distance Fields},
+  journal = {Visualization and Computer Graphics, IEEE Transactions on},
+  year = {2007},
+  volume = {13},
+  pages = {1432-1439},
+  number = {6},
+  month = {Nov.-Dec. },
+  note = {Skeleton Extraction},
+  abstract = {Analysis of the results obtained from material simulations is important
+	in the physical sciences. Our research was motivated by the need
+	to investigate the properties of a simulated porous solid as it is
+	hit by a projectile. This paper describes two techniques for the
+	generation of distance fields containing a minimal number of topological
+	features, and we use them to identify features of the material. We
+	focus on distance fields defined on a volumetric domain considering
+	the distance to a given surface embedded within the domain. Topological
+	features of the field are characterized by its critical points. Our
+	first method begins with a distance field that is computed using
+	a standard approach, and simplifies this field using ideas from Morse
+	theory. We present a procedure for identifying and extracting a feature
+	set through analysis of the MS complex, and apply it to find the
+	invariants in the clean distance field. Our second method proceeds
+	by advancing a front, beginning at the surface, and locally controlling
+	the creation of new critical points. We demonstrate the value of
+	topologically clean distance fields for the analysis of filament
+	structures in porous solids. Our methods produce a curved skeleton
+	representation of the filaments that helps material scientists to
+	perform a detailed qualitative and quantitative analysis of pores,
+	and hence infer important material properties. Furthermore, we provide
+	a set of criteria for finding the "difference" between two skeletal
+	structures, and use this to examine how the structure of the porous
+	solid changes over several timesteps in the simulation of the particle
+	impact.},
+  doi = {10.1109/TVCG.2007.70603},
+  file = {:./Gyulassy2007/Gyulassy2007.pdf:PDF},
+  issn = {1077-2626},
+  keywords = {computational geometry, curve fitting, topologyMS complex, Morse theory,
+	curved skeleton representation, filament structures, porous solids,
+	simulated porous solid, topologically clean distance fields, volumetric
+	domain},
+  owner = {apinzonf},
+  timestamp = {2009.10.19}
+}
+
 @INPROCEEDINGS{Hachet2005,
   author = {Hachet, Martin and Pouderoux, Joachim and Guitton, Pascal},
   title = {A Camera-Based Interface for Interaction with Mobile Handheld Computers},
@@ -1779,6 +1941,142 @@
   owner = {apinzonf},
   publisher = {Kluwer Academic Publishers},
   timestamp = {2009.03.18}
+}
+
+@INPROCEEDINGS{Hassouna2007,
+  author = {Hassouna, M.S. and Farag, A.A.},
+  title = {On the Extraction of Curve Skeletons using Gradient Vector Flow},
+  booktitle = {Computer Vision, 2007. ICCV 2007. IEEE 11th International Conference
+	on},
+  year = {2007},
+  pages = {1-8},
+  month = {Oct.},
+  note = {Skeleton Extraction},
+  abstract = {In this paper, we propose a new variational framework for computing
+	continuous curve skeletons from discrete objects that are suitable
+	for structural shape representation. We have derived a new energy
+	function, which is proportional to some medialness function, such
+	that the minimum cost path between any two medial voxels in the shape
+	is a curve skeleton. We have employed two different medialness functions;
+	the Euclidean distance field and a variant of the magnitude of the
+	gradient vector flow (GVF), resulting in two different energy functions.
+	The first energy controls the identification of the shape topological
+	nodes from which curve skeletons start, while the second one controls
+	the extraction of curve skeletons. The accuracy and robustness of
+	the proposed framework are validated both quantitatively and qualitatively
+	against competing techniques as well as several 3D shapes of different
+	complexity.},
+  doi = {10.1109/ICCV.2007.4409112},
+  file = {:./Hassouna2007/Hassouna_Farag_ICCV_2007.pdf:PDF},
+  issn = {1550-5499},
+  keywords = {computational complexity, feature extraction, image processingEuclidean
+	distance field, curve skeletons extraction, discrete objects, energy
+	function, energy functions, gradient vector flow, medialness function,
+	shape topological nodes},
+  owner = {apinzonf},
+  timestamp = {2009.10.19}
+}
+
+@INPROCEEDINGS{Hassouna2005,
+  author = {Hassouna, M.S. and Farag, A.A.},
+  title = {Robust skeletonization using the fast marching method},
+  booktitle = {Image Processing, 2005. ICIP 2005. IEEE International Conference
+	on},
+  year = {2005},
+  volume = {1},
+  pages = { I-437-40},
+  month = {Sept.},
+  note = {Skeleton Extraction},
+  abstract = { We have recently developed a level set based-framework for computing
+	medial curves or curve skeletons CS for arbitrary 2D shapes as well
+	as tubular and articulated 3D objects. The proposed framework is
+	robust, fully automatic, computationally efficient, and produces
+	curve skeletons that are connected, centered, thin, and less sensitive
+	to boundary noise. In this paper, we introduce two improvements to
+	the framework in order to enhance its performance in terms of stability
+	and topology preserving.},
+  doi = {10.1109/ICIP.2005.1529781},
+  file = {:./Hassouna2005/Hassouna2005.pdf:PDF},
+  keywords = { signal processing curve skeletons, fast marching method, skeletonization},
+  owner = {apinzonf},
+  timestamp = {2009.10.19}
+}
+
+@ARTICLE{Hassouna2009,
+  author = {M. Sabry Hassouna and Aly A. Farag},
+  title = {Variational Curve Skeletons Using Gradient Vector Flow},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year = {2009},
+  volume = {31},
+  pages = {2257-2274},
+  number = {12},
+  note = {Skeleton Extraction},
+  abstract = {Representing a 3D shape by a set of 1D curves that are locally symmetric
+	with respect to its boundary (i.e., curve skeletons) is of importance
+	in several machine intelligence tasks. This paper presents a fast,
+	automatic, and robust variational framework for computing continuous,
+	subvoxel accurate curve skeletons from volumetric objects. A reference
+	point inside the object is considered a point source that transmits
+	two wave fronts of different energies. The first front (\beta-front)
+	converts the object into a graph, from which the object salient topological
+	nodes are determined. Curve skeletons are tracked from these nodes
+	along the cost field constructed by the second front (\alpha-front)
+	until the point source is reached. The accuracy and robustness of
+	the proposed work are validated against competing techniques as well
+	as a database of 3D objects. Unlike other state-of-the-art techniques,
+	the proposed framework is highly robust because it avoids locating
+	and classifying skeletal junction nodes, employs a new energy that
+	does not form medial surfaces, and finally extracts curve skeletons
+	that correspond to the most prominent parts of the shape and hence
+	are less sensitive to noise.},
+  address = {Los Alamitos, CA, USA},
+  doi = {http://doi.ieeecomputersociety.org/10.1109/TPAMI.2008.271},
+  file = {:./Hassouna2009/TPAMI-2008-02-0089.R1.pdf:PDF},
+  issn = {0162-8828},
+  owner = {apinzonf},
+  publisher = {IEEE Computer Society},
+  timestamp = {2009.10.19}
+}
+
+@INPROCEEDINGS{Hassouna2005a,
+  author = {Hassouna, M. Sabry and Farag, Aly A.},
+  title = {Robust Centerline Extraction Framework Using Level Sets},
+  booktitle = {CVPR '05: Proceedings of the 2005 IEEE Computer Society Conference
+	on Computer Vision and Pattern Recognition (CVPR'05) - Volume 1},
+  year = {2005},
+  pages = {458--465},
+  address = {Washington, DC, USA},
+  publisher = {IEEE Computer Society},
+  note = {Skeleton Extraction},
+  abstract = {In this paper, we present a novel framework for computing centerlines
+	for both 2D and 3D shape analysis. The framework works as follows:
+	an object centerline point is selected automatically as the point
+	of global maximum Euclidean distance from the boundary, and is considered
+	a point source (PS) that transmits a wave front that evolves over
+	time and traverses the object domain. The front propagates at each
+	object point with a speed that is proportional to its Euclidean distance
+	from the boundary. The motion of the front is governed by a nonlinear
+	partial differential equation whose solution is computed efficiently
+	using level set methods. Initially, the PS transmits a moderate speed
+	wave to explore the object domain and extract its topological information
+	such as merging and extreme points. Then, it transmits a new front
+	that is much faster at centerline points than non central ones. As
+	a consequence, centerlines intersect the propagating fronts at those
+	points of maximum positive curvature. Centerlines are computed by
+	tracking them, starting from each topological point until the PS
+	is reached, by solving an ordinary differential equation using an
+	efficient numerical scheme. The proposed method is computationally
+	inexpensive, handles efficiently objects with complex topology, and
+	computes centerlines that are centered, connected, one point thick,
+	and less sensitive to boundary noise. In addition, the extracted
+	paths form a tree graph without additional cost. We have extensively
+	validated the robustness of the proposed method both quantitatively
+	and qualitatively against several 2D and 3D shapes.},
+  doi = {http://dx.doi.org/10.1109/CVPR.2005.306},
+  file = {:./Hassouna2005a/Centerline_CVPR_2005.pdf:PDF},
+  isbn = {0-7695-2372-2},
+  owner = {apinzonf},
+  timestamp = {2009.10.19}
 }
 
 @INPROCEEDINGS{HernandezEsteban2002,
@@ -2757,6 +3055,35 @@
   timestamp = {2009.04.01}
 }
 
+@INPROCEEDINGS{Ma2009,
+  author = {Chi Ma and Hongyun Zhang and Duoqian Miao and XueDong Zhang},
+  title = {Fingerprint Skeleton Extraction Based on Improved Principal Curve},
+  booktitle = {Computer and Information Science, 2009. ICIS 2009. Eighth IEEE/ACIS
+	International Conference on},
+  year = {2009},
+  pages = {605-610},
+  month = {June},
+  abstract = {In the fingerprint recognition system, skeleton extraction for low
+	quality fingerprint images is an emphasis and difficulty task. Traditional
+	methods are, however, susceptible to noise. In view of this, we propose
+	a principal curves-based approach to alleviate this difficulty. In
+	the paper, according to some characteristics of the fingerprint dataset,
+	we improve the original principal graph algorithm proposed by Kegl
+	to obtain principal curves, which can be served as the skeleton of
+	a fingerprint. Experimental results show that our improved principal
+	curve algorithm is better in efficiency and quality than the original
+	algorithm. Our algorithm contains more information quantity and is
+	proved to be more accurate and anti-noisy than thinning algorithm.},
+  doi = {10.1109/ICIS.2009.53},
+  file = {:./Ma2009/Ma2009.pdf:PDF},
+  keywords = {feature extraction, fingerprint identification, graph theory, image
+	thinningantinoisy image, fingerprint image recognition system, fingerprint
+	skeleton extraction, image thinning algorithm, original principal
+	graph algorithm, principal curve-based approach},
+  owner = {apinzonf},
+  timestamp = {2009.10.19}
+}
+
 @INPROCEEDINGS{Ma2003,
   author = {Ma,, Wan-Chun and Wu,, Fu-Che and Ouhyoung,, Ming},
   title = {Skeleton Extraction of 3D Objects with Radial Basis Functions},
@@ -3311,6 +3638,7 @@
 	attacks on railway platform and experimentally validated in the project.
 	Some of the results are presented here.},
   bibsource = {http://www.visionbib.com/bibliography/people923.html#TT84401},
+  file = {:./Pham2007/Pham2007.pdf:PDF},
   owner = {apinzonf},
   timestamp = {2009.04.30}
 }
@@ -3383,6 +3711,70 @@
 	Video Sequences},
   url = {http://www.springerlink.com/content/bbvmju2h5uwjfw6n},
   year = {2003}
+}
+
+@ARTICLE{Reniers2008,
+  author = {Reniers, Dennie and Telea, Alexandru},
+  title = {Part-type Segmentation of Articulated Voxel-Shapes using the Junction
+	Rule},
+  journal = {Computer Graphics Forum},
+  year = {2008},
+  volume = {27},
+  pages = {1845--1852},
+  number = {7},
+  note = {Skeleton Extraction},
+  abstract = {We present a part-type segmentation method for articulated voxel-shapes
+	based on curve skeletons. Shapes are considered to consist of several
+	simpler, intersecting shapes. Our method is based on the junction
+	rule: the observation that two intersecting shapes generate an additional
+	junction in their joined curve-skeleton near the place of intersection.
+	For each curve-skeleton point, we construct a piecewise-geodesic
+	loop on the shape surface. Starting from the junctions, we search
+	along the curve skeleton for points whose associated loops make for
+	suitable part cuts. The segmentations are robust to noise and discretization
+	artifacts, because the curve skeletonization incorporates a single
+	user-parameter to filter spurious curve-skeleton branches. Furthermore,
+	segment borders are smooth and minimally twisting by construction.
+	We demonstrate our method on several real-world examples and compare
+	it to existing part-type segmentation methods.},
+  citeulike-article-id = {3496644},
+  file = {:./Reniers2008/part.pdf:PDF},
+  keywords = {articulated, part-type, segmentation, voxel-shapes},
+  owner = {apinzonf},
+  posted-at = {2008-11-08 17:05:20},
+  priority = {2},
+  timestamp = {2009.10.19}
+}
+
+@INPROCEEDINGS{Reniers2007,
+  author = {Reniers, D. and Telea, A.},
+  title = {Skeleton-based Hierarchical Shape Segmentation},
+  booktitle = {Shape Modeling and Applications, 2007. SMI '07. IEEE International
+	Conference on},
+  year = {2007},
+  pages = {179-188},
+  month = {June},
+  note = {Skeleton Extraction},
+  abstract = {We present an effective framework for segmenting 3D shapes into meaningful
+	components using the curve skeleton. Our algorithm identifies a number
+	of critical points on the curve skeleton, either fully automatically
+	as the junctions of the curve skeleton, or based on user input. We
+	use these points to construct a partitioning of the object surface
+	using geodesies. Because it is based on the curve skeleton, our segmentation
+	intrinsically reflects the shape symmetry and topology. By using
+	geodesies we obtain segments that have smooth, minimally twisting
+	borders. Finally, we present a hierarchical segmentation of shapes
+	which reflects the hierarchical structure of the curve skeleton.
+	We describe a voxel-based implementation of our method which is robust
+	and noise resistant, computationally efficient, able to handle shapes
+	of complex topology, and which delivers level- of-detail segmentations.
+	We demonstrate the framework on various real-world 3D shapes.},
+  doi = {10.1109/SMI.2007.33},
+  file = {:./Reniers2007/Reniers2007.pdf:PDF},
+  keywords = {curve fitting, surface fittingcurve skeleton-based hierarchical shape
+	segmentation, object surface partitioning},
+  owner = {apinzonf},
+  timestamp = {2009.10.19}
 }
 
 @ARTICLE{Rusinkiewicz2002,
