@@ -4641,6 +4641,41 @@
   timestamp = {2009.10.01}
 }
 
+@ARTICLE{Tagliasacchi2009,
+  author = {Tagliasacchi, Andrea and Zhang, Hao and Cohen-Or, Daniel},
+  title = {Curve skeleton extraction from incomplete point cloud},
+  journal = {ACM Trans. Graph.},
+  year = {2009},
+  volume = {28},
+  pages = {1--9},
+  number = {3},
+  note = {Skeleton Extraction},
+  abstract = {We present an algorithm for curve skeleton extraction from imperfect
+	point clouds where large portions of the data may be missing. Our
+	construction is primarily based on a novel notion of generalized
+	rotational symmetry axis (ROSA) of an oriented point set. Specifically,
+	given a subset S of oriented points, we introduce a variational definition
+	for an oriented point that is most rotationally symmetric with respect
+	to S. Our formulation effectively utilizes normal information to
+	compensate for the missing data and leads to robust curve skeleton
+	computation over regions of a shape that are generally cylindrical.
+	We present an iterative algorithm via planar cuts to compute the
+	ROSA of a point cloud. This is complemented by special handling of
+	non-cylindrical joint regions to obtain a centered, topologically
+	clean, and complete 1D skeleton. We demonstrate that quality curve
+	skeletons can be extracted from a variety of shapes captured by incomplete
+	point clouds. Finally, we show how our algorithm assists in shape
+	completion under these challenges by developing a skeleton-driven
+	point cloud completion scheme.},
+  address = {New York, NY, USA},
+  doi = {http://doi.acm.org/10.1145/1531326.1531377},
+  file = {:./Tagliasacchi2009/sig09_rosa.pdf:PDF},
+  issn = {0730-0301},
+  owner = {apinzonf},
+  publisher = {ACM},
+  timestamp = {2009.10.21}
+}
+
 @INPROCEEDINGS{Theobalt2004,
   author = {Theobalt, Christian and de Aguiar, Edilson and Magnor, Marcus and
 	Theisel, Holger and Seidel, Hans-Peter},
@@ -5127,6 +5162,39 @@
 	surface triangulation, triangular surfaces},
   owner = {apinzonf},
   timestamp = {2009.04.30}
+}
+
+@ARTICLE{Xu2009,
+  author = {Kai Xu and Hao Zhang and Andrea Tagliasacchi and Ligang Liu and Guo
+	Li and Min Meng and Yueshan Xiong},
+  title = {Partial Intrinsic Reflectional Symmetry of 3D Shapes},
+  journal = {ACM Transactions on Graphics, (Proceedings SIGGRAPH Asia 2009)},
+  year = {2009},
+  volume = {28},
+  pages = {15},
+  number = {5},
+  note = {Mesh Analisis},
+  abstract = {While many 3D objects exhibit various forms of global symmetries,
+	prominent intrinsic symmetries which exist only on parts of an object
+	are also well recognized. Such partial symmetries are often seen
+	as more natural compared to a global one, especially on a composite
+	shape. We introduce algorithms to extract partial intrinsic reflectional
+	symmetries (PIRS) of a 3D shape. Given a closed 2-manifold mesh,
+	we develop a voting scheme to obtain an intrinsic reflectional symmetry
+	axis (IRSA) transform, which computes a scalar field over the mesh
+	so as to accentuate prominent IRSAs of the shape. We then extract
+	a set of explicit IRSA curves on the shape based on a refined measure
+	of local reflectional symmetry support along a curve. The iterative
+	refinement procedure combines IRSA-induced region growing and region-constrained
+	symmetry support refinement to improve accuracy and address potential
+	issues due to rotational symmetries in the shape. We show how the
+	extracted IRSA curves can be incorporated into a conventional mesh
+	segmentation scheme so that the implied symmetry cues can be utilized
+	to obtain more meaningful results. We also demonstrate the use of
+	IRSA curves for symmetry-driven part repair.},
+  file = {:./Xu2009/siga09_pirs.pdf:PDF},
+  owner = {apinzonf},
+  timestamp = {2009.10.21}
 }
 
 @INPROCEEDINGS{Xu2006,
