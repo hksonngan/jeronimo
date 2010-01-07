@@ -1,4 +1,4 @@
-#LyX 1.6.1 created this file. For more info see http://www.lyx.org/
+#LyX 1.6.0 created this file. For more info see http://www.lyx.org/
 \lyxformat 345
 \begin_document
 \begin_header
@@ -697,18 +697,33 @@ Extracción del Esqueleto
 \end_layout
 
 \begin_layout Standard
-La extracción del esqueleto es un problema que actualmente es tratado desde
- distintos enfoques, algunos realizan estimaciones del esqueleto en 2D,
- y luego utilizan información a priori para estimar como fue transformado
- el esqueleto tridimensional real 
+Los esqueletos son estructuras 1D que representan una versión simplificada
+ de la geometría y topología de un objeto 3D.
+ Mientras la representación 3D es invaluable, muchas aplicaciones requieren
+ representaciones alternativas como un esqueleto de estos modelos 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Remondino2003"
+key "Cornea2007"
 
 \end_inset
 
-, otros enfoques realizan una reducción iterativa del volumen del cuerpo
- usando restricciones de contracción y minimización de energía, hasta encontrar
+.
+ Los esqueletos reducen la dimensionalidad de objetos digitales pero al
+ mismo tiempo un camino para capturar las relaciones dinámicas esenciales
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Svensson2002"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+La extracción del esqueleto se realiza convencionalmente con técnicas en
+ las cuales hay una reducción iterativa del la forma tridimensional con
+ ciertas restricciones de contracción y minimización de energía, hasta encontrar
  un esqueleto irreducible 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -717,22 +732,41 @@ key "Au2008"
 \end_inset
 
 .
- 
-\end_layout
-
-\begin_layout Standard
-Otros métodos utilizan distintas representaciones topológicas de un objeto
+ Otros métodos utilizan distintas representaciones topológicas de un objeto
  tridimensional mediante grafos, luego realizan una simplificación de este
  grafo, y por ultimo utilizan un esqueleto modelo el cual transforman para
  minimizar el error entre el esqueleto y el grafo dado por medio de alguna
  métrica basada en heurísticas 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Aguiar2008"
+key "Aguiar2008,HernandezEsteban2002,4178157,Bradley2008"
 
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+Algunos métodos realizan estimaciones del esqueleto en 2D, y luego utilizan
+ información a priori para estimar como fue transformado el esqueleto tridimensi
+onal real 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Remondino2003,AitAider2006,Cheng2006"
+
+\end_inset
+
+, otros enfoques realizan una reducción iterativa del volumen del cuerpo
+ usando restricciones de contracción y minimización de energía, hasta encontrar
+ un esqueleto irreducible 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008,Wang2008"
+
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -742,7 +776,7 @@ Otros métodos usan modelos probabilísticos para resolver ambas cosas: Incorpor
  En particular, basados en Campos Aleatorios de Markov Gibbs (MRF) 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Lavoue2008"
+key "Lavoue2008,Caillette2008,Hou2007"
 
 \end_inset
 
@@ -750,10 +784,10 @@ key "Lavoue2008"
 \end_layout
 
 \begin_layout Standard
-Para seleccionar un método de extracción es necesario es un análisis de
- las propiedades deseadas del esqueleto de curvas, según se requiera por
- las distintas aplicaciones, y un estudio de cómo los métodos existentes
- satisfacen estas propiedades 
+Para seleccionar un método de extracción es necesario describir las propiedades
+ deseadas del esqueleto, según se requiera por las distintas aplicaciones,
+ y un estudio de cómo los métodos existentes satisfacen estas propiedades
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Starck2005"
@@ -761,6 +795,1776 @@ key "Starck2005"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Chapter
+Extracción del Esqueleto
+\end_layout
+
+\begin_layout Section
+Método De Contracción Con Suavizado Laplaciano
+\end_layout
+
+\begin_layout Standard
+La contracción es tomada como un problema de minimización de energía, con
+ los siguientes términos.
+ 
+\end_layout
+
+\begin_layout Itemize
+Operador Lapaciano para remover las frecuencias altas, es decir suavizar
+ los detalles de la geometría 
+\end_layout
+
+\begin_layout Itemize
+Una fuerza de atracción que usa los vértices, para mantener información
+ clave de la geometría durante la contracción.
+\end_layout
+
+\begin_layout Itemize
+Un fuerza de contracción que hace que la forma tridimensional pierda volumen.
+\end_layout
+
+\begin_layout Standard
+Una vez la malla tiene un volumen de cero, se pasa por un proceso de colapso
+ de bordes, para obtener el esqueleto.
+ El proceso de colapso de bordes tiene restricciones para mantener una coherente
+ representación de la malla, este proceso es conocido como de simplificación,
+ Este proceso se puede observar de forma simplificada en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Proceso-de-extraccion"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename papers/img/contraccion.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Proceso-de-extraccion"
+
+\end_inset
+
+Proceso de extracción del esqueleto
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Suavizado de Laplace
+\end_layout
+
+\begin_layout Standard
+Para cada vértice en la malla, una nueva posición estará dada en base de
+ la de sus vecinos
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $x_{i}=\frac{1}{N}\sum_{j=0}^{N}x_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Donde N es el numero de vértice vecinos de 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Esta aproximación en general se restringe por una función de peso para ponderar
+ alguna característica deseada.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $x_{i}=\frac{1}{N}\sum_{j=0}^{N}w_{j}x_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+En este caso se añade una función de peso 
+\begin_inset Formula $w_{j}$
+\end_inset
+
+, para ponderar el vértice 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+.
+ Por ejemplo la distancia al vértice 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+Extracción del Esqueleto
+\end_layout
+
+\begin_layout Standard
+Dada una malla de polígonos 
+\begin_inset Formula $G=\left(V,E\right)$
+\end_inset
+
+, con vértices 
+\begin_inset Formula $V$
+\end_inset
+
+ y aristas 
+\begin_inset Formula $E$
+\end_inset
+
+, donde 
+\begin_inset Formula $V=\left[v_{1}^{T},v_{2}^{T},...,v_{n}^{T}\right]$
+\end_inset
+
+ son la posición de los vértices.
+ Entonces el problema de extraer un esqueleto 
+\begin_inset Formula $S=\left(U,B\right)$
+\end_inset
+
+ siendo 
+\begin_inset Formula $U$
+\end_inset
+
+ los nodos y 
+\begin_inset Formula $B$
+\end_inset
+
+ las aristas, donde 
+\begin_inset Formula $U=\left[u_{1}^{T},u_{2}^{T},...,u_{m}^{T}\right]$
+\end_inset
+
+ las posiciones de los nodos.
+ Este método de extracción se basa en un proceso de contracción de la geometría
+ que iterativamente suaviza y colapsa la geometría de la malla en una manera
+ restringida.
+ Este proceso es aplicado en el espacio de objeto, directamente en la representa
+ción de la malla, sin cualquier proceso de voxelización.
+ Con las fuerzas de contracción cuidadosamente ponderadas y las fuerzas
+ de atracción, el proceso de contracción produce una forma mínima delgada
+ con empalmes y las ramas correspondientes a las particiones del objeto
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Contracción de la Geometría
+\end_layout
+
+\begin_layout Standard
+El vértice de la posición 
+\begin_inset Formula $V'$
+\end_inset
+
+ es suavizado y contraído a lo largo de dirección de su normal, como resultado
+ de la solución de la ecuación discreta de Laplace 
+\begin_inset Formula $LV'=0$
+\end_inset
+
+, donde 
+\begin_inset Formula $L$
+\end_inset
+
+ es la curvatura del flujo del campo del operador de Laplace de 
+\begin_inset Formula $n\times n$
+\end_inset
+
+, con los elementos.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $L_{ij}=\left\{ \begin{array}{cc}
+w_{ij}=cot\alpha_{ij}+cot\beta_{ij} & si\left(i,j\right)\in E\\
+\sum_{\left(i,k\right)\in E}^{k}-w_{ij} & si\, i=j\\
+0 & en\, otro\, caso\end{array}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Donde 
+\begin_inset Formula $\alpha_{ij}$
+\end_inset
+
+ y 
+\begin_inset Formula $\beta_{ij}$
+\end_inset
+
+ son los ángulos opuestos correspondiente al borde 
+\begin_inset Formula $\left(i,j\right)$
+\end_inset
+
+, como se observa en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:a)-El-borde"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename papers/img/alpha_Beta.png
+	lyxscale 30
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:a)-El-borde"
+
+\end_inset
+
+a) El borde entre 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+.
+ b) Los ángulos opuestos 
+\begin_inset Formula $\alpha_{ij}$
+\end_inset
+
+ y 
+\begin_inset Formula $\beta_{ij}$
+\end_inset
+
+.
+ Imagen Tomada de 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Desbrun1999"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dada la ponderación cotangente, las coordenadas de Laplace 
+\begin_inset Formula $\delta=LV=\left[\delta_{1}^{T},\delta_{2}^{T},...,\delta_{n}^{T}\right]^{T}$
+\end_inset
+
+ aproximan hacia adentro de la normal de la curvatura del flujo.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\delta_{i}=-4A_{i}\kappa_{i}\mathbf{n}_{i}$
+\end_inset
+
+, donde 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+\lang english
+
+\begin_inset Formula $4A_{i},\,\kappa_{i}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+\lang spanish
+ y 
+\begin_inset Formula $\mathbf{n_{\mathbf{i}}}$
+\end_inset
+
+ son el área de un anillo local, con esto se aproximan la curvatura media
+ local, y se aproxima la normal hacia afuera del vértice 
+\begin_inset Formula $i$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Entonces resolviendo 
+\begin_inset Formula $LV'=0$
+\end_inset
+
+, significa remover el componente de la normal y contraer la geometría de
+ la malla.
+\end_layout
+
+\begin_layout Standard
+Las restricciones de atracción, son fuerzas que atraen los vértices hacia
+ la geometría.
+\end_layout
+
+\begin_layout Standard
+La solución del siguiente sistema, proporciona las nuevas posiciones de
+ los vértice 
+\begin_inset Formula $V'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left[\begin{array}{c}
+W_{L}L\\
+W_{H}\end{array}\right]V'=\left[\begin{array}{c}
+0\\
+W_{H}V\end{array}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+donde 
+\begin_inset Formula $W_{H}$
+\end_inset
+
+ son las restricciones de atracción y 
+\begin_inset Formula $W_{L}$
+\end_inset
+
+ las restricciones de contracción.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La solución se logra mediante mínimos cuadrados así.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left\Vert W_{L}LV'\right\Vert ^{2}+\sum_{j}W_{H,i}\left\Vert v_{j}^{'}-v_{i}\right\Vert ^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El proceso iterativo de contracción es el siguiente, donde 
+\begin_inset Formula $t$
+\end_inset
+
+ representa cada iteración.
+\end_layout
+
+\begin_layout Enumerate
+Resolver 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+\lang english
+
+\begin_inset Formula $\left[\begin{array}{c}
+W_{L}^{t}L^{t}\\
+W_{H}^{t}\end{array}\right]V^{t+1}=\left[\begin{array}{c}
+0\\
+W_{H}^{t}V^{t}\end{array}\right]\, para\, V^{t+1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Actualizar 
+\begin_inset Formula $W_{L}^{t+1}=S_{L}W_{L}^{t}$
+\end_inset
+
+ y 
+\begin_inset Formula $W_{H,i}^{t+1}=W_{H,i}^{0}\sqrt{\frac{A_{i}^{0}}{A_{i}^{t}}}$
+\end_inset
+
+, donde 
+\begin_inset Formula $A_{i}^{t}$
+\end_inset
+
+ y 
+\begin_inset Formula $A_{i}^{0}$
+\end_inset
+
+son los actuales y originales áreas de un anillo, respectivamente.
+\end_layout
+
+\begin_layout Enumerate
+Computar el nuevo operador de Laplace 
+\begin_inset Formula $L^{t+1}$
+\end_inset
+
+ con las actuales posiciones de los vértice 
+\begin_inset Formula $V^{t+1}$
+\end_inset
+
+ usando la definición de 
+\begin_inset Formula $L_{i,j}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Comparación Experimental
+\end_layout
+
+\begin_layout Standard
+Se uso la implementación hecha en 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+ por los autores, para realizar la extracción del esqueleto de un modelo
+ tridimensional que fue obtenido mediante el método de recuperación de forma
+ desde las siluetas realizado por 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Vlasic2008"
+
+\end_inset
+
+, como se observa en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Caracter-creado-1"
+
+\end_inset
+
+.
+ De este modelo se registro una caminata durante 240 cuadros.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename papers/img/vlasic2008.png
+	lyxscale 10
+	scale 12
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Caracter-creado-1"
+
+\end_inset
+
+Modelo tridimensional obtenido con el método de 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Vlasic2008"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El modelo fue proporcionado por los autores de 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Vlasic2008"
+
+\end_inset
+
+ en el sitio web 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.mit.edu/~ibaran"
+
+\end_inset
+
+.
+ En este sitio web existe un repositorio de diez datasets.
+ 
+\end_layout
+
+\begin_layout Standard
+Cada dataset contiene:
+\end_layout
+
+\begin_layout Itemize
+Los parámetros de calibración de las ocho cámaras de la escena.
+\end_layout
+
+\begin_layout Itemize
+Ocho imágenes correspondientes al fondo de la escena sin la persona presente.
+\end_layout
+
+\begin_layout Itemize
+Ocho vídeos tomados desde distintos ángulos de la persona grabada durante
+ 240 cuadros.
+\end_layout
+
+\begin_layout Itemize
+Las siluetas de la persona en cada uno de los cuadros de cada cámara.
+\end_layout
+
+\begin_layout Itemize
+Los modelos tridimensionales de los 240 cuadros obtenidos mediante el método
+ propuesto en 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Vlasic2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Un esqueleto modelo.
+\end_layout
+
+\begin_layout Standard
+Para evaluar el proceso de simplificación se variaron el numero de nodos
+ usados para describir uniones en el esqueleto, luego se analizaba cada
+ nodo y se clasificaba como 
+\series bold
+Valido
+\series default
+ si este se encontraba en la posición correcta respecto al esqueleto modelo,
+ 
+\series bold
+Erróneo
+\series default
+ si no se encontraba en una posición donde existiera un nodo en el esqueleto
+ modelo, y por ultimo por cada nodo que no se recupero en el esqueleto extraído
+ se contaba como un nodo 
+\series bold
+Faltante
+\series default
+.
+ Durante esta fase se utilizo el modelo tridimensional del primer cuadro
+ de la animación del dataset llamado 
+\series bold
+I_march
+\series default
+, a este modelo 3D se le realizo el proceso de contracción con un numero
+ de 13 iteraciones para contraer el volumen hasta un umbral cercano a cero,
+ luego en el proceso de simplificación se variaron el numero de nodos a
+ extraer desde 32 hasta 16 como se observa en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Variacion-del-numero"
+
+\end_inset
+
+, en esta figura se muestran de izquierda a derecha los resultados con 32
+ , 28, 24, 20, y 16 nodos .
+ El esqueleto modelo contaba con un numero de 21 nodos
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename papers/img/simplificacion.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Variacion-del-numero"
+
+\end_inset
+
+Variación del numero de nodos
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Los resultados de este análisis se pueden observar en la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Variacion-del-numero"
+
+\end_inset
+
+ donde se muestran 5 columnas que representan la siguiente información,
+ en la columna 
+\series bold
+Nodos
+\series default
+ se muestra el numero de vértices que se desean obtener después del proceso
+ de simplificación, en la columna 
+\series bold
+Validos
+\series default
+ se muestra el numero de nodos que están correctamente localizados y que
+ representaban uniones en el esqueleto, en la columna 
+\series bold
+Erróneos
+\series default
+ se muestra el numero de nodos que están ocupando espacios que no corresponden
+ a uniones en la jerarquía, o que están sobre una linea entre dos uniones
+ reales del esqueleto, por ultimo en la columna 
+\series bold
+Faltantes
+\series default
+ se muestra el numero de nodos que hicieron falta para la correcta reconstrucció
+n de un esqueleto valido para este modelo.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float table
+placement htbp
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Variacion-del-numero"
+
+\end_inset
+
+Variación del numero de nodos en el proceso de simplificación.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="4">
+<features>
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Nodes
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Valid
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Erroneous
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Missing 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+13
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+17
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+24
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+28
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+32
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+11
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La segunda etapa del experimento consistía en la realización de extracciones
+ del esqueleto en distintas momentos de la animación y observar la correspondenc
+ia topológica entre los esqueletos obtenidos para así observar como se comporta
+ el método frente a transformaciones isométricas de la geometría de un cuerpo.En
+ esta etapa se realizaron 13 iteraciones durante el proceso de contracción
+ y se usaron 24 nodos en el proceso de simplificación.
+ Se utilizo el mismo modelo del experimento anterior, se utilizaron distintas
+ poses de este modelo tomadas cada 40 cuadros para un total de 6 poses,
+ Cada pose representa una posición distinta de la persona durante la caminata,
+ como se observa en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Distintas-posiciones-del"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename papers/img/poses.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Distintas-posiciones-del"
+
+\end_inset
+
+Distintas posiciones del mismo cuerpo.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Cambios-isometricos"
+
+\end_inset
+
+ se observan los resultados obtenidos al realizar cambios isométricas sobre
+ la geometría del personaje estos cambios representan las distintas poses
+ que tomaba la geometría del personaje en distintos momentos de la caminata.
+ En la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Cambios-isometricos"
+
+\end_inset
+
+ la columna 
+\series bold
+Cuadro
+\series default
+ representa el momento en el tiempo en el cual se realizo la captura de
+ la geometría, las demás columnas representan la misma información que en
+ la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Variacion-del-numero"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement htbp
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Cambios-isometricos"
+
+\end_inset
+
+Cambios isométricas sobre la geometría.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="4">
+<features>
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Frame
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Valid
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Erroneous
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Missing 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+40
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+18
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+80
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+19
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+120
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+160
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+200
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+17
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+240
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Resultados Experimentales
+\end_layout
+
+\begin_layout Standard
+El método de extracción del esqueleto por contracción con suavizado Laplaciano
+ recupera de forma óptima el esqueleto de un cuerpo bajo transformaciones
+ isométricas, según se observa en la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Resultados-isometric"
+
+\end_inset
+
+, donde se recuperaron en promedio 19.71 nodos de los 21 necesarios para
+ reconstruir el esqueleto en diferentes momentos del tiempo.
+ Se observa también que el método posiciona mal 4.83 nodos en promedio, provocand
+o que se usen mas nodos de los necesario para reconstruir el esqueleto.
+ Por ultimo en esta tabla observamos que el método no pudo recuperar 1.86
+ nodos de los necesarios para la reconstrucción del esqueleto siendo necesario
+ la intervención manual del usuario para recuperar el esqueleto en su totalidad.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="4">
+<features>
+<column alignment="left" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Valid
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Erroneous
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Missing
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Mean
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+19.71
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4.83
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.86
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Standard deviation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.47
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.47
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.47
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Minimun
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+17
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Maximun
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Resultados-isometric"
+
+\end_inset
+
+Resultados obtenidos al realizar transformaciones isométricas
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Durante la fase de simplificación el método presenta un comportamiento claro
+ como se puede observar en la gráfica 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Grafico-simplificacion"
+
+\end_inset
+
+, en donde los nodos validos, luego de hacer la recuperación total de los
+ 21 nodos del esqueleto no sufren perdida ni son sensibles al usar mas de
+ 24 nodos (blue line).
+ El método una vez alcanza su numero óptimo de nodos para realizar la recuperaci
+ón, los demás nodos que se añadan serán puestos en localizaciones erróneas,
+ además el método parece siempre tener un numero mínimo de 3 nodos recuperados
+ erróneamente como se observa el la linea rojo del gráfico 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Grafico-simplificacion"
+
+\end_inset
+
+.
+ La linea verde en el gráfico 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Grafico-simplificacion"
+
+\end_inset
+
+ describe el numero de nodos que hacen falta para recuperar el modelo, se
+ observa que 24 es el numero de nodos requeridos para recuperar por completo
+ el esqueleto, y que el uso de mas nodos no implica perdida en la recuperación
+ del esqueleto.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename papers/img/graficoSimplificacion2.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Grafico-simplificacion"
+
+\end_inset
+
+Gráfico de la variación de nodos validos, erróneos y faltantes durante la
+ fase de simplificación
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chapter
@@ -845,38 +2649,6 @@ Triangulación de Delaunay
 
 \begin_layout Section
 Forma desde las siluetas
-\end_layout
-
-\begin_layout Section
-Resultados Experimentales
-\end_layout
-
-\begin_layout Chapter
-Extracción del Esqueleto
-\end_layout
-
-\begin_layout Section
-Mallado de una Superficie
-\end_layout
-
-\begin_layout Section
-Suavizado Laplaciano
-\end_layout
-
-\begin_layout Section
-Funciones de Costo y Penalización
-\end_layout
-
-\begin_layout Section
-Ecuación de Energía
-\end_layout
-
-\begin_layout Section
-Reducción de Polígonos
-\end_layout
-
-\begin_layout Section
-Comparación Experimental
 \end_layout
 
 \begin_layout Section
