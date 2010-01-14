@@ -1,6 +1,35 @@
 % This file was created with JabRef 2.4.2.
 % Encoding: Cp1252
 
+@INPROCEEDINGS{Schaefer2007,
+  author = {Scott Schaefer and Can Yuksel},
+  title = {Example-Based Skeleton Extraction},
+  booktitle = {Geometry Processing},
+  year = {2007},
+  editor = {Alexander Belyaev and Michael Garland},
+  pages = {153-162},
+  abstract = {We present a method for extracting a hierarchical, rigid skeleton
+	from a set of example poses. We then use this skeleton to not only
+	reproduce the example poses, but create new deformations in the same
+	style as the examples. Since rigid skeletons are used by most 3D
+	modeling software, this skeleton and the corresponding vertex weights
+	can be inserted directly into existing production pipelines. To create
+	the skeleton, we first estimate the rigid transformations of the
+	bones using a fast, face clustering approach. We present an efficient
+	method for clustering by providing a Rigid Error Function that finds
+	the best rigid transformation from a set of points in a robust, space
+	efficient manner and supports fast clustering operations. Next, we
+	solve for the vertex weights and enforce locality in the resulting
+	weight distributions. Finally, we use these weights to determine
+	the connectivity and joint locations of the skeleton.},
+  crossref = {SGP07-proc},
+  doi = {10.2312/SGP/SGP07/153-162},
+  file = {:./Schaefer2007/skeletonization_int.pdf:PDF},
+  owner = {apinzonf},
+  timestamp = {2009.12.16},
+  url = {http://www.eg.org/EG/DL/WS/SGP/SGP07/153-162.pdf}
+}
+
 @INPROCEEDINGS{Aganj2007,
   author = {Aganj, E. and Pons, J.-P. and Segonne, F. and Keriven, R.},
   title = {Spatio-Temporal Shape from Silhouette using Four-Dimensional Delaunay
@@ -218,6 +247,39 @@
   priority = {2},
   timestamp = {2009.03.18},
   url = {http://dx.doi.org/10.1109/CVPR.2007.383296}
+}
+
+@INPROCEEDINGS{Aguiar2008a,
+  author = {de Aguiar, E. and Theobalt, C. and Thrun, S. and Seidel, H.-P.},
+  title = {Automatic Conversion of Mesh Animations into Skeleton-based Animations},
+  booktitle = {COMPUTER GRAPHICS FORUM},
+  year = {2008},
+  volume = {27},
+  number = {2},
+  pages = {xx--xx},
+  address = {Hersonissos, Crete, Greece},
+  month = {4},
+  abstract = {Recently, it has become increasingly popular to represent animations
+	not by means of a classical skeleton-based model, but in the form
+	of deforming mesh sequences. The reason for this new trend is that
+	novel mesh deformation methods as well as new surface based scene
+	capture techniques offer a great level of flexibility during animation
+	creation. Unfortunately, the resulting scene representation is less
+	compact than skeletal ones and there is not yet a rich toolbox available
+	which enables easy post-processing and modification of mesh animations.
+	To bridge this gap between the mesh-based and the skeletal paradigm,
+	we propose a new method that automatically extracts a plausible kinematic
+	skeleton, skeletal motion parameters, as well as surface skinning
+	weights from arbitrary mesh animations. By this means, deforming
+	mesh sequences can be fully-automatically transformed into fullyrigged
+	virtual subjects. The original input can then be quickly rendered
+	based on the new compact bone and skin representation, and it can
+	be easily modified using the full repertoire of already existing
+	animation tools.},
+  file = {:./Aguiar2008a/deAguiar_eg08.pdf:PDF},
+  journal = {Computer Graphics Forum (Proc. Eurographics EG'08)},
+  owner = {apinzonf},
+  timestamp = {2009.12.16}
 }
 
 @INPROCEEDINGS{Ahmed2005,
@@ -791,6 +853,22 @@
   pages = {112--125},
   number = {2},
   note = {Motion Capture},
+  abstract = {In this paper, we introduce a 3-D human-body tracker capable of handling
+	fast and complex motions in real-time. We build upon the Monte–Carlo
+	Bayesian framework, and propose novel prediction and evaluation methods
+	improving the robustness and efficiency of the tracker. The parameter
+	space, augmented with first order derivatives, is automatically partitioned
+	into Gaussian clusters each representing an elementary motion: hypothesis
+	propagation inside each cluster is therefore accurate and efficient.
+	The transitions between clusters use the predictions of a variable
+	length Markov model which can explain high-level behaviours over
+	a long history. Using Monte–Carlo methods, evaluation of model candidates
+	is critical for both speed and robustness. We present a new evaluation
+	scheme based on hierarchical 3-D reconstruction and blob-fitting,
+	where appearance models and image evidences are represented by mixtures
+	of Gaussian blobs. Our tracker is also capable of automatic-initialisation
+	and self-recovery. We demonstrate the application of our tracker
+	to long video sequences exhibiting rapid and diverse movements.},
   address = {New York, NY, USA},
   doi = {http://dx.doi.org/10.1016/j.cviu.2007.05.005},
   file = {:./Caillette2008/CGH_cviu.pdf:PDF},
@@ -997,6 +1075,34 @@
   url = {http://dx.doi.org/10.1007/s12204-008-0521-x}
 }
 
+@ARTICLE{Chen2009,
+  author = {Xiaobai Chen and Aleksey Golovinskiy and Thomas Funkhouser},
+  title = {A Benchmark for {3D} Mesh Segmentation},
+  journal = {ACM Transactions on Graphics (Proc. SIGGRAPH)},
+  year = {2009},
+  volume = {28},
+  pages = {1},
+  number = {3},
+  month = aug,
+  abstract = {This paper describes a benchmark for evaluation of 3D mesh segmentation
+	algorithms. The benchmark comprises a data set with 4,300 manually
+	generated segmentations for 380 surface meshes of 19 different object
+	categories, and it includes software for analyzing 11 geometric properties
+	of segmentations and producing 4 quantitative metrics for comparison
+	of segmentations. The paper investigates the design decisions made
+	in building the benchmark, analyzes properties of human-generated
+	and computer-generated segmentations, and provides quantitative comparisons
+	of 7 recently published mesh segmentation algorithms. Our results
+	suggest that people are remarkably consistent in the way that they
+	segment most 3D surface meshes, that no one automatic segmentation
+	algorithm is better than the others for all types of objects, and
+	that algorithms based on non-local shape features seem to produce
+	segmentations that most closely resemble ones made by humans.},
+  file = {:./Chen2009/Chen2009.pdf:PDF},
+  owner = {apinzonf},
+  timestamp = {2009.10.22}
+}
+
 @INPROCEEDINGS{Cheng2006,
   author = {Cheng,, Zhanglin and Zhang,, Xiaopeng and Fourcaud,, Thierry},
   title = {Tree Skeleton Extraction from a Single Range Image},
@@ -1181,7 +1287,7 @@
 	idea used in the temporal SFS algorithms. Finally we demonstrate
 	how the kinematic model and the tracked motion data can be used for
 	image-based rendering and motion transfer between two people.},
-  file = {:./Cheung2003b/cheung_kong_man_2003_3.pdf:PDF},
+  file = {:./Matusik2000/matusikthesis.pdf:PDF;:./Cheung2003b/cheung_kong_man_2003_3.pdf:PDF},
   number = {CMU-RI-TR-03-44},
   owner = {apinzonf},
   timestamp = {2009.04.01}
@@ -2170,6 +2276,39 @@
   timestamp = {2009.10.19}
 }
 
+@ARTICLE{He2009,
+  author = {Ying He and Xian Xiao and Hock-Soon Seah},
+  title = {Harmonic 1-form based skeleton extraction from examples},
+  journal = {Graphical Models},
+  year = {2009},
+  volume = {71},
+  pages = {49 - 62},
+  number = {2},
+  note = {IEEE International Conference on Shape Modeling and Applications
+	2008 - SMI '08},
+  abstract = {This paper presents a method to extract skeletons using examples.
+	Our method is based on the observation that many deformations in
+	real-world applications are isometric or near isometric. By taking
+	advantage of the intrinsic property of harmonic 1-form, i.e., it
+	is determined by the metric and independent of the resolution and
+	embedding, our method can easily find a consistent mapping between
+	the reference and example poses which can be in different resolutions
+	and triangulations. We first construct the skeleton-like Reeb graph
+	of a harmonic function defined on the given poses. Then by examining
+	the changes of mean curvatures, we identify the initial locations
+	of joints. Finally we refine the joint locations by solving a constrained
+	optimization problem. We demonstrate the efficacy of the proposed
+	framework by pose space deformation, skeleton transfer, shape segmentation
+	and pose-invariant shape signature.},
+  doi = {DOI: 10.1016/j.gmod.2008.12.008},
+  file = {:./He2009/He2009.pdf:PDF},
+  issn = {1524-0703},
+  keywords = {Skeleton extraction},
+  owner = {apinzonf},
+  timestamp = {2009.12.16},
+  url = {http://www.sciencedirect.com/science/article/B6WG3-4VFK7Y1-1/2/0edbb5ad68c04f9732a76282ed25eaec}
+}
+
 @INPROCEEDINGS{Hemayed2003,
   author = {Hemayed, E.E.},
   title = {A survey of camera self-calibration},
@@ -2339,6 +2478,79 @@
 	length Markov model, volumetric reconstruction algorithm},
   owner = {apinzonf},
   timestamp = {2009.04.30}
+}
+
+@INPROCEEDINGS{Huang2008,
+  author = {Huang, Peng and Hilton, Adrian and Starck, Jonathan},
+  title = {Automatic 3D Video Summarization: Key Frame Extraction from Self-Similarity},
+  booktitle = {3DPVT '08: Proceedings of the Fourth International Symposium on 3D
+	Data Processing, Visualization and Transmission},
+  year = {2008},
+  address = {Washington, DC, USA},
+  publisher = {IEEE Computer Society},
+  abstract = {In this paper we present an automatic key frame selection method to
+	summarise 3D video sequences. Key-frame selection is based on optimisation
+	for the set of frames which give the best representation of the sequence
+	according to
+	
+	a rate-distortion trade-off. Distortion of the summarization from
+	the original sequence is based on measurement of self-similarity
+	using volume histograms. The method evaluates the globally optimal
+	set of key-frames to represent the entire sequence without requiring
+	pre-segmentation of the sequence into shots or temporal correspondence.
+	Results demonstrate that for 3D video sequences of people wearing
+	a variety of clothing the summarization automatically selects a set
+	of key-frames which represent the dynamics. Comparative evaluation
+	of rate-distortion characteristics with previous 3D video summarization
+	demonstrates improved performance.},
+  citeulike-article-id = {3345315},
+  file = {:./Huang2008/huang_3dpvt08.pdf:PDF},
+  keywords = {3d-shape-similarity, 3d-video, 3d-video-summarization},
+  owner = {apinzonf},
+  posted-at = {2008-09-27 17:30:09},
+  priority = {2},
+  timestamp = {2009.10.22},
+  url = {http://info.ee.surrey.ac.uk/Personal/P.Huang/Peng-web/Publications_files/huang_3dpvt08.pdf}
+}
+
+@ARTICLE{Huang2008a,
+  author = {Qi-Xing Huang and Bart Adams and Martin Wicke and Leonidas J. Guibas},
+  title = {Non-Rigid Registration Under Isometric Deformations.},
+  journal = {Comput. Graph. Forum},
+  year = {2008},
+  volume = {27},
+  pages = {1449-1457},
+  number = {5},
+  abstract = {We present a robust and ef?cient algorithm for the pairwise non-rigid
+	registration of partially overlapped 3D sur-
+	
+	faces. Our approach treats non-rigid registration as an optimization
+	problem and solves it by alternating between
+	
+	correspondence and deformation optimization. Assuming approximately
+	isometric deformations, robust corre-
+	
+	spondences are generated using a pruning mechanism based on geodesic
+	consistency. We iteratively learn an
+	
+	appropriate deformation discretization from the current set of correspondences
+	and use it to update the corre-
+	
+	spondences in the next iteration. Our algorithm is able to register
+	partially similar point clouds that undergo large
+	
+	deformations, in just a few seconds. We demonstrate the potential
+	of our algorithm in various applications such
+	
+	as example based articulated segmentation, and shape interpolation.},
+  date = {2008-10-28},
+  ee = {http://dx.doi.org/10.1111/j.1467-8659.2008.01285.x},
+  file = {:./Huang2008a/hawg-nrrid-08.pdf:PDF},
+  interhash = {0892f9f9eb1a11148cefcdd262d33d99},
+  intrahash = {5a68616ee1af32c042eb1c58f810ebb3},
+  owner = {apinzonf},
+  timestamp = {2009.12.16},
+  url = {http://dblp.uni-trier.de/db/journals/cgf/cgf27.html#HuangAWG08}
 }
 
 @INPROCEEDINGS{Ishikawa2005,
@@ -3148,6 +3360,55 @@
   timestamp = {2009.04.01}
 }
 
+@INPROCEEDINGS{Lipman2009,
+  author = {Lipman, Yaron and Funkhouser, Thomas},
+  title = {M\"{o}bius voting for surface correspondence},
+  booktitle = {SIGGRAPH '09: ACM SIGGRAPH 2009 papers},
+  year = {2009},
+  pages = {1--12},
+  address = {New York, NY, USA},
+  publisher = {ACM},
+  abstract = {The goal of our work is to develop an efficient, automatic algorithm
+	for discovering point correspondences between surfaces th at are
+	approximately and/or partially isometric.
+	
+	
+	Our approach is based on three observations. First, isometries are
+	a subset of the Mobius group, which has low-dimensionality -- six
+	degrees of freedom for topological spheres, and three for topological
+	discs. Second, computing the Mobius transformat ion that interpolates
+	any three points can be computed in closed-form after a zero-error
+	mid-edge flattening to the complex pl ane. Third, deviations from
+	isometry can be modeled by a transportation distance between corresponding
+	points in that plane.
+	
+	
+	Motivated by these observations, we have developed a Mobius Voting
+	algorithm that iteratively: 1) samples a triplet of three r andom
+	points from each of two point sets, 2) uses the Mobius transformations
+	defined by those triplets to map both point sets into a canonical
+	coordinate frame on the complex plane, and 3) produces ``votes''
+	for predicted correspondences between the mu tually closest points
+	with magnitude representing their estimated deviation from isometry.
+	The result of this process is a fuz zy correspondence matrix, which
+	is converted to a permutation matrix with simple matrix operations
+	and output as a discrete se t of point correspondences with confidence
+	values.
+	
+	
+	The main advantage of this algorithm is that it can find intrinsic
+	point correspondences in cases of extreme deformation. Dur ing experiments
+	with a variety of data sets, we find that it is able to find dozens
+	of point correspondences between different object types in different
+	poses fully automatically.},
+  doi = {http://doi.acm.org/10.1145/1576246.1531378},
+  file = {:./Lipman2009/mobius.pdf:PDF},
+  isbn = {978-1-60558-726-4},
+  location = {New Orleans, Louisiana},
+  owner = {apinzonf},
+  timestamp = {2009.10.22}
+}
+
 @ARTICLE{Liu2008,
   author = {Liu and L. and Bajaj and C. and Deasy and J. O. and Low and D. A.
 	and Ju and T.},
@@ -3347,6 +3608,65 @@
 	report, video stream, volumetric visual hull reconstruction},
   owner = {apinzonf},
   timestamp = {2009.04.02}
+}
+
+@INPROCEEDINGS{Matusik2000,
+  author = {Matusik, Wojciech and Buehler, Chris and Raskar, Ramesh and Gortler,
+	Steven J. and McMillan, Leonard},
+  title = {Image-based visual hulls},
+  booktitle = {SIGGRAPH '00: Proceedings of the 27th annual conference on Computer
+	graphics and interactive techniques},
+  year = {2000},
+  pages = {369--374},
+  address = {New York, NY, USA},
+  publisher = {ACM Press/Addison-Wesley Publishing Co.},
+  note = {3D Reconstruction, and Thesis},
+  abstract = {In this paper, we describe an efficient image-based approach to computing
+	and shading visual hulls from silhouette image data. Our algorithm
+	takes advantage of epipolar geometry and incremental computation
+	to achieve a constant rendering cost per rendered pixel. It does
+	not suffer from the computation complexity, limited resolution, or
+	quantization artifacts of previous volumetric approaches. We demonstrate
+	the use of this algorithm in a real-time virtualized reality application
+	running off a small number of video streams.},
+  doi = {http://doi.acm.org/10.1145/344779.344951},
+  file = {:./Matusik2000/ibvh.pdf:PDF;:./Matusik2000/matusikthesis.pdf:PDF},
+  isbn = {1-58113-208-5},
+  owner = {apinzonf},
+  timestamp = {2009.11.26}
+}
+
+@INPROCEEDINGS{Menier2006,
+  author = {Menier, C. and Boyer, E. and Raffin, B.},
+  title = {3D Skeleton-Based Body Pose Recovery},
+  booktitle = {3D Data Processing, Visualization, and Transmission, Third International
+	Symposium on},
+  year = {2006},
+  pages = {389-396},
+  month = {June},
+  abstract = {This paper presents an approach to recover body motions from multiple
+	views using a 3D skeletal model. It takes, as input, foreground silhouette
+	sequences from multiple viewpoints, and computes, for each frame,
+	the skeleton pose which best fit the body pose. Skeletal models encode
+	mostly motion information and allows therefore to separate motion
+	estimation from shape estimation for which solutions exist; And focusing
+	on motion parameters significantly reduces the dependancy on specific
+	body shapes, yielding thus more flexible solutions for body motion
+	capture. However, a problem generally faced with skeletal models
+	is to find adequate measurements with which to fit the model. In
+	this paper, we propose to use the medial axis of the body shape to
+	this purpose. Such medial axis can be estimated from the visual hull,
+	a shape approximation which is easily obtained from the silhouette
+	information. Experiments show that this approach is robust to several
+	perturbations in the model or in the input data, and also allows
+	fast body motions or, equivalently, important motions between consecutive
+	frames.},
+  doi = {10.1109/3DPVT.2006.7},
+  file = {:./Menier2006/Menier2006.pdf:PDF},
+  keywords = {image motion analysis, image sequences3D skeleton-based body pose
+	recovery, body motions, foreground silhouette sequences, shape estimation},
+  owner = {apinzonf},
+  timestamp = {2009.12.04}
 }
 
 @ARTICLE{Mercier2005,
@@ -3682,6 +4002,30 @@
   timestamp = {2009.04.03}
 }
 
+@INPROCEEDINGS{Pan2009,
+  author = {Pan, Q. and Reitmayr, G. and Drummond, T.},
+  title = {ProFORMA: Probabilistic Feature-based On-line Rapid Model Acquisition},
+  booktitle = {Proc. 20th British Machine Vision Conference (BMVC)},
+  year = {2009},
+  address = {London},
+  month = {September},
+  abstract = {Off-line model reconstruction relies on an image collection phase
+	and a slow reconstruction phase, requiring a long time to verify
+	a model obtained from an image sequence is acceptable. We propose
+	a new model acquisition system, called ProFORMA, which generates
+	a 3D model on-line as the input sequence is being collected. As the
+	user rotates the object in front of a stationary camera, a partial
+	model is reconstructed and displayed to the user to assist view planning.
+	The model is also used by the system to robustly track the pose of
+	the object. Models are rapidly produced through a Delaunay tetrahedralisation
+	of points obtained from on-line structure from motion estimation,
+	followed by a probabilistic tetrahedron carving step to obtain a
+	textured surface mesh of the object.},
+  file = {:./Pan2009/BMVC09.pdf:PDF},
+  owner = {apinzonf},
+  timestamp = {2009.11.30}
+}
+
 @ARTICLE{Paris2004,
   author = {Paris,, Sylvain and Brice\, {n}o,, Hector M. and Sillion,, Fran\c{c}ois
 	X.},
@@ -3975,6 +4319,43 @@
   timestamp = {2009.10.19}
 }
 
+@ARTICLE{Ruggeri2008,
+  author = {Ruggeri, Mauro and PatanÃ¨, Giuseppe and Spagnuolo, Michela and Saupe,
+	Dietmar},
+  title = {Spectral-Driven Isometry-Invariant Matching of 3D Shapes},
+  journal = {International Journal of Computer Vision},
+  year = {2008},
+  volume = {1},
+  pages = {1},
+  abstract = {Abstract&nbsp;&nbsp;This paper presents a matching method for 3D shapes,
+	which comprises a new technique for surface sampling and two algorithms
+	for matching 3D shapes based on point-based statistical shape descriptors.
+	Our sampling technique is based on critical points of the eigenfunctions
+	related to the smaller eigenvalues of the Laplace-Beltrami operator.
+	These critical points are invariant to isometries and are used as
+	anchor points of a sampling technique, which extends the farthest
+	point sampling by using statistical criteria for controlling the
+	density and number of reference points. Once a set of reference points
+	has been computed, for each of them we construct a point-based statistical
+	descriptor (PSSD, for short) of the input surface. This descriptor
+	incorporates an approximation of the geodesic shape distribution
+	and other geometric information describing the surface at that point.
+	Then, the dissimilarity between two surfaces is computed by comparing
+	the corresponding sets of PSSDs with bipartite graph matching or
+	measuring the L 1-distance between the reordered feature vectors
+	of a proximity graph. Here, the reordering is given by the Fiedler
+	vector of a Laplacian matrix associated to the proximity graph. Our
+	tests have shown that both approaches are suitable for online retrieval
+	of deformed objects and our sampling strategy improves the retrieval
+	performances of isometry-invariant matching methods. Finally, the
+	approach based on the Fiedler vector is faster than using the bipartite
+	graph matching and it has a similar retrieval effectiveness.},
+  file = {:./Ruggeri2008/Ruggeri2008.pdf:PDF},
+  owner = {apinzonf},
+  timestamp = {2009.10.22},
+  url = {http://dx.doi.org/10.1007/s11263-009-0250-0}
+}
+
 @ARTICLE{Rusinkiewicz2002,
   author = {Rusinkiewicz,, Szymon and Hall-Holt,, Olaf and Levoy,, Marc},
   title = {Real-time 3D model acquisition},
@@ -4079,6 +4460,30 @@
   pages = {421--431},
   number = {4},
   note = {3D Reconstruction},
+  abstract = {In this paper, a learning-based framework is proposed for human pose
+	estimation in complicated environments. Human silhouettes extracted
+	from input images are always incomplete and corrupted due to shadows,
+	occlusions, motion blur, or foreground/background color similarity.
+	Given a corrupted body silhouette, our goal is to infer the corresponding
+	pose structure robustly, and to reconstruct the input silhouette
+	as well. The basic assumption of our method is that the body pose
+	(and configuration) can be indicated by some parts (components) of
+	the silhouette given a training data set. Based on this assumption,
+	a robust statistical method is applied to gather the information
+	from uncorrupted components, and to ignore the effects from the outliers.
+	In this method, Gaussian Process is used to learn the low-dimensional
+	manifold of visual input data, and to create the sub-manifold corresponding
+	to each component of the silhouette. Different from traditional methods,
+	the likelihood probability is computed by means of a sub-manifold
+	voting strategy based on the learned sub-manifolds. By fusing the
+	likelihood and the prior of human poses, the proposed learning-based
+	framework can specify the location of the input human pose in the
+	latent space. The intrinsic pose and configuration can then be deduced
+	from this location, or be refined after outlier rejection. Experiments
+	show that our approach has a great ability to estimate human poses
+	from corrupted silhouettes with small computational burden. Therefore,
+	it can be applied for tracking initialization, 3D pose estimation,
+	2D configuration reconstruction in occluded, shadowed and noisy environments.},
   address = {New York, NY, USA},
   doi = {http://dx.doi.org/10.1016/j.patrec.2008.10.009},
   file = {:./Shen2009/sdarticle.pdf:PDF},
@@ -4629,6 +5034,36 @@
   url = {http://www.sciencedirect.com/science/article/B6V15-45J91MV-8/2/dbac3094e925ba869a16d7801fc00b81}
 }
 
+@ARTICLE{Suessmuth2008,
+  author = {Süßmuth, Jochen and Winter, Marco and Greiner, Günther},
+  title = {Reconstructing Animated Meshes from Time-Varying Point Clouds},
+  journal = {Computer Graphics Forum},
+  year = {2008},
+  volume = {27},
+  pages = {1469--1476},
+  number = {5},
+  abstract = {In this paper, we describe a novel approach for the reconstruction
+	of animated meshes from a series of time-deforming point clouds.
+	Given a set of unordered point clouds that have been captured by
+	a fast 3-D scanner, our algorithm is able to compute coherent meshes
+	which approximate the input data at arbitrary time instances. Our
+	method is based on the computation of an implicit function in 211D4
+	that approximates the time-space surface of the time-varying point
+	cloud. We then use the four-dimensional implicit function to reconstruct
+	a polygonal model for the first time-step. By sliding this template
+	mesh along the time-space surface in an as-rigid-as-possible manner,
+	we obtain reconstructions for further time-steps which have the same
+	connectivity as the previously extracted mesh while recovering rigid
+	motion exactly. The resulting animated meshes allow accurate motion
+	tracking of arbitrary points and are well suited for animation compression.
+	We demonstrate the qualities of the proposed method by applying it
+	to several data sets acquired by real-time 3-D scanners.},
+  file = {:./Suessmuth2008/Suessmuth2008.pdf:PDF},
+  owner = {apinzonf},
+  timestamp = {2009.12.16},
+  url = {http://dx.doi.org/10.1111/j.1467-8659.2008.01287.x}
+}
+
 @BOOK{Taddei2007,
   title = {Leonardo da Vinci's robots: New mechanics and new automata found
 	in codices},
@@ -5006,6 +5441,34 @@
   timestamp = {2009.03.17}
 }
 
+@INPROCEEDINGS{Wand2007,
+  author = {Michael Wand and Philipp Jenke and Qi-Xing Huang and Martin Bokeloh
+	and Leonidas Guibas and Andreas Schilling},
+  title = {Reconstruction of Deforming Geometry from Time-Varying Point Clouds},
+  booktitle = {Proc. Eurographis Symp. on Geometry Processing (SGP) 2007},
+  year = {2007},
+  pages = {49--58},
+  abstract = {In this paper, we describe a system for the reconstruction of deforming
+	geometry from a time sequence of unstructured, noisy point clouds,
+	as produced by recent real-time range scanning devices. Our technique
+	reconstructs both the geometry and dense correspondences over time.
+	Using the correspondences, holes due to occlusion are filled in from
+	other frames. Our reconstruction technique is based on a statistical
+	framework: The reconstruction should both match the measured data
+	points and maximize prior probability densities that prefer smoothness,
+	rigid deformation and smooth movements over time. The optimization
+	procedure consists of an inner loop that optimizes the 4D shape using
+	continuous numerical optimization and an outer loop that infers the
+	discrete 4D topology of the data set using an iterative model assembly
+	algorithm. We apply the technique to a variety of data sets, demonstrating
+	that the new approach is capable of robustly retrieving animated
+	models with correspondences from data sets suffering from significant
+	noise, outliers and acquisition holes.},
+  file = {:./Wand2007/wjhbgs-rdgtvpc-07.pdf:PDF},
+  owner = {apinzonf},
+  timestamp = {2009.12.16}
+}
+
 @ARTICLE{Wang2003,
   author = {Jessica Junlin Wang and Sameer Singh},
   title = {Video Analysis of Human Dynamics - a Survey},
@@ -5058,6 +5521,25 @@
   owner = {apinzonf},
   publisher = {IEEE Educational Activities Department},
   timestamp = {2009.04.03}
+}
+
+@ARTICLE{Weiler1985,
+  author = {Weiler, K.},
+  title = {Edge-Based Data Structures for Solid Modeling in Curved-Surface Environments},
+  journal = {Computer Graphics and Applications, IEEE},
+  year = {1985},
+  volume = {5},
+  pages = {21-40},
+  number = {1},
+  month = {Jan. },
+  abstract = {CAD/CAM applications need quick and easy access to topological information
+	about objects. Here, four structures for representing this information
+	are evaluated for sufficiency, efficiency, and ease of implementation.},
+  doi = {10.1109/MCG.1985.276271},
+  file = {:./Weiler1985/Weiler1985.pdf:PDF},
+  issn = {0272-1716},
+  owner = {apinzonf},
+  timestamp = {2009.12.15}
 }
 
 @ARTICLE{Wren1997,
