@@ -1,4 +1,4 @@
-#LyX 1.6.0 created this file. For more info see http://www.lyx.org/
+#LyX 1.6.1 created this file. For more info see http://www.lyx.org/
 \lyxformat 345
 \begin_document
 \begin_header
@@ -2571,6 +2571,45 @@ Gráfico de la variación de nodos validos, erróneos y faltantes durante la
 Sistema de Captura con Videocamaras
 \end_layout
 
+\begin_layout Standard
+La 
+\begin_inset Quotes eld
+\end_inset
+
+Captura de Movimiento
+\begin_inset Quotes erd
+\end_inset
+
+ es el nombre que reciben los sistemas que registran el movimiento y lo
+ traducen dentro de un modelo digital 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hemayed2003"
+
+\end_inset
+
+.
+ Hoy día se utilizan distintos métodos para realizar la captura de movimiento,
+ los mas ampliamente usados son los Sistemas Ópticos de Captura los cuales
+ utilizan videocámaras para registrar las acciones de un actor durante cierto
+ tiempo y luego usan técnicas fotométricas que permiten estimar información
+ tridimensional del cuerpo en movimiento.
+\end_layout
+
+\begin_layout Standard
+Estos sistemas opticos utilizan por lo general un arreglo de camaras dispuestas
+ en diferentes posiciones y orientaciones, estos sistemas requieren calibrar
+ las camaras de forma geometrica, fotometrica y temporal
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lei2009"
+
+\end_inset
+
+, para poder utilizar la informacion de la calibracion en las subsecuentes
+ etapas del proceso de captura.
+\end_layout
+
 \begin_layout Section
 Ubicación de las Cámaras
 \end_layout
@@ -2600,7 +2639,7 @@ Sustracción de Fondo
 \end_layout
 
 \begin_layout Section
-Extracción de Fondo Estatico 
+Extracción de Fondo Estático 
 \begin_inset Formula $\Sigma-\triangle$
 \end_inset
 
@@ -2608,7 +2647,7 @@ Extracción de Fondo Estatico
 \end_layout
 
 \begin_layout Section
-Segmentacion de Video
+Segmentación de Vídeo
 \end_layout
 
 \begin_layout Section
