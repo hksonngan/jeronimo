@@ -82,7 +82,7 @@
 Análisis Experimental de la Extracción del Esqueleto por Contracción con
  Suavizado Laplaciano
 \begin_inset OptArg
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Extracción del Esqueleto por Contracción de la Malla
@@ -94,20 +94,17 @@ Extracción del Esqueleto por Contracción de la Malla
 \end_layout
 
 \begin_layout Author
-\begin_inset Flex InstituteMark
-status collapsed
-
-\begin_layout Plain Layout
-1
-\end_layout
-
-\end_inset
-
 Presentado Por:
 \begin_inset Newline newline
 \end_inset
 
 Alexander Pinzon Fernandez
+\begin_inset Newline newline
+\end_inset
+
+
+\size footnotesize
+Director: Eduardo Romero
 \end_layout
 
 \begin_layout Institute
@@ -240,10 +237,6 @@ LatexCommand tableofcontents
 Introducción
 \end_layout
 
-\begin_layout Subsection
-Resumen
-\end_layout
-
 \begin_layout BeginFrame
 Extracción del Esqueleto
 \end_layout
@@ -298,7 +291,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename F:/computer_graphics/SkeletonExtraction/img/IMG1.jpg
+	filename img/IMG1.jpg
 	scale 40
 
 \end_inset
@@ -374,12 +367,12 @@ El método converge a la solución, contrallendo suavemente la malla en cada
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename F:/computer_graphics/SkeletonExtraction/img/IMG2jpg.jpg
+	filename img/IMG2jpg.jpg
 	scale 30
 
 \end_inset
@@ -405,8 +398,12 @@ Malla contraída de izquierda a derecha
 
 \end_layout
 
+\begin_layout Section
+Metodología
+\end_layout
+
 \begin_layout BeginFrame
-Extracción del Esqueleto
+Extracción del Esqueleto por Contracción de la Malla
 \end_layout
 
 \begin_layout FrameSubtitle
@@ -461,6 +458,10 @@ Una fuerza de atracción que usa los vértices, para mantener información
  clave de la geometría durante la contracción.
 \end_layout
 
+\begin_layout Itemize
+Un fuerza de contracción que hace que la forma tridimensional pierda volumen.
+\end_layout
+
 \end_deeper
 \begin_layout Standard
 Una vez la malla tiene un volumen de cero, se pasa por un proceso de colapso
@@ -468,203 +469,90 @@ Una vez la malla tiene un volumen de cero, se pasa por un proceso de colapso
  
 \end_layout
 
+\begin_layout BeginFrame
+Contracción de la Geometria
+\end_layout
+
 \begin_layout Standard
-El proceso de colapso de bordes tiene restricciones para mantener una coherente
- representación de la malla.
+El proceso iterativo de contraccion es el siguiente, donde 
+\begin_inset Formula $t$
+\end_inset
+
+ representa cada iteracion.
+\end_layout
+
+\begin_layout Enumerate
+Resolver 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+\lang english
+
+\begin_inset Formula $\left[\begin{array}{c}
+W_{L}^{t}L^{t}\\
+W_{H}^{t}\end{array}\right]V^{t+1}=\left[\begin{array}{c}
+0\\
+W_{H}^{t}V^{t}\end{array}\right]\, para\, V^{t+1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Actualizar 
+\begin_inset Formula $W_{L}^{t+1}=S_{L}W_{L}^{t}$
+\end_inset
+
+ y 
+\begin_inset Formula $W_{H,i}^{t+1}=W_{H,i}^{0}\sqrt{\frac{A_{i}^{0}}{A_{i}^{t}}}$
+\end_inset
+
+, donde 
+\begin_inset Formula $A_{i}^{t}$
+\end_inset
+
+ y 
+\begin_inset Formula $A_{i}^{0}$
+\end_inset
+
+son los actuales y originales areas de un anillo, 
+\begin_inset Formula $W_{H}$
+\end_inset
+
+ son las restricciones de atraccion y 
+\begin_inset Formula $W_{L}$
+\end_inset
+
+ las restricciones de contraccion respectivamente.
+\end_layout
+
+\begin_layout Enumerate
+Computar el nuevo operador de Laplace 
+\begin_inset Formula $L^{t+1}$
+\end_inset
+
+ con las actuales posiciones de los vertices 
+\begin_inset Formula $V^{t+1}$
+\end_inset
+
+ usando la definicion de 
+\begin_inset Formula $L_{i,j}$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
-Trabajos Relacionados
+Experimentación
 \end_layout
 
 \begin_layout BeginFrame
-Definiciones
-\end_layout
-
-\begin_layout ExampleBlock
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<1->
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\end_inset
-
-Esqueletos
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-No existe una definición rigurosa de lo que deba ser un esqueleto extraído
- de un cuerpo
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-La estructura del esqueleto depende de los requerimiento la aplicación.
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename F:/computer_graphics/SkeletonExtraction/img/IMG3.jpg
-	scale 30
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Estructuras de esqueletos diferentes según el contexto
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout BeginFrame
-Suavizado de Laplace.
- 
-\end_layout
-
-\begin_layout ExampleBlock
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<1->
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\end_inset
-
-Para cada vértice en la malla, una nueva posición estará dada en base de
- la de sus vecinos
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-\begin_inset Formula $x_{i}=\frac{1}{N}\overset{N}{\sum_{j=0}}x_{j}$
-\end_inset
-
-.
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-Donde N es el numero de vértice vecinos de 
-\begin_inset Formula $x_{i}$
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\begin_layout Itemize
-Esta aproximación en general se restringe por una función de peso para ponderar
- alguna característica deseada.
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $x_{i}=\frac{1}{N}\overset{N}{\sum_{j=0}}w_{j}x_{j}$
-\end_inset
-
-.
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-En este caso se añade una función de peso 
-\begin_inset Formula $w_{j}$
-\end_inset
-
-, para ponderar el vértice 
-\begin_inset Formula $x_{j}$
-\end_inset
-
-.
- Por ejemplo la distancia al vértice 
-\begin_inset Formula $x_{i}$
-\end_inset
-
-
-\end_layout
-
-\end_deeper
-\end_deeper
-\begin_layout Section
-Experimentacion y Resultados
-\end_layout
-
-\begin_layout BeginFrame
-Experimentacion
+Experimentación
 \end_layout
 
 \begin_layout Standard
@@ -676,35 +564,9 @@ status collapsed
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename img/img2.png
-	scale 20
-
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Graphics
-	filename img/img3.png
-	scale 20
+	filename K:/personal/maestria/tesis/Jeronimo/trunk/documents/thesis/papers/img/vlasic2008.png
+	lyxscale 10
+	scale 12
 
 \end_inset
 
@@ -721,9 +583,61 @@ name "fig:Caracter-creado-1"
 
 \end_inset
 
-Personaje creado y animado en computadora, a la izquierda el personaje y
- en la derecha el esqueleto usado para la animación basado en el sistema
- de animación con esqueletos del programa 3D Blender.
+Modelo tridimensional obtenido con el método de Vlasic 2008.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Clasificación de los nodos
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+
+\size footnotesize
+\begin_inset Graphics
+	filename img/nodos_es.png
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size footnotesize
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+\size footnotesize
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Clasificacion-de-los"
+
+\end_inset
+
+
+\size default
+Clasificación de los nodos
 \end_layout
 
 \end_inset
@@ -801,7 +715,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-15
+13
 \end_layout
 
 \end_inset
@@ -810,7 +724,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-1
+3
 \end_layout
 
 \end_inset
@@ -819,7 +733,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-3
+8
 \end_layout
 
 \end_inset
@@ -839,7 +753,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-16
+17
 \end_layout
 
 \end_inset
@@ -848,7 +762,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-4
+3
 \end_layout
 
 \end_inset
@@ -857,7 +771,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-1
+4
 \end_layout
 
 \end_inset
@@ -877,7 +791,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-17
+21
 \end_layout
 
 \end_inset
@@ -886,7 +800,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-7
+3
 \end_layout
 
 \end_inset
@@ -915,7 +829,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-17
+21
 \end_layout
 
 \end_inset
@@ -924,7 +838,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-11
+7
 \end_layout
 
 \end_inset
@@ -953,7 +867,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-17
+21
 \end_layout
 
 \end_inset
@@ -962,7 +876,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-15
+11
 \end_layout
 
 \end_inset
@@ -987,7 +901,7 @@ Faltantes
 \begin_layout Standard
 \align center
 \begin_inset Graphics
-	filename img/img10.png
+	filename img/simplificacion.png
 	scale 30
 
 \end_inset
@@ -996,7 +910,7 @@ Faltantes
 \end_layout
 
 \begin_layout BeginFrame
-Cambios isometricos sobre la geometría.
+Cambios isométricos sobre la geometría.
 \end_layout
 
 \begin_layout Standard
@@ -1051,7 +965,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-1
+40
 \end_layout
 
 \end_inset
@@ -1060,7 +974,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-17
+18
 \end_layout
 
 \end_inset
@@ -1069,45 +983,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-7
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-0
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-11
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-14
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-10
+6
 \end_layout
 
 \end_inset
@@ -1127,7 +1003,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-21
+80
 \end_layout
 
 \end_inset
@@ -1136,7 +1012,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-16
+19
 \end_layout
 
 \end_inset
@@ -1145,45 +1021,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-8
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-1
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-31
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-15
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-9
+5
 \end_layout
 
 \end_inset
@@ -1203,7 +1041,83 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-41
+120
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+160
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+200
 \end_layout
 
 \end_inset
@@ -1230,7 +1144,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-0
+4
 \end_layout
 
 \end_inset
@@ -1241,7 +1155,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-51
+240
 \end_layout
 
 \end_inset
@@ -1250,7 +1164,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-14
+20
 \end_layout
 
 \end_inset
@@ -1259,7 +1173,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-10
+4
 \end_layout
 
 \end_inset
@@ -1268,7 +1182,7 @@ Faltantes
 \begin_inset Text
 
 \begin_layout Plain Layout
-3
+1
 \end_layout
 
 \end_inset
@@ -1284,7 +1198,7 @@ Faltantes
 \begin_layout Standard
 \align center
 \begin_inset Graphics
-	filename img/img1.png
+	filename img/poses.png
 	scale 30
 
 \end_inset
@@ -1292,32 +1206,257 @@ Faltantes
 
 \end_layout
 
+\begin_layout Section
+Resultados
+\end_layout
+
 \begin_layout BeginFrame
 Resultados
 \end_layout
 
-\begin_layout Itemize
-El método requiere un 
-\begin_inset Formula $40\%$
+\begin_layout Standard
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="4">
+<features>
+<column alignment="left" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Validos
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Erróneos
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Faltantes
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Media
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+19.71
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4.83
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.86
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Desviación Estándar
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.47
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.47
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.47
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Mínimo
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+17
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Máximo
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
 \end_inset
 
- mas de los nodos necesarios.
+
 \end_layout
 
 \begin_layout Itemize
-El método no pierde precisión.
+Se recuperaron en promedio 19.71 nodos de los 21 necesarios para reconstruir
+ el esqueleto en diferentes momentos del tiempo
 \end_layout
 
 \begin_layout Itemize
-El método de extracción siempre presenta nodos erróneos.
+Se usan mas nodos de los necesario para reconstruir el esqueleto
 \end_layout
 
 \begin_layout Itemize
-El método de extracción recupera el 
-\begin_inset Formula $91\%$
+El método no pudo recuperar 1.86 nodos de los necesarios para la reconstrucción
+ del esqueleto
+\end_layout
+
+\begin_layout BeginFrame
+Resultados
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/graficoSimplificacion3.emf
+	scale 30
+
 \end_inset
 
- de información correcta
+
+\end_layout
+
+\begin_layout Itemize
+Luego de hacer la recuperación total de los 21 nodos del esqueleto, el método
+ no sufren perdida ni es sensible al usar mas de 24 nodos (linea azul)
+\end_layout
+
+\begin_layout Itemize
+El método una vez alcanza su numero óptimo de nodos para realizar la recuperació
+n, empieza a poner nodos en locaciones erróneas.
 \end_layout
 
 \begin_layout BeginFrame
@@ -1325,12 +1464,16 @@ Conclusiones
 \end_layout
 
 \begin_layout Itemize
-El método tiene gran sensibilidad frente a cambios isometricos.
+El método de extracción mostró ser robusto y tener baja sensibilidad frente
+ a cambios isométricos de la geometría
 \end_layout
 
 \begin_layout Itemize
-El método recupera una buena aproximación del esqueleto.
- 
+El método puede trabajar de forma automática a o largo de todos los cuadros.
+\end_layout
+
+\begin_layout Itemize
+El método recupera de forma eficiente el esqueleto sin hacer uso de un modelo
 \end_layout
 
 \begin_layout BeginFrame
@@ -1343,7 +1486,7 @@ Es posible mejorar la recuperación de información haciendo con uso de la
 \end_layout
 
 \begin_layout Itemize
-Es posible automatizar el proceso de simplificacion con el uso de algoritmos
+Es posible automatizar el proceso de simplificación con el uso de algoritmos
  de partición de mallas.
 \end_layout
 
