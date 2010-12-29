@@ -857,6 +857,36 @@
   timestamp = {2009.10.20}
 }
 
+@ARTICLE{Brunner2008,
+  author = {David Brunner and Guido Brunnett},
+  title = {Fast Force Field Approximation and its Application to Skeletonization
+	of Discrete 3D Objects},
+  journal = {Computer Graphics forum journal, Vol. 27, No. 2 (2008), Eurographics
+	2008},
+  year = {2008},
+  volume = {1},
+  pages = {261-270},
+  month = {04},
+  abstract = {In this paper we present a novel method to approximate the force ?eld
+	of a discrete 3d object with a time complexity that is linear in
+	the number of voxels. We de?ne a rule, similar to the distance transform,
+	to propagate forces associated with boundary points into the interior
+	of the object. The result of this propagation depends on the order
+	in which the points of the object are processed. Therefore we analyze
+	how to obtain an order-invariant approximation formula. With the
+	resulting formula it becomes possible to approximate the force ?eld
+	and to use its features for a fast and topology preserving skeletonization.
+	We use a thinning strategy on the body-centered cubic lattice to
+	compute the skeleton and ensure that critical points of the force
+	?eld are not removed. This leads to improved skeletons with respect
+	to the properties of centeredness and rotational invariance.},
+  file = {:./Brunner2008/mi_prof_publik_208.pdf:PDF},
+  isbn = {0167-7055},
+  owner = {apinzonf},
+  timestamp = {2010.12.09},
+  url = { http://www.tu-chemnitz.de/informatik/HomePages/GDV/forschung/doc/mi_prof_publik_208.x-pdf}
+}
+
 @ARTICLE{Caillette2008,
   author = {Caillette,, Fabrice and Galata,, Aphrodite and Howard,, Toby},
   title = {Real-time 3-D human body tracking using learnt models of behaviour},
@@ -1895,6 +1925,100 @@
   owner = {apinzonf},
   publisher = {Elsevier Science Inc.},
   timestamp = {2009.04.30}
+}
+
+@ARTICLE{Giblin2004,
+  author = {Giblin, Peter and Kimia, Benjamin B.},
+  title = {A Formal Classification of 3D Medial Axis Points and Their Local
+	Geometry},
+  journal = {IEEE Trans. Pattern Anal. Mach. Intell.},
+  year = {2004},
+  volume = {26},
+  pages = {238--251},
+  month = {January},
+  abstract = {This paper proposes a novel hypergraph skeletal representation for
+	3D shape based on a formal derivation ofthe generic structure of
+	its medial axis. By classifying each skeletal point by its order
+	of contact, we show that, generically, the medial axis consists of
+	five types of points, which are then organized into sheets, curves,
+	and points: 1) sheets (manifolds with boundary) which are the locus
+	of bitangent spheres with regular tangency A_1^2 (A_k^n notation
+	means n distinct k{\hbox{-}}{\rm{fold}} tangencies of the sphere
+	of contact, as explained in the text); two types of curves, 2) the
+	intersection curve of three sheets and the locus of centers of tritangent
+	spheres, A_1^3, and 3) the boundary of sheets, which are the locus
+	of centers of spheres whose radius equals the larger principal curvature,
+	i.e., higher order contact A_3 points; and two types of points, 4)
+	centers of quad-tangent spheres, A_1^4, and 5) centers of spheres
+	with one regular tangency and one higher order tangency, A_1A_3.
+	The geometry of the 3D medial axis thus consists of sheets (A_1^2)
+	bounded by one type of curve (A_3) on their free end, which corresponds
+	to ridges on the surface, and attached to two other sheets at another
+	type of curve (A_1^3), which support a generalized cylinder description.
+	The A_3 curves can only end in A_1A_3 points where they must meet
+	an A_1^3 curve. The A_1^3 curves meet together in fours at an A_1^4
+	point. This formal result leads to a compact representation for 3D
+	shape, referred to as the medial axis hypergraph representation consisting
+	of nodes (A_1^4 and A_1 A_3 points), links between pairs of nodes
+	(A_1^3 and A_3 curves) and hyperlinks between groups of links (A_1^2
+	sheets). The description of the local geometry at nodes by itself
+	is sufficient to capture qualitative aspects of shapes, in analogy
+	to 2D. We derive a pointwise reconstruction formula to reconstruct
+	a surface from this medial axis hypergraph together with the radius
+	function. Thus, this information completely characterizes 3D shape
+	and lays the theoretical foundation for its use in recognition, morphing,
+	design, and manipulation of shapes.},
+  acmid = {960304},
+  address = {Washington, DC, USA},
+  doi = {http://dx.doi.org/10.1109/TPAMI.2004.1262192},
+  file = {:./Giblin2004\\3D_medial_axis.pdf:PDF},
+  issn = {0162-8828},
+  issue = {2},
+  keywords = {3D medial axis, skeleton, shocks, curve skeleton, order of contact,
+	local form, medial topology, ridges, generalized axis.},
+  numpages = {14},
+  owner = {apinzonf},
+  publisher = {IEEE Computer Society},
+  timestamp = {2010.12.28},
+  url = {http://dx.doi.org/10.1109/TPAMI.2004.1262192}
+}
+
+@INPROCEEDINGS{Giesen2009,
+  author = {Giesen, Joachim and Miklos, Balint and Pauly, Mark and Wormser, Camille},
+  title = {The scale axis transform},
+  booktitle = {Proceedings of the 25th annual symposium on Computational geometry},
+  year = {2009},
+  series = {SCG '09},
+  pages = {106--115},
+  address = {New York, NY, USA},
+  publisher = {ACM},
+  note = {Skeleton Extraction},
+  abstract = {We introduce the scale axis transform, a new skeletal shape representation
+	for bounded open sets O ? Rd. The scale axis transform induces a
+	family of skeletons that captures the important features of a shape
+	in a scale-adaptive way and yields a hierarchy of successively simplified
+	skeletons. Its definition is based on the medial axis transform and
+	the simplification of the shape under multiplicative scaling: the
+	s-scaled shape Os is the union of the medial balls of O with radii
+	scaled by a factor of s. The s-scale axis transform of O is the medial
+	axis transform of Os, with radii scaled back by a factor of 1/s.
+	We prove topological properties of the scale axis transform and we
+	describe the evolution s ? Os by defining the multiplicative distance
+	function to the shape and studying properties of the corresponding
+	steepest ascent flow. All our theoretical results hold for any dimension.
+	In addition, using a discrete approximation, we present several examples
+	of two-dimensional scale axis transforms that illustrate the practical
+	relevance of our new framework.},
+  acmid = {1542388},
+  doi = {http://doi.acm.org/10.1145/1542362.1542388},
+  file = {:./Giesen2009\\scale_axis_transform_socg_2009.pdf:PDF},
+  isbn = {978-1-60558-501-7},
+  keywords = {medial axis, skeleton, topology},
+  location = {Aarhus, Denmark},
+  numpages = {10},
+  owner = {apinzonf},
+  timestamp = {2010.12.09},
+  url = {http://doi.acm.org/10.1145/1542362.1542388}
 }
 
 @INPROCEEDINGS{Gong2009,
@@ -3775,6 +3899,43 @@
   timestamp = {2009.10.20}
 }
 
+@INPROCEEDINGS{Miklos2010,
+  author = {Miklos, Balint and Giesen, Joachim and Pauly, Mark},
+  title = {Discrete {S}cale {A}xis {R}epresentations for 3{D} {G}eometry},
+  booktitle = {{ACM} {T}ransactions on {G}raphics ({P}roceedings of {SIGGRAPH})},
+  year = {2010},
+  note = {Skeleton Extraction},
+  abstract = {This paper addresses the fundamental problem of computing stable medial
+	representations of 3D shapes. We propose a spatially adaptive classi?cation
+	of geometric features that yields a robust algorithm for generating
+	medial representations at different levels of abstraction. The recently
+	introduced continuous scale axis transform serves as the mathematical
+	foundation of our algorithm. We show how geometric and topological
+	properties of the continuous setting carry over to discrete shape
+	representations. Our method combines scaling operations of medial
+	balls for geometric simpli?cation with ?ltrations of the medial axis
+	and provably good conversion steps to and from union of balls, to
+	enable ef?cient processing of a wide variety shape representations
+	including polygon meshes,
+	
+	3D images, implicit surfaces, and point clouds. We demonstrate the
+	robustness and versatility of our algorithm with an extensive validation
+	on hundreds of shapes including complex geometries consisting of
+	millions of triangles.},
+  affiliation = {EPFL},
+  details = {http://infoscience.epfl.ch/record/149374},
+  documenturl = {http://infoscience.epfl.ch/record/149374/files/discrete_scale_axis_26_04_2010.pdf},
+  file = {:./Miklos2010/discrete_scale_axis_siggraph_2010.pdf:PDF},
+  oai-id = {oai:infoscience.epfl.ch:149374},
+  oai-set = {conf; fulltext-public; fulltext},
+  owner = {apinzonf},
+  review = {REVIEWED},
+  status = {PUBLISHED},
+  submitter = {139598; 139598},
+  timestamp = {2010.12.09},
+  unit = {LGG}
+}
+
 @INPROCEEDINGS{Miller2007,
   author = {Miller, G. and Hilton, A.},
   title = {Safe hulls},
@@ -5589,6 +5750,47 @@
   owner = {apinzonf},
   publisher = {IEEE Educational Activities Department},
   timestamp = {2009.04.03}
+}
+
+@ARTICLE{Wei2010,
+  author = {Wei, Xiaolin and Chai, Jinxiang},
+  title = {VideoMocap: modeling physically realistic human motion from monocular
+	video sequences},
+  journal = {ACM Trans. Graph.},
+  year = {2010},
+  volume = {29},
+  pages = {42:1--42:10},
+  month = {July},
+  note = {Motion Capture},
+  abstract = {This paper presents a video-based motion modeling technique for capturing
+	physically realistic human motion from monocular video sequences.
+	We formulate the video-based motion modeling process in an image-based
+	keyframe animation framework. The system first computes camera parameters,
+	human skeletal size, and a small number of 3D key poses from video
+	and then uses 2D image measurements at intermediate frames to automatically
+	calculate the "in between" poses. During reconstruction, we leverage
+	Newtonian physics, contact constraints, and 2D image measurements
+	to simultaneously reconstruct full-body poses, joint torques, and
+	contact forces. We have demonstrated the power and effectiveness
+	of our system by generating a wide variety of physically realistic
+	human actions from uncalibrated monocular video sequences such as
+	sports video footage.},
+  acmid = {1778779},
+  address = {New York, NY, USA},
+  articleno = {42},
+  doi = {http://doi.acm.org/10.1145/1778765.1778779},
+  file = {:./Wei2010/sig10_wei.pdf:PDF},
+  issn = {0730-0301},
+  issue = {4},
+  issue_date = {July 2010},
+  keywords = {data-driven animation, interactive 3D visual tracking, performance
+	animation, physics-based animation, video-based motion capture, vision
+	for graphics},
+  numpages = {10},
+  owner = {apinzonf},
+  publisher = {ACM},
+  timestamp = {2010.12.09},
+  url = {http://doi.acm.org/10.1145/1778765.1778779}
 }
 
 @ARTICLE{Weiler1985,

@@ -2,8 +2,11 @@
 \lyxformat 345
 \begin_document
 \begin_header
-\textclass report
+\textclass scrreprt
 \use_default_options true
+\begin_modules
+theorems-ams
+\end_modules
 \language spanish
 \inputencoding auto
 \font_roman default
@@ -792,6 +795,291 @@ Para seleccionar un método de extracción es necesario describir las propiedade
 LatexCommand cite
 key "Starck2005"
 
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Variedades
+\end_layout
+
+\begin_layout Definition
+Una 
+\series bold
+variedad
+\series default
+ es un espacio metrico 
+\begin_inset Formula $M$
+\end_inset
+
+ con las siguientes propiedades 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Spivak1-1999"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Definition
+Si 
+\begin_inset Formula $x\in M$
+\end_inset
+
+, entonces tiene algunos vecinos 
+\begin_inset Formula $U$
+\end_inset
+
+ de 
+\begin_inset Formula $x$
+\end_inset
+
+ y algun entero 
+\begin_inset Formula $n\geq0$
+\end_inset
+
+ tal que 
+\begin_inset Formula $U$
+\end_inset
+
+ es homeomorfico a 
+\begin_inset Formula $\mathbb{R}^{n}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+-
+\end_layout
+
+\begin_layout Definition
+Una colección de subconjuntos 
+\begin_inset Formula $A$
+\end_inset
+
+ de un conjunto 
+\begin_inset Formula $X$
+\end_inset
+
+ es un 
+\series bold
+recubrimiento de
+\series default
+ 
+\begin_inset Formula $X$
+\end_inset
+
+, o una 
+\series bold
+cubierta de
+\series default
+ 
+\begin_inset Formula $X$
+\end_inset
+
+, si la unión de los elementos de la colección 
+\begin_inset Formula $A$
+\end_inset
+
+ es igual a 
+\begin_inset Formula $X$
+\end_inset
+
+.
+ Además, si los subconjuntos de 
+\begin_inset Formula $X$
+\end_inset
+
+ de dicha colección 
+\begin_inset Formula $A$
+\end_inset
+
+ satisfacen el ser disjuntos por pares, 
+\begin_inset Formula $A$
+\end_inset
+
+ es llamada partición de 
+\begin_inset Formula $X$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Definition
+Si el conjunto 
+\begin_inset Formula $X$
+\end_inset
+
+ tiene estructura de espacio topológico, el recubrimiento 
+\begin_inset Formula $A$
+\end_inset
+
+ es llamado recubrimiento abierto, o indistintamente cubierta abierta, si
+ cada elemento de 
+\begin_inset Formula $A$
+\end_inset
+
+ es un conjunto abierto en 
+\begin_inset Formula $X$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+-
+\end_layout
+
+\begin_layout Definition
+Sea X un conjunto.
+ Se dice que 
+\begin_inset Formula $d:X\times X\rightarrow\mathbb{R}$
+\end_inset
+
+ define una 
+\series bold
+metrica 
+\series default
+en 
+\begin_inset Formula $X$
+\end_inset
+
+ si se cumplen las propiedades
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $d\left(x,y\right)\geq0$
+\end_inset
+
+ con igualdad si y solo si 
+\begin_inset Formula $x=y$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $d\left(x,y\right)=d\left(y,x\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $d\left(x,z\right)\leq d\left(x,y\right)+d\left(y,z\right)$
+\end_inset
+
+ desigualdad triangular
+\end_layout
+
+\begin_layout Standard
+-
+\end_layout
+
+\begin_layout Definition
+Dado un conjunto X, se dice que T es una topologia definida sobre X si T
+ es una colección de subconjuntos de X tales que
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\textrm{Ø},X\in T$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $U_{\alpha}\in T\Longrightarrow\underset{\alpha}{\bigcup}U_{\alpha}\in T$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $U_{1},U_{2},...U_{n}\in T\Longrightarrow\underset{i=1}{\overset{n}{\bigcap}}U_{i}\in T$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+-
+\end_layout
+
+\begin_layout Definition
+Sean 
+\begin_inset Formula $X$
+\end_inset
+
+ e 
+\begin_inset Formula $Y$
+\end_inset
+
+ espacios topologicos y 
+\begin_inset Formula $f:X\rightarrow Y$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Definition
+Se dice que 
+\begin_inset Formula $f$
+\end_inset
+
+ es un 
+\series bold
+homeomorfismo
+\series default
+ y que 
+\begin_inset Formula $X$
+\end_inset
+
+ e 
+\begin_inset Formula $Y$
+\end_inset
+
+ son 
+\series bold
+homeomorfos
+\series default
+ si 
+\begin_inset Formula $f$
+\end_inset
+
+ es biyectiva y tanto 
+\begin_inset Formula $f$
+\end_inset
+
+ como 
+\begin_inset Formula $f^{-1}$
+\end_inset
+
+ son continuas.
+\end_layout
+
+\begin_layout Standard
+-
+\end_layout
+
+\begin_layout Definition
+Una 
+\emph on
+Variedad (Manifold) topológica
+\emph default
+ de dimensión 
+\begin_inset Formula $n$
+\end_inset
+
+ es un espacio topológico de Hausdorff en el que todo punto tiene una vecindad
+ abierta homeomorfa a una bola abierta en 
+\begin_inset Formula $\mathbb{R}^{n}$
 \end_inset
 
 .
