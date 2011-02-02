@@ -4,9 +4,8 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include "sjViewer.h"
-
-
-
+#include "sjDataIO.h"
+#include "sjLaplacianSmoothing.h"
 
 using namespace std;
 //using namespace qglviewer;
@@ -21,11 +20,24 @@ int main(int argc, char **argv)
   QPushButton *button = new QPushButton("Laplacian Smoothing.");
   sjViewer * myviewer = new sjViewer(window, false);
 
-  Polyhedron P;
-  ifstream myfile ("elephant.off");
+  sjDataIO dataio;
+  dataio.setFileName("obj.off");
+  dataio.load();
+
+  sjLaplacianSmoothing lpsmoo;
+
+  lpsmoo.setMeshG(dataio.getPolyhedronModel());
+  cout<<"\n\initLaplacianSystem: ";
+  //for(int yiu = 0;yiu<10; yiu++)
+  lpsmoo.iterateLaplacianSystem();
+
+  sjPolyhedron P;
+  ifstream myfile ("tetra.off");
   myfile>>P;
-  cout<<"Parece que lo abrio "<<P.size_of_vertices();
-  myviewer->setVerticesFaces(P);
+
+
+  cout<<"\nParece que lo abrio "<<P.size_of_vertices();
+  myviewer->setVerticesFaces(lpsmoo.getMeshG());
 
   
   QObject::connect(button, SIGNAL(clicked()), myviewer, SLOT(LaplacianSmoothing()));

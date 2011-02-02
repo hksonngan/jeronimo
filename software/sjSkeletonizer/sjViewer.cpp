@@ -1,4 +1,5 @@
 #include "sjViewer.h"
+#include "sjDataIO.h"
 //#include <CGAL/IO/Polyhedron_iostream.h>
 
 //#include <QObject>
@@ -40,10 +41,10 @@ void sjViewer::initializeGL(){
 }
 
 void sjViewer::drawModel(){
-	Point_3 puntos[3], a,b,c;
-	for ( FIterator f = polyhedron.facets_begin(); f != polyhedron.facets_end(); ++f){
+	sjPoint_3 puntos[3], a,b,c;
+	for ( sjFIterator f = polyhedron.facets_begin(); f != polyhedron.facets_end(); ++f){
 		
-		Halfedge_facet_circulator j = f->facet_begin();
+		sjHalfedge_facet_circulator j = f->facet_begin();
 		
 		
 		int i = 0;
@@ -56,9 +57,9 @@ void sjViewer::drawModel(){
 		c = puntos[2];
 
 
-		Point_3 pnormal = normalVector(puntos[0], puntos[1], puntos[2]);
+		sjPoint_3 pnormal = normalVector(puntos[0], puntos[1], puntos[2]);
 		//Point_3 color3 = normalize(a);
-		Point_3 color3(0.9,0.9,0.9);
+		sjPoint_3 color3(0.9,0.9,0.9);
    
 		glBegin(GL_TRIANGLES);
 			//glColor3f(1.0f,1.0f,1.0f);
@@ -153,7 +154,7 @@ glDepthFunc(GL_LEQUAL);
 
 }
 
-Point_3 sjViewer::normalize(Point_3 p){
+sjPoint_3 sjViewer::normalize(sjPoint_3 p){
 	// calculate the length of the vector
 	double len = (double)(CGAL::sqrt((p[0] * p[0]) + (p[1] * p[1]) + (p[2] * p[2])));
  
@@ -166,12 +167,12 @@ Point_3 sjViewer::normalize(Point_3 p){
     x = p[0]/len;
     y = p[1]/len;
     z = p[2]/len;
-	return Point_3(x,y,z);
+	return sjPoint_3(x,y,z);
 }
 
-Point_3 sjViewer::normalVector(Point_3 a, Point_3 b, Point_3 c){
-	Vector_3 pnormal = CGAL::cross_product(b-a,c-a);
-	return normalize(Point_3(pnormal[0], pnormal[1], pnormal[2]));
+sjPoint_3 sjViewer::normalVector(sjPoint_3 a, sjPoint_3 b, sjPoint_3 c){
+	sjVector_3 pnormal = CGAL::cross_product(b-a,c-a);
+	return normalize(sjPoint_3(pnormal[0], pnormal[1], pnormal[2]));
 }
 
 QString sjViewer::helpString() const
@@ -195,33 +196,25 @@ QString sjViewer::helpString() const
 }
 
 void sjViewer::LaplacianSmoothing(){
-	int i = 0;
-	for ( VIterator v = polyhedron.vertices_begin(); v != polyhedron.vertices_end(); ++v){
-		Halfedge_vertex_circulator vcir = v->vertex_begin();
-		Point_3 promedio(0,0,0);
-		//vcir++;
-		double j = 0;
-		do{
-			Point_3 punto = vcir->next()->vertex()->point();
-			//if(i%100 == 0)			cout<<"Punto: "<<punto<<"\n";
-			if(i%100 == 0)
-			//if(i<50)
-				cout<<"Punto: "<<vcir->next()->vertex()->point()<<"\n";
-			promedio = Point_3(promedio[0] + punto[0],
-								promedio[1] + punto[1],
-								promedio[2] + punto[2]);	
-			j = j + 1.0;
-		}while(++vcir != v->vertex_begin ());
-		promedio = Point_3(promedio[0]/j,
-								promedio[1] /j,
-								promedio[2] /j);	
-		vcir->vertex()->point() = promedio;
-
-		
-		if(i%100 == 0) 
-		//if(i<50)
-			cout<<"\t\tOriginal: "<<vcir->vertex()->point()<<" = Promedio =  "<<promedio<<"\n\n"; 
+	int k,  i = 0;
+	cout<<"\n\n\n";
+	for ( sjVIterator v1 = polyhedron.vertices_begin(); v1 != polyhedron.vertices_end(); ++v1){
+		sjHalfedge_vertex_circulator vcir = v1->vertex_begin();
+		vcir->vertex()->index = i;
 		i++;
 	}
+	size_t size = (size_t )i;
+	vector< vector<double> > lmatrix(size, vector<double>(size,0));   
+
+	for ( sjVIterator v = polyhedron.vertices_begin(); v != polyhedron.vertices_end(); ++v){
+		sjHalfedge_vertex_circulator vcir = v->vertex_begin();
+		//cout<<"Punto: "<<vcir->vertex()->index<<" = "<<vcir->vertex()->point()<<"\n";
+		//cout<<"  Vecinos: \n";
+		do{
+			sjPoint_3 punto = vcir->next()->vertex()->point();
+			//cout<<"  Vecino: "<<vcir->next()->vertex()->index<<" = " <<vcir->next()->vertex()->point()<<"\n";
+		}while(++vcir != v->vertex_begin ());
+	}
+	cout<<"Vertices: "<<i;
 	
 }

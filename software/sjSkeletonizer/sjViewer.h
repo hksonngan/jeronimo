@@ -7,22 +7,13 @@
 #include <CGAL/Simple_cartesian.h>
 #include <CGAL/IO/Polyhedron_iostream.h>
 #include <CGAL/IO/Polyhedron_scan_OFF.h> 
+#include <CGAL/HalfedgeDS_vector.h>
 #include <vector>
 #include <fstream>
 #include <CGAL/Point_3.h>
 #include <CGAL/Vector_3.h>
-
-
-typedef CGAL::Simple_cartesian<double> Kernel;
-typedef Kernel::Point_3                                Point_3;
-typedef Kernel::Vector_3                               Vector_3;
-
-typedef CGAL::Polyhedron_3<Kernel>     Polyhedron;
-typedef Polyhedron::Face_iterator FIterator ;
-typedef Polyhedron::Vertex_iterator VIterator;
-//typedef Polyhedron::
-typedef Polyhedron::Halfedge_around_facet_circulator Halfedge_facet_circulator;
-typedef Polyhedron::Halfedge_around_vertex_circulator  Halfedge_vertex_circulator;
+#include <CGAL/Polyhedron_3.h>
+#include "sjLaplacianSmoothing.h"
 
 class QWidget;
 
@@ -46,7 +37,7 @@ public:
   void setScene();
   bool antiAliasing() const { return antialiasing; }
 
-  void setVerticesFaces(Polyhedron p1){
+  void setVerticesFaces(sjPolyhedron p1){
 	  polyhedron = p1;
   }
 
@@ -66,10 +57,10 @@ private:
 
   bool antialiasing;
   bool twosides;
-  Polyhedron polyhedron;
+  sjPolyhedron polyhedron;
  
-  Point_3 normalize(Point_3 p);
-  Point_3 normalVector(Point_3 a, Point_3 b, Point_3 c);
+  sjPoint_3 normalize(sjPoint_3 p);
+  sjPoint_3 normalVector(sjPoint_3 a, sjPoint_3 b, sjPoint_3 c);
 };
 
 
