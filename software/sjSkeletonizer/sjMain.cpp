@@ -1,5 +1,5 @@
 //#include "sjConfig.h"
-//#include "ui_sjViewerUI.h"
+//#include "ui_sjSkeletonizerUI.h"
 #include <QApplication>
 #include <QPushButton>
 #include <QHBoxLayout>
@@ -12,13 +12,13 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	//Q_INIT_RESOURCE(sjviewer);
+	//Q_INIT_RESOURCE(sjSkeletonizer);
 
   QApplication app(argc, argv);
   QWidget * window = new QWidget;
   window->setWindowTitle("San Jeronimo Viewer");
   QPushButton *button = new QPushButton("Laplacian Smoothing.");
-  sjViewer * myviewer = new sjViewer(window, false);
+  sjSkeletonizer * myviewer = new sjSkeletonizer(window, false);
 
   sjDataIO dataio;
   dataio.setFileName("obj.off");

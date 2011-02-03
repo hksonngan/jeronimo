@@ -7,7 +7,7 @@
 using namespace std;
 using namespace qglviewer;
 
-sjViewer::sjViewer(QWidget* parent, bool antialiasing)
+sjSkeletonizer::sjSkeletonizer(QWidget* parent, bool antialiasing)
   : QGLViewer(parent),
     antialiasing(antialiasing),
     twosides(false)
@@ -16,31 +16,31 @@ sjViewer::sjViewer(QWidget* parent, bool antialiasing)
   
 }
 
-void sjViewer::setScene()
+void sjSkeletonizer::setScene()
 {
 }
 
-void sjViewer::setAntiAliasing(bool b)
+void sjSkeletonizer::setAntiAliasing(bool b)
 {
   antialiasing = b;
   updateGL();
 }
 
-void sjViewer::setTwoSides(bool b)
+void sjSkeletonizer::setTwoSides(bool b)
 {
   twosides = b;
   updateGL();
 }
 
-void sjViewer::draw(){
+void sjSkeletonizer::draw(){
   draw_aux(false);
 }
 
-void sjViewer::initializeGL(){	
+void sjSkeletonizer::initializeGL(){	
 	QGLViewer::initializeGL();
 }
 
-void sjViewer::drawModel(){
+void sjSkeletonizer::drawModel(){
 	sjPoint_3 puntos[3], a,b,c;
 	for ( sjFIterator f = polyhedron.facets_begin(); f != polyhedron.facets_end(); ++f){
 		
@@ -73,7 +73,7 @@ void sjViewer::drawModel(){
 
 }
 
-void sjViewer::draw_aux(bool with_names){
+void sjSkeletonizer::draw_aux(bool with_names){
 	
 
 	float ambientLight1[] = { 0.1f, 0.1f, 0.1f, 1.0f };
@@ -113,15 +113,15 @@ void sjViewer::draw_aux(bool with_names){
   
 }
 
-void sjViewer::drawWithNames(){
+void sjSkeletonizer::drawWithNames(){
   
 }
 
-void sjViewer::postSelection(const QPoint&){
+void sjSkeletonizer::postSelection(const QPoint&){
 }
 
 
-void sjViewer::init(){
+void sjSkeletonizer::init(){
 	
 	glShadeModel ( GL_FLAT );     //off
 
@@ -154,7 +154,7 @@ glDepthFunc(GL_LEQUAL);
 
 }
 
-sjPoint_3 sjViewer::normalize(sjPoint_3 p){
+sjPoint_3 sjSkeletonizer::normalize(sjPoint_3 p){
 	// calculate the length of the vector
 	double len = (double)(CGAL::sqrt((p[0] * p[0]) + (p[1] * p[1]) + (p[2] * p[2])));
  
@@ -170,12 +170,12 @@ sjPoint_3 sjViewer::normalize(sjPoint_3 p){
 	return sjPoint_3(x,y,z);
 }
 
-sjPoint_3 sjViewer::normalVector(sjPoint_3 a, sjPoint_3 b, sjPoint_3 c){
+sjPoint_3 sjSkeletonizer::normalVector(sjPoint_3 a, sjPoint_3 b, sjPoint_3 c){
 	sjVector_3 pnormal = CGAL::cross_product(b-a,c-a);
 	return normalize(sjPoint_3(pnormal[0], pnormal[1], pnormal[2]));
 }
 
-QString sjViewer::helpString() const
+QString sjSkeletonizer::helpString() const
 {
   QString text("<h2>S i m p l e V i e w e r</h2>");
   text += "Use the mouse to move the camera around the object. ";
@@ -195,7 +195,7 @@ QString sjViewer::helpString() const
   return text;
 }
 
-void sjViewer::LaplacianSmoothing(){
+void sjSkeletonizer::LaplacianSmoothing(){
 	int k,  i = 0;
 	cout<<"\n\n\n";
 	for ( sjVIterator v1 = polyhedron.vertices_begin(); v1 != polyhedron.vertices_end(); ++v1){

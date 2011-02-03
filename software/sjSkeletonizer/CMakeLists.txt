@@ -2,7 +2,7 @@
 # @brief Project configuration file.
 # @author Alexander Pinzon Fernandez
 # @date 21/01/2011 10:04 a.m.
-PROJECT(sjViewer)
+PROJECT(sjSkeletonizer)
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.4.5)
 
@@ -43,7 +43,7 @@ ENDIF()
 
 IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 
-	#qt4_wrap_ui( UI_FILES sjViewerUI.ui )
+	#qt4_wrap_ui( UI_FILES sjSkeletonizerUI.ui )
 	INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 	INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
 	INCLUDE(AddFileDependencies)
@@ -54,12 +54,12 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 	SET(FOO_MOC_FILE "${CMAKE_CURRENT_BINARY_DIR}/sjViewer_moc.cpp")
 	add_file_dependencies( ${FOO_MOC_FILE} "${CMAKE_CURRENT_SOURCE_DIR}/sjViewer.h" )
 	
-	#SET(QtApp_RCC_SRCS sjviewer.qrc)
+	#SET(QtApp_RCC_SRCS sjViewer.qrc)
 
 	#QT4_ADD_RESOURCES(QtApp_RCC_SRCS ${QtApp_RCC_SRCS})
 
 	
-	SET(sjviewer_SOURCE
+	SET(sjSkeletonizer_SOURCE
 		sjMain.cpp
 		sjViewer.h
 		sjViewer.cpp
@@ -75,10 +75,10 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 	)
 	
 
-   #ADD_EXECUTABLE ( sjViewer ${sjviewer_SOURCE} ${UI_FILES} ${QtApp_RCC_SRCS})
-ADD_EXECUTABLE ( sjViewer ${sjviewer_SOURCE} )
+   #ADD_EXECUTABLE ( sjSkeletonizer ${sjSkeletonizer_SOURCE} ${UI_FILES} ${QtApp_RCC_SRCS})
+ADD_EXECUTABLE ( sjSkeletonizer ${sjSkeletonizer_SOURCE} )
 
-  TARGET_LINK_LIBRARIES ( sjViewer 
+  TARGET_LINK_LIBRARIES ( sjSkeletonizer 
 	${QT_LIBRARIES} 
 	${CGAL_LIBRARIES} 
 	${CGAL_3RD_PARTY_LIBRARIES} 
