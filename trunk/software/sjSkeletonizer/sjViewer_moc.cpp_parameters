@@ -1,4 +1,4 @@
--IJ:/src/sjviewer/build
+-IJ:/src/sjSkeletonizer/build
 -IJ:/src/cgal/Cgal-3.7/CGAL-3.7x86/auxiliary/gmp/include
 -IJ:/src/boost/boost_1_44
 -IJ:/src/qt/Qt/4.6.0/include
@@ -20,5 +20,5 @@
 -DQT_CORE_LIB
 -DWIN32
 -o
-sjViewer_moc.cpp
-J:/src/sjviewer/sjv/sjViewer.h
+sjSkeletonizer_moc.cpp
+J:/src/sjSkeletonizer/sjv/sjSkeletonizer.h

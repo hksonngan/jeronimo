@@ -1,7 +1,7 @@
 //Viewer class for qglviewer
 
-#ifndef SJVIEWER_H
-#define SJVIEWER_H
+#ifndef sjSkeletonizer_H
+#define sjSkeletonizer_H
 
 #include <QGLViewer/qglviewer.h>
 #include <CGAL/Simple_cartesian.h>
@@ -17,7 +17,7 @@
 
 class QWidget;
 
-class sjViewer : public QGLViewer {
+class sjSkeletonizer : public QGLViewer {
 
   Q_OBJECT
 
@@ -25,7 +25,7 @@ public:
 
     
   
-  sjViewer(QWidget * parent, bool antialiasing = false);
+  sjSkeletonizer(QWidget * parent, bool antialiasing = false);
 
   // overload several QGLViewer virtual functions
   void draw();

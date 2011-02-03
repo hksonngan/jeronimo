@@ -26,7 +26,7 @@
 
 /** 
  * @file sjDataIO.h
- * @brief sjViewer San Jeronimo Viewer Application.
+ * @brief sjSkeletonizer San Jeronimo Viewer Application.
  * @author Alexander Pinzon Fernandez.
  * @date 21/01/2011 10:07 a.m.
  */
