@@ -1,0 +1,797 @@
+#LyX 1.6.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\language spanish
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize letterpaper
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+FACULTAD DE INGENIERÍA 
+\begin_inset Newline newline
+\end_inset
+
+Vicedecanatura Académica
+\begin_inset Newline newline
+\end_inset
+
+POSGRADOS
+\begin_inset Newline newline
+\end_inset
+
+PRESENTACIÓN PROPUESTA
+\end_layout
+
+\begin_layout Standard
+TESIS DE MAESTRÍA: 
+\end_layout
+
+\begin_layout Section
+PROPONENTE: 
+\end_layout
+
+\begin_layout Standard
+Alexander Pinzón Fernández 
+\end_layout
+
+\begin_layout Standard
+CÓDIGO: 02 299802 
+\end_layout
+
+\begin_layout Section
+PROGRAMA: 
+\end_layout
+
+\begin_layout Standard
+Maestría en Ingeniería de Sistemas y Computación 
+\end_layout
+
+\begin_layout Section
+DIRECTOR PROPUESTO: 
+\end_layout
+
+\begin_layout Standard
+Eduardo Romero Castro 
+\end_layout
+
+\begin_layout Standard
+DEPARTAMENTO: Ingeniería de Sistemas e Industrial.
+ 
+\end_layout
+
+\begin_layout Section
+TÍTULO
+\end_layout
+
+\begin_layout Standard
+Extracción y seguimiento del esqueleto de un cuerpo a partir de múltiples
+ vistas.
+ 
+\end_layout
+
+\begin_layout Description
+ÁREA: Ciencias de la Computación 
+\end_layout
+
+\begin_layout Description
+LÍNEA
+\begin_inset space ~
+\end_inset
+
+DE
+\begin_inset space ~
+\end_inset
+
+INVESTIGACIÓN: Computación grafica, procesamiento de imágenes, procesamiento
+ de video.
+\end_layout
+
+\begin_layout Description
+NOTA: La metodología de este proyecto está orientada por los resultados
+ y organizada en paquetes de trabajo, tal y como se hace de manera estándar
+ en todos los proyectos de la Unión Europea (Condición impuesta por mi director
+ de tesis).
+\end_layout
+
+\begin_layout Section
+ANTECEDENTES Y JUSTIFICACIÓN:
+\end_layout
+
+\begin_layout Standard
+La medición realizada por un observador de la posición con respecto al tiempo
+ de una partícula en un sistema de referencia.
+ Es denominada registro de movimiento.
+\end_layout
+
+\begin_layout Standard
+El estudio y registro del movimiento de un cuerpo con extremidades articuladas,
+ como una persona o un animal, ha sido de interés en varias aéreas del conocimie
+nto.
+ Por ejemplo, la anatomía humana y animal, la ingeniería y las artes.
+ El registro de movimiento ha sido usado para resolver distintos tipos de
+ problemas, por ejemplo: en el diagnostico de patologías asociadas a la
+ marcha en seres humanos, la captura del movimiento de un actor para dar
+ vida a un personaje animado, o el análisis ergonómico para el diseño de
+ productos y herramientas 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Remondino2004"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+La extracción y seguimiento de esqueletos se logra mediante la utilización
+ de un conjunto de actividades organizadas dentro de un proceso.
+ Estas actividades son: la adquisición de datos desde un objeto real, la
+ reconstrucción 3D a partir de los datos de la captura, la extracción del
+ esqueleto del objeto tridimensional reconstruido, y el seguimiento del
+ esqueleto tomado como un proceso iterativo de captura con un esqueleto
+ invariante topológicamente en el tiempo.
+\end_layout
+
+\begin_layout Standard
+Los esqueletos son estructuras 1D que representan una simplificada versión
+ de la geometría y topología de un objeto 3D.
+ Son en esencia una entidad geométrica que abstrae el volumen del objeto.
+ Por esta razón muchos métodos de extracción del esqueleto requieren una
+ representación discreta del volumen del modelo de entrada.
+ Sin embargo la mayoría de modelos usados en aplicaciones de computación
+ grafica son disponibles únicamente como una representación de su superficie,
+ tales como las mallas de polígonos 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Adquisición de datos
+\end_layout
+
+\begin_layout Standard
+Existen diferentes enfoques en la adquisición de la información espacial
+ de objetos reales, algunos basados en el procesamiento de imágenes, otros
+ basados en sensores (mecánicos, electromagnéticos, e inerciales entre otros),
+ y otros como el escáner de laser, la tomografía, el ultrasonido, etc 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cheung2003"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Los métodos de adquisición basados en el procesamiento de señales utilizan
+ las secuencias de imágenes producidas por una o varias cámaras.
+ Cuando se utilizan varias cámaras se explota la coherencia espacial dada
+ por la visión estereoscópica, mediante el uso de puntos característicos
+ como marcadores (luminosos, reflectivos, o detectados mediante filtros),
+ y las siluetas de los objetos obtenidos mediante la segmentación de las
+ imágenes 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lin2008"
+
+\end_inset
+
+.
+ Cuando se utiliza una única imagen se hace uso de modelos a priori y además
+ se añaden restricciones en las búsquedas de soluciones, estos modelos pueden
+ basarse en aproximaciones probabilísticas o aprendizaje de máquina.
+\end_layout
+
+\begin_layout Subsubsection
+Segmentación de imágenes
+\end_layout
+
+\begin_layout Standard
+La segmentación de imágenes son un conjunto de métodos para dividir una
+ imagen en regiones, dadas ciertas características.
+ La segmentación puede ser automática es decir sin interacción del usuario,
+ o semiautomáticas que requieren la supervisión manual 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Jin2007"
+
+\end_inset
+
+.
+ A continuación mostraremos algunos de los métodos de segmentación más usados:
+\end_layout
+
+\begin_layout Itemize
+Métodos de segmentación de contorno activos 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Flagg2009"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Método Snake con uso de filtros de gradiente de dirección 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ma2003"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Métodos que utilizan la coherencia espacio temporal de formas limitantes
+ especialmente cajas y elipses 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Landabaso2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Métodos probabilísticos con redes bayesianas para modelar la interacción
+ de campos 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Slabaugh2004"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Captura mediante sensores
+\end_layout
+
+\begin_layout Standard
+Este tipo de técnicas ofrecen gran precisión y libertad para la captura
+ del movimiento, pues no presentan problemas de oclusión presentes en los
+ métodos de procesamiento de imágenes 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Kry2006"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Algunas desventajas son:
+\end_layout
+
+\begin_layout Itemize
+No proporcionan información de la forma y superficie del objeto.
+\end_layout
+
+\begin_layout Itemize
+Es necesario el uso de trajes especiales que restringen la captura de la
+ textura del cuerpo.
+ Además algunos mecanismos no son inalámbricos lo que restringe la movilidad.
+\end_layout
+
+\begin_layout Itemize
+Son equipos costosos.
+\end_layout
+
+\begin_layout Itemize
+Los sistemas requieren estar próximos a los objetos, no permitiendo grandes
+ translaciones en el espacio 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "HernandezEsteban2002"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Escáner tridimensional de laser
+\end_layout
+
+\begin_layout Standard
+Ofrecen la mayor calidad y precisión en la captura de la forma y detalles
+ de la superficie del objeto, siendo de los métodos más utilizados en industrias
+ como la del cine, la paleontología, la arqueología, entre otros 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Aguiar2008"
+
+\end_inset
+
+.
+ La mayor desventaja de esto método son los altísimos costos de estos dispositiv
+os.
+\end_layout
+
+\begin_layout Subsection
+Reconstrucción tridimensional
+\end_layout
+
+\begin_layout Standard
+La reconstrucción tridimensional, son un conjunto de técnicas mediante las
+ cuales objetos reales, son representados mediante estructuras de datos
+ o funciones, haciendo énfasis en características como volumen y forma.
+ Existe actualmente una gran cantidad de técnicas de reconstrucción y métodos
+ de mallado 3D 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Aguiar2005"
+
+\end_inset
+
+, dado un conjunto de puntos 3D no conectados.
+\end_layout
+
+\begin_layout Subsubsection
+Reconstrucción basada en imágenes 
+\end_layout
+
+\begin_layout Standard
+La reconstrucción basada en imágenes, tiene dos enfoques importantes uno
+ con el uso de marcas, y otro sin ellas, además hay que tomar en cuenta
+ los parámetros intrínsecos (distancia focal, distorsión, etc.) y extrínsecos
+ (posición, orientación, etc.) de la cámara 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Campos2006a"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+En la reconstrucción con el uso de marcas se hace un filtrado de la imagen
+ para localizar estos marcadores los cuales son en general puntos de algún
+ color poco presente en la escena como el blanco, un rojo o verde intenso,
+ también se usan marcadores que emiten luz como pequeños bombillos, o el
+ uso de imágenes en blanco y negro que tienen un patrón dado reconocible.
+ Con estos puntos segmentados y localizados en las imágenes se procede a
+ realizar la solución de las ecuaciones de las transformaciones lineales
+ correspondientes basadas en un sistema estéreo con un modelo de cámara
+ pinhole 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Thormahlen2008"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Extracción del esqueleto
+\end_layout
+
+\begin_layout Standard
+La extracción del esqueleto es un problema que actualmente es tratado desde
+ distintos enfoques, algunos realizan estimaciones del esqueleto en 2D,
+ y luego utilizan información a priori para estimar como fue transformado
+ el esqueleto tridimensional real 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Remondino2003"
+
+\end_inset
+
+, otros enfoques realizan una reducción iterativa del número de polígonos
+ con ciertas restricciones de contracción y minimización de energía, hasta
+ encontrar un esqueleto irreducible 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+.
+ Otros métodos utilizan distintas representaciones topológicas de un objeto
+ tridimensional mediante grafos, luego realizan una simplificación de este
+ grafo, y por ultimo utilizan un esqueleto modelo el cual transforman para
+ minimizar el error entre el esqueleto y el grafo dado por medio de alguna
+ métrica basada en heurísticas 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Aguiar2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+IDENTIFICACIÓN DEL PROBLEMA: 
+\end_layout
+
+\begin_layout Standard
+El seguimiento de movimiento se realiza convencionalmente con costosos sistemas
+ de captura que varían entre los 150 y 400 millones de pesos aproximadamente.
+ Este seguimiento del movimiento presenta estos inconvenientes.
+\end_layout
+
+\begin_layout Itemize
+Usan marcadores en forma de trajes y dispositivos pegados al cuerpo y sus
+ extremidades, que alteran la naturalidad de los movimientos.
+ Además, se necesita de expertos para posicionar los marcadores, pues los
+ marcadores deben estar localizados en puntos antropométricos específicos.
+\end_layout
+
+\begin_layout Itemize
+Los sistemas estereoscópicos que realizan una reconstrucción tridimensional
+ desde múltiples puntos de vista manejan grandes volúmenes de datos correspondie
+ntes a la geometría del cuerpo, con lo cual se requiere maquinas de alto
+ rendimiento.
+ 
+\end_layout
+
+\begin_layout Section
+OBJETIVO GENERAL Y OBJETIVOS ESPECÍFICOS: 
+\end_layout
+
+\begin_layout Subsection
+Objetivo General: 
+\end_layout
+
+\begin_layout Standard
+Seguimiento del movimiento del cuerpo humano en 3 dimensiones.
+\end_layout
+
+\begin_layout Subsection
+Objetivos Específicos: 
+\end_layout
+
+\begin_layout Enumerate
+Capturar mediante video cámaras un cuerpo en movimiento para su análisis.
+\end_layout
+
+\begin_layout Enumerate
+Extraer la silueta del cuerpo desde los videos mediante el método 
+\begin_inset Formula $\Sigma-\Delta$
+\end_inset
+
+ Sigma-Delta.
+\end_layout
+
+\begin_layout Enumerate
+Usando los videos, extraer marcadores de las relaciones fundamentales del
+ cuerpo con lo cual se constituye un esqueleto que representa el cuerpo.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Realizar el seguimiento del esqueleto en cada cuadro de video y validar
+ los resultados obtenidos del análisis.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Diseñar un sistema de realidad aumentada que permita visualizar el movimiento
+ del cuerpo, junto con el esqueleto estimado.
+ 
+\end_layout
+
+\begin_layout Section
+METODOLOGÍA Y ACTIVIDADES POR OBJETIVOS:
+\end_layout
+
+\begin_layout Subsection
+Objetivo 1.
+ Adquisición de Datos: 
+\end_layout
+
+\begin_layout Standard
+Obtener la secuencia de imágenes utilizando 6 cámaras con las siguientes
+ descripciones: 
+\end_layout
+
+\begin_layout Itemize
+Cámaras geométricamente localizadas en un arreglo circular alrededor del
+ centro de la escena.
+\end_layout
+
+\begin_layout Itemize
+Cámaras con características intrínsecas y extrínsecas calibradas.
+\end_layout
+
+\begin_layout Itemize
+Cámaras sincronizadas en el tiempo que capturan la escena desde distintos
+ ángulos.
+\end_layout
+
+\begin_layout Itemize
+Escenario con condiciones de iluminación controladas.
+ 
+\end_layout
+
+\begin_layout Standard
+Actividades: 
+\end_layout
+
+\begin_layout Itemize
+Ubicar las cámaras en un arreglo circular, alrededor del centro de la escena.
+ 
+\end_layout
+
+\begin_layout Itemize
+Iluminar el escenario de acuerdo a parámetros seleccionados.
+ 
+\end_layout
+
+\begin_layout Itemize
+Calibrar las cámaras.
+ 
+\end_layout
+
+\begin_layout Itemize
+Capturar de forma sincronizada los videos de un cuerpo articulado en movimiento.
+ 
+\end_layout
+
+\begin_layout Description
+Entregable: Archivos de video digitalizados de cada una de las cámaras usadas.
+\end_layout
+
+\begin_layout Subsection
+Objetivo 2.
+ Extracción de la silueta del cuerpo articulado: 
+\end_layout
+
+\begin_layout Standard
+Implementar el método 
+\begin_inset Formula $\Sigma-\triangle$
+\end_inset
+
+ Sigma-Delta de segmentación de video, para extraer la silueta del cuerpo
+ articulado.
+ 
+\end_layout
+
+\begin_layout Standard
+Actividades
+\end_layout
+
+\begin_layout Itemize
+Implementar el método de segmentación.
+\end_layout
+
+\begin_layout Itemize
+Segmentar la silueta del cuerpo desde los videos.
+ 
+\end_layout
+
+\begin_layout Description
+Entregable: Archivos de datos con la silueta segmentada para cada uno de
+ los videos.
+ 
+\end_layout
+
+\begin_layout Subsection
+Objetivo 3.
+ Extracción del esqueleto:
+\end_layout
+
+\begin_layout Standard
+Estudio de modelos de atención visual para la extracción de singularidades,
+ bordes y puntos de cambio en la imagen.
+ 
+\end_layout
+
+\begin_layout Standard
+Estudio de modelos fotogramétricos, para la reconstrucción 3D desde un par
+ estereoscópico.
+ 
+\end_layout
+
+\begin_layout Standard
+Estudio de métodos para la reconstrucción de forma desde las siluetas, también
+ conocido como visual-hull.
+ 
+\end_layout
+
+\begin_layout Standard
+Estudio de modelos matemáticos, para la extracción del medial axis.
+\end_layout
+
+\begin_layout Standard
+Actividades: 
+\end_layout
+
+\begin_layout Itemize
+Selección de una técnica para la detección de puntos característicos.
+\end_layout
+
+\begin_layout Itemize
+Implementar la técnica de detección.
+\end_layout
+
+\begin_layout Itemize
+Seleccionar una técnica de reconstrucción estereoscópica.
+\end_layout
+
+\begin_layout Itemize
+Implementar la técnica de reconstrucción estereoscópica.
+\end_layout
+
+\begin_layout Itemize
+Seleccionar una técnica de reconstrucción de volumen.
+\end_layout
+
+\begin_layout Itemize
+Implementar la técnica de reconstrucción de volumen.
+\end_layout
+
+\begin_layout Itemize
+Desarrollar un método para la extracción del esqueleto.
+\end_layout
+
+\begin_layout Itemize
+Implementar el método de extracción del esqueleto.
+\end_layout
+
+\begin_layout Description
+Entregable: Archivos de datos con información geométrica tridimensional
+ del esqueleto extraído.
+\end_layout
+
+\begin_layout Subsection
+Objetivo 4.
+ Realizar el seguimiento del esqueleto en cada cuadro de video y validar
+ los resultados obtenidos del análisis: 
+\end_layout
+
+\begin_layout Standard
+Estudio de métodos de seguimiento para determinar el cambio de pose del
+ esqueleto a través del tiempo.
+\end_layout
+
+\begin_layout Standard
+Calibración de las cámaras.
+ 
+\end_layout
+
+\begin_layout Standard
+Se evaluaran los resultados con otros métodos de extracción y seguimiento
+ del esqueleto, utilizando las mismas secuencias de video.
+ 
+\end_layout
+
+\begin_layout Standard
+Actividades: 
+\end_layout
+
+\begin_layout Itemize
+Desarrollar la técnica de seguimiento.
+\end_layout
+
+\begin_layout Itemize
+Implementar la técnica de seguimiento.
+\end_layout
+
+\begin_layout Itemize
+Seleccionar otros métodos de extracción y seguimiento del esqueleto que
+ usen secuencias de video desde varias cámaras.
+\end_layout
+
+\begin_layout Itemize
+Obtener los resultados de los otros métodos.
+\end_layout
+
+\begin_layout Itemize
+Comparar los resultados entre el método desarrollado y los otros métodos
+ evaluados.
+ 
+\end_layout
+
+\begin_layout Description
+Entregable: Archivo con información del cambio de pose del esqueleto extraído
+ en cada secuencia de video.
+ Tabla con datos de resultados del método desarrollado, y los otros métodos
+ evaluados.
+\end_layout
+
+\begin_layout Subsection
+Objetivo 5.
+ Diseñar un sistema de realidad aumentada que permita visualizar el movimiento
+ del cuerpo, junto con el esqueleto estimado: 
+\end_layout
+
+\begin_layout Standard
+Realizar los pasos necesarios para la construcción de un sistema basándose
+ en técnicas de ingeniería de software.
+ 
+\end_layout
+
+\begin_layout Standard
+Actividades 
+\end_layout
+
+\begin_layout Itemize
+Realizar un análisis de requerimientos
+\end_layout
+
+\begin_layout Itemize
+Hacer un diseño del sistema.
+\end_layout
+
+\begin_layout Itemize
+Implementar el diseño.
+\end_layout
+
+\begin_layout Itemize
+Documentar el sistema.
+ 
+\end_layout
+
+\begin_layout Description
+Entregable: Programa de computadora que permita visualizar el video junto
+ con el seguimiento del esqueleto.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "listado_inicial"
+options "bibtotoc,plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
