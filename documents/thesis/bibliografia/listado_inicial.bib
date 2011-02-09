@@ -1,6 +1,33 @@
 % This file was created with JabRef 2.4.2.
 % Encoding: Cp1252
 
+@INPROCEEDINGS{Bajramovic2009,
+  author = {Ferid Bajramovic and Michael Koch and Joachim Denzler},
+  title = {Experimental Comparison of Wide Baseline Correspondence Algorithms
+	for Multi Camera Calibration},
+  booktitle = {VISAPP (2)},
+  year = {2009},
+  pages = {458-463},
+  abstract = {The quality of point correspondences is crucial for the successful
+	application of multi camera self-calibration
+	
+	procedures. There are several interest point detectors, local descriptors
+	and matching algorithms, which can
+	
+	be combined almost arbitrarily. In this paper, we compare the point
+	correspondences produced by several such
+	
+	combinations. In contrast to previous comparisons, we evaluate the
+	correspondences based on the accuracy of
+	
+	relative pose estimation and multi camera calibration},
+  bibsource = {DBLP, http://dblp.uni-trier.de},
+  crossref = {DBLP:conf/visapp/2009-2},
+  file = {:./Bajramovic2009/Bajramovic09_ECO.pdf:PDF},
+  owner = {apinzonf},
+  timestamp = {2011.02.08}
+}
+
 @INPROCEEDINGS{Schaefer2007,
   author = {Scott Schaefer and Can Yuksel},
   title = {Example-Based Skeleton Extraction},
@@ -1034,6 +1061,34 @@
   timestamp = {2009.04.02}
 }
 
+@CONFERENCE{Cao2010,
+  author = {Junjie Cao and Andrea Tagliasacchi and Matt Olson and Hao Zhang and
+	Zhixun Su},
+  title = {Point Cloud Skeletons via Laplacian-Based Contraction},
+  booktitle = {Proc. of IEEE Conf. on Shape Modeling and Applications},
+  year = {2010},
+  pages = {187{\textendash}197},
+  month = {June 2010},
+  note = {Skeleton Extraction},
+  abstract = {We present an algorithm for curve skeleton extraction via Laplacian-based
+	contraction. Our algorithm can be applied to surfaces with boundaries,
+	polygon soups, and point clouds. We develop a contraction operation
+	that is designed to work on generalized discrete geometry data, particularly
+	point clouds, via local Delaunay triangulation and topological thinning.
+	Our approach is robust to noise and can handle moderate amounts of
+	missing data, allowing skeleton-based manipulation of point clouds
+	without explicit surface reconstruction. By avoiding explicit reconstruction,
+	we are able to perform skeleton-driven topology repair of acquired
+	point clouds in the presence of large amounts of missing data. In
+	such cases, automatic surface reconstruction schemes tend to produce
+	incorrect surface topology. We show that the curve skeletons we extract
+	provide an intuitive and easy-to-manipulate structure for effective
+	topology modification, leading to more faithful surface reconstruction.},
+  file = {:./Cao2010/cloudcontr_smi10.pdf:PDF},
+  owner = {apinzonf},
+  timestamp = {2011.02.08}
+}
+
 @ARTICLE{Chai2005,
   author = {Chai,, Jinxiang and Hodgins,, Jessica K.},
   title = {Performance animation from low-dimensional control signals},
@@ -1895,6 +1950,42 @@
   owner = {apinzonf},
   timestamp = {2009.10.19},
   url = {http://www.sciencedirect.com/science/article/B6WG4-45GMD54-B/2/7dd0819187eafc80d84ce0cc9d880a28}
+}
+
+@INPROCEEDINGS{Garland1997,
+  author = {Garland, Michael and Heckbert, Paul S.},
+  title = {Surface simplification using quadric error metrics},
+  booktitle = {Proceedings of the 24th annual conference on Computer graphics and
+	interactive techniques},
+  year = {1997},
+  series = {SIGGRAPH '97},
+  pages = {209--216},
+  address = {New York, NY, USA},
+  publisher = {ACM Press/Addison-Wesley Publishing Co.},
+  abstract = {Many applications in computer graphics require complex, highly detailed
+	models. However, the level of detail actually necessary may vary
+	considerably. To control processing time, it is often desirable to
+	use approximations in place of excessively detailed models. We have
+	developed a surface simplification algorithm which can rapidly produce
+	high quality approximations of polygonal models. The algorithm uses
+	iterative contractions of vertex pairs to simplify models and maintains
+	surface error approximations using quadric matrices. By contracting
+	arbitrary vertex pairs (not just edges), our algorithm is able to
+	join unconnected regions of models. This can facilitate much better
+	approximations, both visually and with respect to geometric error.
+	In order to allow topological joining, our system also supports non-manifold
+	surface models. CR Categories: I.3.5 [Computer Graphics]: Computational
+	Geometry and Object Modeling---surface and object representations},
+  acmid = {258849},
+  doi = {http://dx.doi.org/10.1145/258734.258849},
+  file = {:./Garland1997/quadrics.pdf:PDF},
+  isbn = {0-89791-896-7},
+  keywords = {level of detail, mutiresolution modeling, non-manifold, pair contraction,
+	surface simplification},
+  numpages = {8},
+  owner = {apinzonf},
+  timestamp = {2011.02.08},
+  url = {http://dx.doi.org/10.1145/258734.258849}
 }
 
 @ARTICLE{Gavrila1999,
@@ -4105,6 +4196,30 @@
   timestamp = {2009.04.02}
 }
 
+@ARTICLE{Nedevschi2006,
+  author = {S. Nedevschi and S. Bota and T. Marita and F. Oniga and C. Pocol},
+  title = {Real-Time 3D Environment Reconstruction Using High Precision Trinocular
+	Stereovision},
+  journal = {International Conference on Automation, Quality and Testing, Robotics},
+  year = {2006},
+  volume = {2},
+  pages = {333-338},
+  note = {3D Reconstruction},
+  abstract = {This paper presents an implementation of a 3D environment reconstruction
+	system, using trinocular (3 camera) stereovision. The system does
+	not use rectification, in order to improve precision. Sub-pixel accuracy
+	correlation is used. Feature extraction and correlation use MMX and
+	SSE2 optimizations. Reconstruction correctitude tests were conducted
+	using both synthetically generated images and camera acquired images},
+  address = {Los Alamitos, CA, USA},
+  doi = {http://doi.ieeecomputersociety.org/10.1109/AQTR.2006.254655},
+  file = {:./Nedevschi2006/AQTR2006.pdf:PDF},
+  isbn = {1-4244-0360-X},
+  owner = {apinzonf},
+  publisher = {IEEE Computer Society},
+  timestamp = {2011.02.08}
+}
+
 @INPROCEEDINGS{Niem1996,
   author = {Niem, W. and Steinmetz, M.},
   title = {Camera viewpoint control for the automatic reconstruction of 3D objects},
@@ -4886,6 +5001,33 @@
   timestamp = {2009.03.18}
 }
 
+@INPROCEEDINGS{Sminchisescu2002,
+  author = {C. Sminchisescu and A. Telea},
+  title = {Human pose estimation from silhouettes. a consistent approach using
+	distance level sets},
+  booktitle = {In WSCG International Conference on Computer Graphics, Visualization
+	and Computer Vision},
+  year = {2002},
+  abstract = {We present a novel similarity measure (likelihood) for estimating
+	three-dimensional human pose from image silhouettes in model-based
+	vision applications. One of the challenges in such approaches is
+	the construction of a model-to-image likelihood that truly reflects
+	the good configurations of the problem. This is hard, commonly due
+	to the violation of consistency principle resulting in the introduction
+	of spurious, unrelated peaks/minima that make the search for model
+	localization difficult. We introduce an entirely continuous formulation
+	which enforces model estimation consistency by means of an attraction/explanation
+	silhouette-based term pair. We subsequently show how the proposed
+	method provides significant consolidation and improved attraction
+	zone around the desired likelihood configurations and elimination
+	of some of the spurious ones. Finally, we present a skeleton-based
+	smoothing method for the image silhouettes that stabilizes and accelerates
+	the search process.},
+  file = {:./Sminchisescu2002/C13.pdf:PDF},
+  owner = {apinzonf},
+  timestamp = {2011.02.08}
+}
+
 @BOOK{Spivak1-1999,
   title = {A Comprehensive Introduction to Differential Geometry},
   publisher = {{Publish or Perish, Inc}},
@@ -5085,6 +5227,35 @@
   timestamp = {2009.03.18}
 }
 
+@ARTICLE{Styner2003,
+  author = {Styner, Martin and Gerig, Guido and Joshi, Sarang and Pizer, Stephen},
+  title = {Automatic and Robust Computation of 3D Medial Models Incorporating
+	Object Variability},
+  journal = {International Journal of Computer Vision},
+  year = {2003},
+  volume = {55},
+  pages = {107-122},
+  note = {Skeleton Extraction},
+  abstract = {This paper presents a novel processing scheme for the automatic and
+	robust computation of a medial shape model, which represents an object
+	population with shape variability. The sensitivity of medial descriptions
+	to object variations and small boundary perturbations are fundamental
+	problems of any skeletonization technique. These problems are approached
+	with the computation of a model with common medial branching topology
+	and grid sampling. This model is then used for a medial shape description
+	of individual objects via a constrained model fit.},
+  affiliation = {Duke Image Analysis Lab, Department of Radiology Duke University Medical
+	Center USA},
+  file = {:./Styner2003\\4.pdf:PDF},
+  issn = {0920-5691},
+  issue = {2},
+  keyword = {Computer Science},
+  owner = {apinzonf},
+  publisher = {Springer Netherlands},
+  timestamp = {2011.02.08},
+  url = {http://dx.doi.org/10.1023/A:1026378916288}
+}
+
 @INPROCEEDINGS{1060250,
   author = {Sud, Avneesh and Foskey, Mark and Manocha, Dinesh},
   title = {Homotopy-preserving medial axis simplification},
@@ -5151,6 +5322,35 @@
   priority = {2},
   timestamp = {2009.03.17},
   url = {http://dx.doi.org/10.1145/1275808.1276478}
+}
+
+@INPROCEEDINGS{Sundar2003,
+  author = {Sundar, H. and Silver, D. and Gagvani, N. and Dickinson, S.},
+  title = {Skeleton Based Shape Matching and Retrieval},
+  booktitle = {Proceedings of the Shape Modeling International 2003},
+  year = {2003},
+  pages = {130--},
+  address = {Washington, DC, USA},
+  publisher = {IEEE Computer Society},
+  abstract = {In this paper, we describe a novel method for searchingand comparing
+	3D objects. The method encodes the geometricand topological information
+	in the form of a skeletalgraph and uses graph matching techniques
+	to match theskeletons and to compare them. The skeletal graphs canbe
+	manually annotated to refine or restructure the search.This helps
+	in choosing between a topological similarity anda geometric (shape)
+	similarity. A feature of skeletal matchingis the ability to perform
+	part-matching, and its inherentintuitiveness, which helps in defining
+	the search and invisualizing the results. Also, the matching results,
+	whichare presented in a per-node basis can be used for driving anumber
+	of registration algorithms, most of which require agood initial guess
+	to perform registration. In this paper, wealso describe a visualization
+	tool to aid in the selection andspecification of the matched objects.},
+  acmid = {830339},
+  file = {:./Sundar2003/smi2003.pdf:PDF},
+  isbn = {0-7695-1909-1},
+  owner = {apinzonf},
+  timestamp = {2011.02.08},
+  url = {http://portal.acm.org/citation.cfm?id=829510.830339}
 }
 
 @INPROCEEDINGS{Sundareswara2005,
@@ -5438,6 +5638,46 @@
   timestamp = {2009.03.17}
 }
 
+@PHDTHESIS{Tierny2008b,
+  author = {Julien Tierny},
+  title = {Reeb graph based 3D shape modeling and applications},
+  school = {Universite des Sciences et Technologies de Lille},
+  year = {2008},
+  note = {Skeleton Extraction},
+  abstract = {With the ongoing development of 3D technologies, 3D shapes are becoming
+	an interactive media of major importance. Their commonest representation,
+	the surface mesh, suffers however from high variability towards standard
+	shape-preserving surface transformations.It is necessary thus to
+	design intrinsic shape modeling techniques.
+	
+	In this thesis, we explore topological modeling by studying Reeb graph
+	based structures. In particular, we introduce a novel shape abstraction,
+	called the enhanced topological skeleton, which enables not only
+	the study of the topological evolution of Morse functions' level
+	sets but also that of their geometrical evolution. We show the utility
+	of this intrinsic shape representation in three research problems
+	related to Computer Graphics and Computer Vision.
+	
+	First, we introduce the notion of geometrical calculus on Reeb graphs
+	for the stable and automatic computation of control skeletons for
+	interactive shape handling.
+	
+	Then, by introducing the notions of Reeb chart and Reeb pattern, we
+	propose a new method for partial 3D shape similarity estimation.
+	We show this approach outperforms the competing methods of the international
+	SHape REtrieval Contest 2007 by a gain of 14%.
+	
+	Finally, we present two techniques for the functional decomposition
+	computation of a 3D shape, both from human perception based heuristics
+	and from the analysis of time-varying 3D data.
+	
+	For each of these research problems, concrete applicative examples
+	are presented to assess the utility of our approach.},
+  file = {:./Tierny2008b/tierny_phd_thesis08.pdf:PDF},
+  owner = {apinzonf},
+  timestamp = {2011.02.08}
+}
+
 @INPROCEEDINGS{Tierny2008,
   author = {Tierny, J. and Vandeborre, J.-P. and Daoudi, M.},
   title = {Fast and precise kinematic skeleton extraction of 3D dynamic meshes},
@@ -5491,6 +5731,79 @@
   owner = {apinzonf},
   timestamp = {2009.04.03},
   url = {http://dx.doi.org/10.1007/s00371-007-0181-0}
+}
+
+@INPROCEEDINGS{Tierny2006,
+  author = {Tierny, Julien and Vandeborre, Jean-Philippe and Daoudi, Mohamed},
+  title = {3D Mesh Skeleton Extraction Using Topological and Geometrical Analyses},
+  booktitle = {14th Pacific Conference on Computer Graphics and Applications (Pacific
+	Graphics 2006)},
+  year = {2006},
+  pages = {85-94},
+  address = {Taipei, Taiwan},
+  note = {Skeleton Extraction},
+  abstract = {This paper describes a novel and unified approach for Reeb graph construction
+	and simplification as well as constriction approximation on 3D polygonal
+	meshes. The key idea of our algorithm is that discrete contours -
+	curves carried by the edges of the mesh and approximating the continuous
+	contours of a mapping function - encode both topological and geometrical
+	shape characteristics.
+	
+	Firstly, mesh feature points are computed. Then they are used as geodesic
+	origins for the computation of an invariant mapping function that
+	reveals the shape most significant features. Secondly, for each vertex
+	in the mesh, its discrete contour is computed. As the set of discrete
+	contours recovers the whole surface, each of them can be analyzed,
+	both to detect topological changes or constrictions. Constriction
+	approximations enable Reeb graphs refinement into more visually meaningful
+	skeletons, that we refer as enhanced topological skeletons.
+	
+	Without pre-processing stages and without input parameters, our method
+	provides nice-looking and affine-invariant skeletons, with satisfactory
+	execution times. This makes enhanced topological skeletons good candidates
+	for applications needing high level shape representations, such as
+	mesh deformation (experimented in this paper), retrieval, compression,
+	metamorphosis, etc.},
+  file = {:./Tierny2006/tierny_pacific06_pre.pdf:PDF},
+  owner = {apinzonf},
+  timestamp = {2011.02.08}
+}
+
+@INPROCEEDINGS{Tierny2006a,
+  author = {Tierny, Julien and Vandeborre, Jean-Philippe and Daoudi, Mohamed},
+  title = {Invariant High-Level Reeb Graphs of 3D Polygonal Meshes},
+  booktitle = {3rd IEEE International Symposium on 3D Data Processing, Visualization
+	and Transmission (3DPVT'06)},
+  year = {2006},
+  pages = {105-112},
+  address = {Chapel Hill, North Carolina, USA},
+  note = {Skeleton Extraction},
+  abstract = {Many applications in computer graphics need high level shape descriptions,
+	in order to benefit from a global understanding of shapes.
+	
+	Topological approaches enable pertinent surface decompositions, providing
+	structural descriptions of 3D polygonal meshes; but in practice,
+	their use raises several difficulties.
+	
+	In this paper, we present a novel method for the construction of invariant
+	high level Reeb graphs, topological entities that give a good overview
+	of the shape structure. With this aim, we propose an accurate and
+	straightforward feature point extraction algorithm for the computation
+	of an invariant and meaningful quotient function. Moreover, we propose
+	a new graph construction algorithm, based on an analysis of the connectivity
+	evolutions of discrete level lines. This algorithm brings a practical
+	solution for the suppression of non-significant critical points over
+	piecewise continuous functions, providing meaningful Reeb graphs.
+	
+	Presented method gives accurate results, with satisfactory execution
+	times and without input parameter. The geometrical invariance of
+	resulting graphs and their robustness to variance in model pose and
+	mesh sampling make them good candidates for several applications,
+	like shape deformation (experimented in this paper), recognition,
+	compression, indexing, etc.},
+  file = {:./Tierny2006a/tierny_3dpvt06_pre.pdf:PDF},
+  owner = {apinzonf},
+  timestamp = {2011.02.08}
 }
 
 @ARTICLE{Turaga2009,
