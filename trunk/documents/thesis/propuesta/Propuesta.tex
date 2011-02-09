@@ -1,0 +1,346 @@
+\documentclass[12pt,letterpaper,spanish]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{babel}
+\addto\shorthandsspanish{\spanishdeactivate{~<>}}
+
+\begin{document}
+
+\title{FACULTAD DE INGENIERÍA \\
+Vicedecanatura Académica\\
+POSGRADOS\\
+PRESENTACIÓN PROPUESTA}
+
+\maketitle
+TESIS DE MAESTRÍA: 
+
+
+\section{PROPONENTE: }
+
+Alexander Pinzón Fernández 
+
+CÓDIGO: 02 299802 
+
+
+\section{PROGRAMA: }
+
+Maestría en Ingeniería de Sistemas y Computación 
+
+
+\section{DIRECTOR PROPUESTO: }
+
+Eduardo Romero Castro 
+
+DEPARTAMENTO: Ingeniería de Sistemas e Industrial. 
+
+
+\section{TÍTULO}
+
+Extracción y seguimiento del esqueleto de un cuerpo a partir de múltiples
+vistas. 
+\begin{description}
+\item [{ÁREA:}] Ciencias de la Computación 
+\item [{LÍNEA~DE~INVESTIGACIÓN:}] Computación grafica, procesamiento
+de imágenes, procesamiento de video.
+\item [{NOTA:}] La metodología de este proyecto está orientada por los
+resultados y organizada en paquetes de trabajo, tal y como se hace
+de manera estándar en todos los proyectos de la Unión Europea (Condición
+impuesta por mi director de tesis).
+\end{description}
+
+\section{ANTECEDENTES Y JUSTIFICACIÓN:}
+
+La medición realizada por un observador de la posición con respecto
+al tiempo de una partícula en un sistema de referencia. Es denominada
+registro de movimiento.
+
+El estudio y registro del movimiento de un cuerpo con extremidades
+articuladas, como una persona o un animal, ha sido de interés en varias
+aéreas del conocimiento. Por ejemplo, la anatomía humana y animal,
+la ingeniería y las artes. El registro de movimiento ha sido usado
+para resolver distintos tipos de problemas, por ejemplo: en el diagnostico
+de patologías asociadas a la marcha en seres humanos, la captura del
+movimiento de un actor para dar vida a un personaje animado, o el
+análisis ergonómico para el diseño de productos y herramientas \cite{Remondino2004}.
+
+La extracción y seguimiento de esqueletos se logra mediante la utilización
+de un conjunto de actividades organizadas dentro de un proceso. Estas
+actividades son: la adquisición de datos desde un objeto real, la
+reconstrucción 3D a partir de los datos de la captura, la extracción
+del esqueleto del objeto tridimensional reconstruido, y el seguimiento
+del esqueleto tomado como un proceso iterativo de captura con un esqueleto
+invariante topológicamente en el tiempo.
+
+Los esqueletos son estructuras 1D que representan una simplificada
+versión de la geometría y topología de un objeto 3D. Son en esencia
+una entidad geométrica que abstrae el volumen del objeto. Por esta
+razón muchos métodos de extracción del esqueleto requieren una representación
+discreta del volumen del modelo de entrada. Sin embargo la mayoría
+de modelos usados en aplicaciones de computación grafica son disponibles
+únicamente como una representación de su superficie, tales como las
+mallas de polígonos \cite{Au2008}. 
+
+
+\subsection{Adquisición de datos}
+
+Existen diferentes enfoques en la adquisición de la información espacial
+de objetos reales, algunos basados en el procesamiento de imágenes,
+otros basados en sensores (mecánicos, electromagnéticos, e inerciales
+entre otros), y otros como el escáner de laser, la tomografía, el
+ultrasonido, etc \cite{Cheung2003}.
+
+Los métodos de adquisición basados en el procesamiento de señales
+utilizan las secuencias de imágenes producidas por una o varias cámaras.
+Cuando se utilizan varias cámaras se explota la coherencia espacial
+dada por la visión estereoscópica, mediante el uso de puntos característicos
+como marcadores (luminosos, reflectivos, o detectados mediante filtros),
+y las siluetas de los objetos obtenidos mediante la segmentación de
+las imágenes \cite{Lin2008}. Cuando se utiliza una única imagen se
+hace uso de modelos a priori y además se añaden restricciones en las
+búsquedas de soluciones, estos modelos pueden basarse en aproximaciones
+probabilísticas o aprendizaje de máquina.
+
+
+\subsubsection{Segmentación de imágenes}
+
+La segmentación de imágenes son un conjunto de métodos para dividir
+una imagen en regiones, dadas ciertas características. La segmentación
+puede ser automática es decir sin interacción del usuario, o semiautomáticas
+que requieren la supervisión manual \cite{Jin2007}. A continuación
+mostraremos algunos de los métodos de segmentación más usados:
+\begin{itemize}
+\item Métodos de segmentación de contorno activos \cite{Flagg2009}.
+\item Método Snake con uso de filtros de gradiente de dirección \cite{Ma2003}.
+\item Métodos que utilizan la coherencia espacio temporal de formas limitantes
+especialmente cajas y elipses \cite{Landabaso2008}.
+\item Métodos probabilísticos con redes bayesianas para modelar la interacción
+de campos \cite{Slabaugh2004}.
+\end{itemize}
+
+\subsubsection{Captura mediante sensores}
+
+Este tipo de técnicas ofrecen gran precisión y libertad para la captura
+del movimiento, pues no presentan problemas de oclusión presentes
+en los métodos de procesamiento de imágenes \cite{Kry2006}.
+
+Algunas desventajas son:
+\begin{itemize}
+\item No proporcionan información de la forma y superficie del objeto.
+\item Es necesario el uso de trajes especiales que restringen la captura
+de la textura del cuerpo. Además algunos mecanismos no son inalámbricos
+lo que restringe la movilidad.
+\item Son equipos costosos.
+\item Los sistemas requieren estar próximos a los objetos, no permitiendo
+grandes translaciones en el espacio \cite{HernandezEsteban2002}.
+\end{itemize}
+
+\subsubsection{Escáner tridimensional de laser}
+
+Ofrecen la mayor calidad y precisión en la captura de la forma y detalles
+de la superficie del objeto, siendo de los métodos más utilizados
+en industrias como la del cine, la paleontología, la arqueología,
+entre otros \cite{Aguiar2008}. La mayor desventaja de esto método
+son los altísimos costos de estos dispositivos.
+
+
+\subsection{Reconstrucción tridimensional}
+
+La reconstrucción tridimensional, son un conjunto de técnicas mediante
+las cuales objetos reales, son representados mediante estructuras
+de datos o funciones, haciendo énfasis en características como volumen
+y forma. Existe actualmente una gran cantidad de técnicas de reconstrucción
+y métodos de mallado 3D \cite{Aguiar2005}, dado un conjunto de puntos
+3D no conectados.
+
+
+\subsubsection{Reconstrucción basada en imágenes }
+
+La reconstrucción basada en imágenes, tiene dos enfoques importantes
+uno con el uso de marcas, y otro sin ellas, además hay que tomar en
+cuenta los parámetros intrínsecos (distancia focal, distorsión, etc.)
+y extrínsecos (posición, orientación, etc.) de la cámara \cite{Campos2006a}. 
+
+En la reconstrucción con el uso de marcas se hace un filtrado de la
+imagen para localizar estos marcadores los cuales son en general puntos
+de algún color poco presente en la escena como el blanco, un rojo
+o verde intenso, también se usan marcadores que emiten luz como pequeños
+bombillos, o el uso de imágenes en blanco y negro que tienen un patrón
+dado reconocible. Con estos puntos segmentados y localizados en las
+imágenes se procede a realizar la solución de las ecuaciones de las
+transformaciones lineales correspondientes basadas en un sistema estéreo
+con un modelo de cámara pinhole \cite{Thormahlen2008}. 
+
+
+\subsection{Extracción del esqueleto}
+
+La extracción del esqueleto es un problema que actualmente es tratado
+desde distintos enfoques, algunos realizan estimaciones del esqueleto
+en 2D, y luego utilizan información a priori para estimar como fue
+transformado el esqueleto tridimensional real \cite{Remondino2003},
+otros enfoques realizan una reducción iterativa del número de polígonos
+con ciertas restricciones de contracción y minimización de energía,
+hasta encontrar un esqueleto irreducible \cite{Au2008}. Otros métodos
+utilizan distintas representaciones topológicas de un objeto tridimensional
+mediante grafos, luego realizan una simplificación de este grafo,
+y por ultimo utilizan un esqueleto modelo el cual transforman para
+minimizar el error entre el esqueleto y el grafo dado por medio de
+alguna métrica basada en heurísticas \cite{Aguiar2008}.
+
+
+\section{IDENTIFICACIÓN DEL PROBLEMA: }
+
+El seguimiento de movimiento se realiza convencionalmente con costosos
+sistemas de captura que varían entre los 150 y 400 millones de pesos
+aproximadamente. Este seguimiento del movimiento presenta estos inconvenientes.
+\begin{itemize}
+\item Usan marcadores en forma de trajes y dispositivos pegados al cuerpo
+y sus extremidades, que alteran la naturalidad de los movimientos.
+Además, se necesita de expertos para posicionar los marcadores, pues
+los marcadores deben estar localizados en puntos antropométricos específicos.
+\item Los sistemas estereoscópicos que realizan una reconstrucción tridimensional
+desde múltiples puntos de vista manejan grandes volúmenes de datos
+correspondientes a la geometría del cuerpo, con lo cual se requiere
+maquinas de alto rendimiento. 
+\end{itemize}
+
+\section{OBJETIVO GENERAL Y OBJETIVOS ESPECÍFICOS: }
+
+
+\subsection{Objetivo General: }
+
+Seguimiento del movimiento del cuerpo humano en 3 dimensiones.
+
+
+\subsection{Objetivos Específicos: }
+\begin{enumerate}
+\item Capturar mediante video cámaras un cuerpo en movimiento para su análisis.
+\item Extraer la silueta del cuerpo desde los videos mediante el método
+$\Sigma-\Delta$ Sigma-Delta.
+\item Usando los videos, extraer marcadores de las relaciones fundamentales
+del cuerpo con lo cual se constituye un esqueleto que representa el
+cuerpo. 
+\item Realizar el seguimiento del esqueleto en cada cuadro de video y validar
+los resultados obtenidos del análisis. 
+\item Diseñar un sistema de realidad aumentada que permita visualizar el
+movimiento del cuerpo, junto con el esqueleto estimado. 
+\end{enumerate}
+
+\section{METODOLOGÍA Y ACTIVIDADES POR OBJETIVOS:}
+
+
+\subsection{Objetivo 1. Adquisición de Datos: }
+
+Obtener la secuencia de imágenes utilizando 6 cámaras con las siguientes
+descripciones: 
+\begin{itemize}
+\item Cámaras geométricamente localizadas en un arreglo circular alrededor
+del centro de la escena.
+\item Cámaras con características intrínsecas y extrínsecas calibradas.
+\item Cámaras sincronizadas en el tiempo que capturan la escena desde distintos
+ángulos.
+\item Escenario con condiciones de iluminación controladas. 
+\end{itemize}
+Actividades: 
+\begin{itemize}
+\item Ubicar las cámaras en un arreglo circular, alrededor del centro de
+la escena. 
+\item Iluminar el escenario de acuerdo a parámetros seleccionados. 
+\item Calibrar las cámaras. 
+\item Capturar de forma sincronizada los videos de un cuerpo articulado
+en movimiento. \end{itemize}
+\begin{description}
+\item [{Entregable:}] Archivos de video digitalizados de cada una de las
+cámaras usadas.
+\end{description}
+
+\subsection{Objetivo 2. Extracción de la silueta del cuerpo articulado: }
+
+Implementar el método $\Sigma-\triangle$ Sigma-Delta de segmentación
+de video, para extraer la silueta del cuerpo articulado. 
+
+Actividades
+\begin{itemize}
+\item Implementar el método de segmentación.
+\item Segmentar la silueta del cuerpo desde los videos. \end{itemize}
+\begin{description}
+\item [{Entregable:}] Archivos de datos con la silueta segmentada para
+cada uno de los videos. 
+\end{description}
+
+\subsection{Objetivo 3. Extracción del esqueleto:}
+
+Estudio de modelos de atención visual para la extracción de singularidades,
+bordes y puntos de cambio en la imagen. 
+
+Estudio de modelos fotogramétricos, para la reconstrucción 3D desde
+un par estereoscópico. 
+
+Estudio de métodos para la reconstrucción de forma desde las siluetas,
+también conocido como visual-hull. 
+
+Estudio de modelos matemáticos, para la extracción del medial axis.
+
+Actividades: 
+\begin{itemize}
+\item Selección de una técnica para la detección de puntos característicos.
+\item Implementar la técnica de detección.
+\item Seleccionar una técnica de reconstrucción estereoscópica.
+\item Implementar la técnica de reconstrucción estereoscópica.
+\item Seleccionar una técnica de reconstrucción de volumen.
+\item Implementar la técnica de reconstrucción de volumen.
+\item Desarrollar un método para la extracción del esqueleto.
+\item Implementar el método de extracción del esqueleto.\end{itemize}
+\begin{description}
+\item [{Entregable:}] Archivos de datos con información geométrica tridimensional
+del esqueleto extraído.
+\end{description}
+
+\subsection{Objetivo 4. Realizar el seguimiento del esqueleto en cada cuadro
+de video y validar los resultados obtenidos del análisis: }
+
+Estudio de métodos de seguimiento para determinar el cambio de pose
+del esqueleto a través del tiempo.
+
+Calibración de las cámaras. 
+
+Se evaluaran los resultados con otros métodos de extracción y seguimiento
+del esqueleto, utilizando las mismas secuencias de video. 
+
+Actividades: 
+\begin{itemize}
+\item Desarrollar la técnica de seguimiento.
+\item Implementar la técnica de seguimiento.
+\item Seleccionar otros métodos de extracción y seguimiento del esqueleto
+que usen secuencias de video desde varias cámaras.
+\item Obtener los resultados de los otros métodos.
+\item Comparar los resultados entre el método desarrollado y los otros métodos
+evaluados. \end{itemize}
+\begin{description}
+\item [{Entregable:}] Archivo con información del cambio de pose del esqueleto
+extraído en cada secuencia de video. Tabla con datos de resultados
+del método desarrollado, y los otros métodos evaluados.
+\end{description}
+
+\subsection{Objetivo 5. Diseñar un sistema de realidad aumentada que permita
+visualizar el movimiento del cuerpo, junto con el esqueleto estimado: }
+
+Realizar los pasos necesarios para la construcción de un sistema basándose
+en técnicas de ingeniería de software. 
+
+Actividades 
+\begin{itemize}
+\item Realizar un análisis de requerimientos
+\item Hacer un diseño del sistema.
+\item Implementar el diseño.
+\item Documentar el sistema. \end{itemize}
+\begin{description}
+\item [{Entregable:}] Programa de computadora que permita visualizar el
+video junto con el seguimiento del esqueleto. 
+\end{description}
+\bibliographystyle{plain}
+\addcontentsline{toc}{section}{\refname}\bibliography{listado_inicial}
+
+\end{document}
