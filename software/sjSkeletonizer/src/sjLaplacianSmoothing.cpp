@@ -1,144 +1,96 @@
 #include "sjLaplacianSmoothing.h"
 #include <vector>
 #include <cmath>  
+#include <map>
+#include <CGAL/Timer.h>
+#include <fstream>
+#include <iostream>
 
 #include "sjDataType.h"
 #include "sjUtils.h"
+#include <CGAL/IO/Polyhedron_iostream.h>
+#include <CGAL/IO/Polyhedron_scan_OFF.h> 
 using namespace std;
 
-sjLaplacianSmoothing::sjLaplacianSmoothing():const_wh(1.0), const_SL(2.0), iteration(0){
+sjLaplacianSmoothing::sjLaplacianSmoothing():
+WH_0(1.0), 
+WL_0(1.0), 
+SL(0), 
+iteration(0), 
+AVERAGE_FACE(0.0),
+MAX_CONTRACTION_SQUARED( 100000.),
+MAX_ATTRACTION(100000000.),
+MIN_COT_ANGLE(0.00000000000000001)
+{
 }
 
 void sjLaplacianSmoothing::setMeshG(sjPolyhedron meshG){
 	mesh_G = meshG;
 }
-void sjLaplacianSmoothing::setMatrixL(sjMatrixDouble matrixL){
-	matrix_L = matrixL;
-}
-void sjLaplacianSmoothing::setMatrixV(sjMatrixDouble matrixV){
-	matrix_V = matrixV;
-}
-void sjLaplacianSmoothing::setMatrixVprima(sjMatrixDouble matrixVprima){
-	matrix_Vprima = matrixVprima;
-}
-void sjLaplacianSmoothing::setMatrixWl(sjVectorDouble matrixWl){
-	matrix_Wl = matrixWl;
-}
-void sjLaplacianSmoothing::setMatrixWh(sjVectorDouble matrixWh){
-	matrix_Wh = matrixWh;
-}
-void sjLaplacianSmoothing::setRings(vector<vector< sjVertex_handle> > aRings){
-	rings = aRings;
-}
 
 sjPolyhedron sjLaplacianSmoothing::getMeshG(){
 	return mesh_G;
-}
-sjMatrixDouble sjLaplacianSmoothing::getMatrixL(){
-	return matrix_L;
-}
-sjMatrixDouble sjLaplacianSmoothing::getMatrixV(){
-	return matrix_V;
-}
-sjMatrixDouble sjLaplacianSmoothing::getMatrixVprima(){
-	return matrix_Vprima;
-}
-sjVectorDouble sjLaplacianSmoothing::getMatrixWl(){
-	return matrix_Wl;
-}
-sjVectorDouble sjLaplacianSmoothing::getMatrixWh(){
-	return matrix_Wh;
-}
-vector<vector< sjVertex_handle> > sjLaplacianSmoothing::getRings(){
-	return rings;
 }
 
 size_t sjLaplacianSmoothing::getNsize(){
 	return mesh_G.size_of_vertices();
 }
 
-void sjLaplacianSmoothing::initVertexIndex(){
+void sjLaplacianSmoothing::initIndex(){
 	int i = 0;
 	for ( sjVIterator v1 = mesh_G.vertices_begin(); v1 != mesh_G.vertices_end(); ++v1){
 		sjHalfedge_vertex_circulator vcir = v1->vertex_begin();
 		vcir->vertex()->index = i;
-		sjVectorDouble vectemp;
-		vectemp.push_back(vcir->vertex()->point().x());
-		vectemp.push_back(vcir->vertex()->point().y());
-		vectemp.push_back(vcir->vertex()->point().z());
-		matrix_V.push_back(vectemp);
+		vcir->vertex()->initial_ring_area = 0.0;
 		i++;
 	}
 }
 
-sjMatrixDouble sjLaplacianSmoothing::computeL(){
-	sjMatrixDouble L;
-	if (mesh_G.empty()) return L;
-	size_t size = getNsize();
-	L = sjMatrixDouble (size, sjVectorDouble(size,0));
-
+void sjLaplacianSmoothing::computeRings(){
+	rings.clear();
 	for ( sjVIterator v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 		sjHalfedge_vertex_circulator vcir = v->vertex_begin();
-		sjPoint_3 point_i = v->point();
-		vector< sjVertex_handle> vecinos = getRings()[v->index];
+		vector< sjVertex_handle> neighbors;
+		do{
+			sjVertex_handle punto = (vcir->next()->vertex());
+			neighbors.push_back(punto);
+		}while(++vcir != v->vertex_begin ());
+		vcir->vertex()->initial_ring_area = areaRing(v, neighbors);
+		rings.push_back(neighbors);
+	}
+}
+
+map<int, double> sjLaplacianSmoothing::computeLaplacian(sjVIterator vi, vector< sjVertex_handle> neighbors){
+	
+		sjHalfedge_vertex_circulator vcir = vi->vertex_begin();
+		sjPoint_3 point_i = vi->point();
+		vector< sjVertex_handle> vecinos = neighbors;
+
+		map<int, double> Lij;
 
 		double Wij = 0.0;
+		double L = 0.0;
 
 		int j_pos, j_Alpha_pos, j_Beta_pos;
 		for(j_pos = 0; j_pos < (int)(vecinos.size()); j_pos++){
 			
 			j_Alpha_pos = ((j_pos + 1)+vecinos.size()) % vecinos.size();
 			j_Beta_pos = ((j_pos - 1)+vecinos.size()) % vecinos.size();
-			sjPoint_3 point_Alpha = vecinos[j_Alpha_pos]->point();
-			sjPoint_3 point_Beta = vecinos[j_Beta_pos]->point();
-			double Alpha = angle3(point_i, point_Alpha, vecinos[j_pos]->point());
-			double Beta = angle3(point_i, point_Beta, vecinos[j_pos]->point());
+			sjPoint_3 point_Alpha = ((vecinos[j_Alpha_pos]))->point();
+			sjPoint_3 point_Beta = ((vecinos[j_Beta_pos]))->point();
+			double Alpha = angle3(point_i, point_Alpha, ((vecinos[j_pos]))->point());
+			if(Alpha < MIN_COT_ANGLE)				Alpha = MIN_COT_ANGLE;
+			double Beta = angle3(point_i, point_Beta, ((vecinos[j_pos]))->point());
+			if(Beta < MIN_COT_ANGLE)				Beta = MIN_COT_ANGLE;
 			Wij = 1.0/ std::tan(Alpha) + 1.0/std::tan(Beta);
-			L[v->index][vecinos[j_pos]->index] = Wij;
+			Lij[vecinos[j_pos]->index] = Wij;
+			L = L - Wij;
 		}
-		double  sum = 0;
-		for(j_pos = 0; j_pos < (int)(vecinos.size()); j_pos++){
-			sum = sum - L[v->index][vecinos[j_pos]->index];
-		}
-		L[v->index][v->index] = sum;
-	}
-
-	return L;	
+		Lij[vi->index] = L;
+	return Lij;	
 }
 
-void sjLaplacianSmoothing::findRings(){
-	rings.clear();
-	for ( sjVIterator v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
-		sjHalfedge_vertex_circulator vcir = v->vertex_begin();
-		vector< sjVertex_handle> neighbors;
-		do{
-			sjVertex_handle punto = vcir->next()->vertex();
-			neighbors.push_back(punto);
-		}while(++vcir != v->vertex_begin ());
-		rings.push_back(neighbors);
-	}
-}
-
-sjVectorDouble sjLaplacianSmoothing::initRatioMatrixWl(double ratio){
-	int n = (int)getNsize();
-	sjVectorDouble matrixWl;
-	double sqrtaverage = std::sqrt(averageFace());
-	for(int i = 0; i<n; i++){
-		//matrixWl.push_back(ratio * sqrtaverage);
-		matrixWl.push_back(1.00);
-	}
-	return matrixWl;
-}
-sjVectorDouble sjLaplacianSmoothing::initRatioMatrixWh(double ratio){
-	int n = (int)getNsize();
-	sjVectorDouble matrixWh;
-	for(int i = 0; i<n; i++){
-		matrixWh.push_back(ratio);
-	}
-	return matrixWh;
-}
-
-double sjLaplacianSmoothing::averageFace(){
+double sjLaplacianSmoothing::averageFaces(){
 	double average = 0.0, area;
 	int nface = 0;
 
@@ -184,161 +136,196 @@ void sjLaplacianSmoothing::pruebaOpenNL(){
 	}
 }
 
-sjVectorDouble sjLaplacianSmoothing::areaRings(){
-	int i, j, m, pos_1, pos_2, n = (int)(rings.size());
+double sjLaplacianSmoothing::areaRing(sjVIterator vi, vector< sjVertex_handle> neighbors){
+	int i, j, m, pos_1, pos_2;
+	double area = 0.0;
+	m = neighbors.size();
+	for(j=0; j<m; j++){
+		pos_1 = j;
+		pos_2 = (j+1) % m;
+		//sjPoint_3 point_i = sjPoint_3(matrix_V[i][0], matrix_V[i][1], matrix_V[i][2]);
+		sjPoint_3 point_i = vi->point();
+		area = area + area3(point_i,((neighbors[pos_1]))->point(),((neighbors))[pos_2]->point());
+	}
+	return area;
+}
+
+bool sjLaplacianSmoothing::isDegenerateVertex(sjVIterator vi, vector< sjVertex_handle> neighbors){
+	int i, j, m, pos_1, pos_2;
 	double area;
-	sjVectorDouble areas_vector;
-	for(i=0; i<n; i++){
-		vector< sjVertex_handle> neighbors = rings[i];
-		m = neighbors.size();
-		for(j=0; j<m; j++){
-			pos_1 = j;
-			pos_2 = (j+1) % m;
-			sjPoint_3 point_i = sjPoint_3(matrix_V[i][0], matrix_V[i][1], matrix_V[i][2]);
-			area = area3(point_i,neighbors[pos_1]->point(),neighbors[pos_2]->point());
-			areas_vector.push_back(area);
+	m = neighbors.size();
+	for(j=0; j<m; j++){
+		pos_1 = j;
+		pos_2 = (j+1) % m;
+		sjPoint_3 point_i = vi->point();
+		area = area3(point_i,((neighbors[pos_1]))->point(),((neighbors))[pos_2]->point());
+		if(AVERAGE_FACE/MAX_CONTRACTION_SQUARED > area){
+			return true;
 		}
 	}
-	return areas_vector;
-}
 
-sjVectorDouble sjLaplacianSmoothing::updateMatrixWh(sjVectorDouble WH){
-	sjVectorDouble mwh;
-	int i, n = (int)(WH.size());
-	for(i=0; i<n; i++){
-		mwh.push_back( const_wh *  std::sqrt(  area_rings_original[i]/area_rings[i]   )   );
-	}
-	return mwh;
-}
-
-sjVectorDouble sjLaplacianSmoothing::updateMatrixWl(sjVectorDouble WL){
-	sjVectorDouble mwl;
-	int i, n = (int)(WL.size());
-	for(i=0; i<n; i++){
-		mwl.push_back(const_SL * WL[i]);
-	}
-	return mwl;
-}
-
-sjMatrixDouble sjLaplacianSmoothing::multiplyWlxL(sjVectorDouble WL, sjMatrixDouble L){
-	size_t size = getNsize();
-	sjMatrixDouble WlxL = sjMatrixDouble (size, sjVectorDouble(size,0));
-	int i, j, nsize = (int)size;
-	for(i=0; i<nsize; i++){
-		for(j=0; j<nsize; j++){
-			WlxL[i][j] = WL[i]* L[i][j] ;
+	map<int, double> mymap = computeLaplacian(vi, neighbors);
+	map<int, double>::iterator it;
+	for ( it=mymap.begin() ; it != mymap.end(); it++ ){
+		int index = (*it).first ;
+		double value = (*it).second;
+		if(value > MAX_ATTRACTION){
+			return true;
 		}
 	}
-	return WlxL;
+	return false;
 }
 
-sjVectorDouble sjLaplacianSmoothing::multiplyWhxV(sjVectorDouble WH, sjMatrixDouble V, int coord){
-	size_t size = getNsize();
-	sjVectorDouble WhxV = sjVectorDouble(size,0);
-	int i, nsize = (int)size;
-	for(i=0; i<nsize; i++){
-		WhxV[i] = (WH[i])*(V[i][coord]);
-	}
-	return WhxV;
-}
-
-void sjLaplacianSmoothing::initLaplacianSystem(){
-	cout<<"initLaplacianSystem 0."<<endl;
-	initVertexIndex();
-	cout<<"initLaplacianSystem 1."<<endl;
-	findRings();
-	cout<<"initLaplacianSystem 2."<<endl;
-	area_rings_original = areaRings();
-	cout<<"initLaplacianSystem 3."<<endl;
-	matrix_Wl = initRatioMatrixWl(0.001);
-	cout<<"initLaplacianSystem 4."<<endl;
-	matrix_Wh = initRatioMatrixWh(1.0);
-	cout<<"initLaplacianSystem 5."<<endl;
-	matrix_L = computeL();
-	cout<<"initLaplacianSystem 6."<<endl;
-}
-
-void sjLaplacianSmoothing::iterateLaplacianSystem(){
-	cout<<"Paso 0."<<endl;
-	if(iteration == 0){
-		initLaplacianSystem();
-	}
-	cout<<"Paso 1."<<endl;
-
-	sjMatrixDouble WlxL = multiplyWlxL(matrix_Wl, matrix_L);
-	matrix_Vprima.clear();
-	matrix_Vprima = sjMatrixDouble(getNsize(), sjVectorDouble(3, 0.0));
-
-	cout<<"Matrix WlxL\n";
-	printMatrix(WlxL);
+void sjLaplacianSmoothing::initLaplacianSmoothing(double a_WH0, double a_WL0, double a_SL){
 	
+	initIndex();
+	computeRings();
+	AVERAGE_FACE = averageFaces();
+	WH_0 = a_WH0;
+	//WL_0 = a_WL0 * std::sqrt(AVERAGE_FACE);
+	WL_0 = 1.0;
+	SL = a_SL;
+	
+}
 
-
+void sjLaplacianSmoothing::iterateLaplacianSmoothing(){
+	cout<<"Iteration "<<iteration<<endl;
+	CGAL::Timer timer;
+    timer.start();
+	int i;
+	sjVIterator v;
+	int n = getNsize();
 	int coord;
+	vector<vector<double>> matrixV = vector<vector<double>>(n,vector<double>(3,0.0));
+	cout<<"Configuration "<<endl;
+	double WLi = std::pow(SL,((double)iteration)) * WL_0;
+	//double WLi = 1.0;
+	bool found_solution = true;
+
 	for(coord = 0; coord<3; coord++){
+		sjLeastSquaresSolver solverx(n);
+		//sjLeastSquaresSolver solvery(n);
+		//sjLeastSquaresSolver solverz(n);
+		solverx.set_least_squares(true) ;
+		//solvery.set_least_squares(true) ;
+		//solverz.set_least_squares(true) ;
+		i = 0;
+		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+			sjPoint_3 point_k = v->point();
+			double r = point_k[coord];
+			solverx.variable(i).set_value(r);		
+			if(isDegenerateVertex(v, rings[i])){
+				solverx.variable(i).lock();
+			}
+			
+			i++;
+		}
+		solverx.begin_system();
+		//solvery.begin_system();
+		//solverz.begin_system();
+		i = 0;
+		//cout<<"Laplacian\n";
+		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 
-		sjVectorDouble WhxV = multiplyWhxV(matrix_Wh, matrix_V, coord);
-		cout<<"Matrix WhxV\n";
-		printVector(WhxV);
+
+			if(!isDegenerateVertex(v, rings[i])){
+
+			sjHalfedge_vertex_circulator vcir = v->vertex_begin();
+			map<int, double> mymap = computeLaplacian(v, rings[i]);
+			map<int, double>::iterator it;
+			solverx.begin_row();
+			//solvery.begin_row();
+			//solverz.begin_row();
+			for ( it=mymap.begin() ; it != mymap.end(); it++ ){
+				int index = (*it).first ;
+				double value = (*it).second;
+				solverx.add_coefficient(index, WLi * value);
+				//solvery.add_coefficient(index, WLi * value);
+				//solverz.add_coefficient(index, WLi * value);
+				//cout<<WLi * value<<"\t\t";
+
+			}
+			//cout<<"\n";
+			solverx.set_right_hand_side(0.0);
+			//solvery.set_right_hand_side(0.0);
+			//solverz.set_right_hand_side(0.0);
+			solverx.end_row();
+			//solvery.end_row();
+			//solverz.end_row();
 
 
+			}
+
+
+			i++;
+		}
+		i = 0;
+		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+			if(!isDegenerateVertex(v, rings[i])){
+			sjHalfedge_vertex_circulator vcir = v->vertex_begin();
+			sjPoint_3 point_i = v->point();
+			double Whi;
+			if(iteration ==0){
+				Whi = WH_0;
+			}else{
+				Whi = WH_0*std::sqrt(v->initial_ring_area/areaRing(v, rings[i]));
+			}
+			solverx.begin_row();
+			//solvery.begin_row();
+			//solverz.begin_row();
+			solverx.add_coefficient(i, Whi);
+			//solvery.add_coefficient(i, Whi);
+			//solverz.add_coefficient(i, Whi);
+			solverx.set_right_hand_side(Whi*point_i[coord]);
+			//solvery.set_right_hand_side(Whi*point_i[1]);
+			//solverz.set_right_hand_side(Whi*point_i[2]);
+			solverx.end_row();
+			//solvery.end_row();
+			//solverz.end_row();
+
+
+			}
+
+			i++;
+		}
+		solverx.end_system();
+		//solvery.end_system();
+		//solverz.end_system();
+		cout<<"Init solve system "<<endl;
+		if ( solverx.solve() ){
+			//solvery.solve();
+			//solverz.solve();
+			cout<<"End solve system "<<endl;
+			for(i=0; i<n; i++){
+				matrixV[i][coord] = solverx.variable(i).value();
+				//matrixV[i][1] = solvery.variable(i).value();
+				//matrixV[i][2] = solverz.variable(i).value();
+			}
+		}else{
+			cout<<"No solution found"<<endl;
+			found_solution = false;
+		}
+	}
+	if(found_solution){
+		i = 0;
+		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+			
+			sjPoint_3 pointn = sjPoint_3(matrixV[i][0], matrixV[i][1], matrixV[i][2]);
+			//cout<<"before: "<<v->point()<<",  after: "<< pointn <<endl;
+			v->point() = pointn;
+			i++;
+		}
 		
 
-		int i, j;
-		int n = (int)getNsize();
+		char filename[256];
+		sprintf(filename, "Salidaoff_%d.off", iteration);
 
+		fstream file_off(filename, ios::out);
 
-		cout<<"Paso 2."<<endl;
-		sjLeastSquaresSolver solver(n);
-		cout<<"Paso 3."<<endl;
-		solver.set_least_squares(true) ;
-		cout<<"Paso 4."<<endl;
-		solver.begin_system() ;
-		cout<<"Paso 5."<<endl;
-
-		for(i=0; i<n; i++){	
-			solver.begin_row();
-			for(j=0; j<n; j++){	
-				solver.add_coefficient(j, WlxL[i][j]);
-			}
-			solver.set_right_hand_side(0.0);
-			solver.end_row();
-		}
-		cout<<"Paso 6."<<endl;
-		for(i=0; i<n; i++){	
-			solver.begin_row();
-			solver.add_coefficient(i, matrix_Wh[i]);
-			solver.set_right_hand_side(WhxV[i]);
-			solver.end_row();
-		}
-
-		cout<<"Paso 6.2."<<endl;
-
-		solver.end_system() ;
-		cout<<"Paso 7."<<endl;
-		if ( solver.solve() ){
-			cout<<"Resolvio el sistema\n";
-			for(i = 0; i< n; i++){
-				cout<<i<<" = "<<solver.variable(i).value()<<"\t";
-				matrix_Vprima[i][coord] = solver.variable(i).value();
-			}
-		}
+		file_off<<mesh_G;
+		file_off.close();
 	}
-
-	cout<<"Original\n";
-	printMatrix(matrix_V);
-	cout<<"\nSolucion\n";
-	printMatrix(matrix_Vprima);
-	int iii = 0;
-	sjPoint_3 promedio(0,0,0);
-	for ( sjVIterator v1 = mesh_G.vertices_begin(); v1 != mesh_G.vertices_end(); ++v1){
-		sjHalfedge_vertex_circulator vcir = v1->vertex_begin();
-		promedio = sjPoint_3(matrix_Vprima[iii][0],
-								matrix_Vprima[iii][1],
-								matrix_Vprima[iii][2]);	
-		vcir->vertex()->point() = promedio;
-		iii++;
-	}
-
+	cout<< timer.time() << " seconds." << std::endl;
 	iteration++;
+
 }
