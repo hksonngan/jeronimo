@@ -40,6 +40,7 @@
 #include <fstream>
 #include <stdexcept>
 #include <cmath>  
+#include <map>
 
 #include "sjDataType.h"
 using namespace std;
@@ -48,52 +49,31 @@ class sjLaplacianSmoothing{
 public:
 	sjLaplacianSmoothing();
 	void setMeshG(sjPolyhedron meshG);
-	void setMatrixL(sjMatrixDouble matrixL);
-	void setMatrixV(sjMatrixDouble matrixV);
-	void setMatrixVprima(sjMatrixDouble matrixVprima);
-	void setMatrixWl(sjVectorDouble matrixWl);
-	void setMatrixWh(sjVectorDouble matrixWh);
-	void setRings(vector<vector< sjVertex_handle> > aRings);
-
 	sjPolyhedron getMeshG();
-	sjMatrixDouble getMatrixL();
-	sjMatrixDouble getMatrixV();
-	sjMatrixDouble getMatrixVprima();
-	sjVectorDouble getMatrixWl();
-	sjVectorDouble getMatrixWh();
-	vector<vector< sjVertex_handle> > getRings();
 	size_t getNsize();
 
-	sjMatrixDouble computeL();
-	void initVertexIndex();
-	sjVectorDouble initRatioMatrixWl(double ratio = 0.001);
-	sjVectorDouble initRatioMatrixWh(double ratio = 1.0);
-	
-	sjVectorDouble updateMatrixWh(sjVectorDouble WH);
-	sjVectorDouble updateMatrixWl(sjVectorDouble WL);
-	sjMatrixDouble multiplyWlxL(sjVectorDouble WL, sjMatrixDouble L);
-	sjVectorDouble multiplyWhxV(sjVectorDouble WH, sjMatrixDouble V, int coord);
+	void initIndex();
+	void computeRings();
 
-	void findRings();
-	double averageFace();
-	sjVectorDouble areaRings();
+	map<int, double> computeLaplacian(sjVIterator vi, vector< sjVertex_handle> neighbors);
+	double averageFaces();
+	double areaRing(sjVIterator vi, vector< sjVertex_handle> neighbors);
+	bool isDegenerateVertex(sjVIterator vi, vector< sjVertex_handle> neighbors);
 
 	void pruebaOpenNL();
-	void initLaplacianSystem();
-	void iterateLaplacianSystem();
+	void initLaplacianSmoothing(double a_WH0 = 1.0, double a_WL0 = 0.01, double a_SL = 2.0);
+	void iterateLaplacianSmoothing();
 	
 private:
 	sjPolyhedron mesh_G;
-	sjMatrixDouble matrix_L;
-	sjMatrixDouble matrix_V;
-	sjMatrixDouble matrix_Vprima;
-	sjVectorDouble matrix_Wl;
-	sjVectorDouble matrix_Wh;
-	vector<vector< sjVertex_handle> > rings;
-	sjVectorDouble area_rings;
-	sjVectorDouble area_rings_original;
-	double const_wh ;
-	double const_SL ;
+	vector< vector<sjVertex_handle> > rings;
+	double WH_0 ;
+	double WL_0 ;
+	double SL ;
+	double AVERAGE_FACE;
+	double MAX_CONTRACTION_SQUARED;	// Maximum contraction weight^2 before using hard constraint (default 100000)
+	double MAX_ATTRACTION;		// Maximum attraction weight before using hard constraint    (default 1000)
+	double MIN_COT_ANGLE;	// Minimum angle for cotan weights before clamping           (default 0.0000001)
 	int iteration;
 };
 

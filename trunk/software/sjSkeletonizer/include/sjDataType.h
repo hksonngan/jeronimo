@@ -51,12 +51,14 @@ public:
 	sjVertexType() {}
 	sjVertexType(const P& pt): CGAL::HalfedgeDS_vertex_base<Refs, T, P>(pt){}
 	int index;
+	double initial_ring_area;
 };
 
-template <class Refs>
+/*template <class Refs>
 struct sjFaceType : public CGAL::HalfedgeDS_face_base<Refs> {
     int index;
-};
+	double area;
+};*/
 
 struct sj_ItemsType : public CGAL::Polyhedron_items_3 {
 	template <class Refs, class Traits>
@@ -65,10 +67,10 @@ struct sj_ItemsType : public CGAL::Polyhedron_items_3 {
 		typedef sjVertexType<Refs, CGAL::Tag_true, Point> Vertex;
     };
 
-	template <class Refs, class Traits>
+	/*template <class Refs, class Traits>
     struct Face_wrapper {
         typedef sjFaceType<Refs> Face;
-    };
+    };*/
 };
 
 typedef CGAL::Simple_cartesian<double>					sjKernel;
