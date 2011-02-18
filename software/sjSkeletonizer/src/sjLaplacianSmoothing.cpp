@@ -10,7 +10,17 @@
 #include "sjUtils.h"
 #include <CGAL/IO/Polyhedron_iostream.h>
 #include <CGAL/IO/Polyhedron_scan_OFF.h> 
+
+#include <OGF/basic/types/counted.h>
+#include <OGF/math/attributes/attribute_adapter.h>
+
+#include <OGF/math/linear_algebra/vector.h>
+#include <OGF/math/linear_algebra/matrix.h>
+#include <OGF/math/geometry/types.h>
+#include <OGF/math/numeric/linear_solver.h>
+
 using namespace std;
+using namespace OGF;
 
 sjLaplacianSmoothing::sjLaplacianSmoothing():
 WH_0(1.0), 
@@ -305,6 +315,144 @@ void sjLaplacianSmoothing::iterateLaplacianSmoothing(){
 			cout<<"No solution found"<<endl;
 			found_solution = false;
 		}
+	}
+	if(found_solution){
+		i = 0;
+		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+			
+			sjPoint_3 pointn = sjPoint_3(matrixV[i][0], matrixV[i][1], matrixV[i][2]);
+			//cout<<"before: "<<v->point()<<",  after: "<< pointn <<endl;
+			v->point() = pointn;
+			i++;
+		}
+		
+
+		char filename[256];
+		sprintf(filename, "Salidaoff_%d.off", iteration);
+
+		fstream file_off(filename, ios::out);
+
+		file_off<<mesh_G;
+		file_off.close();
+	}
+	cout<< timer.time() << " seconds." << std::endl;
+	iteration++;
+
+}
+
+void sjLaplacianSmoothing::iterateLaplacianSmoothingOGF(){
+	cout<<"LINE 0"<<endl;
+	int n = getNsize();
+	LinearSolver *solver;
+	//delete solver;
+	SystemSolverParameters params ;
+	std::string  * mipo = new std::string("SUPERLU");
+	params.set_arg_value("method", *mipo) ; 
+	
+	solver = new LinearSolver(n) ;
+	cout<<"LINE 1"<<endl;
+	solver->set_system_solver(params) ;
+	cout<<"LINE 2"<<endl;
+	solver->set_least_squares(true) ;
+	solver->set_invert_matrix(true) ;
+	cout<<"LINE 3"<<endl;
+
+
+	cout<<"Iteration "<<iteration<<endl;
+	CGAL::Timer timer;
+    timer.start();
+	int i;
+	sjVIterator v;
+	int coord;
+	vector<vector<double>> matrixV = vector<vector<double>>(n,vector<double>(3,0.0));
+	cout<<"Configuration "<<endl;
+	double WLi = std::pow(SL,((double)iteration)) * WL_0;
+	//double WLi = 1.0;
+	bool found_solution = true;
+
+	for(coord = 0; coord<3; coord++){
+
+		i = 0;
+		cout<<"LINE 4"<<endl;
+		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+			if(isDegenerateVertex(v, rings[i])){
+				solver->variable(i).lock();
+			}
+			sjPoint_3 point_k = v->point();
+			double r = point_k[coord];
+			solver->variable(i).set_value(r);		
+			
+			
+			i++;
+		}
+		cout<<"LINE 5"<<endl;
+		solver->begin_system();
+		cout<<"LINE 6"<<endl;
+		i = 0;
+		cout<<"Laplacian\n";
+		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+
+			if(!isDegenerateVertex(v, rings[i])){
+				sjHalfedge_vertex_circulator vcir = v->vertex_begin();
+				map<int, double> mymap = computeLaplacian(v, rings[i]);
+				map<int, double>::iterator it;
+				solver->begin_row();
+				for ( it=mymap.begin() ; it != mymap.end(); it++ ){
+					int index = (*it).first ;
+					double value = (*it).second;
+					solver->add_coefficient(index, WLi * value);
+					//cout<<WLi * value<<"\t\t";
+
+				}
+				//cout<<"\n";
+				solver->set_right_hand_side(0.0);
+				solver->end_row();
+
+			}
+
+
+			i++;
+		}
+		cout<<"LINE 7"<<endl;
+		i = 0;
+		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+			if(!isDegenerateVertex(v, rings[i])){
+			sjHalfedge_vertex_circulator vcir = v->vertex_begin();
+			sjPoint_3 point_i = v->point();
+			double Whi;
+			if(iteration ==0){
+				Whi = WH_0;
+			}else{
+				Whi = WH_0*std::sqrt(v->initial_ring_area/areaRing(v, rings[i]));
+			}
+			solver->begin_row();
+			solver->add_coefficient(i, Whi);
+			solver->set_right_hand_side(Whi*point_i[coord]);
+			solver->end_row();
+
+
+			}
+
+			i++;
+		}
+		cout<<"LINE 8"<<endl;
+		solver->end_system();
+		cout<<"LINE 9"<<endl;
+		
+		cout<<"Init solve system "<<endl;
+		if ( solver->solve() ){
+			
+			cout<<"End solve system "<<endl;
+			for(i=0; i<n; i++){
+				matrixV[i][coord] = solver->variable(i).value();
+			}
+		}else{
+			cout<<"No solution found"<<endl;
+			found_solution = false;
+		}
+
+		solver->restart();
+
 	}
 	if(found_solution){
 		i = 0;

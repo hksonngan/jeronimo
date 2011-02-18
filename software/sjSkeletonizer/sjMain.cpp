@@ -30,8 +30,9 @@ int main(int argc, char **argv)
   cout<<"\n\initLaplacianSystem: ";
   //for(int yiu = 0;yiu<10; yiu++)
   lpsmoo.initLaplacianSmoothing();
-  for(int yiu = 0;yiu<5; yiu++)
-  lpsmoo.iterateLaplacianSmoothing();
+  cout<<"\n\FinishLaplacianSystem: ";
+  for(int yiu = 0;yiu<10; yiu++)
+  lpsmoo.iterateLaplacianSmoothingOGF();
 
   sjPolyhedron P;
   ifstream myfile ("tetra.off");
