@@ -29,6 +29,4 @@ ENDIF(WIN32)
 
 ADD_DEPENDENCIES(math basic numeric_stuff)
 TARGET_LINK_LIBRARIES(math basic numeric_stuff)
-
-
-
+INSTALL_TARGETS(/bin math)
