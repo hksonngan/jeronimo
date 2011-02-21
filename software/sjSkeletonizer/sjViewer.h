@@ -14,6 +14,10 @@
 #include <CGAL/Vector_3.h>
 #include <CGAL/Polyhedron_3.h>
 #include "sjLaplacianSmoothing.h"
+#include <QtGui>
+#include <QMainWindow>
+#include <QMenu>
+#include <QAction>
 
 class QWidget;
 
@@ -51,6 +55,12 @@ public slots:
   void setTwoSides(bool b);
   void LaplacianSmoothing();
 
+protected:
+     //void contextMenuEvent(QContextMenuEvent *event);
+
+private slots:
+     void open();
+
 private:
   void drawModel();
   void draw_aux(bool with_names);
@@ -61,6 +71,13 @@ private:
  
   sjPoint_3 normalize(sjPoint_3 p);
   sjPoint_3 normalVector(sjPoint_3 a, sjPoint_3 b, sjPoint_3 c);
+
+  QMenu *fileMenu;
+  QAction *openAct;
+  void createActions();
+  void createMenus();
+
+
 };
 
 
