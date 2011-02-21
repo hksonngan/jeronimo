@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QPushButton>
 #include <QHBoxLayout>
+ #include <QDockWidget>
 #include "sjViewer.h"
 #include "sjDataIO.h"
 #include "sjLaplacianSmoothing.h"
@@ -15,7 +16,9 @@ int main(int argc, char **argv)
 	//Q_INIT_RESOURCE(sjSkeletonizer);
 
   QApplication app(argc, argv);
-  QWidget * window = new QWidget;
+  //QWidget * window = new QWidget;
+  QMainWindow * window  = new QMainWindow;
+
   window->setWindowTitle("San Jeronimo Viewer");
   QPushButton *button = new QPushButton("Laplacian Smoothing.");
   sjSkeletonizer * myviewer = new sjSkeletonizer(window, false);
@@ -49,9 +52,19 @@ int main(int argc, char **argv)
 
   QHBoxLayout *mainLayout = new QHBoxLayout;
   mainLayout->addWidget(button);
-  mainLayout->addWidget(myviewer);
+  //mainLayout->addWidget(myviewer);
 
-   window->setLayout(mainLayout);
+  QDockWidget * docbot = new QDockWidget("Boton", window);
+
+  QWidget * windowbut = new QWidget;
+
+  docbot->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+  windowbut->setLayout(mainLayout);
+  docbot->setWidget(windowbut);
+  
+   //window->setLayout(mainLayout);
+   window->setCentralWidget(myviewer);
+  	window->addDockWidget( Qt::LeftDockWidgetArea, docbot);
 
    myviewer->draw();
    window->show();

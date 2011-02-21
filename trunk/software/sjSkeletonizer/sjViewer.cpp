@@ -12,6 +12,9 @@ sjSkeletonizer::sjSkeletonizer(QWidget* parent, bool antialiasing)
     antialiasing(antialiasing),
     twosides(false)
 {
+	     createActions();
+     createMenus();
+
   setBackgroundColor(::Qt::white);
   
 }
@@ -218,3 +221,21 @@ void sjSkeletonizer::LaplacianSmoothing(){
 	cout<<"Vertices: "<<i;
 	
 }
+
+void sjSkeletonizer::createActions(){
+     /*openAct = new QAction(tr("&Open..."), this);
+     openAct->setShortcut(tr("Ctrl+O"));
+     openAct->setStatusTip(tr("Open an existing file"));
+     connect(openAct, SIGNAL(triggered()), this, SLOT(open()));*/
+}
+
+void sjSkeletonizer::createMenus(){
+	/*
+	fileMenu = menuBar()->addMenu(tr("&File"));
+    fileMenu->addAction(openAct);*/
+
+}
+
+ void sjSkeletonizer::open(){
+     cout<<"Open....\n";
+ }
