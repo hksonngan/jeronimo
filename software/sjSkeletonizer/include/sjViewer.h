@@ -76,6 +76,7 @@ private:
   QAction *openAct;
   void createActions();
   void createMenus();
+  sjLaplacianSmoothing * laplacian_system;
 
 
 };

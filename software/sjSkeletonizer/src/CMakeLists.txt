@@ -12,6 +12,10 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 	SET(FOO_MOC_FILE "${CMAKE_CURRENT_BINARY_DIR}/sjViewer_moc.cpp")
 	add_file_dependencies( ${FOO_MOC_FILE} "${CMAKE_SOURCE_DIR}/include/sjViewer.h" )
 	
+	qt4_generate_moc( "${CMAKE_SOURCE_DIR}/include/sjApplication.h" ${CMAKE_CURRENT_BINARY_DIR}/sjApplication_moc.cpp )
+	SET(FOO_MOC_FILE2 "${CMAKE_CURRENT_BINARY_DIR}/sjApplication_moc.cpp")
+	add_file_dependencies( ${FOO_MOC_FILE2} "${CMAKE_SOURCE_DIR}/include/sjApplication.h" )
+	
 	#SET(QtApp_RCC_SRCS sjViewer.qrc)
 
 	#QT4_ADD_RESOURCES(QtApp_RCC_SRCS ${QtApp_RCC_SRCS})
@@ -19,12 +23,15 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 	
 	SET(sjSkeletonizer_SOURCE
 		${FOO_MOC_FILE}
+		${FOO_MOC_FILE2}
+		${CMAKE_SOURCE_DIR}/include/sjApplication.h
 		${CMAKE_SOURCE_DIR}/include/sjConfig.h
 		${CMAKE_SOURCE_DIR}/include/sjDataIO.h
 		${CMAKE_SOURCE_DIR}/include/sjDataType.h
 		${CMAKE_SOURCE_DIR}/include/sjLaplacianSmoothing.h
 		${CMAKE_SOURCE_DIR}/include/sjUtils.h
 		${CMAKE_SOURCE_DIR}/include/sjViewer.h
+		sjApplication.cpp
 		sjDataIO.cpp
 		sjLaplacianSmoothing.cpp
 		sjMain.cpp

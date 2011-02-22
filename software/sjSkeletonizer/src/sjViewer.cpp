@@ -10,7 +10,8 @@ using namespace qglviewer;
 sjSkeletonizer::sjSkeletonizer(QWidget* parent, bool antialiasing)
   : QGLViewer(parent),
     antialiasing(antialiasing),
-    twosides(false)
+    twosides(false),
+	laplacian_system(0)
 {
 	     createActions();
      createMenus();
@@ -199,27 +200,14 @@ QString sjSkeletonizer::helpString() const
 }
 
 void sjSkeletonizer::LaplacianSmoothing(){
-	int k,  i = 0;
-	cout<<"\n\n\n";
-	for ( sjVIterator v1 = polyhedron.vertices_begin(); v1 != polyhedron.vertices_end(); ++v1){
-		sjHalfedge_vertex_circulator vcir = v1->vertex_begin();
-		vcir->vertex()->index = i;
-		i++;
+	if(laplacian_system == NULL){
+		laplacian_system = new sjLaplacianSmoothing();
+		laplacian_system->setMeshG(polyhedron);
+		laplacian_system->initLaplacianSmoothing();
 	}
-	size_t size = (size_t )i;
-	vector< vector<double> > lmatrix(size, vector<double>(size,0));   
-
-	for ( sjVIterator v = polyhedron.vertices_begin(); v != polyhedron.vertices_end(); ++v){
-		sjHalfedge_vertex_circulator vcir = v->vertex_begin();
-		//cout<<"Punto: "<<vcir->vertex()->index<<" = "<<vcir->vertex()->point()<<"\n";
-		//cout<<"  Vecinos: \n";
-		do{
-			sjPoint_3 punto = vcir->next()->vertex()->point();
-			//cout<<"  Vecino: "<<vcir->next()->vertex()->index<<" = " <<vcir->next()->vertex()->point()<<"\n";
-		}while(++vcir != v->vertex_begin ());
-	}
-	cout<<"Vertices: "<<i;
-	
+	laplacian_system->iterateLaplacianSmoothingOGF();
+	this->setVerticesFaces(laplacian_system->getMeshG());
+	this->update();
 }
 
 void sjSkeletonizer::createActions(){
