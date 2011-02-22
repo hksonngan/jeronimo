@@ -465,13 +465,13 @@ void sjLaplacianSmoothing::iterateLaplacianSmoothingOGF(){
 		}
 		
 
-		char filename[256];
+		/*char filename[256];
 		sprintf(filename, "Salidaoff_%d.off", iteration);
 
 		fstream file_off(filename, ios::out);
 
 		file_off<<mesh_G;
-		file_off.close();
+		file_off.close();*/
 	}
 	cout<< timer.time() << " seconds." << std::endl;
 	iteration++;

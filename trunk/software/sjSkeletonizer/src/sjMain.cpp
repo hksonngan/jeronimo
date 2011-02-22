@@ -7,6 +7,7 @@
 #include "sjViewer.h"
 #include "sjDataIO.h"
 #include "sjLaplacianSmoothing.h"
+#include "sjApplication.h"
 
 using namespace std;
 //using namespace qglviewer;
@@ -16,8 +17,12 @@ int main(int argc, char **argv)
 	//Q_INIT_RESOURCE(sjSkeletonizer);
 
   QApplication app(argc, argv);
+	sjApplication * sjapp = new sjApplication();
+	sjapp->resize(800,600);
+	//sjapp->setCaption("San Jeronimo Skeletonizer");
+	sjapp->show();
   //QWidget * window = new QWidget;
-  QMainWindow * window  = new QMainWindow;
+  /*QMainWindow * window  = new QMainWindow;
 
   window->setWindowTitle("San Jeronimo Viewer");
   QPushButton *button = new QPushButton("Laplacian Smoothing.");
@@ -67,7 +72,7 @@ int main(int argc, char **argv)
   	window->addDockWidget( Qt::LeftDockWidgetArea, docbot);
 
    myviewer->draw();
-   window->show();
+   window->show();*/
 
 
   /*app.setOrganizationDomain("San Jeronimo");
