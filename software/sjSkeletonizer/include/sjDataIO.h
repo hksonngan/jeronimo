@@ -25,7 +25,6 @@
  */
 
 /** 
- * @file sjDataIO.h
  * @brief sjSkeletonizer San Jeronimo Viewer Application.
  * @author Alexander Pinzon Fernandez.
  * @date 21/01/2011 10:07 a.m.
@@ -53,9 +52,6 @@ public:
 	void setFileName(string a_file_name);
 	string getFileName();
 	void load() throw(exception);
-	void config();
-	double angle3(sjPoint_3 p1, sjPoint_3 p2, sjPoint_3 p3);
-	vector<vector<double>> computeLaplacian();
 	sjPolyhedron getPolyhedronModel();
 private:
 	string file_name;
