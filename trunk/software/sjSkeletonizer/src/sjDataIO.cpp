@@ -1,3 +1,35 @@
+/**
+ * ***** BEGIN GPL LICENSE BLOCK *****
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * The Original Code is Copyright (C) 2007-2010 by Alexander Pinzon Fernandez.
+ * Bogota - Colombia
+ * All rights reserved.
+ *
+ * Author(s): Alexander Pinzón Fernández.
+ *
+ * ***** END GPL LICENSE BLOCK *****
+ */
+
+/** 
+ * @brief sjSkeletonizer San Jeronimo Viewer Application.
+ * @author Alexander Pinzon Fernandez.
+ * @date 21/02/2011 5:27 p.m.
+ */
+
 #include "sjDataIO.h"
 #include "sjDataType.h"
 
@@ -21,70 +53,6 @@ void sjDataIO::load() throw(exception){
 
 	file_off>>polyhedron_model;
 	file_off.close();
-}
-
-void sjDataIO::config(){
-	int i = 0;
-	//cout<<"Vertices: \n";
-	for ( sjVIterator v1 = polyhedron_model.vertices_begin(); v1 != polyhedron_model.vertices_end(); ++v1){
-		sjHalfedge_vertex_circulator vcir = v1->vertex_begin();
-		vcir->vertex()->index = i;
-		//cout<<"["<<i<<"] = "<<vcir->vertex()->point()<<"\n";
-		i++;
-	}
-	cout<<"\n";
-}
-
-double sjDataIO::angle3(sjPoint_3 p1, sjPoint_3 p2, sjPoint_3 p3){
-	sjVector_3 v1 = p1-p2;
-	v1 = v1 / sqrt( v1 * v1);
-	sjVector_3 v2 = p3-p2;
-	v2 = v2 / sqrt( v2 * v2);
-	//double anglex = std::acos( v1 * v2 ) / CGAL_PI * 180; 
-	double anglex = std::acos( v1 * v2 ) ; 
-	return anglex;
-}
-
-vector<vector<double>> sjDataIO::computeLaplacian(){
-	vector<vector<double>> L;
-	if (polyhedron_model.empty()) return L;
-	size_t size = polyhedron_model.size_of_vertices();
-	L = vector<vector<double>> (size, vector<double>(size,0));
-
-	for ( sjVIterator v = polyhedron_model.vertices_begin(); v != polyhedron_model.vertices_end(); ++v){
-		sjHalfedge_vertex_circulator vcir = v->vertex_begin();
-		sjPoint_3 point_i = v->point();
-		vector< sjVertex_handle> vecinos;
-		do{
-			sjVertex_handle punto = vcir->next()->vertex();
-			vecinos.push_back(punto);
-		}while(++vcir != v->vertex_begin ());
-
-		double Wij = 0.0;
-
-		int j_pos, j_Alpha_pos, j_Beta_pos;
-		//cout<<"Angulos\n";
-		for(j_pos = 0; j_pos < (int)(vecinos.size()); j_pos++){
-			
-			j_Alpha_pos = ((j_pos + 1)+vecinos.size()) % vecinos.size();
-			j_Beta_pos = ((j_pos - 1)+vecinos.size()) % vecinos.size();
-			sjPoint_3 point_Alpha = vecinos[j_Alpha_pos]->point();
-			sjPoint_3 point_Beta = vecinos[j_Beta_pos]->point();
-			double Alpha = angle3(point_i, point_Alpha, vecinos[j_pos]->point());
-			double Beta = angle3(point_i, point_Beta, vecinos[j_pos]->point());
-			Wij = 1.0/ std::tan(Alpha) + 1.0/std::tan(Beta);
-			//cout<<"i["<<v->index<<"], j["<<vecinos[j_pos]->index<<"] : ";
-			//cout<<"Alpha = "<<Alpha<<", Beta"<<Beta<<"\n";
-			L[v->index][vecinos[j_pos]->index] = Wij;
-		}
-		double  sum = 0;
-		for(j_pos = 0; j_pos < (int)(vecinos.size()); j_pos++){
-			sum = sum - L[v->index][vecinos[j_pos]->index];
-		}
-		L[v->index][v->index] = sum;
-	}
-
-	return L;
 }
 
 sjPolyhedron sjDataIO::getPolyhedronModel(){

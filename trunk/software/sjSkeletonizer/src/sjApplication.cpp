@@ -23,6 +23,7 @@
  *
  * ***** END GPL LICENSE BLOCK *****
  */
+
 /**
  * @brief sjSkeletonizer San Jeronimo Viewer Application.
  * @author Alexander Pinzon Fernandez.
@@ -100,7 +101,7 @@ sjApplication::~sjApplication()
 	 sjDataIO dataio;
 	 dataio.setFileName(fileName.toLatin1().constData());
 	 dataio.load();
-	 sjSkeletonizer * myviewer = new sjSkeletonizer(central_QTabWidget, false);
+	 sjViewer * myviewer = new sjViewer(central_QTabWidget, false);
 	 myviewer->setVerticesFaces(dataio.getPolyhedronModel());
 	 
 	 central_QTabWidget->addTab(myviewer, fileName.right(fileName.size()-1-fileName.lastIndexOf("/")));
@@ -120,7 +121,7 @@ sjApplication::~sjApplication()
 void sjApplication::iterateLaplacian()
 {
 	std::cout<<"Invoked <b>Iterate Laplacian</b>";
-	sjSkeletonizer * current = (sjSkeletonizer *)( central_QTabWidget->currentWidget());
+	sjViewer * current = (sjViewer *)( central_QTabWidget->currentWidget());
 	if( current != NULL){
 		current->LaplacianSmoothing();
 	}

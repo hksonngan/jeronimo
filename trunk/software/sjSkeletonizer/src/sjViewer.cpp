@@ -1,3 +1,35 @@
+/**
+ * ***** BEGIN GPL LICENSE BLOCK *****
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * The Original Code is Copyright (C) 2007-2010 by Alexander Pinzon Fernandez.
+ * Bogota - Colombia
+ * All rights reserved.
+ *
+ * Author(s): Alexander Pinzón Fernández.
+ *
+ * ***** END GPL LICENSE BLOCK *****
+ */
+
+/** 
+ * @brief sjSkeletonizer San Jeronimo Viewer Application.
+ * @author Alexander Pinzon Fernandez.
+ * @date 21/02/2011 5:27 p.m.
+ */
+
 #include "sjViewer.h"
 #include "sjDataIO.h"
 //#include <CGAL/IO/Polyhedron_iostream.h>
@@ -7,7 +39,7 @@
 using namespace std;
 using namespace qglviewer;
 
-sjSkeletonizer::sjSkeletonizer(QWidget* parent, bool antialiasing)
+sjViewer::sjViewer(QWidget* parent, bool antialiasing)
   : QGLViewer(parent),
     antialiasing(antialiasing),
     twosides(false),
@@ -15,36 +47,34 @@ sjSkeletonizer::sjSkeletonizer(QWidget* parent, bool antialiasing)
 {
 	     createActions();
      createMenus();
-
-  setBackgroundColor(::Qt::white);
   
 }
 
-void sjSkeletonizer::setScene()
+void sjViewer::setScene()
 {
 }
 
-void sjSkeletonizer::setAntiAliasing(bool b)
+void sjViewer::setAntiAliasing(bool b)
 {
   antialiasing = b;
   updateGL();
 }
 
-void sjSkeletonizer::setTwoSides(bool b)
+void sjViewer::setTwoSides(bool b)
 {
   twosides = b;
   updateGL();
 }
 
-void sjSkeletonizer::draw(){
+void sjViewer::draw(){
   draw_aux(false);
 }
 
-void sjSkeletonizer::initializeGL(){	
+void sjViewer::initializeGL(){	
 	QGLViewer::initializeGL();
 }
 
-void sjSkeletonizer::drawModel(){
+void sjViewer::drawModel(){
 	sjPoint_3 puntos[3], a,b,c;
 	for ( sjFIterator f = polyhedron.facets_begin(); f != polyhedron.facets_end(); ++f){
 		
@@ -69,15 +99,15 @@ void sjSkeletonizer::drawModel(){
 			//glColor3f(1.0f,1.0f,1.0f);
 			glColor3f( (float)color3[0] ,(float)color3[1],(float)color3[2]);
 			glNormal3f( (float)pnormal[0],(float)pnormal[1], (float)pnormal[2]);
-			glVertex3f( (float)a[0] ,(float)a[1],(float)a[2]);
-			glVertex3f( (float)b[0] ,(float)b[1],(float)b[2]);
-			glVertex3f( (float)c[0] ,(float)c[1],(float)c[2]);
+			glVertex3f( (float)a[0]/10.0 ,(float)a[1]/10.0,(float)a[2]/10.0);
+			glVertex3f( (float)b[0]/10.0 ,(float)b[1]/10.0,(float)b[2]/10.0);
+			glVertex3f( (float)c[0]/10.0 ,(float)c[1]/10.0,(float)c[2]/10.0);
 		glEnd();
 	}
 
 }
 
-void sjSkeletonizer::draw_aux(bool with_names){
+void sjViewer::draw_aux(bool with_names){
 	
 
 	float ambientLight1[] = { 0.1f, 0.1f, 0.1f, 1.0f };
@@ -117,21 +147,21 @@ void sjSkeletonizer::draw_aux(bool with_names){
   
 }
 
-void sjSkeletonizer::drawWithNames(){
+void sjViewer::drawWithNames(){
   
 }
 
-void sjSkeletonizer::postSelection(const QPoint&){
+void sjViewer::postSelection(const QPoint&){
 }
 
 
-void sjSkeletonizer::init(){
+void sjViewer::init(){
 	
 	glShadeModel ( GL_FLAT );     //off
 
 	glShadeModel ( GL_SMOOTH ); 
 
-	glClearColor (0.0, 0.0, 0.0, 0.0);
+	glClearColor (0.4, 0.4, 0.4, 0.0);
 	
 
 	glEnable(GL_LIGHTING);
@@ -143,6 +173,7 @@ void sjSkeletonizer::init(){
 
 	   glColorMaterial(GL_FRONT, GL_DIFFUSE);
    glEnable(GL_COLOR_MATERIAL);
+   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
    
    
@@ -154,11 +185,11 @@ glDepthFunc(GL_LEQUAL);
 	restoreStateFromFile();
 
 	// Opens help window
-	help();
+	//help();
 
 }
 
-sjPoint_3 sjSkeletonizer::normalize(sjPoint_3 p){
+sjPoint_3 sjViewer::normalize(sjPoint_3 p){
 	// calculate the length of the vector
 	double len = (double)(CGAL::sqrt((p[0] * p[0]) + (p[1] * p[1]) + (p[2] * p[2])));
  
@@ -174,12 +205,12 @@ sjPoint_3 sjSkeletonizer::normalize(sjPoint_3 p){
 	return sjPoint_3(x,y,z);
 }
 
-sjPoint_3 sjSkeletonizer::normalVector(sjPoint_3 a, sjPoint_3 b, sjPoint_3 c){
+sjPoint_3 sjViewer::normalVector(sjPoint_3 a, sjPoint_3 b, sjPoint_3 c){
 	sjVector_3 pnormal = CGAL::cross_product(b-a,c-a);
 	return normalize(sjPoint_3(pnormal[0], pnormal[1], pnormal[2]));
 }
 
-QString sjSkeletonizer::helpString() const
+QString sjViewer::helpString() const
 {
   QString text("<h2>S i m p l e V i e w e r</h2>");
   text += "Use the mouse to move the camera around the object. ";
@@ -199,7 +230,7 @@ QString sjSkeletonizer::helpString() const
   return text;
 }
 
-void sjSkeletonizer::LaplacianSmoothing(){
+void sjViewer::LaplacianSmoothing(){
 	if(laplacian_system == NULL){
 		laplacian_system = new sjLaplacianSmoothing();
 		laplacian_system->setMeshG(polyhedron);
@@ -210,20 +241,20 @@ void sjSkeletonizer::LaplacianSmoothing(){
 	this->update();
 }
 
-void sjSkeletonizer::createActions(){
+void sjViewer::createActions(){
      /*openAct = new QAction(tr("&Open..."), this);
      openAct->setShortcut(tr("Ctrl+O"));
      openAct->setStatusTip(tr("Open an existing file"));
      connect(openAct, SIGNAL(triggered()), this, SLOT(open()));*/
 }
 
-void sjSkeletonizer::createMenus(){
+void sjViewer::createMenus(){
 	/*
 	fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(openAct);*/
 
 }
 
- void sjSkeletonizer::open(){
+ void sjViewer::open(){
      cout<<"Open....\n";
  }
