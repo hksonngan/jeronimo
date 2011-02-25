@@ -157,7 +157,6 @@ double sjLaplacianSmoothing::areaRing(sjVIterator vi, vector< sjVertex_handle> n
 	for(j=0; j<m; j++){
 		pos_1 = j;
 		pos_2 = (j+1) % m;
-		//sjPoint_3 point_i = sjPoint_3(matrix_V[i][0], matrix_V[i][1], matrix_V[i][2]);
 		sjPoint_3 point_i = vi->point();
 		area = area + area3(point_i,((neighbors[pos_1]))->point(),((neighbors))[pos_2]->point());
 	}
@@ -202,150 +201,7 @@ void sjLaplacianSmoothing::initLaplacianSmoothing(double a_WH0, double a_WL0, do
 	
 }
 
-void sjLaplacianSmoothing::iterateLaplacianSmoothing(){
-	cout<<"Iteration "<<iteration<<endl;
-	CGAL::Timer timer;
-    timer.start();
-	int i;
-	sjVIterator v;
-	int n = getNsize();
-	int coord;
-	vector<vector<double>> matrixV = vector<vector<double>>(n,vector<double>(3,0.0));
-	cout<<"Configuration "<<endl;
-	double WLi = std::pow(SL,((double)iteration)) * WL_0;
-	//double WLi = 1.0;
-	bool found_solution = true;
-
-	for(coord = 0; coord<3; coord++){
-		sjLeastSquaresSolver solverx(n);
-		//sjLeastSquaresSolver solvery(n);
-		//sjLeastSquaresSolver solverz(n);
-		solverx.set_least_squares(true) ;
-		//solvery.set_least_squares(true) ;
-		//solverz.set_least_squares(true) ;
-		i = 0;
-		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
-			sjPoint_3 point_k = v->point();
-			double r = point_k[coord];
-			solverx.variable(i).set_value(r);		
-			if(isDegenerateVertex(v, rings[i])){
-				solverx.variable(i).lock();
-			}
-			
-			i++;
-		}
-		solverx.begin_system();
-		//solvery.begin_system();
-		//solverz.begin_system();
-		i = 0;
-		//cout<<"Laplacian\n";
-		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
-
-
-			if(!isDegenerateVertex(v, rings[i])){
-
-			sjHalfedge_vertex_circulator vcir = v->vertex_begin();
-			map<int, double> mymap = computeLaplacian(v, rings[i]);
-			map<int, double>::iterator it;
-			solverx.begin_row();
-			//solvery.begin_row();
-			//solverz.begin_row();
-			for ( it=mymap.begin() ; it != mymap.end(); it++ ){
-				int index = (*it).first ;
-				double value = (*it).second;
-				solverx.add_coefficient(index, WLi * value);
-				//solvery.add_coefficient(index, WLi * value);
-				//solverz.add_coefficient(index, WLi * value);
-				//cout<<WLi * value<<"\t\t";
-
-			}
-			//cout<<"\n";
-			solverx.set_right_hand_side(0.0);
-			//solvery.set_right_hand_side(0.0);
-			//solverz.set_right_hand_side(0.0);
-			solverx.end_row();
-			//solvery.end_row();
-			//solverz.end_row();
-
-
-			}
-
-
-			i++;
-		}
-		i = 0;
-		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
-			if(!isDegenerateVertex(v, rings[i])){
-			sjHalfedge_vertex_circulator vcir = v->vertex_begin();
-			sjPoint_3 point_i = v->point();
-			double Whi;
-			if(iteration ==0){
-				Whi = WH_0;
-			}else{
-				Whi = WH_0*std::sqrt(v->initial_ring_area/areaRing(v, rings[i]));
-			}
-			solverx.begin_row();
-			//solvery.begin_row();
-			//solverz.begin_row();
-			solverx.add_coefficient(i, Whi);
-			//solvery.add_coefficient(i, Whi);
-			//solverz.add_coefficient(i, Whi);
-			solverx.set_right_hand_side(Whi*point_i[coord]);
-			//solvery.set_right_hand_side(Whi*point_i[1]);
-			//solverz.set_right_hand_side(Whi*point_i[2]);
-			solverx.end_row();
-			//solvery.end_row();
-			//solverz.end_row();
-
-
-			}
-
-			i++;
-		}
-		solverx.end_system();
-		//solvery.end_system();
-		//solverz.end_system();
-		cout<<"Init solve system "<<endl;
-		if ( solverx.solve() ){
-			//solvery.solve();
-			//solverz.solve();
-			cout<<"End solve system "<<endl;
-			for(i=0; i<n; i++){
-				matrixV[i][coord] = solverx.variable(i).value();
-				//matrixV[i][1] = solvery.variable(i).value();
-				//matrixV[i][2] = solverz.variable(i).value();
-			}
-		}else{
-			cout<<"No solution found"<<endl;
-			found_solution = false;
-		}
-	}
-	if(found_solution){
-		i = 0;
-		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
-			
-			sjPoint_3 pointn = sjPoint_3(matrixV[i][0], matrixV[i][1], matrixV[i][2]);
-			//cout<<"before: "<<v->point()<<",  after: "<< pointn <<endl;
-			v->point() = pointn;
-			i++;
-		}
-		
-
-		char filename[256];
-		sprintf(filename, "Salidaoff_%d.off", iteration);
-
-		fstream file_off(filename, ios::out);
-
-		file_off<<mesh_G;
-		file_off.close();
-	}
-	cout<< timer.time() << " seconds." << std::endl;
-	iteration++;
-
-}
-
 void sjLaplacianSmoothing::iterateLaplacianSmoothingOGF(){
-	cout<<"LINE 0"<<endl;
 	int n = getNsize();
 	LinearSolver *solver;
 	//delete solver;
@@ -354,30 +210,29 @@ void sjLaplacianSmoothing::iterateLaplacianSmoothingOGF(){
 	params.set_arg_value("method", *mipo) ; 
 	
 	solver = new LinearSolver(n) ;
-	cout<<"LINE 1"<<endl;
 	solver->set_system_solver(params) ;
-	cout<<"LINE 2"<<endl;
 	solver->set_least_squares(true) ;
 	solver->set_invert_matrix(true) ;
-	cout<<"LINE 3"<<endl;
 
 
-	cout<<"Iteration "<<iteration<<endl;
+	cout<<"\nIterate system: No = "<<iteration+1<<"|\t";
+	
+	cout<<"Volume Ini= "<<calcVolume(mesh_G)<<"|\t";
 	CGAL::Timer timer;
     timer.start();
 	int i;
 	sjVIterator v;
 	int coord;
 	vector<vector<double>> matrixV = vector<vector<double>>(n,vector<double>(3,0.0));
-	cout<<"Configuration "<<endl;
 	double WLi = std::pow(SL,((double)iteration)) * WL_0;
 	//double WLi = 1.0;
 	bool found_solution = true;
 
+	
+
 	for(coord = 0; coord<3; coord++){
 
 		i = 0;
-		cout<<"LINE 4"<<endl;
 		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 			if(isDegenerateVertex(v, rings[i])){
 				solver->variable(i).lock();
@@ -389,11 +244,22 @@ void sjLaplacianSmoothing::iterateLaplacianSmoothingOGF(){
 			
 			i++;
 		}
-		cout<<"LINE 5"<<endl;
+		
+		/*for(sjHEIterator hi = mesh_G.halfedges_begin (); hi!= mesh_G.halfedges_end (); ++hi){
+			if(angleOrientedPlanes(hi)<sjpi/4){
+				sjVertex_handle vertex_A = hi->vertex();
+				sjVertex_handle vertex_B = hi->next()->vertex();
+				sjVertex_handle vertex_C = hi->prev()->vertex();
+				sjVertex_handle vertex_D = hi->opposite()->next()->vertex();
+				solver->variable(vertex_A->index).lock();
+				solver->variable(vertex_B->index).lock();
+				solver->variable(vertex_C->index).lock();
+				solver->variable(vertex_D->index).lock();
+			}
+		}*/
+
 		solver->begin_system();
-		cout<<"LINE 6"<<endl;
 		i = 0;
-		cout<<"Laplacian\n";
 		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 
 			if(!isDegenerateVertex(v, rings[i])){
@@ -417,7 +283,6 @@ void sjLaplacianSmoothing::iterateLaplacianSmoothingOGF(){
 
 			i++;
 		}
-		cout<<"LINE 7"<<endl;
 		i = 0;
 		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 			if(!isDegenerateVertex(v, rings[i])){
@@ -433,20 +298,13 @@ void sjLaplacianSmoothing::iterateLaplacianSmoothingOGF(){
 			solver->add_coefficient(i, Whi);
 			solver->set_right_hand_side(Whi*point_i[coord]);
 			solver->end_row();
-
-
 			}
-
 			i++;
 		}
-		cout<<"LINE 8"<<endl;
 		solver->end_system();
-		cout<<"LINE 9"<<endl;
 		
-		cout<<"Init solve system "<<endl;
 		if ( solver->solve() ){
 			
-			cout<<"End solve system "<<endl;
 			for(i=0; i<n; i++){
 				matrixV[i][coord] = solver->variable(i).value();
 			}
@@ -463,21 +321,13 @@ void sjLaplacianSmoothing::iterateLaplacianSmoothingOGF(){
 		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 			
 			sjPoint_3 pointn = sjPoint_3(matrixV[i][0], matrixV[i][1], matrixV[i][2]);
-			//cout<<"before: "<<v->point()<<",  after: "<< pointn <<endl;
 			v->point() = pointn;
 			i++;
 		}
-		
-
-		/*char filename[256];
-		sprintf(filename, "Salidaoff_%d.off", iteration);
-
-		fstream file_off(filename, ios::out);
-
-		file_off<<mesh_G;
-		file_off.close();*/
 	}
-	cout<< timer.time() << " seconds." << std::endl;
+	cout<<"Volume = "<<calcVolume(mesh_G)<<"|\t";
+	cout<<"Time = "<< timer.time() << " seconds." << std::endl;
+	delete solver;
 	iteration++;
 
 }

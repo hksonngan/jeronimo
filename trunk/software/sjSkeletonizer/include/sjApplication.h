@@ -38,6 +38,8 @@
 #include <QTabWidget>
 #include <QToolBox>
 #include <QWidget>
+#include <QLineEdit>
+#include <QSlider>
 
 
 class sjApplication: public QMainWindow{
@@ -55,11 +57,15 @@ private slots:
     void save();
     void about();
 	void iterateLaplacian();
+	void closeTab(int index);
+	void changueSliderIteration(int value);
 
 private:
 	QTabWidget * central_QTabWidget;
 	QDockWidget * tools_QDockWidget;
 	QToolBox * tool_box_QToolBox;
+	QLineEdit * txt_iterations;
+	QSlider * sld_iterations;
 
 };
 

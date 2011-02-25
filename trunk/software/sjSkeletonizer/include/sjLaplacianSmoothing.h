@@ -60,7 +60,6 @@ public:
 	bool isDegenerateVertex(sjVIterator vi, vector< sjVertex_handle> neighbors);
 
 	void initLaplacianSmoothing(double a_WH0 = 1.0, double a_WL0 = 0.01, double a_SL = 2.0);
-	void iterateLaplacianSmoothing();
 	void iterateLaplacianSmoothingOGF();
 	
 private:

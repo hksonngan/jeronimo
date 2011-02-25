@@ -35,10 +35,16 @@
 
 #include "sjDataType.h"
 
-double angle3(sjPoint_3 p1, sjPoint_3 p2, sjPoint_3 p3);
-double area3(sjPoint_3 a, sjPoint_3 b, sjPoint_3 c);
+#define sjpi 3.14159265358979323846
 
+double angle3(sjPoint_3 p1, sjPoint_3 p2, sjPoint_3 p3);
+double angleOrientedPlanes(sjHalfedge_handle hedge);
+double area3(sjPoint_3 a, sjPoint_3 b, sjPoint_3 c);
+double calcVolume(sjPolyhedron mesh_G);sjVector_3 normalizePoint3(sjPoint_3 p1, sjPoint_3 p2, sjPoint_3 p3);
+sjVector_3 normalVectorPoint3(sjPoint_3 p1, sjPoint_3 p2, sjPoint_3 p3);
+sjVector_3 normalizeVector(sjVector_3 ve);
 void printVector(std::vector<double> x);
+double distance2Points(sjPoint_3 p1, sjPoint_3 p2);
 
 void printMatrix(std::vector<std::vector<double>> y);
 #endif
