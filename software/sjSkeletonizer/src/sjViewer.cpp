@@ -93,15 +93,15 @@ void sjViewer::drawModel(){
 
 		sjPoint_3 pnormal = normalVector(puntos[0], puntos[1], puntos[2]);
 		//Point_3 color3 = normalize(a);
-		sjPoint_3 color3(0.9,0.9,0.9);
+		sjPoint_3 color3(0.9,0.1,0.1);
    
 		glBegin(GL_TRIANGLES);
 			//glColor3f(1.0f,1.0f,1.0f);
 			glColor3f( (float)color3[0] ,(float)color3[1],(float)color3[2]);
 			glNormal3f( (float)pnormal[0],(float)pnormal[1], (float)pnormal[2]);
-			glVertex3f( (float)a[0]/10.0 ,(float)a[1]/10.0,(float)a[2]/10.0);
-			glVertex3f( (float)b[0]/10.0 ,(float)b[1]/10.0,(float)b[2]/10.0);
-			glVertex3f( (float)c[0]/10.0 ,(float)c[1]/10.0,(float)c[2]/10.0);
+			glVertex3f( (float)a[0]/50.0 ,(float)a[1]/50.0,(float)a[2]/50.0);
+			glVertex3f( (float)b[0]/50.0 ,(float)b[1]/50.0,(float)b[2]/50.0);
+			glVertex3f( (float)c[0]/50.0 ,(float)c[1]/50.0,(float)c[2]/50.0);
 		glEnd();
 	}
 

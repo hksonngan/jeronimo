@@ -77,6 +77,8 @@ typedef sjKernel::Point_3								sjPoint_3;
 typedef sjKernel::Vector_3								sjVector_3;
 typedef CGAL::Polyhedron_3<sjKernel, sj_ItemsType>		sjPolyhedron;
 typedef sjPolyhedron::Face_iterator						sjFIterator;
+typedef sjPolyhedron::Halfedge_iterator					sjHEIterator;
+typedef sjPolyhedron::Halfedge_handle					sjHalfedge_handle;
 typedef sjPolyhedron::Vertex_iterator					sjVIterator;
 typedef sjPolyhedron::Vertex_handle						sjVertex_handle;
 typedef sjPolyhedron::Halfedge_around_facet_circulator	sjHalfedge_facet_circulator;

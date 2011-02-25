@@ -75,6 +75,10 @@ public:
 	  polyhedron = p1;
   }
 
+  sjPolyhedron getVerticesFaces(){
+	  return polyhedron;
+  }
+
   virtual QString helpString() const;
 
 signals:

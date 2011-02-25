@@ -39,6 +39,10 @@
 #include <QFileDialog>
 #include <iostream>
 #include <QVBoxLayout>
+#include <fstream>
+#include <iostream>
+#include <CGAL/IO/Polyhedron_iostream.h>
+#include <CGAL/IO/Polyhedron_scan_OFF.h> 
 
 sjApplication::sjApplication():
 QMainWindow( 0)
@@ -68,6 +72,8 @@ QMainWindow( 0)
     helpMenu->addAction(aboutAct);
 
 	central_QTabWidget = new QTabWidget(this);
+	central_QTabWidget->setTabsClosable (true);
+	connect(central_QTabWidget, SIGNAL(tabCloseRequested ( int )), this, SLOT(closeTab(int)));
 	setCentralWidget(central_QTabWidget);
 	tools_QDockWidget = new QDockWidget("Tools", this);
 	tool_box_QToolBox = new QToolBox(tools_QDockWidget);
@@ -78,7 +84,18 @@ QMainWindow( 0)
 	QWidget * panel = new QWidget();
 	QPushButton * cmd_iterateLaplacian = new QPushButton("Iterate Laplacian System", panel);
 	connect(cmd_iterateLaplacian , SIGNAL(clicked()),this, SLOT(iterateLaplacian()));
+
+	txt_iterations = new QLineEdit("1", panel);
+	txt_iterations->setModified(false);
+	sld_iterations = new QSlider(Qt::Horizontal, panel);
+	sld_iterations->setMaximum (20 );
+	sld_iterations->setMinimum (1);
+	connect(sld_iterations, SIGNAL(valueChanged(int)),this, SLOT(changueSliderIteration(int)));
+
+
 	QVBoxLayout *toolLayout = new QVBoxLayout;
+	toolLayout->addWidget(txt_iterations);
+	toolLayout->addWidget(sld_iterations);
 	toolLayout->addWidget(cmd_iterateLaplacian);
 	QSpacerItem* qspaceritem = new QSpacerItem( 20, 200,	QSizePolicy::Maximum, QSizePolicy::Expanding );
 	toolLayout->addSpacerItem(qspaceritem);
@@ -92,10 +109,13 @@ sjApplication::~sjApplication()
     
 }
 
+void sjApplication::closeTab(int index)
+{
+	central_QTabWidget->removeTab(index);
+} 
 
  void sjApplication::open() 
  {
-	 std::cout<<"Invoked <b>File|Open</b>";
 	 QString fileName = QFileDialog::getOpenFileName(this,
 		 tr("Open 3D File"), "./", tr("3D Files (*.off)"));
 	 sjDataIO dataio;
@@ -104,13 +124,27 @@ sjApplication::~sjApplication()
 	 sjViewer * myviewer = new sjViewer(central_QTabWidget, false);
 	 myviewer->setVerticesFaces(dataio.getPolyhedronModel());
 	 
-	 central_QTabWidget->addTab(myviewer, fileName.right(fileName.size()-1-fileName.lastIndexOf("/")));
+	 int index  = central_QTabWidget->addTab(myviewer, fileName.right(fileName.size()-1-fileName.lastIndexOf("/")));
+	 central_QTabWidget->setCurrentIndex ( index );
 
  }
 
  void sjApplication::save()
  {
-     std::cout<<"Invoked <b>File|Save</b>";
+	 QString fileNameqt = QFileDialog::getSaveFileName(this,
+		 tr("Open 3D File"), "./", tr("3D Files (*.off)"));
+	 sjDataIO dataio;
+	char filename[256];
+	sprintf(filename, "%s", fileNameqt.toLatin1().constData());
+
+	fstream file_off(filename, ios::out);
+
+	sjViewer * current = (sjViewer *)( central_QTabWidget->currentWidget());
+	if( current != NULL){
+		file_off<<(current->getVerticesFaces());
+	}
+
+	file_off.close();
  }
 
   void sjApplication::about()
@@ -120,9 +154,17 @@ sjApplication::~sjApplication()
 
 void sjApplication::iterateLaplacian()
 {
-	std::cout<<"Invoked <b>Iterate Laplacian</b>";
 	sjViewer * current = (sjViewer *)( central_QTabWidget->currentWidget());
 	if( current != NULL){
+		int iter = sld_iterations->value();
+		for(int j = 0; j<iter; j++)
 		current->LaplacianSmoothing();
 	}
+}
+
+void sjApplication::changueSliderIteration(int value){
+	char num[256];
+	sprintf(num, "%d", value);
+	txt_iterations->setText(QString(num));
+	sld_iterations->setValue(value);
 }
