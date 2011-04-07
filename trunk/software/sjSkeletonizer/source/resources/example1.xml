@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plugin SYSTEM "file:///K:/personal/maestria/tesis/Jeronimo/trunk/software/sjSkeletonizer/source/resources/plugin.dtd">
+<plugin name="nombreXYZ" description="DescripcionXYZ" author="AutorXYZ" filename="K:/personal/maestria/tesis/Jeronimo/trunk/software/build/bin/Release/pluginLaplacian.dll">
+        <typeplugin module="skeletonfilter"/>
+        <parameter datatype="SJ_DATA_TYPE_DOUBLE" description="param1des" defaultValue="0" maxValue="200" minValue="-1" step="1">
+                   <name>Parametro1</name>
+        </parameter>
+        <parameter datatype="SJ_DATA_TYPE_INT" description="param2des" defaultValue="0" maxValue="10" minValue="-1" step="1">
+                   <name>TestEjemplo</name>
+        </parameter>
+        <parameter datatype="SJ_DATA_TYPE_INT" description="param2des" defaultValue="1" maxValue="2" minValue="1" step="1">
+                   <name>Numero 3</name>
+        </parameter>
+</plugin>
+
+
+

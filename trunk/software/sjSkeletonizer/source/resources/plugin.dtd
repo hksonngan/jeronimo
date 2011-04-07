@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--/**
+ * ***** BEGIN GPL LICENSE BLOCK *****
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * The Original Code is Copyright (C) 2007-2010 by Alexander Pinzon Fernandez.
+ * Bogota - Colombia
+ * All rights reserved.
+ *
+ * Author(s): Alexander Pinzón Fernández.
+ *
+ * ***** END GPL LICENSE BLOCK *****
+ */ -->
+<!--
+Plug-in
+Describes the plugin, it's location, the type of plugin and its functions.
+-->
+<!ELEMENT plugin (typeplugin, parameter*)>
+<!--name: Name of the plugin-->
+<!ATTLIST plugin name CDATA #REQUIRED>
+<!--fileName: Name of the plugin in the file system with extension-->
+<!ATTLIST plugin filename CDATA #REQUIRED>
+<!--description: Description of the plugin-->
+<!ATTLIST plugin description CDATA #IMPLIED>
+<!--author: Author of this plugin-->
+<!ATTLIST plugin author CDATA #REQUIRED>
+
+<!--typeplugin:  Type of plugin-->
+<!ELEMENT typeplugin (#PCDATA)>
+<!ATTLIST typeplugin
+         module ( smoothfilter | skeletonfilter ) #REQUIRED>
+
+<!--parameter: Parameter's descriptors-->
+<!ELEMENT parameter (name)>
+<!ELEMENT name (#PCDATA)>
+<!ATTLIST parameter datatype (
+		SJ_DATA_TYPE_BOOLEAN|
+		SJ_DATA_TYPE_CHAR|
+		SJ_DATA_TYPE_DOUBLE|
+		SJ_DATA_TYPE_FLOAT|
+		SJ_DATA_TYPE_ENUM|
+		SJ_DATA_TYPE_INT|
+		SJ_DATA_TYPE_LONG|
+		SJ_DATA_TYPE_LONG_DOUBLE|
+		SJ_DATA_TYPE_SHORT|
+		SJ_DATA_TYPE_STRING|
+		SJ_DATA_TYPE_TIME|
+		SJ_DATA_TYPE_UNSIGNED_CHAR|
+		SJ_DATA_TYPE_UNSIGNED_INT|
+		SJ_DATA_TYPE_UNSIGNED_LONG|
+		SJ_DATA_TYPE_UNSIGNED_SHORT
+	) #REQUIRED>
+<!ATTLIST parameter minValue CDATA #IMPLIED>
+<!ATTLIST parameter maxValue CDATA #IMPLIED>
+<!ATTLIST parameter step CDATA #IMPLIED>
+<!ATTLIST parameter defaultValue CDATA #IMPLIED>
+<!ATTLIST parameter description CDATA #IMPLIED>
+
