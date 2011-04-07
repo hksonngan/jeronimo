@@ -1,0 +1,186 @@
+
+        /**
+         * Compressed Column Storage matrix for Fortran
+         * compatibility.
+         */
+        struct CCSMatrix {
+
+            CCSMatrix() ;
+            CCSMatrix(int n_in, int nnz_in) ;
+            CCSMatrix(const SparseMatrix& A) ;
+            ~CCSMatrix() ;
+
+            int n ;            // Size of the matrix
+            int nnz ;          // Number of non-zero entries
+            double* a ;        // Non-zero entries, size = n
+            double* diag ;     // Diagonal, size = n
+            int* col_ptr ;     // Column pointers, size = n+1
+            int* row_ind ;     // Row indices, size = nnz
+        } ;
+
+        CCSMatrix::CCSMatrix() {
+            n       = 0 ;
+            nnz     = 0 ;
+            a       = nil ;
+            diag    = nil ;
+            col_ptr = nil ;
+            row_ind = nil ;
+        } 
+
+        CCSMatrix::CCSMatrix(int n_in, int nnz_in) {
+            n   = n_in ;
+            nnz = nnz_in ;
+            a = new double[nnz] ;
+            diag = new double[n] ;
+            col_ptr = new int[n+1] ;
+            row_ind = new int[nnz] ;
+        }
+
+        CCSMatrix::~CCSMatrix() {
+            n = 0 ;
+            nnz = 0 ;
+            delete[] a ; a = nil ;
+            delete[] diag ; diag = nil ;
+            delete[] col_ptr ; col_ptr = nil ;
+            delete[] row_ind ; row_ind = nil ;
+        }
+
+        CCSMatrix::CCSMatrix(const SparseMatrix& A) {
+
+            // Important note for code interfacing C++ and Fortran:
+            // array indices start by 1 rather than 0 in Fortran,
+            // acol_ptr and arow_ind respect this convention.
+            // Concerned lines of code are tagged with a "Fortran indexing"
+            // comment.
+            
+            ogf_assert(A.is_symmetric()) ;
+            ogf_assert(A.columns_are_stored()) ;
+
+            n = A.n() ;
+            nnz = 0 ;
+            { for(int i=0; i<n; i++) {
+                nnz += A.column(i).nb_coeffs() ;
+            }}
+
+            a       = new double[nnz] ;
+            diag    = new double[n] ;
+            col_ptr = new int[n+1] ;
+            row_ind = new int[nnz] ;
+
+            col_ptr[0] = 1 ;
+            int column_ptr = 0 ;
+            for(int j=0; j<n; j++) {
+                const SparseMatrix::Column& Cj = A.column(j) ;
+                for(int ii=0; ii<Cj.nb_coeffs(); ii++) {
+                    double a_ij = Cj.coeff(ii).a ;
+                    int i = Cj.coeff(ii).index ;
+                    a[column_ptr+ii]       = a_ij  ;
+                    row_ind[column_ptr+ii] = i + 1 ; // Fortran indexing
+                }
+                diag[j] = A.diag(j) ;
+                col_ptr[j] = column_ptr + 1 ;  // Fortran indexing
+                column_ptr += Cj.nb_coeffs() ;
+            }
+          col_ptr[n] = column_ptr + 1 ; // Fortran indexing
+        }
+
+
+    // Prototype of MINPACK's MICCG solver.
+        extern "C" {
+            void dpcg_(
+                // Size of the system
+                int* n, 
+                
+                // Matrix of the system in Compressed Row Storage
+                double* a,      // Size = nnz
+                double* adiag,  // Size = nnz
+                int* acol_ptr,  // Size = n+1
+                int* arow_ind,  // Size = nnz
+
+                // Space for L Cholesky factor in CRS
+                double* l,      // Size = nnz+n*p, where p = 5
+                double* ldiag,  // Size = n
+                int* lcol_ptr,  // Size = n+1
+                int* lrow_ind,  // Size = nnz+n*p, where p = 5
+                        
+                // Right hand side
+                double* b,      // Size = n 
+                
+                // Relative tolerance
+                double* rtol,
+                
+                // Max number of iterations
+                int* itmax,
+                
+                // Returns the minimizer
+                double* x,      // Size = n
+                
+                // Returns the used number of iterations 
+                int* iters,
+                
+                // Returns a status code: 
+                // 1 = success,
+                // 2 = saddle point,
+                // 3 = failed to converge after itmax iterations
+                int* info,
+
+                // Work arrays 
+                double* p, // Size = n
+                double* q, // Size = n
+                double* r, // Size = n
+                double* z  // Size = n
+            ) ;
+        } ;
+
+
+
+
+                int n = G_->n() ;
+
+                // Construct Compressed Column Storage representation for
+                // Fortran routines.
+
+                // Do we need to sort the coefficients ?
+                // G_->sort() ;
+                
+                CCSMatrix A(*G_) ;
+                int nnz = A.nnz ;
+
+                // Work space for Incomplete Cholesky factorization
+                int p_icf = 5 ; // Extra space for ICF routines, seems to
+                                // be hardwired to 5 in MINPACK routines.
+                CCSMatrix L(n, nnz + n*p_icf) ;
+
+                // Work vectors
+                double* p = new double[n] ;
+                double* q = new double[n] ;
+                double* r = new double[n] ;
+                double* z = new double[n] ;
+
+
+                // Call Fortran routine
+                int itmax   = max_iter ;
+                double rtol = treshold ;
+                int iters ;
+                int info ;
+
+                dpcg_(
+                    &n, 
+                    A.a, A.diag, A.col_ptr, A.row_ind,
+                    L.a, L.diag, L.col_ptr, L.row_ind,
+                    b_, 
+                    &rtol,
+                    &itmax,
+                    x_,
+                    &iters,
+                    &info,
+                    p, q, r, z
+                ) ;
+
+                std::cerr << "info="  << info  << std::endl ;
+                std::cerr << "iters=" << iters << std::endl ;
+
+                delete[] p ;
+                delete[] q ;
+                delete[] r ;
+                delete[] z ;
