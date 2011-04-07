@@ -30,7 +30,7 @@
  * @date 21/02/2011 5:27 p.m.
  */
 
-#include "sjLaplacianSmoothing.h"
+//#include "sjLaplacianSmoothing.h"
 #include <vector>
 #include <cmath>  
 #include <map>
