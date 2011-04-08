@@ -12,6 +12,7 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 	INCLUDE_DIRECTORIES (log)
 	INCLUDE_DIRECTORIES (parameters)
 	INCLUDE_DIRECTORIES (plugin)
+	INCLUDE_DIRECTORIES (system)
 	INCLUDE_DIRECTORIES (utils)
 	INCLUDE_DIRECTORIES (xml)
 	
@@ -29,6 +30,7 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 	AUX_SOURCE_DIRECTORY(log log_sources)
 	AUX_SOURCE_DIRECTORY(parameters parameters_sources)
 	AUX_SOURCE_DIRECTORY(plugin plugin_sources)
+	AUX_SOURCE_DIRECTORY(system system_sources)	
 	AUX_SOURCE_DIRECTORY(utils utils_sources)
 	AUX_SOURCE_DIRECTORY(xml xml_sources)
 	
@@ -38,6 +40,7 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 		GatherProjectFiles(log source/log log_headerFiles)
 		GatherProjectFiles(parameters source/parameters parameters_headerFiles)
 		GatherProjectFiles(plugin source/plugin plugin_headerFiles)
+		GatherProjectFiles(system source/system system_headerFiles)
 		GatherProjectFiles(utils source/utils utils_headerFiles)
 		GatherProjectFiles(xml source/xml xml_headerFiles)
 		
@@ -46,6 +49,7 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 		SET(log_sources 			${log_sources} 			${log_headerFiles})
 		SET(parameters_sources 		${parameters_sources} 	${parameters_headerFiles})
 		SET(plugin_sources 			${plugin_sources} 		${plugin_headerFiles} )
+		SET(system_sources 			${system_sources} 		${system_headerFiles} )
 		SET(utils_sources 			${utils_sources} 		${utils_headerFiles} )
 		SET(xml_sources 			${xml_sources} 			${xml_headerFiles})
 	ENDIF(WIN32)
@@ -64,6 +68,18 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 	
 	ADD_LIBRARY(parameters STATIC ${parameters_sources} )
 	TARGET_LINK_LIBRARIES (parameters exception log log4cplus)
+
+	ADD_LIBRARY(system STATIC ${system_sources})
+	TARGET_LINK_LIBRARIES (utils 
+		io
+		libxml2
+		parameters
+		plugin
+		utils
+		xml
+		${CGAL_LIBRARIES} 
+		${CGAL_3RD_PARTY_LIBRARIES} 
+		${TAUCS_LIBRARIES_DIR}/libtaucs)
 	
 	ADD_LIBRARY(utils STATIC ${utils_sources})
 	TARGET_LINK_LIBRARIES (utils 
@@ -73,15 +89,6 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 		${TAUCS_LIBRARIES_DIR}/libtaucs)
 	
 	ADD_LIBRARY(plugin STATIC ${plugin_sources})
-	TARGET_LINK_LIBRARIES (plugin 
-		io
-		libxml2
-		parameters
-		utils
-		xml
-		${CGAL_LIBRARIES} 
-		${CGAL_3RD_PARTY_LIBRARIES} 
-		${TAUCS_LIBRARIES_DIR}/libtaucs)
 
 	ADD_LIBRARY(xml STATIC ${xml_sources})
 	TARGET_LINK_LIBRARIES (xml exception libxml2)
@@ -128,6 +135,7 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 		utils
 		xml
 		basic
+		system
 		math
 		${QT_LIBRARIES} 
 		${CGAL_LIBRARIES} 

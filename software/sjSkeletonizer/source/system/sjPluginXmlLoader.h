@@ -47,29 +47,20 @@
 #include "sjEngine.h"
 #include "sjXml.h"
 #include "sjParameter.h"
+#include "sjPlugin.h"
 
 namespace sj{
 	class sjKernelEngine;
 
-	class sjPluginXmlLoader{
+	class sjPluginXmlLoader: class sjPlugin{
 	public:
 		sjPluginXmlLoader(std::string file_name);
-		~sjPluginXmlLoader(void);
-		sjPluginXmlLoader(const sjPluginXmlLoader &Other);
-		sjParameterStore * getInformation();
-		sjParameterStore * getParameters();
-		SJENGINE_API void registerPlugin(sjKernelEngine & K) {
-		  m_pfnRegisterPlugin(K);
-		}
+		virtual ~sjPluginXmlLoader(void);
+
 	private:
-		sjPluginXmlLoader &operator =(const sjPluginXmlLoader &Other);
 		sjParameterBase * loadParameter(xmlDocPtr document, std::string expression_parameter) throw(sjException);
 		sjParameterBase * sjPluginXmlLoader::loadPluginParameterInfo(xmlDocPtr document, std::string name, std::string expression_parameter);
 		std::string file_name_xml;
-		sjParameterStore * information;
-		sjParameterStore * parameters;
-		typedef void fnRegisterPlugin(sjKernelEngine &);
-		fnRegisterPlugin * m_pfnRegisterPlugin;
 		SJHANDLER m_hDLL;
 	};
 }

@@ -4,25 +4,11 @@
 
 using namespace sj;
 
-sjPluginXmlLoader::sjPluginXmlLoader(const sjPluginXmlLoader &Other):
-m_hDLL(Other.m_hDLL),
-m_pfnRegisterPlugin(Other.m_pfnRegisterPlugin),
-information(Other.information),
-parameters(Other.parameters),
-file_name_xml(Other.file_name_xml)
-{}
 
 sjPluginXmlLoader::~sjPluginXmlLoader(void){
 	printf("sjPluginXmlLoader::~sjPluginXmlLoader\n");
 	sjPluginLoader loader;
-	//loader.unloadLibrary(m_hDLL);
-}
-
-sjParameterStore * sjPluginXmlLoader::getInformation(){
-	return information;
-}
-sjParameterStore * sjPluginXmlLoader::getParameters(){
-	return parameters;
+	loader.unloadLibrary(m_hDLL);
 }
 
 sjPluginXmlLoader::sjPluginXmlLoader(std::string file_name){
