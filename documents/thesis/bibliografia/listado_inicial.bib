@@ -370,6 +370,31 @@
   timestamp = {2009.03.18}
 }
 
+@INPROCEEDINGS{Alexa2002,
+  author = {Alexa, Marc},
+  title = {Wiener Filtering of Meshes},
+  booktitle = {Proceedings of the Shape Modeling International 2002 (SMI'02)},
+  year = {2002},
+  pages = {51--},
+  address = {Washington, DC, USA},
+  publisher = {IEEE Computer Society},
+  note = {Mesh Smoothing},
+  abstract = {This work investigates smoothing, fairing, or, more generally,filtering
+	of mesh geometry.The approach transfersthe ideas of optimal (Wiener)
+	filtering to the setting ofmeshes.It extends fairing approaches that
+	use only firstorder neighborhoods and allows to assume arbitrary
+	localspectral properties of the mesh geometry.The definitionof the
+	local autocorrelation allows the design of filters forsmoothing as
+	well as for special effects in shape modeling.},
+  acmid = {884142},
+  file = {:./Alexa2002/Alexa2002.pdf:PDF},
+  isbn = {0-7695-1546-0},
+  keywords = {Mesh, Smoothing, Fairing, Wiener filter},
+  owner = {apinzonf},
+  timestamp = {2011.09.15},
+  url = {http://dl.acm.org/citation.cfm?id=882487.884142}
+}
+
 @INPROCEEDINGS{Amenta2001,
   author = {Amenta,, Nina and Choi,, Sunghee and Kolluri,, Ravi Krishna},
   title = {The power crust},
@@ -560,6 +585,41 @@
   file = {:./Au2008/skeleton_sig08.pdf:PDF},
   owner = {apinzonf},
   timestamp = {2009.03.17}
+}
+
+@ARTICLE{Bajaj2003,
+  author = {Bajaj, Chandrajit L. and Xu, Guoliang},
+  title = {Anisotropic diffusion of surfaces and functions on surfaces},
+  journal = {ACM Trans. Graph.},
+  year = {2003},
+  volume = {22},
+  pages = {4--32},
+  month = {January},
+  note = {Mesh Smoothing},
+  abstract = {We present a unified anisotropic geometric diffusion PDE model for
+	smoothing (fairing) out noise both in triangulated two-manifold surface
+	meshes in IR3 and functions defined on these surface meshes, while
+	enhancing curve features on both by careful choice of an anisotropic
+	diffusion tensor. We combine the C1 limit representation of Loop's
+	subdivision for triangular surface meshes and vector functions on
+	the surface mesh with the established diffusion model to arrive at
+	a discretized version of the diffusion problem in the spatial direction.
+	The time direction discretization then leads to a sparse linear system
+	of equations. Iteratively solving the sparse linear system yields
+	a sequence of faired (smoothed) meshes as well as faired functions.},
+  acmid = {588276},
+  address = {New York, NY, USA},
+  doi = {http://doi.acm.org/10.1145/588272.588276},
+  file = {:./Bajaj2003/Bajaj2003.pdf:PDF},
+  issn = {0730-0301},
+  issue = {1},
+  keywords = {Loop's subdivision, Riemannian manifold, Surface function diffusion,
+	noise reduction, texture mapping},
+  numpages = {29},
+  owner = {apinzonf},
+  publisher = {ACM},
+  timestamp = {2011.09.15},
+  url = {http://doi.acm.org/10.1145/588272.588276}
 }
 
 @ARTICLE{Barr1989,
@@ -4208,6 +4268,40 @@
   timestamp = {2009.04.02}
 }
 
+@ARTICLE{Natali2011,
+  author = {Natali, Mattia and Biasotti, Silvia and Patan\`{e}, Giuseppe and
+	Falcidieno, Bianca},
+  title = {Graph-based representations of point clouds},
+  journal = {Graph. Models},
+  year = {2011},
+  volume = {73},
+  pages = {151--164},
+  month = {September},
+  abstract = {This paper introduces a skeletal representation, called Point Cloud
+	Graph, that generalizes the definition of the Reeb graph to arbitrary
+	point clouds sampled from m-dimensional manifolds embedded in the
+	d-dimensional space. The proposed algorithm is easy to implement
+	and the graph representation yields to an effective abstraction of
+	the data. Finally, we present experimental results on point-sampled
+	surfaces and volumetric data that show the robustness of the Point
+	Cloud Graph to non-uniform point distributions and its usefulness
+	for shape comparison.},
+  acmid = {2027564},
+  address = {San Diego, CA, USA},
+  doi = {http://dx.doi.org/10.1016/j.gmod.2011.03.002},
+  file = {:./Natali2011/patane-GMOD-2011.pdf:PDF},
+  issn = {1524-0703},
+  issue = {5},
+  issue_date = {September, 2011},
+  keywords = {Graph-based representations, Point clouds, Shape abstraction, Shape
+	comparison},
+  numpages = {14},
+  owner = {apinzonf},
+  publisher = {Academic Press Professional, Inc.},
+  timestamp = {2011.10.31},
+  url = {http://dx.doi.org/10.1016/j.gmod.2011.03.002}
+}
+
 @ARTICLE{Nedevschi2006,
   author = {S. Nedevschi and S. Bota and T. Marita and F. Oniga and C. Pocol},
   title = {Real-Time 3D Environment Reconstruction Using High Precision Trinocular
@@ -4326,6 +4420,47 @@
   file = {:./Pan2009/BMVC09.pdf:PDF},
   owner = {apinzonf},
   timestamp = {2009.11.30}
+}
+
+@INPROCEEDINGS{Pantuwong2010,
+  author = {Pantuwong, Natapon and Sugimoto, Masanori},
+  title = {Skeleton-growing: a vector-field-based 3D curve-skeleton extraction
+	algorithm},
+  booktitle = {ACM SIGGRAPH ASIA 2010 Sketches},
+  year = {2010},
+  series = {SA '10},
+  pages = {6:1--6:2},
+  address = {New York, NY, USA},
+  publisher = {ACM},
+  note = {Skeleton Extraction},
+  abstract = {The vector-field-based method is one of the 3D curve-skeleton extraction
+	algorithms. Typically, critical points in the vector field inside
+	3D objects are connected to form the curve-skeleton. However, critical
+	points usually do not distribute to all important parts of the 3D
+	object. Therefore, other features are used to produce a reliable
+	result. Although this strategy can deliver a curve-skeleton that
+	captures all of the important parts, the curve-skeleton usually comes
+	with unnecessary segments. This paper proposes the skeleton-growing
+	algorithm that automatically produces the curve-skeleton with small
+	amounts of such segments. It searches for a set of high-curvature
+	boundary voxels as starting points to find a set of suitable seed
+	points that will be used to grow the curve-skeleton. We propose an
+	unnecessary segment removal algorithm that can reduce the skeleton-noise
+	density. A direction-selection algorithm is developed to avoid searching
+	in irrelevant directions. The proposed method can produce a single
+	reliable result curve-skeleton that could be applied in many different
+	applications, including matching, animation, and visualization.},
+  acmid = {1899956},
+  articleno = {6},
+  doi = {http://doi.acm.org/10.1145/1899950.1899956},
+  file = {:./Pantuwong2010/a6-pantuwong.pdf:PDF},
+  isbn = {978-1-4503-0523-5},
+  keywords = {curvature, curve-skeleton, skeleton-growing, vector-field},
+  location = {Seoul, Republic of Korea},
+  numpages = {2},
+  owner = {apinzonf},
+  timestamp = {2011.10.31},
+  url = {http://doi.acm.org/10.1145/1899950.1899956}
 }
 
 @ARTICLE{Paris2004,
@@ -5557,6 +5692,87 @@
   owner = {apinzonf},
   publisher = {ACM},
   timestamp = {2009.10.21}
+}
+
+@INPROCEEDINGS{Tasdizen2002,
+  author = {Tasdizen, Tolga and Whitaker, Ross and Burchard, Paul and Osher,
+	Stanley},
+  title = {Geometric surface smoothing via anisotropic diffusion of normals},
+  booktitle = {Proceedings of the conference on Visualization '02},
+  year = {2002},
+  series = {VIS '02},
+  pages = {125--132},
+  address = {Washington, DC, USA},
+  publisher = {IEEE Computer Society},
+  note = {Mesh Smoothing},
+  abstract = {This paper introduces a method for smoothing complex, noisy surfaces,
+	while preserving (and enhancing) sharp, geometric features. It has
+	two main advantages over previous approaches to feature preserving
+	surface smoothing. First is the use of level set surface models,
+	which allows us to process very complex shapes of arbitrary and changing
+	topology. This generality makes it well suited for processing surfaces
+	that are derived directly from measured data. The second advantage
+	is that the proposed method derives from a well-founded formulation,
+	which is a natural generalization of anisotropic diffusion, as used
+	in image processing. This formulation is based on the proposition
+	that the generalization of image filtering entails filtering the
+	normals of the surface, rather than processing the positions of points
+	on a mesh.},
+  acmid = {602117},
+  file = {:./Tasdizen2002/Tasdizen2002.pdf:PDF},
+  isbn = {0-7803-7498-3},
+  keywords = {anisotropic diffusion, geometric surface processing, intrinsic Laplacian
+	of curvature, level sets, surface fairing},
+  location = {Boston, Massachusetts},
+  numpages = {8},
+  owner = {apinzonf},
+  timestamp = {2011.09.15},
+  url = {http://dl.acm.org/citation.cfm?id=602099.602117}
+}
+
+@INPROCEEDINGS{Taubin1995,
+  author = {Taubin, Gabriel},
+  title = {A signal processing approach to fair surface design},
+  booktitle = {Proceedings of the 22nd annual conference on Computer graphics and
+	interactive techniques},
+  year = {1995},
+  series = {SIGGRAPH '95},
+  pages = {351--358},
+  address = {New York, NY, USA},
+  publisher = {ACM},
+  abstract = {In this paper we describe a new tool for interactive free-form fair
+	surface design. By generalizing classical discrete Fourier analysis
+	to two-dimensional discrete surface signals -- functions defined
+	on polyhedral surfaces of arbitrary topology --, we reduce the problem
+	of surface smoothing, or fairing, to low-pass filtering. We describe
+	a very simple surface signal low-pass filter algorithm that applies
+	to surfaces of arbitrary topology. As opposed to other existing optimization-based
+	fairing methods, which are computationally more expensive, this is
+	a linear time and space complexity algorithm. With this algorithm,
+	fairing very large surfaces, such as those obtained from volumetric
+	medical data, becomes affordable. By combining this algorithm with
+	surface subdivision methods we obtain a very effective fair surface
+	design technique. We then extend the analysis, and modify the algorithm
+	accordingly, to accommodate different types of constraints. Some
+	constraints can be imposed without any modification of the algorithm,
+	while others require the solution of a small associated linear system
+	of equations. In particular, vertex location constraints, vertex
+	normal constraints, and surface normal discontinuities across curves
+	embedded in the surface, can be imposed with this technique. CR Categories
+	and Subject Descriptors: I.3.3 [Computer Graphics]: Picture/image
+	generation - display algorithms; I.3.5 [Computer Graphics]: Computational
+	Geometry and Object Modeling - curve, surface, solid, and object
+	representations;J.6[Com- puter Applications]: Computer-Aided Engineering
+	- computeraided design General Terms: Algorithms, Graphics. 1},
+  acmid = {218473},
+  doi = {http://doi.acm.org/10.1145/218380.218473},
+  file = {:./Taubin1995/Taubin-sg95.pdf:PDF},
+  isbn = {0-89791-701-4},
+  keywords = {graphics},
+  numpages = {8},
+  owner = {apinzonf},
+  timestamp = {2011.09.15},
+  url = {http://doi.acm.org/10.1145/218380.218473}
 }
 
 @INPROCEEDINGS{Theobalt2004,
