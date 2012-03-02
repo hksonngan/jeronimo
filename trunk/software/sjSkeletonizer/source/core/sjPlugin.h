@@ -2,6 +2,7 @@
 #define __SJPLUGIN__H__
 
 #include <string>
+#include "sjSystem.h"
 
 namespace sj{
 
@@ -11,11 +12,14 @@ namespace sj{
 		sjPlugin();
 		sjPlugin(const sjPlugin &Other);
 		virtual ~sjPlugin();
-		void setName(std::string a_name);
 		std::string getName();
-		void registerPlugin(sjKernelPlugin & K);
+		std::string getNameType();
+		std::string getPluginName();
+		virtual void registerPlugin(sjKernelPlugin & K);
+		sjSystem * createSystem();
 	protected:
 		std::string name;
+		std::string name_type;
 		sjPlugin &operator =(const sjPlugin &Other);
 		typedef void fnRegisterPlugin(sjKernelPlugin &, std::string );
 		fnRegisterPlugin * m_pfnRegisterPlugin;
