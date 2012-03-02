@@ -15,6 +15,8 @@ namespace sj{
 
 template<class T, class B> class sjPF{
 	public:
+		typedef T PolyhedronType;
+		typedef B ParametersType;
 		class sjPipe;
 
 		class sjProducer{
@@ -61,9 +63,9 @@ template<class T, class B> class sjPF{
 			}
 			void update(){
 				assert(this->output_pipe != NULL);
-				transform();
+				iterate();
 			}
-			virtual T * transform() = 0;
+			virtual T * iterate() = 0;
 			virtual void setParameters(B *) = 0;
 			virtual B * getParameters() = 0;
 		};

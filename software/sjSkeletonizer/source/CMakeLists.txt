@@ -11,7 +11,7 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 	INCLUDE_DIRECTORIES (io)
 	INCLUDE_DIRECTORIES (log)
 	INCLUDE_DIRECTORIES (parameters)
-	INCLUDE_DIRECTORIES (plugin)
+	INCLUDE_DIRECTORIES (core)
 	INCLUDE_DIRECTORIES (system)
 	INCLUDE_DIRECTORIES (utils)
 	INCLUDE_DIRECTORIES (xml)
@@ -43,8 +43,6 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 		parameters/sjParameter.cpp
 	)
 	SET(core_sources
-		core/sjExternalServer.h
-		core/sjExternalServer.cpp
 		core/sjKernelPlugin.h
 		core/sjKernelPlugin.cpp
 		core/sjPlugin.h
@@ -93,7 +91,7 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 		io
 		libxml2
 		parameters
-		plugin
+		core
 		utils
 		xml
 		${CGAL_LIBRARIES} 
