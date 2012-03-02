@@ -40,14 +40,13 @@
 #include <stdexcept>
 #include <cmath>  
 #include "sjDatatype.h"
-#include "sjEngine.h"
 
 #include <CGAL/IO/Polyhedron_iostream.h>
 #include <CGAL/IO/Polyhedron_scan_OFF.h> 
 
 using namespace std;
 
-class SJENGINE_API sjDataIO{
+class sjDataIO{
 public:
 	sjDataIO();
 	void setFileName(string a_file_name);
