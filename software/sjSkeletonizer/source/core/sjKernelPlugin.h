@@ -13,6 +13,8 @@
 namespace sj{
 
 	class sjKernelPlugin: public sjSubject{
+	public:
+		static const std::string INIT_INDEX_SYSTEM ;
 	private:
 		static sjKernelPlugin _instance;
 		sjKernelPlugin(void);

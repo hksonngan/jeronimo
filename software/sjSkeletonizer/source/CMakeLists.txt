@@ -15,6 +15,7 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 	INCLUDE_DIRECTORIES (system)
 	INCLUDE_DIRECTORIES (utils)
 	INCLUDE_DIRECTORIES (xml)
+	INCLUDE_DIRECTORIES (plugin)
 	
 	INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 	INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/extern)
@@ -70,6 +71,11 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 		xml/sjXml.h
 		xml/sjXml.cpp
 	)
+	
+	SET(plugin_sources
+		plugin/sjLaplacianSmoothing.h
+		plugin/sjLaplacianSmoothing.cpp
+	)
 
 	ADD_LIBRARY(log STATIC ${log_sources} )
 	TARGET_LINK_LIBRARIES (log log4cplus )
@@ -115,6 +121,19 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 
 	ADD_LIBRARY(xml STATIC ${xml_sources})
 	TARGET_LINK_LIBRARIES (xml exception libxml2)
+	
+	ADD_LIBRARY(plugin STATIC ${plugin_sources})
+	TARGET_LINK_LIBRARIES (plugin 
+		basic
+		math
+		utils
+		core
+		system
+		io
+		parameters
+		${CGAL_LIBRARIES} 
+		${CGAL_3RD_PARTY_LIBRARIES} 
+		${TAUCS_LIBRARIES_DIR}/libtaucs) 
 
 	qt4_generate_moc( "${CMAKE_SOURCE_DIR}/source/gui/sjViewer.h" ${CMAKE_CURRENT_BINARY_DIR}/sjViewer_moc.cpp )
 	SET(FOO_MOC_FILE "${CMAKE_CURRENT_BINARY_DIR}/sjViewer_moc.cpp")

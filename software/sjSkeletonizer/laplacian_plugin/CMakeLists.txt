@@ -25,8 +25,8 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 	
 	
 	ADD_LIBRARY( pluginLaplacian SHARED
-	sjLaplacianSmoothing.h
-	sjLaplacianSmoothing.cpp )
+	sjLaplacianSmoothing2.h
+	sjLaplacianSmoothing2.cpp )
 	TARGET_LINK_LIBRARIES ( pluginLaplacian 
 		basic
 		math
