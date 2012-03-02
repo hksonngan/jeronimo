@@ -6,21 +6,29 @@
 #include "sjState.h"
 
 namespace sj{
-
 	
 	class sjStateContext: public sjPolyhedronPipe::sjFilter, public sjObserver{
 	public:		
-		bool evolve(int delta_frame);    
-		void setState(sjState * a_state);    
-		sjState * getState();
+		sjStateContext();
+		
 		void proccesEvent(sjEvent * evt);
-		sjPolyhedronPipe::PolyhedronType * iterate();
+		void setMesh(sjPolyhedronPipe::PolyhedronType);
 		void setParameters(sjPolyhedronPipe::ParametersType *);
+		void setState(sjState * a_state);    
+		
+		sjPolyhedronPipe::PolyhedronType * iterate();
+		sjPolyhedronPipe::PolyhedronType getMesh();
+		size_t getNumberOfVertex();
 		sjPolyhedronPipe::ParametersType * getParameters();
+		sjState * getState();
+
+		bool evolve(int delta_frame);    
+
 	protected:
+		sjPolyhedron mesh_G;
+		sjPolyhedronPipe::ParametersType * m_params;
 		sjState * state;
 	};
 }
-
 
 #endif //__SJSTATECONTEXT__H__

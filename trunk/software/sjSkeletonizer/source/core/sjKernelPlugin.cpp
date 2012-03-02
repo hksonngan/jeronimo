@@ -3,6 +3,7 @@
 using namespace sj;
 
 sjKernelPlugin sjKernelPlugin::_instance;
+const std::string sjKernelPlugin::INIT_INDEX_SYSTEM = "INIT_INDEX_SYSTEM";
 
 sjKernelPlugin::sjKernelPlugin(void){
 }

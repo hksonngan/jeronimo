@@ -65,8 +65,12 @@ template<class T, class B> class sjPF{
 				assert(this->output_pipe != NULL);
 				iterate();
 			}
-			virtual T * iterate() = 0;
+			
 			virtual void setParameters(B *) = 0;
+			virtual void setMesh(T) = 0;
+			virtual size_t getNumberOfVertex() = 0;
+			virtual T * iterate() = 0;
+			virtual T getMesh() = 0;
 			virtual B * getParameters() = 0;
 		};
 
