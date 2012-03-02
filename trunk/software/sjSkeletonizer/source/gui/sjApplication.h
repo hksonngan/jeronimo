@@ -41,7 +41,7 @@
 #include <QLineEdit>
 #include <QSlider>
 #include "sjUtils.h"
-#include "sjKernel.h"
+#include "sjKernelPlugin.h"
 
 using namespace sj;
 
@@ -52,6 +52,7 @@ class sjApplication: public QMainWindow{
 public:
     sjApplication();
     ~sjApplication();
+	QTabWidget * getCentralQTabWidget();
 
 //protected:
     //void closeEvent( QCloseEvent* );
@@ -64,14 +65,17 @@ private slots:
 	void closeTab(int index);
 	void changueSliderIteration(int value);
 
+
+
 private:
+	void loadPlugins();
 	QTabWidget * central_QTabWidget;
 	QDockWidget * tools_QDockWidget;
 	QToolBox * tool_box_QToolBox;
 	QLineEdit * txt_iterations;
 	QSlider * sld_iterations;
 
-	sjKernelEngine kernel_engine;
+	sjKernelPlugin & kernel_engine;
 
 
 };

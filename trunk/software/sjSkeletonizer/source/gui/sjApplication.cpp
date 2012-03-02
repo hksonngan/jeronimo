@@ -55,7 +55,7 @@
 using namespace sj;
 
 sjApplication::sjApplication():
-QMainWindow( 0)
+QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 {
 	
 	QAction * openAct = new QAction(("&Open..."), this);
@@ -114,7 +114,14 @@ QMainWindow( 0)
 	log4cplus::BasicConfigurator config;
     config.configure();
 
-	kernel_engine.loadPlugin("K:/personal/maestria/tesis/Jeronimo/trunk/software/sjSkeletonizer/source/resources/example1.xml");
+	sjPluginXmlLoader * loader = new sjPluginXmlLoader("E:/personal/maestria/tesis/Jeronimo/trunk/software/sjSkeletonizer/source/resources/example1.xml");
+	if(loader  == NULL)
+		printf("loader is NULL");
+
+	if(kernel_engine.addPlugin(loader))
+		printf("Si la registro\n");
+	else
+		printf("No la registro\n");
 
 
 }
@@ -135,25 +142,44 @@ void sjApplication::closeTab(int index)
 		 tr("Open 3D File"), "./", tr("3D Files (*.off)"));
 	 sjDataIO dataio;
 	 dataio.setFileName(fileName.toLatin1().constData());
+	 printf("LINE 0\n");
 	 try{
 		 dataio.load();
 		 sjViewer * myviewer = new sjViewer(central_QTabWidget, false);
 		 myviewer->setVerticesFaces(dataio.getPolyhedronModel());
+		 printf("LINE 1\n");
 		 
 		 myviewer->setBoundingBox( calcBoundingBox(dataio.getPolyhedronModel()));
 		 
 		 int index  = central_QTabWidget->addTab(myviewer, fileName.right(fileName.size()-1-fileName.lastIndexOf("/")));
 		 central_QTabWidget->setCurrentIndex ( index );
 
-		 sjMeshFilter * mesh_f = kernel_engine.getsjMeshFilterServer().getsjMeshFilter(0).createMeshFilter();
-		 mesh_f->setMesh(dataio.getPolyhedronModel());
+		 printf("LINE 1\n");
+
+		 //sjExternalServer * server_mesh_filter =  kernel_engine.getExternalServer(std::string("sjMeshFilter"));
+		 sjMeshFilterFactory * server_mesh_filter =  kernel_engine.getMeshFilterFactory(std::string("sjMeshFilter"));
+		 if(server_mesh_filter == NULL) printf("server_mesh_filter = NULL");
+		 /*server_mesh_filter->getSystemDriverCount();
+		 printf("LINE 2, count%d\n", server_mesh_filter->getSystemDriverCount());*/
+
+		 //sjMeshFilter * mesh_f = (sjMeshFilter *)( server_mesh_filter->getSystemDriver(0)->createSystem());
+		 /*sjPolyhedronPipe::sjFilter * mesh_f = (sjPolyhedronPipe::sjFilter *)( server_mesh_filter->createFilter());
+		 printf("LINE 3\n");
+		 mesh_f-> setMesh(dataio.getPolyhedronModel());
+		 printf("LINE 4\n");
 	     mesh_f->setParameters(new sjParameterStore());
+		 printf("LINE 5\n");
 		 sjPluginWidget  * panel = new sjPluginWidget(mesh_f);
+		 printf("LINE 6\n");
 		 tool_box_QToolBox->addItem(panel, "Laplacian Smoothing");
 
+		 printf("LINE 7\n");
 		 connect(panel, SIGNAL(getMesh(sjPolyhedron)),myviewer, SLOT(setVerticesFaces(sjPolyhedron)));
+		 printf("LINE 8\n");*/
 
-	 }catch(std::exception e){
+	 }
+	 catch(std::exception e)
+	 {
 	 }
 
  }
@@ -196,4 +222,12 @@ void sjApplication::changueSliderIteration(int value){
 	sprintf(num, "%d", value);
 	txt_iterations->setText(QString(num));
 	sld_iterations->setValue(value);
+}
+
+void sjApplication::loadPlugins(){
+
+}
+
+QTabWidget * sjApplication::getCentralQTabWidget(){
+	return central_QTabWidget;
 }

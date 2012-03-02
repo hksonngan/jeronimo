@@ -31,7 +31,6 @@
 #define __SJLOG__H__
 
 #include <string>
-#include "sjEngine.h"
 
 namespace sj {
 	typedef enum {

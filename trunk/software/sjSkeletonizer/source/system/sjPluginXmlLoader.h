@@ -44,15 +44,14 @@
 #include <string>
 
 #include "sjException.h"
-#include "sjEngine.h"
 #include "sjXml.h"
 #include "sjParameter.h"
-#include "sjPlugin.h"
+#include "sjKernelPlugin.h"
+#include "sjPluginLoader.h"
 
 namespace sj{
-	class sjKernelEngine;
 
-	class sjPluginXmlLoader: class sjPlugin{
+	class sjPluginXmlLoader: public sjPlugin{
 	public:
 		sjPluginXmlLoader(std::string file_name);
 		virtual ~sjPluginXmlLoader(void);

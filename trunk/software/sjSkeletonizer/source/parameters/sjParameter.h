@@ -11,9 +11,9 @@
 #include <map>
 #include <typeinfo>
 #include <time.h>
-
-#include "sjException.h"
-#include "sjEngine.h"
+#include <stdlib.h>
+#include <iostream>
+#include <sstream>
 
 namespace sj{
 
@@ -160,6 +160,35 @@ namespace sj{
 		}
 		void setValue(T adata){
 			data = adata;
+		}
+
+		void setValueFromString(std::string a_value){
+			if(a_value.length() == 0) return;
+			if(typeid(T) == typeid(float)) data = (float)atof(a_value.c_str());
+			else if(typeid(T) == typeid(int)) data = (int)atoi(a_value.c_str());
+			else if(typeid(T) == typeid(double)) data = (double)atof(a_value.c_str());
+			else if(typeid(T) == typeid(long)) data = (long)atoi(a_value.c_str());
+			else if(typeid(T) == typeid(long double))  data = (long double)atol(a_value.c_str());
+			else if(typeid(T) == typeid(short)) data = (short)atoi(a_value.c_str());
+			else if(typeid(T) == typeid(unsigned int)) data = (unsigned int)atoi(a_value.c_str());
+			else if(typeid(T) == typeid(unsigned long)) data = (unsigned long)strtoul(a_value.c_str(),NULL, 0);
+			else if(typeid(T) == typeid(unsigned short)) data = (unsigned short)atoi(a_value.c_str());
+			else if(typeid(T) == typeid(char)) data = (char)a_value.c_str()[0];
+			else if(typeid(T) == typeid(unsigned char)) data = (unsigned char)a_value.c_str()[0];
+		}
+
+		std::string toString(){
+			std::ostringstream ss;
+			ss << data;
+			std::string s(ss.str());
+			return s;
+		}
+
+		std::string convertToString(T a_value){
+			std::ostringstream ss;
+			ss << a_value;
+			std::string s(ss.str());
+			return s;
 		}
 		
 	protected:

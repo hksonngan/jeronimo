@@ -64,6 +64,8 @@ public:
   
   sjViewer(QWidget * parent, bool antialiasing = false);
 
+  int getId(){return m_index_id;}
+
   // overload several QGLViewer virtual functions
   void draw();
   void initializeGL();
@@ -123,6 +125,9 @@ private:
 
   //sjLaplacianSmoothing * laplacian_system;
   sjIso_cuboid_3 bounding_box;
+  
+  static int index_id;
+  int m_index_id;
 
 
 };

@@ -38,10 +38,9 @@
 #include <string>
 
 #include "sjException.h"
-#include "sjEngine.h"
 
 namespace sj{
-	class SJENGINE_API sjXml{
+	class sjXml{
 	public:
 		static bool validateDtd(std::string file_name_doc, std::string file_name_dtd) throw(sjException);
 		static bool validateDocument(std::string file_name_doc) throw(sjException);

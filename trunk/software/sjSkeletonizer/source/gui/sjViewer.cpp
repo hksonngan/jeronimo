@@ -41,13 +41,15 @@
 using namespace std;
 using namespace qglviewer;
 
+int sjViewer::index_id = 0;
+
 sjViewer::sjViewer(QWidget* parent, bool antialiasing)
   : QGLViewer(parent),
     antialiasing(antialiasing),
     twosides(false)/*,
 	laplacian_system(0)*/
 {
-
+	m_index_id = index_id++;
   
 }
 

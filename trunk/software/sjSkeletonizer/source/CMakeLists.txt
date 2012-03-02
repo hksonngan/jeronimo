@@ -25,40 +25,60 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 	INCLUDE_DIRECTORIES(${QGLVIEWER_INCLUDE_DIR})
 	INCLUDE_DIRECTORIES(${TAUCS_INCLUDE_DIR})
 
-	AUX_SOURCE_DIRECTORY(exception exception_sources)
-	AUX_SOURCE_DIRECTORY(io io_sources)
-	AUX_SOURCE_DIRECTORY(log log_sources)
-	AUX_SOURCE_DIRECTORY(parameters parameters_sources)
-	AUX_SOURCE_DIRECTORY(plugin plugin_sources)
-	AUX_SOURCE_DIRECTORY(system system_sources)	
-	AUX_SOURCE_DIRECTORY(utils utils_sources)
-	AUX_SOURCE_DIRECTORY(xml xml_sources)
-	
-	IF(WIN32)
-		GatherProjectFiles(exception source/exception exception_headerFiles)
-		GatherProjectFiles(io source/io io_headerFiles)
-		GatherProjectFiles(log source/log log_headerFiles)
-		GatherProjectFiles(parameters source/parameters parameters_headerFiles)
-		GatherProjectFiles(plugin source/plugin plugin_headerFiles)
-		GatherProjectFiles(system source/system system_headerFiles)
-		GatherProjectFiles(utils source/utils utils_headerFiles)
-		GatherProjectFiles(xml source/xml xml_headerFiles)
-		
-		SET(exception_sources 		${exception_sources} 	${exception_headerFiles})
-		SET(io_sources 				${io_sources} 			${io_headerFiles})
-		SET(log_sources 			${log_sources} 			${log_headerFiles})
-		SET(parameters_sources 		${parameters_sources} 	${parameters_headerFiles})
-		SET(plugin_sources 			${plugin_sources} 		${plugin_headerFiles} )
-		SET(system_sources 			${system_sources} 		${system_headerFiles} )
-		SET(utils_sources 			${utils_sources} 		${utils_headerFiles} )
-		SET(xml_sources 			${xml_sources} 			${xml_headerFiles})
-	ENDIF(WIN32)
+	SET(exception_sources
+		exception/sjException.h
+		exception/sjException.cpp
+	)
+	SET(io_sources
+		io/sjDataType.h
+		io/sjDataIO.h
+		io/sjDataIO.cpp
+	)
+	SET(log_sources
+		log/sjLog.h
+		log/sjLog.cpp
+	)
+	SET(parameters_sources
+		parameters/sjParameter.h
+		parameters/sjParameter.cpp
+	)
+	SET(core_sources
+		core/sjExternalServer.h
+		core/sjExternalServer.cpp
+		core/sjKernelPlugin.h
+		core/sjKernelPlugin.cpp
+		core/sjPlugin.h
+		core/sjPlugin.cpp
+		core/sjSystem.h
+		core/sjState.h
+		core/sjStateContext.h
+		core/sjStateContext.cpp
+	)
+	SET(system_sources
+		system/sjPluginLoader.h
+		system/sjPluginLoader.cpp
+		system/sjPluginXmlLoader.h
+		system/sjPluginXmlLoader.cpp
+	)
+	SET(utils_sources
+		utils/sjUtils.h
+		utils/sjUtils.cpp
+		utils/sjPipeFilter.h
+		utils/sjPipeFilter.cpp
+		utils/sjObserver.h
+		utils/sjObserver.cpp
+	)
+	SET(xml_sources
+		xml/sjXml.h
+		xml/sjXml.cpp
+	)
 
 	ADD_LIBRARY(log STATIC ${log_sources} )
 	TARGET_LINK_LIBRARIES (log log4cplus )
 	
 	ADD_LIBRARY(exception STATIC ${exception_sources} )
 	TARGET_LINK_LIBRARIES (exception log log4cplus)
+	
 	ADD_LIBRARY(io STATIC ${io_sources} )
 	TARGET_LINK_LIBRARIES (io 
 		${CGAL_LIBRARIES} 
@@ -67,10 +87,9 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 		log4cplus )	
 	
 	ADD_LIBRARY(parameters STATIC ${parameters_sources} )
-	TARGET_LINK_LIBRARIES (parameters exception log log4cplus)
 
 	ADD_LIBRARY(system STATIC ${system_sources})
-	TARGET_LINK_LIBRARIES (utils 
+	TARGET_LINK_LIBRARIES (system 
 		io
 		libxml2
 		parameters
@@ -84,11 +103,17 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 	ADD_LIBRARY(utils STATIC ${utils_sources})
 	TARGET_LINK_LIBRARIES (utils 
 		io
+		parameters
 		${CGAL_LIBRARIES} 
 		${CGAL_3RD_PARTY_LIBRARIES} 
 		${TAUCS_LIBRARIES_DIR}/libtaucs)
 	
-	ADD_LIBRARY(plugin STATIC ${plugin_sources})
+	ADD_LIBRARY(core STATIC ${core_sources})
+	TARGET_LINK_LIBRARIES(core 
+	utils
+	io
+	parameters
+	)
 
 	ADD_LIBRARY(xml STATIC ${xml_sources})
 	TARGET_LINK_LIBRARIES (xml exception libxml2)
@@ -131,7 +156,7 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 		io
 		log
 		parameters
-		plugin
+		core
 		utils
 		xml
 		basic

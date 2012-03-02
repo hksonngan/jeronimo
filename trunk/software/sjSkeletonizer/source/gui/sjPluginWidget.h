@@ -33,12 +33,6 @@
 #ifndef __SJPLUGINWIDGET__H__
 #define __SJPLUGINWIDGET__H__
 
-#define GET_VALUES_NUMERIC_PARAM(name_type)\
-			min_value = (int)((name_type *)param)->getMinValue();\
-			max_value = (int)((name_type *)param)->getMaxValue();\
-			default_value = (int)((name_type *)param)->getDefaultValue();\
-			step_value = (int)((name_type *)param)->getStep();\
-
 #include <QWidget>
 #include <QObject>
 #include <QSlider>
@@ -48,27 +42,39 @@
 #include <QPushButton>
 #include <string>
 #include <vector>
-#include "sjKernel.h"
-#include "sjParameter.h"
+#include "sjKernelPlugin.h"
+//#include "sjMeshFilterServer.h"
+#include "sjExternalServer.h"
+#include "sjPipeFilter.h"
 #include <sstream>
+#include "sjApplication.h"
 
 using namespace sj;
+
 
  class sjSliderSlotSignal : public QObject
  {
      Q_OBJECT
 
  public:
-     sjSliderSlotSignal() { }
+	 sjSliderSlotSignal(double a_min_value, double a_max_value, double a_step_value) {
+			min_value		= a_min_value;
+			max_value		= a_max_value;
+			step_value		= a_step_value;
+	 }
 
 	 QString value() const { return m_value; }
 
- public slots:
-	 void setValue(int value){
+public slots:
+	void setValue(int value){
+		double result;
+		if(step_value != 0)  result = ((double)value) * step_value + min_value;
+		else result = 0.0;
+
 		std::stringstream out;
-		out << value;
+		out << result;
 		m_value = QString(out.str().c_str());
-		 emit valueChanged(m_value);
+		emit valueChanged(m_value);
 	 }
 
  signals:
@@ -76,12 +82,15 @@ using namespace sj;
 
  private:
 	 QString m_value;
+	 double min_value;
+	 double max_value;
+	 double step_value;
  };
 
 class sjPluginWidget: public QWidget{
 	Q_OBJECT
 public:
-	sjPluginWidget(sjMeshFilter * a_mesh_filter, QWidget * parent = 0, Qt::WindowFlags f = 0 );
+	sjPluginWidget(sjPolyhedronPipe::sjFilter * a_mesh_filter, sjApplication * parent = 0, Qt::WindowFlags f = 0 );
 	std::string getName();
 	~sjPluginWidget();
 signals:
@@ -91,11 +100,12 @@ public slots:
 	void iterate();
 
 private:
-	sjMeshFilter * mesh_filter;
+	sjPolyhedronPipe::sjFilter * mesh_filter;
 	QSlider * getSlider(sjParameterBase * param);
 	std::string name;
 	std::vector<QLineEdit *> m_txt_sliders;
 	std::vector<QSlider *> m_sliders;
+	sjApplication * m_parent;
 };
 
 #endif
