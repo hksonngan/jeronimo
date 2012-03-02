@@ -20,8 +20,8 @@ sjPluginXmlLoader::sjPluginXmlLoader(std::string file_name){
 	document= sjXml::parseXmlFile(file_name);
 	if(document == NULL) throw sjException(sjException::SJ_EXCEPTION_NULL);
 	
-	information = new sjParameterStore();
-	parameters = new sjParameterStore();
+	sjParameterStore * information = new sjParameterStore();
+	sjParameterStore * parameters = new sjParameterStore();
 
 	information->addParameter(loadPluginParameterInfo(document, "name", "/plugin"));
 
@@ -44,23 +44,31 @@ sjPluginXmlLoader::sjPluginXmlLoader(std::string file_name){
 
 	sjPluginLoader loader;
 	m_hDLL = loader.loadLibrary(information->getParameter("filename")->getDescription());
-	printf("Loading %s...\n", information->getParameter("filename")->getDescription().c_str());
+
 	if(!m_hDLL){
-		printf("Loading error\n.");
 		throw sjException(sjException::SJ_EXCEPTION_LOAD_SHARED_LIBRARY_FAILS, loader.getError(m_hDLL));
 	}
+	printf("sjPluginXmlLoader: -> Line 0\n");
 	try
 	{
-		printf("1111111111111\n.");
 		m_pfnRegisterPlugin = reinterpret_cast<fnRegisterPlugin *>(
 			loader.getSymbol(m_hDLL, "registerPlugin"));
-		printf("222222222222222222\n.");
+		printf("sjPluginXmlLoader: -> Line 1\n");
+
+		sjKernelPlugin & kernel = sjKernelPlugin::getInstance();
+		printf("sjPluginXmlLoader: -> Line 4\n");
+		kernel.addPluginInfo(information->getParameter("name")->getDescription(), information);
+		printf("sjPluginXmlLoader: -> Line 9\n");
+		kernel.addMeshFilterInfo(information->getParameter("name")->getDescription(), parameters);
+
+		setName(information->getParameter("name")->getDescription());
+		
+
+
 	}
 	catch(...)
 	{
-		printf("33333333333333333333\n.");
 		loader.unloadLibrary(m_hDLL);
-		printf("44444444444444444444444\n.");
 		throw;
 	}
 }

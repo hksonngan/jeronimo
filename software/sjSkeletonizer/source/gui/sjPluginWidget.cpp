@@ -1,22 +1,50 @@
 #include "sjPluginWidget.h"
 
-sjPluginWidget::sjPluginWidget(sjMeshFilter * a_mesh_filter, QWidget * parent, Qt::WindowFlags f):
-QWidget(parent, f), mesh_filter (0){
+//sjPluginWidget::sjPluginWidget(sjMeshFilter * a_mesh_filter, sjApplication * parent, Qt::WindowFlags f):
+sjPluginWidget::sjPluginWidget(sjPolyhedronPipe::sjFilter * a_mesh_filter, sjApplication * parent, Qt::WindowFlags f):
+QWidget(parent, f), mesh_filter (0), m_parent(parent)
+{
 	mesh_filter = a_mesh_filter;
 
-	name = std::string( mesh_filter->getName());
+	//name = std::string( mesh_filter->getName());
+	name = std::string( "Mesh Filter");
+	sjKernelPlugin & kernel = sjKernelPlugin::getInstance();
+
+	/*sjStoreServer * server_store = (sjStoreServer *)kernel.getExternalServer(std::string("sjStoreServer"));
+	printf("sjPluginWidget::sjPluginWidget Line 0\n");
+	sjMeshStoreDriver * mdriver =(sjMeshStoreDriver *) server_store->getInstanceStoreDriver(std::string("MESH_FILTER_NAME"));
+	printf("sjPluginWidget::sjPluginWidget Line 1\n");
+	sjMeshFilterInfo * info_mf = (sjMeshFilterInfo * ) mdriver->getObject(name);
+	printf("sjPluginWidget::sjPluginWidget Line 2\n");*/
+	sjParameterStore * info_mf = kernel.getMeshFilterInfo("Mesh Filter");
+	if(info_mf == NULL) printf("sjPluginWidget::sjPluginWidget is NULLLLLLL\n");
+
 	unsigned int i = 0;
-	unsigned int n = mesh_filter->getParameters()->getNumberOfParameters();
+	//if(info_mf->getParameters() == NULL) printf("sjPluginWidget::sjPluginWidget info_mf->getParameters() is NULLLLLLL\n");
+	//unsigned int n = info_mf->getParameters()->getNumberOfParameters();
+	unsigned int n = info_mf->getNumberOfParameters();
 
 	QVBoxLayout *toolLayout = new QVBoxLayout;
 
+	QLabel * a1_label = new QLabel(QString(name.c_str()));
+	toolLayout->addWidget(a1_label);
+
 	for(i = 0; i<n; i++){
-		sjParameterBase * a_param = mesh_filter->getParameters()->getParameter(i);
+		//sjParameterBase * a_param = info_mf->getParameters()->getParameter(i);
+		sjParameterBase * a_param = info_mf->getParameter(i);
 		if(a_param->getType() >= 10 && a_param->getType() < 100){
 			QLineEdit * a_QLineEdit = new QLineEdit("", this);
 			QSlider * sld_iterations = getSlider(a_param);
 			QLabel * a_label = new QLabel(QString(a_param->getName().c_str()));
-			sjSliderSlotSignal * m_slider_ss = new sjSliderSlotSignal();
+			
+			double min_value, max_value, step_value;
+
+			min_value = (double)((sjDoubleParam *)a_param)->getMinValue();
+			max_value = (double)((sjDoubleParam *)a_param)->getMaxValue();
+			step_value = (double)((sjDoubleParam *)a_param)->getStep();
+
+			sjSliderSlotSignal * m_slider_ss = new sjSliderSlotSignal(min_value, max_value, step_value);
+
 			connect(sld_iterations, SIGNAL(valueChanged(int)),sld_iterations, SLOT(setValue(int)));
 			connect(sld_iterations, SIGNAL(valueChanged(int)),m_slider_ss, SLOT(setValue(int)));
 			connect(m_slider_ss, SIGNAL(valueChanged(QString)),a_QLineEdit, SLOT(setText(QString)));
@@ -52,58 +80,36 @@ std::string sjPluginWidget::getName(){
 
 QSlider * sjPluginWidget::getSlider(sj::sjParameterBase * param){
 	QSlider * a_slider = new QSlider(Qt::Horizontal, this);
-	int min_value, max_value, default_value, step_value;
-	switch(param->getType()){
-		case SJ_DATA_TYPE_CHAR:					
-			GET_VALUES_NUMERIC_PARAM(sjCharParam)
-			break;
-		case SJ_DATA_TYPE_DOUBLE:				
-			GET_VALUES_NUMERIC_PARAM(sjDoubleParam)
-			break;
-		case SJ_DATA_TYPE_FLOAT:				
-			GET_VALUES_NUMERIC_PARAM(sjFloatParam)
-			break;
-		case SJ_DATA_TYPE_INT:					
-			GET_VALUES_NUMERIC_PARAM(sjIntParam)
-			break;
-		case SJ_DATA_TYPE_LONG:					
-			GET_VALUES_NUMERIC_PARAM(sjLongParam)
-			break;
-		case SJ_DATA_TYPE_LONG_DOUBLE:			
-			GET_VALUES_NUMERIC_PARAM(sjLongDoubleParam)
-			break;
-		case SJ_DATA_TYPE_SHORT:				
-			GET_VALUES_NUMERIC_PARAM(sjShortParam)
-			break;
-		case SJ_DATA_TYPE_UNSIGNED_CHAR:		
-			GET_VALUES_NUMERIC_PARAM(sjUnsignedCharParam)
-			break;
-		case SJ_DATA_TYPE_UNSIGNED_INT:			
-			GET_VALUES_NUMERIC_PARAM(sjUnsignedIntParam)
-			break;
-		case SJ_DATA_TYPE_UNSIGNED_LONG:		
-			GET_VALUES_NUMERIC_PARAM(sjUnsignedLongParam)
-			break;
-		case SJ_DATA_TYPE_UNSIGNED_SHORT:		
-			GET_VALUES_NUMERIC_PARAM(sjUnsignedShortParam)
-			break;
-	}
+	double min_value, max_value, default_value, step_value;
 
-	a_slider->setMinimum(min_value);
-	a_slider->setMaximum(max_value);
-	a_slider->setSingleStep(step_value);
-	a_slider->setValue(default_value);
+	min_value = (double)((sjDoubleParam *)param)->getMinValue();
+	max_value = (double)((sjDoubleParam *)param)->getMaxValue();
+	default_value = (double)((sjDoubleParam *)param)->getDefaultValue();
+	step_value = (double)((sjDoubleParam *)param)->getStep();
+
+	int i_max;
+	if(step_value !=0) i_max = (int)((max_value-min_value)/ step_value);
+	else i_max = 1;
+	a_slider->setMinimum(0);
+	a_slider->setMaximum(i_max );
+	a_slider->setSingleStep(1);
+	a_slider->setValue((int)((default_value-min_value)/ step_value));
 
 	return a_slider ;
 }
 
 void sjPluginWidget::configure(){
 	if(mesh_filter == NULL) return;
-	mesh_filter->configure();
+	//mesh_filter->configure();
+	mesh_filter->transform();
 }
 
 void sjPluginWidget::iterate(){
 	if(mesh_filter == NULL) return;
-	mesh_filter->iterate();
-	emit getMesh(mesh_filter->getMesh());
+	//mesh_filter->iterate();
+	mesh_filter->transform();
+	sjPolyhedronPipe::sjPipe * pipe;
+	mesh_filter->setOutputPipe(pipe);
+	//emit getMesh(mesh_filter->);
+	emit getMesh(*(pipe->read()));
 }

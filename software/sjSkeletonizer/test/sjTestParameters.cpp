@@ -17,6 +17,8 @@ int main(){
 	sjIntParam * numInt =	reinterpret_cast<sjIntParam *>(num);
 	int * x = (int *)numInt->getData();
 	printf("\nCould be 12: %d", *x);
+	numInt->setValueFromString(std::string("148"));
+	printf("\nCould be 148: %s", numInt->toString().c_str());
 
 	sjParameterStore store;
 	sjParameterBase * baseptr = store.getParameter("....");

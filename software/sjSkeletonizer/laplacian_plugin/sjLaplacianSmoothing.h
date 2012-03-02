@@ -39,7 +39,7 @@
   #define PLUGINLAPLACE_EXPORTS_API __declspec(dllimport)
 #endif
 
-#include "sjKernel.h"
+#include "sjKernelPlugin.h"
 
 /*
 class  sjLaplacianSmoothing: public sjMeshFilter{

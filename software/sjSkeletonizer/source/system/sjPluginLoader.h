@@ -36,9 +36,24 @@
 #ifndef __SJPLUGINLOADER__H__
 #define __SJPLUGINLOADER__H__
 
+#if defined (WIN32) || defined (_WIN32_)
+	#define WIN32_LEAN_AND_MEAN
+	#include <windows.h>
+	#define SJHANDLER HMODULE
+#else
+#ifdef __APPLE__
+	#include <mach-o/dyld.h>
+	#include <dlfcn.h>
+	#include <stdarg.h>
+	#define SJHANDLER void * 
+#else //UNIX
+	#include <dlfcn.h>
+	#define SJHANDLER void * 
+#endif //__APPLE__
+#endif //WIN32
+
 #include <string>
 #include "sjException.h"
-#include "sjEngine.h"
 
 namespace sj{
 class sjPluginLoader

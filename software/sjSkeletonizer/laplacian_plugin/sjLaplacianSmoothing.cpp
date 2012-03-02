@@ -42,7 +42,7 @@
 
 #include "sjDataType.h"
 #include "sjUtils.h"
-#include "sjMeshFilterServer.h"
+#include "sjPipeFilter.h"
 
 #include <CGAL/Timer.h>
 #include <CGAL/IO/Polyhedron_iostream.h>
@@ -60,7 +60,7 @@ using namespace OGF;
 
 namespace sj{
 
-class  PLUGINLAPLACE_EXPORTS_API sjLaplacianSmoothing: public sjMeshFilter
+	class  PLUGINLAPLACE_EXPORTS_API sjLaplacianSmoothing: public sjPolyhedronPipe::sjFilter
 {
 public: 
 	sjLaplacianSmoothing():
@@ -280,6 +280,8 @@ public:
 
 	void initLaplacianSmoothing(double a_WH0 = 1.0, double a_WL0 = 0.01, double a_SL = 2.0){
 		
+		mesh_G = * input_pipe->read();
+
 		initIndex();
 		computeRings();
 		AVERAGE_FACE = averageFaces();
@@ -655,20 +657,16 @@ public:
 
 
 
-	char * getName(){
-		return "Laplacian Smoothing";
+	std::string getName(){
+		return std::string("nombreXYZ");
 	}
-	void setMesh(sjPolyhedron a_mesh){
-		setMeshG(a_mesh);
-	}
-	sjPolyhedron getMesh(){
-		return getMeshG();
-	}
-	void configure(){
-		initLaplacianSmoothing();
-	}
-	void iterate(){
+
+	sjPolyhedron * transform(){
+		if(iteration == 0){
+			initLaplacianSmoothing();
+		}
 		iterateLaplacianSmoothingOGF2();
+		return & getMeshG();
 	}
 	void setParameters(sjParameterStore * params){
 		m_params = params;
@@ -695,18 +693,16 @@ private:
 
 using namespace sj;
 
-class sjLaplacianPlugin: public sj::sjMeshFilterServer::sjMeshFilterPlugin{
+class sjLaplacianPlugin: public sj::sjMeshFilterFactory{
 	PLUGINLAPLACE_EXPORTS_API virtual ~sjLaplacianPlugin(){ }
-	PLUGINLAPLACE_EXPORTS_API virtual char * getName(){
-		return "Laplacian Plugin";
+	PLUGINLAPLACE_EXPORTS_API virtual std::string getName(){
+		return std::string("nombreXYZ");
 	}
-	PLUGINLAPLACE_EXPORTS_API virtual sjMeshFilter * createMeshFilter(){
+	PLUGINLAPLACE_EXPORTS_API virtual sj::sjPolyhedronPipe::sjFilter * createFilter(){
 		return new sjLaplacianSmoothing();
 	}
 };
 
-extern "C" PLUGINLAPLACE_EXPORTS_API void registerPlugin(sjKernelEngine &Kio) {
-  Kio.getsjMeshFilterServer().addsjMeshFilter(
-	  auto_ptr<sj::sjMeshFilterServer::sjMeshFilterPlugin>(new sjLaplacianPlugin())
-  );
+extern "C" PLUGINLAPLACE_EXPORTS_API void registerPlugin(sjKernelPlugin &Kio) {
+	Kio.registerMeshFilterFactory(new sjLaplacianPlugin() );
 }

@@ -135,7 +135,7 @@ void sjParameterStore::addParameter(sjParameterBase * a_param){
 	parameters.insert(std::map<std::string, sjParameterBase *>::value_type(a_param->getName(), a_param));
 }
 
-sjParameterBase * sjParameterStore::getParameter(std::string key)  throw(sjException)
+sjParameterBase * sjParameterStore::getParameter(std::string key)
 {
 	sjParameterBase * m_value2 = NULL;
 	if(parameters.size() >0)
@@ -146,7 +146,7 @@ sjParameterBase * sjParameterStore::getParameter(std::string key)  throw(sjExcep
 	return m_value2;
 }
 
-sjParameterBase * sjParameterStore::getParameter(unsigned int index) throw(sjException)
+sjParameterBase * sjParameterStore::getParameter(unsigned int index)
 {
 	sjParameterBase * m_value2 = NULL;
 	if(parameters.size() >0)	{
