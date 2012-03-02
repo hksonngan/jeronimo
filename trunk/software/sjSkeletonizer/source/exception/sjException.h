@@ -31,8 +31,6 @@
 #ifndef __SJEXCEPTION__H__
 #define __SJEXCEPTION__H__
 
-#include "sjEngine.h"
-
 #include <iostream>
 #include <string>
 #include <stdexcept>
