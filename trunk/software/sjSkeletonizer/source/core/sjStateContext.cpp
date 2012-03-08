@@ -46,3 +46,11 @@ size_t sjStateContext::getNumberOfVertex(){
 sjPolyhedronPipe::PolyhedronType sjStateContext::getMesh(){
 	return mesh_G;
 }
+
+void sjStateContext::setRings (vector< vector<sjVertex_handle> > a_rings){
+	m_rings = a_rings;
+}
+
+vector< vector<sjVertex_handle> > sjStateContext::getRings(){
+	return m_rings ;
+}

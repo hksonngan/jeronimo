@@ -182,3 +182,34 @@ sjVector_3 normalVectorFromNeighbors(sjVIterator vi, vector< sjVertex_handle> ne
 	vec = normalizeVector(vec);
 	return vec;
 }
+
+double areaRing(sjVIterator vi, vector< sjVertex_handle> neighbors){
+	int i, j, m, pos_1, pos_2;
+	double area = 0.0;
+	m = neighbors.size();
+	for(j=0; j<m; j++){
+		pos_1 = j;
+		pos_2 = (j+1) % m;
+		sjPoint_3 point_i = vi->point();
+		area = area + area3(point_i,((neighbors[pos_1]))->point(),((neighbors))[pos_2]->point());
+	}
+	return area;
+}
+
+double averageFaces(sjPolyhedron mesh_G){
+	double average = 0.0, area;
+	int nface = 0;
+
+	for(sjFIterator f = mesh_G.facets_begin(); f !=mesh_G.facets_end(); ++f ){
+		sjHalfedge_facet_circulator vcir = f->facet_begin();
+		vector< sjVertex_handle> vertexs;
+		do{
+			sjVertex_handle punto = vcir->next()->vertex();
+			vertexs.push_back(punto);
+		}while(++vcir != f->facet_begin ());
+		area = area3(vertexs[0]->point(),vertexs[1]->point(),vertexs[2]->point());
+		average = average + area;
+		nface = nface + 1;
+	}
+	return average/((double)nface);
+}

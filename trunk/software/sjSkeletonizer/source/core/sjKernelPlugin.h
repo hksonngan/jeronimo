@@ -14,7 +14,12 @@ namespace sj{
 
 	class sjKernelPlugin: public sjSubject{
 	public:
-		static const std::string INIT_INDEX_SYSTEM ;
+		static const std::string SYS_INIT_INDEX_SYSTEM ;
+		static const std::string SYS_COMPUTE_RINGS_SYSTEM;
+		static const std::string SYS_COMPUTE_LAPLACIAN_SYSTEM;
+		static const std::string SYS_COMPUTE_MEAN_CURVATURE_SYSTEM;
+		static const std::string SYS_MEAN_CURVATURE_SMOOTHING_SYSTEM;
+		static const std::string SYS_IS_DEGENERATE_VERTEX_SYSTEM;
 	private:
 		static sjKernelPlugin _instance;
 		sjKernelPlugin(void);

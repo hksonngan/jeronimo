@@ -40,12 +40,18 @@
 double angle3(sjPoint_3 p1, sjPoint_3 p2, sjPoint_3 p3);
 double angleOrientedPlanes(sjHalfedge_handle hedge);
 double area3(sjPoint_3 a, sjPoint_3 b, sjPoint_3 c);
+double areaRing(sjVIterator vi, vector< sjVertex_handle> neighbors);
+double averageFaces(sjPolyhedron mesh_G);
 double calcVolume(sjPolyhedron mesh_G);sjVector_3 normalizePoint3(sjPoint_3 p1, sjPoint_3 p2, sjPoint_3 p3);
-sjVector_3 normalVectorPoint3(sjPoint_3 p1, sjPoint_3 p2, sjPoint_3 p3);
-sjVector_3 normalVectorFromNeighbors(sjVIterator vi, vector< sjVertex_handle> neighbors);
-sjVector_3 normalizeVector(sjVector_3 ve);
-void printVector(std::vector<double> x);
 double distance2Points(sjPoint_3 p1, sjPoint_3 p2);
-void printMatrix(std::vector<std::vector<double>> y);
+
+sjVector_3 normalizeVector(sjVector_3 ve);
+sjVector_3 normalVectorFromNeighbors(sjVIterator vi, vector< sjVertex_handle> neighbors);
+sjVector_3 normalVectorPoint3(sjPoint_3 p1, sjPoint_3 p2, sjPoint_3 p3);
+
 sjIso_cuboid_3 calcBoundingBox(sjPolyhedron mesh);
+
+void printMatrix(std::vector<std::vector<double>> y);
+void printVector(std::vector<double> x);
+
 #endif
