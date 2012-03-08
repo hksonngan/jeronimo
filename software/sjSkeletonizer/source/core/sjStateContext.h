@@ -13,11 +13,13 @@ namespace sj{
 		
 		void proccesEvent(sjEvent * evt);
 		void setMesh(sjPolyhedronPipe::PolyhedronType);
+		void setRings (vector< vector<sjVertex_handle> > a_rings);
 		void setParameters(sjPolyhedronPipe::ParametersType *);
 		void setState(sjState * a_state);    
 		
 		sjPolyhedronPipe::PolyhedronType * iterate();
 		sjPolyhedronPipe::PolyhedronType getMesh();
+		vector< vector<sjVertex_handle> > getRings();
 		size_t getNumberOfVertex();
 		sjPolyhedronPipe::ParametersType * getParameters();
 		sjState * getState();
@@ -26,6 +28,7 @@ namespace sj{
 
 	protected:
 		sjPolyhedron mesh_G;
+		vector< vector<sjVertex_handle> > m_rings;
 		sjPolyhedronPipe::ParametersType * m_params;
 		sjState * state;
 	};

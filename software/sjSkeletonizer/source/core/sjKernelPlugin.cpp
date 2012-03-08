@@ -3,7 +3,12 @@
 using namespace sj;
 
 sjKernelPlugin sjKernelPlugin::_instance;
-const std::string sjKernelPlugin::INIT_INDEX_SYSTEM = "INIT_INDEX_SYSTEM";
+const std::string sjKernelPlugin::SYS_INIT_INDEX_SYSTEM = "SYS_INIT_INDEX_SYSTEM";
+const std::string sjKernelPlugin::SYS_COMPUTE_RINGS_SYSTEM = "SYS_COMPUTE_RINGS_SYSTEM";
+const std::string sjKernelPlugin::SYS_COMPUTE_LAPLACIAN_SYSTEM = "SYS_COMPUTE_LAPLACIAN_SYSTEM";
+const std::string sjKernelPlugin::SYS_COMPUTE_MEAN_CURVATURE_SYSTEM = "SYS_COMPUTE_MEAN_CURVATURE_SYSTEM";
+const std::string sjKernelPlugin::SYS_MEAN_CURVATURE_SMOOTHING_SYSTEM = "SYS_MEAN_CURVATURE_SMOOTHING_SYSTEM";
+const std::string sjKernelPlugin::SYS_IS_DEGENERATE_VERTEX_SYSTEM = "SYS_IS_DEGENERATE_VERTEX_SYSTEM";
 
 sjKernelPlugin::sjKernelPlugin(void){
 }
