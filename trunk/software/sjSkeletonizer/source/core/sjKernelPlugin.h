@@ -20,6 +20,9 @@ namespace sj{
 		static const std::string SYS_COMPUTE_MEAN_CURVATURE_SYSTEM;
 		static const std::string SYS_MEAN_CURVATURE_SMOOTHING_SYSTEM;
 		static const std::string SYS_IS_DEGENERATE_VERTEX_SYSTEM;
+		static const std::string SYS_INIT_LAPLACIAN_SMOOTHING_SYSTEM;
+		static const std::string SYS_COMPUTE_LINE_EQUATIONS_SYSTEM;
+		static const std::string SYS_ITERATE_SMOOTHING_ALGORITHM_SYSTEM;
 	private:
 		static sjKernelPlugin _instance;
 		sjKernelPlugin(void);
