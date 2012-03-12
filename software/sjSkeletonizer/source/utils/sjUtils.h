@@ -34,6 +34,7 @@
 #define __SJUTILS__H__
 
 #include "sjDataType.h"
+#include <vector>
 
 #define sjpi 3.14159265358979323846
 

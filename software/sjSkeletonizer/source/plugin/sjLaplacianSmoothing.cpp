@@ -14,6 +14,7 @@
 #include "sjStateContext.h"
 #include "sjPlugin.h"
 #include "sjKernelPlugin.h"
+#include "sjDataIO.h"
 
 #include <CGAL/Timer.h>
 #include <CGAL/IO/Polyhedron_iostream.h>
@@ -30,7 +31,7 @@ using namespace std;
 using namespace OGF;
 
 namespace sj{
-	class BasicFilter{
+	class BasicFilter: public sjSystem{
 	public:
 		BasicFilter():
 			WH_0(1.0), 
@@ -41,26 +42,44 @@ namespace sj{
 			MAX_CONTRACTION_SQUARED( 100000.),
 			MAX_ATTRACTION(100000000.),
 			MIN_COT_ANGLE(0.00000000000000001)		{
+
+			}
+
+			void proccesEvent(sjEvent * evt){
+			}
+			
+			double WH_0 ;
+			double WL_0 ;
+			double SL ;
+			double AVERAGE_FACE;
+			double MAX_CONTRACTION_SQUARED;	// Maximum contraction weight^2 before using hard constraint (default 100000)
+			double MAX_ATTRACTION;		// Maximum attraction weight before using hard constraint    (default 1000)
+			double MIN_COT_ANGLE;	// Minimum angle for cotan weights before clamping           (default 0.0000001)
+			int iteration;
+	};
+	class PluginBasicFilter:public sjPlugin{
+		public:
+		PluginBasicFilter() {
+			name = "PluginBasicFilter";
+			sjKernelPlugin & kernel = sjKernelPlugin::getInstance();
+			name_type = kernel.SYS_BASIC_FILTER_SYSTEM;
+			registerPlugin(kernel);
 		}
-		
-		double WH_0 ;
-		double WL_0 ;
-		double SL ;
-		double AVERAGE_FACE;
-		double MAX_CONTRACTION_SQUARED;	// Maximum contraction weight^2 before using hard constraint (default 100000)
-		double MAX_ATTRACTION;		// Maximum attraction weight before using hard constraint    (default 1000)
-		double MIN_COT_ANGLE;	// Minimum angle for cotan weights before clamping           (default 0.0000001)
-		int iteration;
+
+		void registerPlugin(sjKernelPlugin & K){
+			K.addPlugin(this);
+		}
+
+		sjSystem * createSystem(){
+			return new BasicFilter();
+		}
 	};
 
 	class InitIndex: public sjState{
 	public:
 		InitIndex():
 		  m_data(0){
-		}
-
-		InitIndex(BasicFilter * a_data):
-		  m_data(a_data){
+			  m_data = (BasicFilter *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_BASIC_FILTER_SYSTEM));
 		}
 
 		void proccesEvent(sjEvent * evt){}
@@ -80,7 +99,10 @@ namespace sj{
 				vcir->vertex()->initial_ring_area = 0.0;
 				i++;
 			}
+			m_context = ssc;
+			m_context->setState((sjState *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_RINGS_SYSTEM)));
 			return true;
+
 		}
 
 	private:
@@ -98,7 +120,7 @@ namespace sj{
 		}
 
 		void registerPlugin(sjKernelPlugin & K){
-
+			K.addPlugin(this);
 		}
 
 		sjSystem * createSystem(){
@@ -119,6 +141,7 @@ namespace sj{
 		}
 
 		bool evolve(sjStateContext * ssc){
+			m_context = ssc;
 			vector< vector<sjVertex_handle> > rings;
 			rings = m_context->getRings();
 			sjPolyhedronPipe::PolyhedronType mesh_G;
@@ -135,11 +158,12 @@ namespace sj{
 				vcir->vertex()->initial_ring_area = areaRing(v, neighbors);
 				rings.push_back(neighbors);
 			}
+
+			m_context->setState((sjState *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_INIT_LAPLACIAN_SMOOTHING_SYSTEM)));
 			return true;
 		}
 
 	private:
-		BasicFilter * m_data;
 		sjStateContext * m_context;
 	};
 	class PluginComputeRings:public sjPlugin{
@@ -152,7 +176,7 @@ namespace sj{
 		}
 
 		void registerPlugin(sjKernelPlugin & K){
-
+			K.addPlugin(this);
 		}
 
 		sjSystem * createSystem(){
@@ -160,19 +184,12 @@ namespace sj{
 		}
 	};
 
-	class ComputeLaplacian: public sjState{
+	class ComputeLaplacian: public sjSystem{
 	public:
+		ComputeLaplacian(){
+			m_data = (BasicFilter *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_BASIC_FILTER_SYSTEM));
+		}
 		void proccesEvent(sjEvent * evt){}
-
-		bool initialize(sjStateContext * ssc){
-			m_context = ssc;
-			return true;
-		}
-
-		bool evolve(sjStateContext * ssc){
-			
-			return true;
-		}
 		
 		map<int, double> computeLaplacian(sjVIterator vi, vector< sjVertex_handle> neighbors){
 		
@@ -206,7 +223,6 @@ namespace sj{
 	
 	private:
 		BasicFilter * m_data;
-		sjStateContext * m_context;
 	};
 	class PluginComputeLaplacian: public sjPlugin{
 	public:
@@ -218,7 +234,7 @@ namespace sj{
 		}
 
 		void registerPlugin(sjKernelPlugin & K){
-
+			K.addPlugin(this);
 		}
 
 		sjSystem * createSystem(){
@@ -314,7 +330,7 @@ namespace sj{
 		}
 
 		void registerPlugin(sjKernelPlugin & K){
-
+			K.addPlugin(this);
 		}
 
 		sjSystem * createSystem(){
@@ -323,6 +339,7 @@ namespace sj{
 	};
 
 	class MeanCurvatureSmoothing: public sjState{
+	public:
 		MeanCurvatureSmoothing(){}
 		
 		void proccesEvent(sjEvent * evt){}
@@ -339,8 +356,8 @@ namespace sj{
 			
 			int i = 0;
 
-			ComputeMeanCurvature * cmc =(ComputeMeanCurvature * )
-									    ( sjKernelPlugin.getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_MEAN_CURVATURE_SYSTEM));
+			ComputeMeanCurvature * cmc = (ComputeMeanCurvature * )
+									    ( sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_MEAN_CURVATURE_SYSTEM));
 			sjPolyhedron mesh_G = this->m_context->getMesh();
 			vector< vector<sjVertex_handle> > rings = this->m_context->getRings();
 			for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
@@ -374,7 +391,7 @@ namespace sj{
 		}
 
 		void registerPlugin(sjKernelPlugin & K){
-
+			K.addPlugin(this);
 		}
 
 		sjSystem * createSystem(){
@@ -383,20 +400,14 @@ namespace sj{
 
 	};
 
-	class IsDegenerateVertex: public sjState{
+	class IsDegenerateVertex: public sjSystem{
 	public:
-		IsDegenerateVertex(){}
+		IsDegenerateVertex(){
+			m_data = (BasicFilter *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_BASIC_FILTER_SYSTEM));
+			m_comlapl = (ComputeLaplacian * )(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_LAPLACIAN_SYSTEM));
+		}
 		
 		void proccesEvent(sjEvent * evt){}
-
-		bool initialize(sjStateContext * ssc){
-			m_context = ssc;
-			return true;
-		}
-
-		bool evolve(sjStateContext * ssc){
-			return true;
-		}
 
 		bool isDegenerateVertex(sjVIterator vi, vector< sjVertex_handle> neighbors){
 			int i, j, m, pos_1, pos_2;
@@ -412,8 +423,7 @@ namespace sj{
 				}
 			}
 
-			ComputeLaplacian * coml = (ComputeLaplacian * )(sjKernelPlugin.getInstance().getSystem(sjKernelPlugin.SYS_COMPUTE_LAPLACIAN_SYSTEM));
-			map<int, double> mymap = coml->computeLaplacian(vi, neighbors);
+			map<int, double> mymap = m_comlapl->computeLaplacian(vi, neighbors);
 			map<int, double>::iterator it;
 			for ( it=mymap.begin() ; it != mymap.end(); it++ ){
 				int index = (*it).first ;
@@ -427,7 +437,7 @@ namespace sj{
 		
 	private:
 		BasicFilter * m_data;
-		sjStateContext * m_context;
+		ComputeLaplacian * m_comlapl;
 	};
 	class PluginIsDegenerateVertex: public sjPlugin{
 	public:
@@ -439,7 +449,7 @@ namespace sj{
 		}
 
 		void registerPlugin(sjKernelPlugin & K){
-
+			K.addPlugin(this);
 		}
 
 		sjSystem * createSystem(){
@@ -448,67 +458,7 @@ namespace sj{
 
 	};
 
-	class InitLaplacianSmoothing: public sjState{
-	private:
-		BasicFilter * m_data;
-		sjStateContext * m_context;
-	public:
-		InitLaplacianSmoothing(){}
-		
-		void proccesEvent(sjEvent * evt){}
-
-		bool initialize(sjStateContext * ssc){
-			m_context = ssc;
-			return true;
-		}
-
-		bool evolve(sjStateContext * ssc){
-			return true;
-		}
-
-		void initLaplacianSmoothing(double a_WH0 = 1.0, double a_WL0 = 0.01, double a_SL = 2.0){
-		
-			sjPolyhedronPipe::PolyhedronType mesh_G = this->m_context->getMesh();
-			//mesh_G = * input_pipe->read();
-
-
-			//initIndex();
-			//computeRings();
-			//AVERAGE_FACE = averageFaces();
-			this->m_data->AVERAGE_FACE = averageFaces(mesh_G);
-			//WH_0 = a_WH0;
-			this->m_data->WH_0 = 10;
-			//WL_0 = a_WL0 * std::sqrt(AVERAGE_FACE);
-			this->m_data->WL_0 = 1.0;
-			this->m_data->SL = a_SL;
-			int i = 0;
-			ComputeLineEquations * cle = (ComputeLineEquations *) (sjKernelPlugin.getInstance().getSystem(sjKernelPlugin.SYS_COMPUTE_LINE_EQUATIONS_SYSTEM));
-			for ( sjVIterator v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
-				//computeLineEquations(v, rings[i]);
-				i = i + 1;
-			}
-		}
-	
-	};
-	class PluginInitLaplacianSmoothing: public sjPlugin{
-		public:
-		PluginInitLaplacianSmoothing(){
-			name = "PluginInitLaplacianSmoothing";
-			sjKernelPlugin & kernel = sjKernelPlugin::getInstance();
-			name_type = kernel.SYS_INIT_LAPLACIAN_SMOOTHING_SYSTEM;
-			registerPlugin(kernel);
-		}
-
-		void registerPlugin(sjKernelPlugin & K){
-
-		}
-
-		sjSystem * createSystem(){
-			return new InitLaplacianSmoothing();
-		}
-	};
-
-	class ComputeLineEquations: public sjState{
+	class ComputeLineEquations: public sjSystem{
 	private:
 		BasicFilter * m_data;
 		sjStateContext * m_context;
@@ -516,15 +466,6 @@ namespace sj{
 		ComputeLineEquations(){}
 		
 		void proccesEvent(sjEvent * evt){}
-
-		bool initialize(sjStateContext * ssc){
-			m_context = ssc;
-			return true;
-		}
-
-		bool evolve(sjStateContext * ssc){
-			return true;
-		}
 
 		void computeLineEquations(sjVIterator vi, vector< sjVertex_handle> neighbors){
 			int i, n;
@@ -594,11 +535,71 @@ namespace sj{
 		}
 
 		void registerPlugin(sjKernelPlugin & K){
-
+			K.addPlugin(this);
 		}
 
 		sjSystem * createSystem(){
 			return new ComputeLineEquations();
+		}
+	};
+
+	class InitLaplacianSmoothing: public sjState{
+	private:
+		BasicFilter * m_data;
+		sjStateContext * m_context;
+	public:
+		InitLaplacianSmoothing(){
+			m_data = (BasicFilter *) (sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_BASIC_FILTER_SYSTEM));
+		}
+		
+		void proccesEvent(sjEvent * evt){}
+
+		bool initialize(sjStateContext * ssc){
+			m_context = ssc;
+			return true;
+		}
+
+		bool evolve(sjStateContext * ssc){
+			initLaplacianSmoothing();
+			m_context = ssc;
+			m_context->setState((sjState *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_ITERATE_SMOOTHING_ALGORITHM_SYSTEM)));
+			return true;
+		}
+
+		void initLaplacianSmoothing(double a_WH0 = 1.0, double a_WL0 = 0.01, double a_SL = 2.0){
+		
+			sjPolyhedronPipe::PolyhedronType mesh_G = this->m_context->getMesh();
+			this->m_data->AVERAGE_FACE = averageFaces(mesh_G);
+			//WH_0 = a_WH0;
+			this->m_data->WH_0 = 10;
+			//WL_0 = a_WL0 * std::sqrt(AVERAGE_FACE);
+			this->m_data->WL_0 = 1.0;
+			this->m_data->SL = a_SL;
+			int i = 0;
+			ComputeLineEquations * cle = (ComputeLineEquations *) (sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_LINE_EQUATIONS_SYSTEM));
+			vector< vector<sjVertex_handle> > rings = this->m_context->getRings() ;
+			for ( sjVIterator v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+				cle->computeLineEquations(v, rings[i]);
+				i = i + 1;
+			}
+		}
+	
+	};
+	class PluginInitLaplacianSmoothing: public sjPlugin{
+		public:
+		PluginInitLaplacianSmoothing(){
+			name = "PluginInitLaplacianSmoothing";
+			sjKernelPlugin & kernel = sjKernelPlugin::getInstance();
+			name_type = kernel.SYS_INIT_LAPLACIAN_SMOOTHING_SYSTEM;
+			registerPlugin(kernel);
+		}
+
+		void registerPlugin(sjKernelPlugin & K){
+			K.addPlugin(this);
+		}
+
+		sjSystem * createSystem(){
+			return new InitLaplacianSmoothing();
 		}
 	};
 
@@ -621,7 +622,7 @@ namespace sj{
 	};
 
 	class IterateLaplacianSmoothingSeparate: public IterateSmoothingAlgorithm{
-
+	public:
 		bool evolve(sjStateContext * ssc){
 			int n = this->m_context->getNumberOfVertex();// getNsize();
 			LinearSolver *solver;
@@ -651,9 +652,9 @@ namespace sj{
 			bool found_solution = true;
 
 		
-			IsDegenerateVertex * idv= (IsDegenerateVertex *)(sjKernelPlugin.getInstance().getSystem(sjKernelPlugin.SYS_IS_DEGENERATE_VERTEX_SYSTEM));
+			IsDegenerateVertex * idv= (IsDegenerateVertex *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_IS_DEGENERATE_VERTEX_SYSTEM));
 			vector< vector<sjVertex_handle> > rings = this->m_context->getRings();
-			ComputeLaplacian * comlap= (ComputeLaplacian *)(sjKernelPlugin.getInstance().getSystem(sjKernelPlugin.SYS_COMPUTE_LAPLACIAN_SYSTEM));
+			ComputeLaplacian * comlap= (ComputeLaplacian *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_LAPLACIAN_SYSTEM));
 			for(coord = 0; coord<3; coord++){
 
 				i = 0;
@@ -759,14 +760,15 @@ namespace sj{
 	};
 	class PluginIterateLaplacianSmoothingSeparate: public sjPlugin{
 	public:
-		IterateLaplacianSmoothingSeparate(){
-			name = "IterateLaplacianSmoothingSeparate";
+		PluginIterateLaplacianSmoothingSeparate(){
+			name = "PluginIterateLaplacianSmoothingSeparate";
 			sjKernelPlugin & kernel = sjKernelPlugin::getInstance();
 			name_type = kernel.SYS_ITERATE_SMOOTHING_ALGORITHM_SYSTEM;
 			registerPlugin(kernel);
 		}
 
 		void registerPlugin(sjKernelPlugin & K){
+			K.addPlugin(this);
 		}
 
 		sjSystem * createSystem(){
@@ -774,6 +776,217 @@ namespace sj{
 		}
 	};
 
-	class 
+	class IterateLaplacianSmoothingIntegrate: public IterateSmoothingAlgorithm{
+	public:
+		bool evolve(sjStateContext * ssc){
+			m_context = ssc;
+			//int n = getNsize();
+			int n = this->m_context->getNumberOfVertex();
+			LinearSolver *solver;
+			//delete solver;
+			SystemSolverParameters params ;
+			std::string  * mipo = new std::string("SUPERLU");
+			params.set_arg_value("method", *mipo) ; 
+			solver = new LinearSolver(n*3) ;
+			solver->set_system_solver(params) ;
+			solver->set_least_squares(true) ;
+			solver->set_invert_matrix(true) ;
+
+			sjPolyhedronPipe::PolyhedronType mesh_G = this->m_context->getMesh();
+
+
+			cout<<"\nIterate system: No = "<<this->m_data->iteration+1<<"|\t";
+		
+			cout<<"Volume Ini= "<<calcVolume(mesh_G)<<"|\t";
+			CGAL::Timer timer;
+			timer.start();
+			int i;
+			sjVIterator v;
+			int coord;
+			vector<vector<double>> matrixV = vector<vector<double>>(n,vector<double>(3,0.0));
+			double WLi = std::pow(this->m_data->SL,((double)(this->m_data->iteration))) * this->m_data->WL_0;
+			//double WLi = 1.0;
+			bool found_solution = true;
+
+		
+
+			//for(coord = 0; coord<3; coord++){
+
+			IsDegenerateVertex * idv = (IsDegenerateVertex *) (sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_IS_DEGENERATE_VERTEX_SYSTEM));
+			ComputeLaplacian * comlap =  (ComputeLaplacian *) (sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_LAPLACIAN_SYSTEM));
+				i = 0;
+				for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+					if(idv->isDegenerateVertex(v, this->m_context->getRings()[i])){
+						solver->variable(i).lock();
+						solver->variable(i+n).lock();
+						solver->variable(i+2*n).lock();
+					}
+					sjPoint_3 point_k = v->point();
+					double r = point_k[coord];
+					//solver->variable(i).set_value(r);		
+					solver->variable(i).set_value(point_k[0]);
+					solver->variable(i+n).set_value(point_k[1]);
+					solver->variable(i+2*n).set_value(point_k[2]);
+				
+				
+					i++;
+				}
+			
+		
+				/*for(sjHEIterator hi = mesh_G.halfedges_begin (); hi!= mesh_G.halfedges_end (); ++hi){
+					if(angleOrientedPlanes(hi)<sjpi/4){
+						sjVertex_handle vertex_A = hi->vertex();
+						sjVertex_handle vertex_B = hi->next()->vertex();
+						sjVertex_handle vertex_C = hi->prev()->vertex();
+						sjVertex_handle vertex_D = hi->opposite()->next()->vertex();
+						solver->variable(vertex_A->index).lock();
+						solver->variable(vertex_B->index).lock();
+						solver->variable(vertex_C->index).lock();
+						solver->variable(vertex_D->index).lock();
+					}
+				}*/
+
+				solver->begin_system();
+				for(coord = 0; coord<3; coord++){
+					i = 0;
+					for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+
+						if(!idv->isDegenerateVertex(v, this->m_context->getRings()[i])){
+							sjHalfedge_vertex_circulator vcir = v->vertex_begin();
+							map<int, double> mymap = comlap->computeLaplacian(v, this->m_context->getRings()[i]);
+							map<int, double>::iterator it;
+							solver->begin_row();
+							for ( it=mymap.begin() ; it != mymap.end(); it++ ){
+								int index = (*it).first ;
+								double value = (*it).second;
+								solver->add_coefficient(index +coord*n , WLi * value);
+								//cout<<WLi * value<<"\t\t";
+
+							}
+							//cout<<"\n";
+							solver->set_right_hand_side(0.0);
+							solver->end_row();
+
+						}
+
+
+						i++;
+					}
+				}
+				int jcoord;
+				for(jcoord = 0; jcoord<3; jcoord++){
+					i = 0;
+					for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+						if(!idv->isDegenerateVertex(v, this->m_context->getRings()[i])){
+						sjHalfedge_vertex_circulator vcir = v->vertex_begin();
+						sjPoint_3 point_i = v->point();
+						double Whi;
+						if(this->m_data->iteration ==0){
+							Whi = this->m_data->WH_0;
+						}else{
+							Whi = this->m_data->WH_0*std::sqrt(v->initial_ring_area/areaRing(v, this->m_context->getRings()[i]));
+						}
+						solver->begin_row();
+						solver->add_coefficient(i+jcoord*n, Whi);
+						solver->set_right_hand_side(Whi*point_i[jcoord]);
+						solver->end_row();
+						}
+						i++;
+					}
+				}
+
+				/*
+				i = 0;
+				for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+					if(!isDegenerateVertex(v, rings[i])){
+						solver->begin_row();
+						solver->add_coefficient(i    ,v->a1);
+						solver->add_coefficient(i+n  ,v->b1);
+						solver->add_coefficient(i+2*n,v->c1);
+						solver->set_right_hand_side(-v->d1);
+
+						solver->end_row();
+
+						solver->begin_row();
+						solver->add_coefficient(i    ,v->a2);
+						solver->add_coefficient(i+n  ,v->b2);
+						solver->add_coefficient(i+2*n,v->c2);
+						solver->set_right_hand_side(-v->d2);
+
+						solver->end_row();
+					}
+					i++;
+				}*/
+			
+
+				solver->end_system();
+			
+				if ( solver->solve() ){
+				
+					for(i=0; i<n; i++){
+						matrixV[i][0] = solver->variable(i).value();
+						matrixV[i][1] = solver->variable(i+n).value();
+						matrixV[i][2] = solver->variable(i+2*n).value();
+					}
+				}else{
+					cout<<"No solution found"<<endl;
+					found_solution = false;
+				}
+
+				solver->restart();
+
+			//}
+			if(found_solution){
+				i = 0;
+				for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+				
+					sjPoint_3 pointn = sjPoint_3(matrixV[i][0], matrixV[i][1], matrixV[i][2]);
+					v->point() = pointn;
+					i++;
+				}
+			}
+			cout<<"Volume = "<<calcVolume(mesh_G)<<"|\t";
+			cout<<"Time = "<< timer.time() << " seconds." << std::endl;
+			delete solver;
+			this->m_data->iteration++;
+
+		}
+	};
+	class PluginIterateLaplacianSmoothingIntegrate: public sjPlugin{
+	public:
+		PluginIterateLaplacianSmoothingIntegrate(){
+			name = "PluginIterateLaplacianSmoothingIntegrate";
+			sjKernelPlugin & kernel = sjKernelPlugin::getInstance();
+			name_type = kernel.SYS_ITERATE_SMOOTHING_ALGORITHM_SYSTEM;
+			registerPlugin(kernel);
+		}
+
+		void registerPlugin(sjKernelPlugin & K){
+			K.addPlugin(this);
+		}
+
+		sjSystem * createSystem(){
+			return new IterateLaplacianSmoothingIntegrate();
+		}
+	};
+
+	class OFFLoaderSource: public sjPolyhedronPipe::sjSource{
+	public:
+		OFFLoaderSource(std::string filename){
+			m_filename = filename;
+		}
+		sjPolyhedronPipe::PolyhedronType * produce(){
+			sjDataIO dataio;
+			dataio.setFileName(m_filename );
+			try{
+				dataio.load();
+				return &(dataio.getPolyhedronModel());
+			}catch(std::exception e) {
+			}
+			return NULL;
+		}
+	private:
+		std::string m_filename;
+	};
 }
 

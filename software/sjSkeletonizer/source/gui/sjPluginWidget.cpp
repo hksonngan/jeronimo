@@ -16,14 +16,14 @@ QWidget(parent, f), mesh_filter (0), m_parent(parent)
 	printf("sjPluginWidget::sjPluginWidget Line 1\n");
 	sjMeshFilterInfo * info_mf = (sjMeshFilterInfo * ) mdriver->getObject(name);
 	printf("sjPluginWidget::sjPluginWidget Line 2\n");*/
-	sjParameterStore * info_mf = kernel.getMeshFilterInfo("Mesh Filter");
-	if(info_mf == NULL) printf("sjPluginWidget::sjPluginWidget is NULLLLLLL\n");
+	//sjParameterStore * info_mf = kernel.getMeshFilterInfo("Mesh Filter");
+	//if(info_mf == NULL) printf("sjPluginWidget::sjPluginWidget is NULLLLLLL\n");
 
 	unsigned int i = 0;
 	//if(info_mf->getParameters() == NULL) printf("sjPluginWidget::sjPluginWidget info_mf->getParameters() is NULLLLLLL\n");
 	//unsigned int n = info_mf->getParameters()->getNumberOfParameters();
-	unsigned int n = info_mf->getNumberOfParameters();
-
+	//unsigned int n = info_mf->getNumberOfParameters();
+	/*
 	QVBoxLayout *toolLayout = new QVBoxLayout;
 
 	QLabel * a1_label = new QLabel(QString(name.c_str()));
@@ -56,6 +56,7 @@ QWidget(parent, f), mesh_filter (0), m_parent(parent)
 			m_txt_sliders.push_back(a_QLineEdit);
 			m_sliders.push_back(sld_iterations);
 		}
+		
 	}
 
 	QPushButton * cmd_configure = new QPushButton("Configure", this);
@@ -67,7 +68,7 @@ QWidget(parent, f), mesh_filter (0), m_parent(parent)
 	toolLayout->addWidget(cmd_configure);
 	toolLayout->addWidget(cmd_iterate);
 
-	setLayout(toolLayout);
+	setLayout(toolLayout);*/
 }
 
 sjPluginWidget::~sjPluginWidget(){
@@ -101,13 +102,13 @@ QSlider * sjPluginWidget::getSlider(sj::sjParameterBase * param){
 void sjPluginWidget::configure(){
 	if(mesh_filter == NULL) return;
 	//mesh_filter->configure();
-	mesh_filter->transform();
+	//mesh_filter->transform();
 }
 
 void sjPluginWidget::iterate(){
 	if(mesh_filter == NULL) return;
 	//mesh_filter->iterate();
-	mesh_filter->transform();
+	//mesh_filter->transform();
 	sjPolyhedronPipe::sjPipe * pipe;
 	mesh_filter->setOutputPipe(pipe);
 	//emit getMesh(mesh_filter->);
