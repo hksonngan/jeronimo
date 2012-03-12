@@ -1,10 +1,13 @@
 #include "sjStateContext.h"
+#include "sjKernelPlugin.h"
 
 using namespace sj;
 
 sjStateContext::sjStateContext():
 state(0), 
 m_params(0){
+	state = (sjState *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_INIT_INDEX_SYSTEM));
+	m_init_system = false;
 }
 
 bool sjStateContext::evolve(int delta_frame){
@@ -24,6 +27,15 @@ void sjStateContext::proccesEvent(sjEvent * evt){
 }
 
 sjPolyhedronPipe::PolyhedronType * sjStateContext::iterate(){
+	if(m_init_system == false){
+		this->mesh_G = * input_pipe->read();
+		m_init_system = true;
+	}
+	if(this->evolve(1)){
+		return & (this->getMesh());
+	}else{
+		//No more iterations
+	}
 	return NULL;
 }
 

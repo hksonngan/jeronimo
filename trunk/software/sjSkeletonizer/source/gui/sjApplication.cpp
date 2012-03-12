@@ -33,6 +33,7 @@
 #include "sjApplication.h"
 #include "sjDataIO.h"
 #include "sjViewer.h"
+#include "sjLaplacianSmoothing.h"
 #include <QMenu>
 #include <QMenuBar>
 #include <QAction>
@@ -140,47 +141,12 @@ void sjApplication::closeTab(int index)
  {
 	 QString fileName = QFileDialog::getOpenFileName(this,
 		 tr("Open 3D File"), "./", tr("3D Files (*.off)"));
-	 sjDataIO dataio;
-	 dataio.setFileName(fileName.toLatin1().constData());
-	 printf("LINE 0\n");
-	 try{
-		 dataio.load();
-		 sjViewer * myviewer = new sjViewer(central_QTabWidget, false);
-		 myviewer->setVerticesFaces(dataio.getPolyhedronModel());
-		 printf("LINE 1\n");
-		 
-		 myviewer->setBoundingBox( calcBoundingBox(dataio.getPolyhedronModel()));
-		 
-		 int index  = central_QTabWidget->addTab(myviewer, fileName.right(fileName.size()-1-fileName.lastIndexOf("/")));
-		 central_QTabWidget->setCurrentIndex ( index );
+	 
+	 fileName.toLatin1().constData();
 
-		 printf("LINE 1\n");
+	 OFFLoaderSource * off_loader = new OFFLoaderSource(fileName.toLatin1().constData());
 
-		 //sjExternalServer * server_mesh_filter =  kernel_engine.getExternalServer(std::string("sjMeshFilter"));
-		 sjMeshFilterFactory * server_mesh_filter =  kernel_engine.getMeshFilterFactory(std::string("sjMeshFilter"));
-		 if(server_mesh_filter == NULL) printf("server_mesh_filter = NULL");
-		 /*server_mesh_filter->getSystemDriverCount();
-		 printf("LINE 2, count%d\n", server_mesh_filter->getSystemDriverCount());*/
-
-		 //sjMeshFilter * mesh_f = (sjMeshFilter *)( server_mesh_filter->getSystemDriver(0)->createSystem());
-		 /*sjPolyhedronPipe::sjFilter * mesh_f = (sjPolyhedronPipe::sjFilter *)( server_mesh_filter->createFilter());
-		 printf("LINE 3\n");
-		 mesh_f-> setMesh(dataio.getPolyhedronModel());
-		 printf("LINE 4\n");
-	     mesh_f->setParameters(new sjParameterStore());
-		 printf("LINE 5\n");
-		 sjPluginWidget  * panel = new sjPluginWidget(mesh_f);
-		 printf("LINE 6\n");
-		 tool_box_QToolBox->addItem(panel, "Laplacian Smoothing");
-
-		 printf("LINE 7\n");
-		 connect(panel, SIGNAL(getMesh(sjPolyhedron)),myviewer, SLOT(setVerticesFaces(sjPolyhedron)));
-		 printf("LINE 8\n");*/
-
-	 }
-	 catch(std::exception e)
-	 {
-	 }
+	 
 
  }
 

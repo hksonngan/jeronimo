@@ -31,6 +31,7 @@ namespace sj{
 		vector< vector<sjVertex_handle> > m_rings;
 		sjPolyhedronPipe::ParametersType * m_params;
 		sjState * state;
+		bool m_init_system;
 	};
 }
 

@@ -57,11 +57,11 @@ sjPluginXmlLoader::sjPluginXmlLoader(std::string file_name){
 
 		sjKernelPlugin & kernel = sjKernelPlugin::getInstance();
 		printf("sjPluginXmlLoader: -> Line 4\n");
-		kernel.addPluginInfo(information->getParameter("name")->getDescription(), information);
+		//kernel.addPluginInfo(information->getParameter("name")->getDescription(), information);
 		printf("sjPluginXmlLoader: -> Line 9\n");
-		kernel.addMeshFilterInfo(information->getParameter("name")->getDescription(), parameters);
+		//kernel.addMeshFilterInfo(information->getParameter("name")->getDescription(), parameters);
 
-		setName(information->getParameter("name")->getDescription());
+		//setName(information->getParameter("name")->getDescription());
 		
 
 

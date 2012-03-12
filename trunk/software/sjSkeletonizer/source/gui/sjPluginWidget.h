@@ -44,7 +44,7 @@
 #include <vector>
 #include "sjKernelPlugin.h"
 //#include "sjMeshFilterServer.h"
-#include "sjExternalServer.h"
+//#include "sjExternalServer.h"
 #include "sjPipeFilter.h"
 #include <sstream>
 #include "sjApplication.h"
