@@ -50,11 +50,12 @@
 #include <QAction>
 
 #include "sjDataType.h"
+#include "sjDataType.h"
 
 
 class QWidget;
 
-class sjViewer : public QGLViewer {
+class sjViewer : public QGLViewer, public  {
 
   Q_OBJECT
 

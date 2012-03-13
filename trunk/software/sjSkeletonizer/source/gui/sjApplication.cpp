@@ -144,7 +144,17 @@ void sjApplication::closeTab(int index)
 	 
 	 fileName.toLatin1().constData();
 
-	 OFFLoaderSource * off_loader = new OFFLoaderSource(fileName.toLatin1().constData());
+	 OFFLoaderSource * off_loader = new OFFLoaderSource(std::string(fileName.toLatin1().constData()));
+	 sjPolyhedronPipe::sjPipe * pipe_source = new sjPolyhedronPipe::sjPipe();
+	 sjStateContext * ctx = new sjStateContext();
+	 sjPolyhedronPipe::sjPipe * pipe_sink = new sjPolyhedronPipe::sjPipe();
+
+	 off_loader->setOutputPipe(pipe_source);
+	 pipe_source->setOuputConsumer(ctx);
+	 ctx->setInputPipe(pipe_source);
+	 ctx->setOutputPipe(pipe_sink);
+	 //pipe_sink->setOuputConsumer(
+	 
 
 	 
 
