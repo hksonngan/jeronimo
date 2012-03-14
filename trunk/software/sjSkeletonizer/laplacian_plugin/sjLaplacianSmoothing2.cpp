@@ -30,7 +30,7 @@
  * @date 21/02/2011 5:27 p.m.
  */
 
-#include "sjLaplacianSmoothing.h"
+#include "sjLaplacianSmoothing2.h"
 
 #include <cmath>  
 #include <fstream>
@@ -57,7 +57,7 @@
 
 using namespace std;
 using namespace OGF;
-
+/*
 namespace sj{
 
 	class  PLUGINLAPLACE_EXPORTS_API sjLaplacianSmoothing: public sjPolyhedronPipe::sjFilter
@@ -146,17 +146,17 @@ public:
 			sjPoint_3 point_i = vi->point();
 			vector< sjVertex_handle> vecinos = neighbors;
 			//if(isDegenerateVertex(vi, neighbors))			return point_i;
-			/*int j_pos;
-			std::vector<double> pointnew = std::vector<double>(3,0.0);
-			for(j_pos = 0; j_pos < (int)(vecinos.size()); j_pos++){
-				pointnew[0] = pointnew[0] + neighbors[j_pos]->point()[0];
-				pointnew[1] = pointnew[1] + neighbors[j_pos]->point()[1];
-				pointnew[2] = pointnew[2] + neighbors[j_pos]->point()[2];
-			}
-			pointnew[0] = pointnew[0] / (double)(vecinos.size());
-			pointnew[1] = pointnew[1] / (double)(vecinos.size());
-			pointnew[2] = pointnew[2] / (double)(vecinos.size());
-			return sjPoint_3(pointnew[0], pointnew[1], pointnew[2]);*/
+			//*int j_pos;
+			//std::vector<double> pointnew = std::vector<double>(3,0.0);
+			//for(j_pos = 0; j_pos < (int)(vecinos.size()); j_pos++){
+			//	pointnew[0] = pointnew[0] + neighbors[j_pos]->point()[0];
+			//	pointnew[1] = pointnew[1] + neighbors[j_pos]->point()[1];
+			//	pointnew[2] = pointnew[2] + neighbors[j_pos]->point()[2];
+			//}
+			//pointnew[0] = pointnew[0] / (double)(vecinos.size());
+			//pointnew[1] = pointnew[1] / (double)(vecinos.size());
+			//pintnew[2] = pointnew[2] / (double)(vecinos.size());
+			//return sjPoint_3(pointnew[0], pointnew[1], pointnew[2]);
 
 
 			double Wij = 0.0;
@@ -397,18 +397,18 @@ public:
 				i++;
 			}
 			
-			/*for(sjHEIterator hi = mesh_G.halfedges_begin (); hi!= mesh_G.halfedges_end (); ++hi){
-				if(angleOrientedPlanes(hi)<sjpi/4){
-					sjVertex_handle vertex_A = hi->vertex();
-					sjVertex_handle vertex_B = hi->next()->vertex();
-					sjVertex_handle vertex_C = hi->prev()->vertex();
-					sjVertex_handle vertex_D = hi->opposite()->next()->vertex();
-					solver->variable(vertex_A->index).lock();
-					solver->variable(vertex_B->index).lock();
-					solver->variable(vertex_C->index).lock();
-					solver->variable(vertex_D->index).lock();
-				}
-			}*/
+			///for(sjHEIterator hi = mesh_G.halfedges_begin (); hi!= mesh_G.halfedges_end (); ++hi){
+			//	if(angleOrientedPlanes(hi)<sjpi/4){
+			//		sjVertex_handle vertex_A = hi->vertex();
+			//		sjVertex_handle vertex_B = hi->next()->vertex();
+			//		sjVertex_handle vertex_C = hi->prev()->vertex();
+			//		sjVertex_handle vertex_D = hi->opposite()->next()->vertex();
+			//		solver->variable(vertex_A->index).lock();
+			//		solver->variable(vertex_B->index).lock();
+			//		solver->variable(vertex_C->index).lock();
+			//		solver->variable(vertex_D->index).lock();
+			//	}
+			//}
 
 			solver->begin_system();
 			i = 0;
@@ -536,18 +536,18 @@ public:
 			}
 			
 		
-			/*for(sjHEIterator hi = mesh_G.halfedges_begin (); hi!= mesh_G.halfedges_end (); ++hi){
-				if(angleOrientedPlanes(hi)<sjpi/4){
-					sjVertex_handle vertex_A = hi->vertex();
-					sjVertex_handle vertex_B = hi->next()->vertex();
-					sjVertex_handle vertex_C = hi->prev()->vertex();
-					sjVertex_handle vertex_D = hi->opposite()->next()->vertex();
-					solver->variable(vertex_A->index).lock();
-					solver->variable(vertex_B->index).lock();
-					solver->variable(vertex_C->index).lock();
-					solver->variable(vertex_D->index).lock();
-				}
-			}*/
+			///for(sjHEIterator hi = mesh_G.halfedges_begin (); hi!= mesh_G.halfedges_end (); ++hi){
+			//	if(angleOrientedPlanes(hi)<sjpi/4){
+			//		sjVertex_handle vertex_A = hi->vertex();
+			//		sjVertex_handle vertex_B = hi->next()->vertex();
+			//		sjVertex_handle vertex_C = hi->prev()->vertex();
+			//		sjVertex_handle vertex_D = hi->opposite()->next()->vertex();
+			//		solver->variable(vertex_A->index).lock();
+			//		solver->variable(vertex_B->index).lock();
+			//		solver->variable(vertex_C->index).lock();
+			//		solver->variable(vertex_D->index).lock();
+			//	}
+			//}
 
 			solver->begin_system();
 			for(coord = 0; coord<3; coord++){
@@ -598,28 +598,28 @@ public:
 				}
 			}
 
-			/*
-			i = 0;
-			for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
-				if(!isDegenerateVertex(v, rings[i])){
-					solver->begin_row();
-					solver->add_coefficient(i    ,v->a1);
-					solver->add_coefficient(i+n  ,v->b1);
-					solver->add_coefficient(i+2*n,v->c1);
-					solver->set_right_hand_side(-v->d1);
+			///
+			//i = 0;
+			//for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+			//	if(!isDegenerateVertex(v, rings[i])){
+			//		solver->begin_row();
+			//		solver->add_coefficient(i    ,v->a1);
+			//		solver->add_coefficient(i+n  ,v->b1);
+			//		solver->add_coefficient(i+2*n,v->c1);
+			//		solver->set_right_hand_side(-v->d1);
 
-					solver->end_row();
+			//		solver->end_row();
 
-					solver->begin_row();
-					solver->add_coefficient(i    ,v->a2);
-					solver->add_coefficient(i+n  ,v->b2);
-					solver->add_coefficient(i+2*n,v->c2);
-					solver->set_right_hand_side(-v->d2);
+			//		solver->begin_row();
+			//		solver->add_coefficient(i    ,v->a2);
+			//		solver->add_coefficient(i+n  ,v->b2);
+			//		solver->add_coefficient(i+2*n,v->c2);
+			//		solver->set_right_hand_side(-v->d2);
 
-					solver->end_row();
-				}
-				i++;
-			}*/
+			//		solver->end_row();
+			//	}
+			//	i++;
+			//}
 			
 
 			solver->end_system();
@@ -706,3 +706,4 @@ class sjLaplacianPlugin: public sj::sjMeshFilterFactory{
 extern "C" PLUGINLAPLACE_EXPORTS_API void registerPlugin(sjKernelPlugin &Kio) {
 	Kio.registerMeshFilterFactory(new sjLaplacianPlugin() );
 }
+*/

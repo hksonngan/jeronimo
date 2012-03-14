@@ -23,13 +23,17 @@ sjState * sjStateContext::getState(){
 }
 
 void sjStateContext::proccesEvent(sjEvent * evt){
-	state->proccesEvent(evt);
+	if(evt->getType() == sjEvent::EVT_ITERATE){
+		this->iterate();
+	}else{	
+		state->proccesEvent(evt);}
 }
 
 sjPolyhedronPipe::PolyhedronType * sjStateContext::iterate(){
 	if(m_init_system == false){
 		this->mesh_G = * input_pipe->read();
 		m_init_system = true;
+		return & (this->getMesh());
 	}
 	if(this->evolve(1)){
 		return & (this->getMesh());

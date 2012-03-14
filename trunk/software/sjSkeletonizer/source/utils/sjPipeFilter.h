@@ -36,14 +36,23 @@ template<class T, class B> class sjPF{
 			sjConsumer(): input_pipe(NULL){
 			}
 			virtual void notify() = 0;
-			void setInputPipe(sjPipe * p);
+			void setInputPipe(sjPipe * p){
+				input_pipe = p;
+			}
 		protected:
 			sjPipe * input_pipe;
 		};
 
 		class sjSink : public sjConsumer {
 		public:
-			virtual void notify();
+			virtual void notify(){
+				assert(this->input_pipe != NULL);
+				while(this->input_pipe->size() >0){
+					this->packets.push_back(this->input_pipe->read());
+				}
+				consume();
+			}
+
 			virtual void consume() = 0;
 		protected:
 			std::list<T *> packets;
@@ -51,7 +60,10 @@ template<class T, class B> class sjPF{
 
 		class sjSource : public sjProducer {
 		public:
-			virtual void update();
+			void update(){
+				assert(this->output_pipe != NULL);
+				output_pipe->write( produce());
+			}
 			virtual T * produce() = 0;
 		};
 
@@ -76,16 +88,25 @@ template<class T, class B> class sjPF{
 
 		class sjPipe {
 		public:
-			sjPipe();
+			sjPipe():ouput_consumer(NULL){
+			}
 			T * read(){
 				assert(size() != 0);
 				T * p = *( this->packets.begin());
 				this->packets.pop_back();
 				return p;
 			}
-			void write(T * p);
-			int size();
-			void setOuputConsumer(sjConsumer * consumer);
+			void write(T * p){
+				this->packets.push_back(p);
+				assert(this->ouput_consumer != NULL);
+				this->ouput_consumer->notify();
+			}
+			int size(){
+				return this->packets.size();
+			}
+			void setOuputConsumer(sjConsumer * consumer){
+				this->ouput_consumer  = consumer;
+			}
 			protected:
 				sjConsumer * ouput_consumer;
 				std::list<T * > packets;

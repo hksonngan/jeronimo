@@ -19,11 +19,11 @@ sjPF<T, B>::sjConsumer::sjConsumer()
 {
 }*/
 
-template<class T, class B>
+/*template<class T, class B>
 void sjPF<T, B>::sjConsumer::setInputPipe(sjPipe * p){
 	input_pipe = p;
-}
-
+}*/
+/*
 template<class T, class B>
 void sjPF<T, B>::sjSink::notify()
 {
@@ -32,14 +32,14 @@ void sjPF<T, B>::sjSink::notify()
 		this->packets.push_back(this->input_pipe->read());
 	}
 	consume();
-}
+}*/
 
-template<class T, class B>
+/*template<class T, class B>
 void sjPF<T, B>::sjSource::update() 
 {
 	assert(this->output_pipe != NULL);
 	output_pipe->write( produce());
-}
+}*/
 
 /*template<class T, class B>
 void sjPF<T, B>::sjFilter::notify() 
@@ -55,11 +55,11 @@ void sjPF<T, B>::sjFilter::update()
 	transform();
 }*/
 
-template<class T, class B>
+/*template<class T, class B>
 sjPF<T, B>::sjPipe::sjPipe()
 :ouput_consumer(NULL)
 {
-}
+}*/
 
 /*template<class T, class B>
 T * sjPF<T, B>::sjPipe::read() 
@@ -69,23 +69,23 @@ T * sjPF<T, B>::sjPipe::read()
 	this->packets.pop_back();
 	return p;
 }*/
-
+/*
 template<class T, class B>
 void sjPF<T, B>::sjPipe::write(T * p)
 {
 	this->packets.push_back(p);
 	assert(this->ouput_consumer != NULL);
 	this->ouput_consumer->notify();
-}
-
+}*/
+/*
 template<class T, class B>
 int sjPF<T, B>::sjPipe::size()
 {
 	return this->packets.size();
-}
-
+}*/
+/*
 template<class T, class B>
 void sjPF<T, B>::sjPipe::setOuputConsumer(sjConsumer * consumer)
 {
 	this->ouput_consumer  = consumer;
-}
+}*/

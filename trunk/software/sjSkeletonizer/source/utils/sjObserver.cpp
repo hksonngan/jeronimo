@@ -32,7 +32,7 @@ void sjSubject::detach( sjObserver* observer )
 	}
 }
 
-void sjSubject::notify(sjEvent * evt)
+void sjSubject::dispatch(sjEvent * evt)
 {
 	std::vector< sjObserver* >::iterator i;
 	for( i = observers.begin(); i != observers.end(); ++i )

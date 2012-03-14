@@ -852,7 +852,7 @@ sjSystem * PluginIterateLaplacianSmoothingIntegrate::createSystem(){
 	return new IterateLaplacianSmoothingIntegrate();
 }
 
-OFFLoaderSource::OFFLoaderSource(std::string filename){
+/*OFFLoaderSource::OFFLoaderSource(string filename){
 	m_filename = filename;
 }
 
@@ -865,6 +865,6 @@ sjPolyhedronPipe::PolyhedronType * OFFLoaderSource::produce(){
 	}catch(std::exception e) {
 	}
 	return NULL;
-}
+}*/
 
 
