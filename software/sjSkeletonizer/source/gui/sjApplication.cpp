@@ -114,7 +114,7 @@ QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 
 	log4cplus::BasicConfigurator config;
     config.configure();
-
+	/*
 	sjPluginXmlLoader * loader = new sjPluginXmlLoader("E:/personal/maestria/tesis/Jeronimo/trunk/software/sjSkeletonizer/source/resources/example1.xml");
 	if(loader  == NULL)
 		printf("loader is NULL");
@@ -122,7 +122,18 @@ QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 	if(kernel_engine.addPlugin(loader))
 		printf("Si la registro\n");
 	else
-		printf("No la registro\n");
+		printf("No la registro\n");*/
+
+	kernel_engine.setDefaultSystem( new PluginBasicFilter());
+	kernel_engine.setDefaultSystem( new PluginInitIndex());
+	kernel_engine.setDefaultSystem( new PluginComputeRings());
+	kernel_engine.setDefaultSystem( new PluginComputeLaplacian());
+	kernel_engine.setDefaultSystem( new PluginComputeMeanCurvature());
+	kernel_engine.setDefaultSystem( new PluginMeanCurvatureSmoothing());
+	kernel_engine.setDefaultSystem( new PluginIsDegenerateVertex());
+	kernel_engine.setDefaultSystem( new PluginComputeLineEquations());
+	kernel_engine.setDefaultSystem( new PluginInitLaplacianSmoothing());
+	kernel_engine.setDefaultSystem( new PluginIterateLaplacianSmoothingIntegrate());
 
 
 }
@@ -139,23 +150,39 @@ void sjApplication::closeTab(int index)
 
  void sjApplication::open() 
  {
+	 printf("sjApplication::open");
 	 QString fileName = QFileDialog::getOpenFileName(this,
 		 tr("Open 3D File"), "./", tr("3D Files (*.off)"));
-	 
-	 fileName.toLatin1().constData();
 
-	 OFFLoaderSource * off_loader = new OFFLoaderSource(std::string(fileName.toLatin1().constData()));
+	 printf("sjApplication::open 1\n");
+	 OFFLoaderSource * off_loader= new OFFLoaderSource(fileName.toLatin1().constData());
+	 printf("sjApplication::open 2\n");
 	 sjPolyhedronPipe::sjPipe * pipe_source = new sjPolyhedronPipe::sjPipe();
+	 printf("sjApplication::open 3\n");
 	 sjStateContext * ctx = new sjStateContext();
+	 printf("sjApplication::open 4\n");
 	 sjPolyhedronPipe::sjPipe * pipe_sink = new sjPolyhedronPipe::sjPipe();
+	 printf("sjApplication::open 5\n");
 
+	 sjViewer * myviewer = new sjViewer(central_QTabWidget, false);
+	 printf("sjApplication::open 6\n");
 	 off_loader->setOutputPipe(pipe_source);
+	 printf("sjApplication::open 7\n");
 	 pipe_source->setOuputConsumer(ctx);
+	 printf("sjApplication::open 8\n");
 	 ctx->setInputPipe(pipe_source);
+	 printf("sjApplication::open 9\n");
 	 ctx->setOutputPipe(pipe_sink);
-	 //pipe_sink->setOuputConsumer(
-	 
+	 printf("sjApplication::open 10\n");
+	 pipe_sink->setOuputConsumer(myviewer);
+	 printf("sjApplication::open 11\n");
+	 myviewer->setInputPipe(pipe_sink);
+	 printf("sjApplication::open 12\n");
+	 myviewer->attach(ctx);
 
+	 printf("sjApplication::open 13\n");
+	 off_loader->update();
+	 printf("sjApplication::open -> END");
 	 
 
  }
@@ -185,11 +212,13 @@ void sjApplication::closeTab(int index)
 
 void sjApplication::iterateLaplacian()
 {
+	sjEvent * mevt = new sjEvent(sjEvent::EVT_ITERATE);
+	//this->kernel_engine.notify(mevt);
 	sjViewer * current = (sjViewer *)( central_QTabWidget->currentWidget());
 	if( current != NULL){
-		int iter = sld_iterations->value();
-		for(int j = 0; j<iter; j++)
-		current->LaplacianSmoothing();
+		//int iter = sld_iterations->value();
+		//for(int j = 0; j<iter; j++)
+		current->dispatch(mevt);
 	}
 }
 

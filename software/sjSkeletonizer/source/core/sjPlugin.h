@@ -16,7 +16,7 @@ namespace sj{
 		std::string getNameType();
 		std::string getPluginName();
 		virtual void registerPlugin(sjKernelPlugin & K);
-		sjSystem * createSystem();
+		virtual sjSystem * createSystem() = 0;
 	protected:
 		std::string name;
 		std::string name_type;

@@ -51,11 +51,13 @@
 
 #include "sjDataType.h"
 #include "sjDataType.h"
+#include "sjPipeFilter.h"
 
+using namespace sj;
 
 class QWidget;
 
-class sjViewer : public QGLViewer, public  {
+class sjViewer : public QGLViewer, public sjPolyhedronPipe::sjSink, public sjSubject {
 
   Q_OBJECT
 
@@ -97,6 +99,8 @@ public:
 	max = *(std::max_element(pX,pX+24));
 	max_min = std::abs( max - min);
   }
+
+  void consume();
 
   virtual QString helpString() const;
   sjPoint_3 normalize(sjPoint_3 p);

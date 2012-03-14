@@ -244,3 +244,11 @@ void sjViewer::LaplacianSmoothing(){
 	this->setVerticesFaces(laplacian_system->getMeshG());
 	this->update();*/
 }
+
+void sjViewer::consume(){
+	sjPolyhedronPipe::PolyhedronType * poly;
+	poly = * (this->packets.begin());
+	this->polyhedron = *poly;
+	this->packets.clear();
+	this->update();
+}

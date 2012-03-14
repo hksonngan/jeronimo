@@ -5,6 +5,11 @@
 #include "sjKernelPlugin.h"
 #include "sjStateContext.h"
 #include "sjState.h"
+#include "sjDataIO.h"
+
+#include <string>
+
+using namespace std;
 
 namespace sj{
 	class BasicFilter: public sjSystem{
@@ -199,10 +204,23 @@ namespace sj{
 
 	class OFFLoaderSource: public sjPolyhedronPipe::sjSource{
 	public:
-		OFFLoaderSource(std::string filename);
-		sjPolyhedronPipe::PolyhedronType * produce();
+		OFFLoaderSource(string filename){
+			printf("OFFLoaderSource + %s 1\n", filename.c_str());
+			m_filename = filename;
+			printf("OFFLoaderSource 2\n");
+		}
+		sjPolyhedronPipe::PolyhedronType * produce(){
+			sjDataIO dataio;
+			dataio.setFileName(m_filename );
+			try{
+				dataio.load();
+				return &(dataio.getPolyhedronModel());
+			}catch(std::exception e) {
+			}
+			return NULL;
+		}
 	private:
-		std::string m_filename;
+		string m_filename;
 	};
 }
 #endif
