@@ -17,7 +17,7 @@ namespace sj{
 		void setParameters(sjPolyhedronPipe::ParametersType *);
 		void setState(sjState * a_state);    
 		
-		sjPolyhedronPipe::PolyhedronType * iterate();
+		sjPolyhedronPipe::PolyhedronType iterate();
 		sjPolyhedronPipe::PolyhedronType getMesh();
 		vector< vector<sjVertex_handle> > getRings();
 		size_t getNumberOfVertex();

@@ -112,5 +112,5 @@ void sjPluginWidget::iterate(){
 	sjPolyhedronPipe::sjPipe * pipe;
 	mesh_filter->setOutputPipe(pipe);
 	//emit getMesh(mesh_filter->);
-	emit getMesh(*(pipe->read()));
+	//emit getMesh(*(pipe->read()));
 }

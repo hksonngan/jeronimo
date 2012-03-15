@@ -29,18 +29,23 @@ void sjStateContext::proccesEvent(sjEvent * evt){
 		state->proccesEvent(evt);}
 }
 
-sjPolyhedronPipe::PolyhedronType * sjStateContext::iterate(){
+sjPolyhedronPipe::PolyhedronType sjStateContext::iterate(){
+	printf("PolyhedronType iterate 1\n");
 	if(m_init_system == false){
-		this->mesh_G = * input_pipe->read();
+		printf("PolyhedronType iterate 2\n");
+		this->mesh_G = input_pipe->read();
+		printf("PolyhedronType iterate 3\n");
 		m_init_system = true;
-		return & (this->getMesh());
+		return this->getMesh();
 	}
+	printf("PolyhedronType iterate 4\n");
 	if(this->evolve(1)){
-		return & (this->getMesh());
+		printf("PolyhedronType iterate 5\n");
+		return this->getMesh();
 	}else{
 		//No more iterations
 	}
-	return NULL;
+	return sjPolyhedronPipe::PolyhedronType();
 }
 
 void sjStateContext::setParameters(sjPolyhedronPipe::ParametersType * a_params){

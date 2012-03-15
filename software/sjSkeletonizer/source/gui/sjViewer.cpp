@@ -246,9 +246,9 @@ void sjViewer::LaplacianSmoothing(){
 }
 
 void sjViewer::consume(){
-	sjPolyhedronPipe::PolyhedronType * poly;
-	poly = * (this->packets.begin());
-	this->polyhedron = *poly;
+	sjPolyhedronPipe::PolyhedronType poly;
+	poly = this->packets.back();
+	this->polyhedron = poly;
 	this->packets.clear();
 	this->update();
 }
