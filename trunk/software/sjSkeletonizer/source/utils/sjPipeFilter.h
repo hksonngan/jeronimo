@@ -55,7 +55,7 @@ template<class T, class B> class sjPF{
 
 			virtual void consume() = 0;
 		protected:
-			std::list<T *> packets;
+			std::list<T > packets;
 		};
 
 		class sjSource : public sjProducer {
@@ -64,24 +64,30 @@ template<class T, class B> class sjPF{
 				assert(this->output_pipe != NULL);
 				output_pipe->write( produce());
 			}
-			virtual T * produce() = 0;
+			virtual T produce() = 0;
 		};
 
 		class sjFilter : public sjConsumer, public sjProducer {
 		public:
 			void notify(){
+				printf("sjFilter notify 1\n");
 				assert(this->input_pipe != NULL);
+				printf("sjFilter notify 2\n");
 				update();
+				printf("sjFilter notify 3\n");
 			}
 			void update(){
+				printf("sjFilter update 1\n");
 				assert(this->output_pipe != NULL);
-				iterate();
+				printf("sjFilter update 2\n");
+				this->output_pipe->write( iterate());
+				printf("sjFilter update 3\n");
 			}
 			
 			virtual void setParameters(B *) = 0;
 			virtual void setMesh(T) = 0;
 			virtual size_t getNumberOfVertex() = 0;
-			virtual T * iterate() = 0;
+			virtual T iterate() = 0;
 			virtual T getMesh() = 0;
 			virtual B * getParameters() = 0;
 		};
@@ -90,16 +96,24 @@ template<class T, class B> class sjPF{
 		public:
 			sjPipe():ouput_consumer(NULL){
 			}
-			T * read(){
+			T read(){
+				printf("sjPipe read 1\n");
 				assert(size() != 0);
-				T * p = *( this->packets.begin());
+				printf("sjPipe read 2\n");
+				T p =  this->packets.back();
+				printf("sjPipe read 3\n");
 				this->packets.pop_back();
+				printf("sjPipe read 4\n");
 				return p;
 			}
-			void write(T * p){
+			void write(T p){
+				printf("sjPipe write 1\n");
 				this->packets.push_back(p);
+				printf("sjPipe write 2\n");
 				assert(this->ouput_consumer != NULL);
+				printf("sjPipe write 3\n");
 				this->ouput_consumer->notify();
+				printf("sjPipe write 4\n");
 			}
 			int size(){
 				return this->packets.size();
@@ -109,7 +123,7 @@ template<class T, class B> class sjPF{
 			}
 			protected:
 				sjConsumer * ouput_consumer;
-				std::list<T * > packets;
+				std::list<T > packets;
 		};
 };
 

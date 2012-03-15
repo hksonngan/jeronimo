@@ -209,15 +209,17 @@ namespace sj{
 			m_filename = filename;
 			printf("OFFLoaderSource 2\n");
 		}
-		sjPolyhedronPipe::PolyhedronType * produce(){
+		sjPolyhedronPipe::PolyhedronType produce(){
+			printf("OFFLoaderSource produce 1\n");
 			sjDataIO dataio;
 			dataio.setFileName(m_filename );
 			try{
 				dataio.load();
-				return &(dataio.getPolyhedronModel());
+				printf("OFFLoaderSource produce 2\n");
+				return dataio.getPolyhedronModel();
 			}catch(std::exception e) {
 			}
-			return NULL;
+			return sjPolyhedronPipe::PolyhedronType();
 		}
 	private:
 		string m_filename;
