@@ -34,6 +34,7 @@
 #include "sjDataIO.h"
 #include "sjViewer.h"
 #include "sjLaplacianSmoothing.h"
+#include "sjLog.h"
 #include <QMenu>
 #include <QMenuBar>
 #include <QAction>
@@ -91,7 +92,7 @@ QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 	tools_QDockWidget->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 	tools_QDockWidget->setWidget(tool_box_QToolBox);
 	addDockWidget(Qt::LeftDockWidgetArea, tools_QDockWidget);
-	/*
+	
 	QWidget * panel = new QWidget();
 	QPushButton * cmd_iterateLaplacian = new QPushButton("Iterate Laplacian System", panel);
 	connect(cmd_iterateLaplacian, SIGNAL(clicked()),this, SLOT(iterateLaplacian()));
@@ -109,11 +110,20 @@ QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 	toolLayout->addWidget(cmd_iterateLaplacian);
 	QSpacerItem* qspaceritem = new QSpacerItem( 20, 200,	QSizePolicy::Maximum, QSizePolicy::Expanding );
 	toolLayout->addSpacerItem(qspaceritem);
-	panel->setLayout(toolLayout);*/
+	panel->setLayout(toolLayout);
+	tool_box_QToolBox->addItem(panel, "Laplacian Smoothing");
 
 
-	log4cplus::BasicConfigurator config;
-    config.configure();
+	/*log4cplus::BasicConfigurator config;
+    config.configure();*/
+
+	log4cplus::PropertyConfigurator config2("logs.properties");
+	config2.configure();
+	log4cplus::Logger logger = log4cplus::Logger::getInstance("mylogger");
+	//LOG4CPLUS_INFO(logger, message);
+	LOG4CPLUS_INFO(logger, "äsdasdasd");
+
+	
 	/*
 	sjPluginXmlLoader * loader = new sjPluginXmlLoader("E:/personal/maestria/tesis/Jeronimo/trunk/software/sjSkeletonizer/source/resources/example1.xml");
 	if(loader  == NULL)
@@ -124,7 +134,6 @@ QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 	else
 		printf("No la registro\n");*/
 
-	kernel_engine.setDefaultSystem( new PluginBasicFilter());
 	kernel_engine.setDefaultSystem( new PluginInitIndex());
 	kernel_engine.setDefaultSystem( new PluginComputeRings());
 	kernel_engine.setDefaultSystem( new PluginComputeLaplacian());
@@ -183,6 +192,9 @@ void sjApplication::closeTab(int index)
 	 printf("sjApplication::open 13\n");
 	 off_loader->update();
 	 printf("sjApplication::open -> END");
+
+	 int index  = central_QTabWidget->addTab(myviewer, fileName.right(fileName.size()-1-fileName.lastIndexOf("/")));
+		 central_QTabWidget->setCurrentIndex ( index );
 	 
 
  }
@@ -212,13 +224,18 @@ void sjApplication::closeTab(int index)
 
 void sjApplication::iterateLaplacian()
 {
+	printf("sjApplication::iterateLaplacian 1\n");
 	sjEvent * mevt = new sjEvent(sjEvent::EVT_ITERATE);
+	printf("sjApplication::iterateLaplacian 2\n");
 	//this->kernel_engine.notify(mevt);
 	sjViewer * current = (sjViewer *)( central_QTabWidget->currentWidget());
+	printf("sjApplication::iterateLaplacian 3\n");
 	if( current != NULL){
 		//int iter = sld_iterations->value();
 		//for(int j = 0; j<iter; j++)
+		printf("sjApplication::iterateLaplacian 4\n");
 		current->dispatch(mevt);
+		printf("sjApplication::iterateLaplacian 5\n");
 	}
 }
 

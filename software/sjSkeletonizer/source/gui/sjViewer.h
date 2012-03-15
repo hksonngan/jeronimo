@@ -100,7 +100,7 @@ public:
 	max_min = std::abs( max - min);
   }
 
-  void consume();
+  void consume(sjPolyhedronPipe::PolyhedronType a_meshG);
 
   virtual QString helpString() const;
   sjPoint_3 normalize(sjPoint_3 p);
@@ -125,7 +125,6 @@ private:
 
   bool antialiasing;
   bool twosides;
-  sjPolyhedron polyhedron;
 
 
   //sjLaplacianSmoothing * laplacian_system;

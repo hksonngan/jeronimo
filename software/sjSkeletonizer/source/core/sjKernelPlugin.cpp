@@ -3,7 +3,6 @@
 using namespace sj;
 
 sjKernelPlugin sjKernelPlugin::_instance;
-const std::string sjKernelPlugin::SYS_BASIC_FILTER_SYSTEM				 = "SYS_BASIC_FILTER_SYSTEM";
 const std::string sjKernelPlugin::SYS_COMPUTE_LAPLACIAN_SYSTEM			 = "SYS_COMPUTE_LAPLACIAN_SYSTEM";
 const std::string sjKernelPlugin::SYS_COMPUTE_LINE_EQUATIONS_SYSTEM		 = "SYS_COMPUTE_LINE_EQUATIONS_SYSTEM";
 const std::string sjKernelPlugin::SYS_COMPUTE_MEAN_CURVATURE_SYSTEM		 = "SYS_COMPUTE_MEAN_CURVATURE_SYSTEM";

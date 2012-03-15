@@ -32,16 +32,16 @@ using namespace log4cplus;
 
 
 void sj::sjLogDebug(std::string message){
-	Logger logger = Logger::getInstance("main");
+	Logger logger = Logger::getInstance("mylogger");
 	LOG4CPLUS_DEBUG(logger, message);
 }
 
 void sj::sjLogInformation(std::string message){
 	//BasicConfigurator config;
 	//config.configure();
-	Logger logger = Logger::getInstance("main");
+	Logger logger = Logger::getInstance("mylogger");
 	//LOG4CPLUS_INFO(logger, message);
-	LOG4CPLUS_INFO(logger, "message");
+	LOG4CPLUS_INFO(logger, message);
 }
 
 void sj::sjLogWarning(std::string message){
@@ -50,7 +50,7 @@ void sj::sjLogWarning(std::string message){
 }
 
 void sj::sjLogError(std::string message){
-	Logger logger = Logger::getInstance("main");
+	Logger logger = Logger::getInstance("mylogger");
 	LOG4CPLUS_ERROR(logger, message);
 }
 

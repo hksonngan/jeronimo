@@ -12,35 +12,10 @@
 using namespace std;
 
 namespace sj{
-	class BasicFilter: public sjSystem{
-	public:
-		BasicFilter();
-		void proccesEvent(sjEvent * evt);
-		double WH_0 ;
-		double WL_0 ;
-		double SL ;
-		double AVERAGE_FACE;
-		double MAX_CONTRACTION_SQUARED;	// Maximum contraction weight^2 before using hard constraint (default 100000)
-		double MAX_ATTRACTION;		// Maximum attraction weight before using hard constraint    (default 1000)
-		double MIN_COT_ANGLE;	// Minimum angle for cotan weights before clamping           (default 0.0000001)
-		int iteration;
-	};
-	class PluginBasicFilter:public sjPlugin{
-	public:
-		PluginBasicFilter();
-		void registerPlugin(sjKernelPlugin & K);
-		sjSystem * createSystem();
-	};
 
 	class InitIndex: public sjState{
 	public:
-		InitIndex();
-		void proccesEvent(sjEvent * evt);
-		bool initialize(sjStateContext * ssc);
 		bool evolve(sjStateContext * ssc);
-	private:
-		BasicFilter * m_data;
-		sjStateContext * m_context;
 	};
 	class PluginInitIndex: public sjPlugin{
 	public:
@@ -51,12 +26,7 @@ namespace sj{
 
 	class ComputeRings: public sjState{
 	public:
-		ComputeRings();
-		void proccesEvent(sjEvent * evt);
-		bool initialize(sjStateContext * ssc);
 		bool evolve(sjStateContext * ssc);
-	private:
-		sjStateContext * m_context;
 	};
 	class PluginComputeRings:public sjPlugin{
 	public:
@@ -67,11 +37,8 @@ namespace sj{
 
 	class ComputeLaplacian: public sjSystem{
 	public:
-		ComputeLaplacian();
-		void proccesEvent(sjEvent * evt);
-		map<int, double> computeLaplacian(sjVIterator vi, vector< sjVertex_handle> neighbors);
-	private:
-		BasicFilter * m_data;
+		void proccesEvent(sjEvent * evt){}
+		map<int, double> computeLaplacian(sjStateContext * m_ctx, sjVIterator vi, vector< sjVertex_handle> neighbors);
 	};
 	class PluginComputeLaplacian: public sjPlugin{
 	public:
@@ -82,14 +49,8 @@ namespace sj{
 
 	class ComputeMeanCurvature: public sjState{
 	public:
-		ComputeMeanCurvature();
-		void proccesEvent(sjEvent * evt);
-		bool initialize(sjStateContext * ssc);
 		bool evolve(sjStateContext * ssc);
 		sjPoint_3 computeMeanCurvature(sjVIterator vi, vector< sjVertex_handle> neighbors);	
-	private:
-		BasicFilter * m_data;
-		sjStateContext * m_context;
 	};
 	class PluginComputeMeanCurvature: public sjPlugin{
 		public:
@@ -100,13 +61,7 @@ namespace sj{
 
 	class MeanCurvatureSmoothing: public sjState{
 	public:
-		MeanCurvatureSmoothing();
-		void proccesEvent(sjEvent * evt);
-		bool initialize(sjStateContext * ssc);
 		bool evolve(sjStateContext * ssc);
-	private:
-		BasicFilter * m_data;
-		sjStateContext * m_context;
 	};
 	class PluginMeanCurvatureSmoothing: public sjPlugin{
 	public:
@@ -118,10 +73,9 @@ namespace sj{
 	class IsDegenerateVertex: public sjSystem{
 	public:
 		IsDegenerateVertex();
-		void proccesEvent(sjEvent * evt);
-		bool isDegenerateVertex(sjVIterator vi, vector< sjVertex_handle> neighbors);
+		void proccesEvent(sjEvent * evt){}
+		bool isDegenerateVertex(sjStateContext * m_ctx, sjVIterator vi, vector< sjVertex_handle> neighbors);
 	private:
-		BasicFilter * m_data;
 		ComputeLaplacian * m_comlapl;
 	};
 	class PluginIsDegenerateVertex: public sjPlugin{
@@ -132,13 +86,9 @@ namespace sj{
 	};
 
 	class ComputeLineEquations: public sjSystem{
-	private:
-		BasicFilter * m_data;
-		sjStateContext * m_context;
 	public:
-		ComputeLineEquations();
-		void proccesEvent(sjEvent * evt);
-		void computeLineEquations(sjVIterator vi, vector< sjVertex_handle> neighbors);
+		void proccesEvent(sjEvent * evt){}
+		sjVIterator computeLineEquations(sjVIterator vi, vector< sjVertex_handle> neighbors);
 	};
 	class PluginComputeLineEquations:public sjPlugin{
 	public:
@@ -148,13 +98,7 @@ namespace sj{
 	};
 
 	class InitLaplacianSmoothing: public sjState{
-	private:
-		BasicFilter * m_data;
-		sjStateContext * m_context;
 	public:
-		InitLaplacianSmoothing();		
-		void proccesEvent(sjEvent * evt);
-		bool initialize(sjStateContext * ssc);
 		bool evolve(sjStateContext * ssc);
 		void initLaplacianSmoothing(double a_WH0 = 1.0, double a_WL0 = 0.01, double a_SL = 2.0);
 	};
@@ -167,16 +111,8 @@ namespace sj{
 	};
 
 	class IterateSmoothingAlgorithm: public sjState{
-	protected:
-		BasicFilter * m_data;
-		sjStateContext * m_context;
 	public:
 			virtual ~IterateSmoothingAlgorithm(){}
-			virtual void proccesEvent(sjEvent * evt){}
-			virtual bool initialize(sjStateContext * ssc){
-				m_context = ssc;
-				return true;
-			}
 			virtual bool evolve(sjStateContext * ssc) = 0;
 	};
 
