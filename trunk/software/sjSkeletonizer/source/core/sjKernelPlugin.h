@@ -14,7 +14,6 @@ namespace sj{
 
 	class sjKernelPlugin: public sjSubject{
 	public:
-		static const std::string SYS_BASIC_FILTER_SYSTEM;
 		static const std::string SYS_COMPUTE_LAPLACIAN_SYSTEM;
 		static const std::string SYS_COMPUTE_LINE_EQUATIONS_SYSTEM;
 		static const std::string SYS_COMPUTE_MEAN_CURVATURE_SYSTEM;

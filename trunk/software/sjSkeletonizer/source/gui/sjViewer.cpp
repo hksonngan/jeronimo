@@ -245,10 +245,13 @@ void sjViewer::LaplacianSmoothing(){
 	this->update();*/
 }
 
-void sjViewer::consume(){
-	sjPolyhedronPipe::PolyhedronType poly;
-	poly = this->packets.back();
-	this->polyhedron = poly;
-	this->packets.clear();
+void sjViewer::consume(sjPolyhedronPipe::PolyhedronType a_meshG){
+	printf("sjViewer::consume 1\n");
+	printf("sjViewer::consume 3\n");
+	this->polyhedron = a_meshG;
+	this->setBoundingBox( calcBoundingBox(this->polyhedron));
+	printf("sjViewer::consume 4\n");
+	printf("sjViewer::consume 5\n");
 	this->update();
+	printf("sjViewer::consume 6\n");
 }

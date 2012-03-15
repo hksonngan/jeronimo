@@ -7,10 +7,15 @@ namespace sj{
 	class sjStateContext;
 	class sjState: public sjSystem{
 	public:
-		virtual void proccesEvent(sjEvent * evt) = 0;
 		virtual ~sjState(){}
-		virtual bool initialize(sjStateContext * ssc) = 0;
+		virtual void proccesEvent(sjEvent * evt){}
+		virtual bool initialize(sjStateContext * ssc){
+			this->m_context = ssc;
+			return true;
+		}
 		virtual bool evolve(sjStateContext * ssc) = 0;
+	protected:
+		sjStateContext * m_context;
 	};
 }
 

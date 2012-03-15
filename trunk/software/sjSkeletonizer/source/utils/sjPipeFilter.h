@@ -47,15 +47,12 @@ template<class T, class B> class sjPF{
 		public:
 			virtual void notify(){
 				assert(this->input_pipe != NULL);
-				while(this->input_pipe->size() >0){
-					this->packets.push_back(this->input_pipe->read());
-				}
-				consume();
+				consume(this->input_pipe->read());
 			}
 
-			virtual void consume() = 0;
+			virtual void consume(T) = 0;
 		protected:
-			std::list<T > packets;
+			T polyhedron;
 		};
 
 		class sjSource : public sjProducer {
@@ -85,7 +82,7 @@ template<class T, class B> class sjPF{
 			}
 			
 			virtual void setParameters(B *) = 0;
-			virtual void setMesh(T) = 0;
+			virtual void setMesh(T ) = 0;
 			virtual size_t getNumberOfVertex() = 0;
 			virtual T iterate() = 0;
 			virtual T getMesh() = 0;
@@ -98,32 +95,25 @@ template<class T, class B> class sjPF{
 			}
 			T read(){
 				printf("sjPipe read 1\n");
-				assert(size() != 0);
+				T p =  this->packet;
 				printf("sjPipe read 2\n");
-				T p =  this->packets.back();
-				printf("sjPipe read 3\n");
-				this->packets.pop_back();
-				printf("sjPipe read 4\n");
 				return p;
 			}
 			void write(T p){
 				printf("sjPipe write 1\n");
-				this->packets.push_back(p);
+				this->packet = p;
 				printf("sjPipe write 2\n");
 				assert(this->ouput_consumer != NULL);
 				printf("sjPipe write 3\n");
 				this->ouput_consumer->notify();
 				printf("sjPipe write 4\n");
 			}
-			int size(){
-				return this->packets.size();
-			}
 			void setOuputConsumer(sjConsumer * consumer){
 				this->ouput_consumer  = consumer;
 			}
 			protected:
 				sjConsumer * ouput_consumer;
-				std::list<T > packets;
+				T packet;
 		};
 };
 
