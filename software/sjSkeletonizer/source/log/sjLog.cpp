@@ -27,30 +27,78 @@
 #include <log4cplus/logger.h>
 #include <log4cplus/configurator.h>
 #include <iomanip>
-
+#include <exception>
 using namespace log4cplus;
 
+sj::sjConfigLog sj::sjConfigLog::_instance;
 
+sj::sjConfigLog::sjConfigLog(){
+	try
+	{
+	PropertyConfigurator::doConfigure("logs.properties");
+	}
+	catch(std::exception e)
+	{
+
+		printf("Exception occured while opening logs.properties");
+		printf(e.what());
+	}
+}
+
+
+void sj::sjLogDebug(const char* format, ...){
+	va_list args;
+	char buffer[BUFSIZ];
+	va_start(args,format);
+	sprintf (buffer, format, args );
+	va_end(args);
+	Logger logger = Logger::getInstance("debuglogger");
+	LOG4CPLUS_DEBUG(logger, buffer);
+}
 void sj::sjLogDebug(std::string message){
-	Logger logger = Logger::getInstance("mylogger");
+	Logger logger = Logger::getInstance("debuglogger");
 	LOG4CPLUS_DEBUG(logger, message);
 }
 
+void sj::sjLogInformation(const char* format, ...){
+	va_list args;
+	char buffer[BUFSIZ];
+	va_start(args,format);
+	sprintf (buffer, format, args );
+	va_end(args);
+	Logger logger = Logger::getInstance("infologger");
+	LOG4CPLUS_INFO(logger, buffer);
+}
 void sj::sjLogInformation(std::string message){
-	//BasicConfigurator config;
-	//config.configure();
-	Logger logger = Logger::getInstance("mylogger");
-	//LOG4CPLUS_INFO(logger, message);
+	Logger logger = Logger::getInstance("infologger");
 	LOG4CPLUS_INFO(logger, message);
 }
 
+void sj::sjLogWarning(const char* format, ...){
+	va_list args;
+	char buffer[BUFSIZ];
+	va_start(args,format);
+	sprintf (buffer, format, args );
+	va_end(args);
+	Logger logger = Logger::getInstance("warninglogger");
+	LOG4CPLUS_WARN(logger, buffer);
+}
 void sj::sjLogWarning(std::string message){
-	//Logger logger = Logger::getInstance("main");
-	//LOG4CPLUS_WARN(logger, message);
+	Logger logger = Logger::getInstance("warninglogger");
+	LOG4CPLUS_WARN(logger, message);
 }
 
+void sj::sjLogError(const char* format, ...){
+	va_list args;
+	char buffer[BUFSIZ];
+	va_start(args,format);
+	sprintf (buffer, format, args );
+	va_end(args);
+	Logger logger = Logger::getInstance("errorlogger");
+	LOG4CPLUS_ERROR(logger, buffer);
+}
 void sj::sjLogError(std::string message){
-	Logger logger = Logger::getInstance("mylogger");
+	Logger logger = Logger::getInstance("errorlogger");
 	LOG4CPLUS_ERROR(logger, message);
 }
 

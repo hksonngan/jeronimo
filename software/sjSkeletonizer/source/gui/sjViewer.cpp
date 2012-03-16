@@ -33,6 +33,7 @@
 #include "sjViewer.h"
 #include "sjDataIO.h"
 #include "sjUtils.h"
+#include "sjLog.h"
 #include <CGAL/Point_3.h>
 //#include <CGAL/IO/Polyhedron_iostream.h>
 
@@ -246,12 +247,12 @@ void sjViewer::LaplacianSmoothing(){
 }
 
 void sjViewer::consume(sjPolyhedronPipe::PolyhedronType a_meshG){
-	printf("sjViewer::consume 1\n");
-	printf("sjViewer::consume 3\n");
+	sjLogDebug("sjViewer::consume 1\n");
+	sjLogDebug("sjViewer::consume 3\n");
 	this->polyhedron = a_meshG;
 	this->setBoundingBox( calcBoundingBox(this->polyhedron));
-	printf("sjViewer::consume 4\n");
-	printf("sjViewer::consume 5\n");
+	sjLogDebug("sjViewer::consume 4\n");
+	sjLogDebug("sjViewer::consume 5\n");
 	this->update();
-	printf("sjViewer::consume 6\n");
+	sjLogDebug("sjViewer::consume 6\n");
 }

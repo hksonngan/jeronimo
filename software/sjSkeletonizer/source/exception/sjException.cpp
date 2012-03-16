@@ -59,7 +59,8 @@ sjException::sjException(TypeException a_type){
 sjException::sjException(TypeException a_type, std::string a_msg){
 	type = a_type;
 	message = a_msg;
-	sjLogError(std::string("sjException: ") + a_msg);
+	std::string mess = std::string("sjException: ") + a_msg;
+	sjLogError(mess.c_str());
 }
 
 sjException::TypeException sjException::getType(void){

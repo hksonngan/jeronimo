@@ -1,4 +1,5 @@
 #include "sjObserver.h"
+#include "sjLog.h"
 
 using namespace sj;
 
@@ -34,13 +35,13 @@ void sjSubject::detach( sjObserver* observer )
 
 void sjSubject::dispatch(sjEvent * evt)
 {
-	printf("sjSubject::dispatch 1\n");
+	sjLogDebug("sjSubject::dispatch 1\n");
 	std::vector< sjObserver* >::iterator i;
-	printf("sjSubject::dispatch 2\n");
+	sjLogDebug("sjSubject::dispatch 2\n");
 	for( i = observers.begin(); i != observers.end(); ++i )
 	{
-		printf("sjSubject::dispatch 3\n");
+		sjLogDebug("sjSubject::dispatch 3\n");
 		(*i) -> proccesEvent(evt);
-		printf("sjSubject::dispatch 4\n");
+		sjLogDebug("sjSubject::dispatch 4\n");
 	}
 }
