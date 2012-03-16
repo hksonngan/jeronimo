@@ -10,6 +10,7 @@
 #include "sjObserver.h"
 #include "sjDataType.h"
 #include "sjParameter.h"
+#include "sjLog.h"
 
 namespace sj{
 
@@ -67,18 +68,18 @@ template<class T, class B> class sjPF{
 		class sjFilter : public sjConsumer, public sjProducer {
 		public:
 			void notify(){
-				printf("sjFilter notify 1\n");
+				sjLogDebug("sjFilter notify 1\n");
 				assert(this->input_pipe != NULL);
-				printf("sjFilter notify 2\n");
+				sjLogDebug("sjFilter notify 2\n");
 				update();
-				printf("sjFilter notify 3\n");
+				sjLogDebug("sjFilter notify 3\n");
 			}
 			void update(){
-				printf("sjFilter update 1\n");
+				sjLogDebug("sjFilter update 1\n");
 				assert(this->output_pipe != NULL);
-				printf("sjFilter update 2\n");
+				sjLogDebug("sjFilter update 2\n");
 				this->output_pipe->write( iterate());
-				printf("sjFilter update 3\n");
+				sjLogDebug("sjFilter update 3\n");
 			}
 			
 			virtual void setParameters(B *) = 0;
@@ -94,19 +95,19 @@ template<class T, class B> class sjPF{
 			sjPipe():ouput_consumer(NULL){
 			}
 			T read(){
-				printf("sjPipe read 1\n");
+				sjLogDebug("sjPipe read 1\n");
 				T p =  this->packet;
-				printf("sjPipe read 2\n");
+				sjLogDebug("sjPipe read 2\n");
 				return p;
 			}
 			void write(T p){
-				printf("sjPipe write 1\n");
+				sjLogDebug("sjPipe write 1\n");
 				this->packet = p;
-				printf("sjPipe write 2\n");
+				sjLogDebug("sjPipe write 2\n");
 				assert(this->ouput_consumer != NULL);
-				printf("sjPipe write 3\n");
+				sjLogDebug("sjPipe write 3\n");
 				this->ouput_consumer->notify();
-				printf("sjPipe write 4\n");
+				sjLogDebug("sjPipe write 4\n");
 			}
 			void setOuputConsumer(sjConsumer * consumer){
 				this->ouput_consumer  = consumer;

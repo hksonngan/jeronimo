@@ -31,6 +31,8 @@
 #define __SJLOG__H__
 
 #include <string>
+#include <stdarg.h>
+#include <stdio.h>
 
 namespace sj {
 	typedef enum {
@@ -44,12 +46,21 @@ namespace sj {
 		SJ_ALL_LOG_LEVEL     = 0,
 		SJ_NOT_SET_LOG_LEVEL = -1
 	} SJ_LOG_LEVEL;
+	class sjConfigLog{
+	private:
+		static sjConfigLog _instance;
+		sjConfigLog();
+	};
 
-	 void sjLogDebug(std::string);
-	 void sjLogInformation(std::string);
-	 void sjLogWarning(std::string);
-	 void sjLogError(std::string);
-	 void sjLogSetLevel(SJ_LOG_LEVEL);
+	 void sjLogDebug(const char* format, ...);
+	 void sjLogDebug(std::string message);
+	 void sjLogInformation(const char* format, ...);
+	 void sjLogInformation(std::string message);
+	 void sjLogWarning(const char* format, ...);
+	 void sjLogWarning(std::string message);
+	 void sjLogError(const char* format, ...);
+	 void sjLogError(std::string message);
+	 void sjLogSetLevel(SJ_LOG_LEVEL a_level);
 	 void sjLogSetFileName(std::string);
 	 void sjLogSetInstance(std::string);
 }

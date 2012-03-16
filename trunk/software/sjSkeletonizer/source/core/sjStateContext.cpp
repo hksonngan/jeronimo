@@ -1,5 +1,6 @@
 #include "sjStateContext.h"
 #include "sjKernelPlugin.h"
+#include "sjLog.h"
 
 using namespace sj;
 
@@ -21,7 +22,7 @@ MIN_COT_ANGLE(0.00000000000000001){
 }
 
 bool sjStateContext::evolve(int delta_frame){
-	printf("sjStateContext::evolve 1\n");
+	sjLogDebug("sjStateContext::evolve 1\n");
 	return state->evolve(this);
 }
 
@@ -35,30 +36,30 @@ sjState * sjStateContext::getState(){
 }
 
 void sjStateContext::proccesEvent(sjEvent * evt){
-	printf("sjStateContext::proccesEvent 1\n");
+	sjLogDebug("sjStateContext::proccesEvent 1\n");
 	if(evt->getType() == sjEvent::EVT_ITERATE){
-		printf("sjStateContext::proccesEvent 2\n");
+		sjLogDebug("sjStateContext::proccesEvent 2\n");
 		this->update();
 		//this->iterate();
-		printf("sjStateContext::proccesEvent 3\n");
+		sjLogDebug("sjStateContext::proccesEvent 3\n");
 	}else{	
-		printf("sjStateContext::proccesEvent 4\n");
+		sjLogDebug("sjStateContext::proccesEvent 4\n");
 		state->proccesEvent(evt);}
-	printf("sjStateContext::proccesEvent 5\n");
+	sjLogDebug("sjStateContext::proccesEvent 5\n");
 }
 
 sjPolyhedronPipe::PolyhedronType sjStateContext::iterate(){
-	printf("PolyhedronType iterate 1\n");
+	sjLogDebug("PolyhedronType iterate 1\n");
 	if(m_init_system == false){
-		printf("PolyhedronType iterate 2\n");
+		sjLogDebug("PolyhedronType iterate 2\n");
 		this->mesh_G = input_pipe->read();
-		printf("PolyhedronType iterate 3\n");
+		sjLogDebug("PolyhedronType iterate 3\n");
 		m_init_system = true;
 		return this->getMesh();
 	}
-	printf("PolyhedronType iterate 4\n");
+	sjLogDebug("PolyhedronType iterate 4\n");
 	if(this->evolve(1)){
-		printf("PolyhedronType iterate 5\n");
+		sjLogDebug("PolyhedronType iterate 5\n");
 		return this->getMesh();
 	}else{
 		//No more iterations

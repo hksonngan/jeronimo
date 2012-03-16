@@ -50,11 +50,16 @@
 #include "sjParameter.h"
 #include <string>
 #include <log4cplus/logger.h>
+#include <log4cplus/fileappender.h>
+#include <log4cplus/loglevel.h>
 #include <log4cplus/configurator.h>
+
 
 #include "sjPluginWidget.h"
 
 using namespace sj;
+using namespace log4cplus;
+using namespace log4cplus::helpers;
 
 sjApplication::sjApplication():
 QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
@@ -113,26 +118,46 @@ QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 	panel->setLayout(toolLayout);
 	tool_box_QToolBox->addItem(panel, "Laplacian Smoothing");
 
-
 	/*log4cplus::BasicConfigurator config;
     config.configure();*/
+	/*
+	try
+	{
+	PropertyConfigurator::doConfigure("logs.properties");
+	}
+	catch(exception e)
+	{
 
-	log4cplus::PropertyConfigurator config2("logs.properties");
-	config2.configure();
-	log4cplus::Logger logger = log4cplus::Logger::getInstance("mylogger");
-	//LOG4CPLUS_INFO(logger, message);
-	LOG4CPLUS_INFO(logger, "äsdasdasd");
+		sjLogDebug("Exception occured while opening log4cplus.properties");
+		sjLogDebug(e.what());
+	}*/
+
+	//PropertyConfigurator::doConfigure("logs.properties");
+	//log4cplus::PropertyConfigurator config2("logs.properties");
+	//config2.configure();
+	/*
+	log4cplus::Logger logger = log4cplus::Logger::getInstance("filelogger");
+	//OG4CPLUS_INFO(logger, message);
+	//LOG4CPLUS_INFO(logger, "sdasdasd");
+	LOG4CPLUS_INFO(logger, "infoooo");
+	LOG4CPLUS_ERROR(logger, "erorrrr");
+	LOG4CPLUS_ERROR(logger, "erorrr1");
+	LOG4CPLUS_ERROR(logger, "erorrr2");
+	LOG4CPLUS_ERROR(logger, "erorrr3");
+	LOG4CPLUS_DEBUG(logger, "debug");
+	LOG4CPLUS_WARN(logger, "warn");*/
+
 
 	
 	/*
 	sjPluginXmlLoader * loader = new sjPluginXmlLoader("E:/personal/maestria/tesis/Jeronimo/trunk/software/sjSkeletonizer/source/resources/example1.xml");
 	if(loader  == NULL)
-		printf("loader is NULL");
+		sjLogDebug("loader is NULL");
 
 	if(kernel_engine.addPlugin(loader))
-		printf("Si la registro\n");
+		sjLogDebug("Si la registro\n");
 	else
-		printf("No la registro\n");*/
+		sjLogDebug("No la registro\n");*/
 
 	kernel_engine.setDefaultSystem( new PluginInitIndex());
 	kernel_engine.setDefaultSystem( new PluginComputeRings());
@@ -159,39 +184,39 @@ void sjApplication::closeTab(int index)
 
  void sjApplication::open() 
  {
-	 printf("sjApplication::open");
+	 sjLogDebug("sjApplication::open");
 	 QString fileName = QFileDialog::getOpenFileName(this,
 		 tr("Open 3D File"), "./", tr("3D Files (*.off)"));
 
-	 printf("sjApplication::open 1\n");
+	 sjLogDebug("sjApplication::open 1\n");
 	 OFFLoaderSource * off_loader= new OFFLoaderSource(fileName.toLatin1().constData());
-	 printf("sjApplication::open 2\n");
+	 sjLogDebug("sjApplication::open 2\n");
 	 sjPolyhedronPipe::sjPipe * pipe_source = new sjPolyhedronPipe::sjPipe();
-	 printf("sjApplication::open 3\n");
+	 sjLogDebug("sjApplication::open 3\n");
 	 sjStateContext * ctx = new sjStateContext();
-	 printf("sjApplication::open 4\n");
+	 sjLogDebug("sjApplication::open 4\n");
 	 sjPolyhedronPipe::sjPipe * pipe_sink = new sjPolyhedronPipe::sjPipe();
-	 printf("sjApplication::open 5\n");
+	 sjLogDebug("sjApplication::open 5\n");
 
 	 sjViewer * myviewer = new sjViewer(central_QTabWidget, false);
-	 printf("sjApplication::open 6\n");
+	 sjLogDebug("sjApplication::open 6\n");
 	 off_loader->setOutputPipe(pipe_source);
-	 printf("sjApplication::open 7\n");
+	 sjLogDebug("sjApplication::open 7\n");
 	 pipe_source->setOuputConsumer(ctx);
-	 printf("sjApplication::open 8\n");
+	 sjLogDebug("sjApplication::open 8\n");
 	 ctx->setInputPipe(pipe_source);
-	 printf("sjApplication::open 9\n");
+	 sjLogDebug("sjApplication::open 9\n");
 	 ctx->setOutputPipe(pipe_sink);
-	 printf("sjApplication::open 10\n");
+	 sjLogDebug("sjApplication::open 10\n");
 	 pipe_sink->setOuputConsumer(myviewer);
-	 printf("sjApplication::open 11\n");
+	 sjLogDebug("sjApplication::open 11\n");
 	 myviewer->setInputPipe(pipe_sink);
-	 printf("sjApplication::open 12\n");
+	 sjLogDebug("sjApplication::open 12\n");
 	 myviewer->attach(ctx);
 
-	 printf("sjApplication::open 13\n");
+	 sjLogDebug("sjApplication::open 13\n");
 	 off_loader->update();
-	 printf("sjApplication::open -> END");
+	 sjLogDebug("sjApplication::open -> END");
 
 	 int index  = central_QTabWidget->addTab(myviewer, fileName.right(fileName.size()-1-fileName.lastIndexOf("/")));
 		 central_QTabWidget->setCurrentIndex ( index );
@@ -224,18 +249,18 @@ void sjApplication::closeTab(int index)
 
 void sjApplication::iterateLaplacian()
 {
-	printf("sjApplication::iterateLaplacian 1\n");
+	sjLogDebug("sjApplication::iterateLaplacian 1\n");
 	sjEvent * mevt = new sjEvent(sjEvent::EVT_ITERATE);
-	printf("sjApplication::iterateLaplacian 2\n");
+	sjLogDebug("sjApplication::iterateLaplacian 2\n");
 	//this->kernel_engine.notify(mevt);
 	sjViewer * current = (sjViewer *)( central_QTabWidget->currentWidget());
-	printf("sjApplication::iterateLaplacian 3\n");
+	sjLogDebug("sjApplication::iterateLaplacian 3\n");
 	if( current != NULL){
 		//int iter = sld_iterations->value();
 		//for(int j = 0; j<iter; j++)
-		printf("sjApplication::iterateLaplacian 4\n");
+		sjLogDebug("sjApplication::iterateLaplacian 4\n");
 		current->dispatch(mevt);
-		printf("sjApplication::iterateLaplacian 5\n");
+		sjLogDebug("sjApplication::iterateLaplacian 5\n");
 	}
 }
 
