@@ -4,6 +4,12 @@
 
 using namespace sj;
 
+sjState::sjState(){
+	m_context = NULL;
+	mesh_G = &sjStateContext::mesh_G;
+	rings = &sjStateContext::m_rings;
+}
+
 sjStateContext::sjStateContext():
 state(0), 
 m_params(0),
@@ -18,7 +24,6 @@ MIN_COT_ANGLE(0.00000000000000001){
 	m_init_system = false;
 	state = (sjState *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_INIT_INDEX_SYSTEM));
 	state->initialize(this);
-	m_rings = new vector< vector< sjVertex_handle > >();
 }
 
 bool sjStateContext::evolve(int delta_frame){
@@ -87,10 +92,10 @@ sjPolyhedronPipe::PolyhedronType sjStateContext::getMesh(){
 	return mesh_G;
 }
 
-void sjStateContext::setRings (vector< vector<sjVertex_handle> > * a_rings){
+void sjStateContext::setRings (vector< vector<sjVertex_handle> > a_rings){
 	m_rings = a_rings;
 }
 
-vector< vector<sjVertex_handle> > * sjStateContext::getRings(){
+vector< vector<sjVertex_handle> > sjStateContext::getRings(){
 	return m_rings ;
 }

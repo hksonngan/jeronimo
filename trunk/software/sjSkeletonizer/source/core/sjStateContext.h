@@ -6,6 +6,7 @@
 #include "sjState.h"
 
 namespace sj{
+	//class sjState;
 	
 	class sjStateContext: public sjPolyhedronPipe::sjFilter, public sjObserver{
 	public:		
@@ -13,26 +14,25 @@ namespace sj{
 		
 		void proccesEvent(sjEvent * evt);
 		void setMesh(sjPolyhedronPipe::PolyhedronType );
-		void setRings (vector< vector<sjVertex_handle> > * a_rings);
+		void setRings (vector< vector<sjVertex_handle> > a_rings);
 		void setParameters(sjPolyhedronPipe::ParametersType *);
 		void setState(sjState * a_state);    
 		
 		sjPolyhedronPipe::PolyhedronType iterate();
 		sjPolyhedronPipe::PolyhedronType getMesh();
-		vector< vector<sjVertex_handle> > * getRings();
+		vector< vector<sjVertex_handle> > getRings();
 		size_t getNumberOfVertex();
 		sjPolyhedronPipe::ParametersType * getParameters();
 		sjState * getState();
 
 		bool evolve(int delta_frame);    
 
-	protected:
 		sjPolyhedron mesh_G;
-		vector< vector< sjVertex_handle > > * m_rings;
+		vector< vector< sjVertex_handle > > m_rings;
 		sjPolyhedronPipe::ParametersType * m_params;
 		sjState * state;
 		bool m_init_system;
-	public:
+
 		double WH_0 ;
 		double WL_0 ;
 		double SL ;
