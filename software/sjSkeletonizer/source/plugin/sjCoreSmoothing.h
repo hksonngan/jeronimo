@@ -53,6 +53,12 @@ namespace sj{
 	private:
 		string m_filename;
 	};
+
+	class IterateSmoothingAlgorithm: public sjState{
+	public:
+			virtual ~IterateSmoothingAlgorithm(){}
+			virtual bool evolve(sjStateContext * ssc) = 0;
+	};
 }
 
 #endif //__SJCORE_SMOOTH__H__

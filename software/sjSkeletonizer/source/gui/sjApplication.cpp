@@ -35,6 +35,7 @@
 #include "sjViewer.h"
 #include "sjLaplacianSmoothing.h"
 #include "sjCoreSmoothing.h"
+#include "sjMeshContractionAu2008.h"
 #include "sjLog.h"
 #include <QMenu>
 #include <QMenuBar>
