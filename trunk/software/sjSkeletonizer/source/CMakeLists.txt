@@ -76,6 +76,8 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 	SET(plugin_sources
 		plugin/sjLaplacianSmoothing.h
 		plugin/sjLaplacianSmoothing.cpp
+		plugin/sjCoreSmoothing.h
+		plugin/sjCoreSmoothing.cpp
 	)
 
 	ADD_LIBRARY(log STATIC ${log_sources} )

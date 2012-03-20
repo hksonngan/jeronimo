@@ -13,27 +13,6 @@ using namespace std;
 
 namespace sj{
 
-	class InitIndex: public sjState{
-	public:
-		bool evolve(sjStateContext * ssc);
-	};
-	class PluginInitIndex: public sjPlugin{
-	public:
-		PluginInitIndex();
-		void registerPlugin(sjKernelPlugin & K);
-		sjSystem * createSystem();
-	};
-
-	class ComputeRings: public sjState{
-	public:
-		bool evolve(sjStateContext * ssc);
-	};
-	class PluginComputeRings:public sjPlugin{
-	public:
-		PluginComputeRings();
-		void registerPlugin(sjKernelPlugin & K);
-		sjSystem * createSystem();
-	};
 
 	class ComputeLaplacian: public sjSystem{
 	public:
@@ -43,6 +22,22 @@ namespace sj{
 	class PluginComputeLaplacian: public sjPlugin{
 	public:
 		PluginComputeLaplacian();
+		void registerPlugin(sjKernelPlugin & K);
+		sjSystem * createSystem();
+	};
+
+	class IsDegenerateVertex: public sjSystem{
+	public:
+		IsDegenerateVertex();
+		void proccesEvent(sjEvent * evt){}
+		bool isDegenerateVertex(sjStateContext * m_ctx, sjVIterator vi, vector< sjVertex_handle> neighbors);
+	private:
+		ComputeLaplacian * m_comlapl;
+	};
+
+	class PluginIsDegenerateVertex: public sjPlugin{
+	public:
+		PluginIsDegenerateVertex();
 		void registerPlugin(sjKernelPlugin & K);
 		sjSystem * createSystem();
 	};
@@ -70,21 +65,6 @@ namespace sj{
 		sjSystem * createSystem();
 	};
 
-	class IsDegenerateVertex: public sjSystem{
-	public:
-		IsDegenerateVertex();
-		void proccesEvent(sjEvent * evt){}
-		bool isDegenerateVertex(sjStateContext * m_ctx, sjVIterator vi, vector< sjVertex_handle> neighbors);
-	private:
-		ComputeLaplacian * m_comlapl;
-	};
-	class PluginIsDegenerateVertex: public sjPlugin{
-	public:
-		PluginIsDegenerateVertex();
-		void registerPlugin(sjKernelPlugin & K);
-		sjSystem * createSystem();
-	};
-
 	class ComputeLineEquations: public sjSystem{
 	public:
 		void proccesEvent(sjEvent * evt){}
@@ -93,19 +73,6 @@ namespace sj{
 	class PluginComputeLineEquations:public sjPlugin{
 	public:
 		PluginComputeLineEquations();
-		void registerPlugin(sjKernelPlugin & K);
-		sjSystem * createSystem();
-	};
-
-	class InitLaplacianSmoothing: public sjState{
-	public:
-		bool evolve(sjStateContext * ssc);
-		void initLaplacianSmoothing(double a_WH0 = 1.0, double a_WL0 = 0.01, double a_SL = 2.0);
-	};
-	class PluginInitLaplacianSmoothing: public sjPlugin{
-		public:
-		PluginInitLaplacianSmoothing();
-
 		void registerPlugin(sjKernelPlugin & K);
 		sjSystem * createSystem();
 	};
@@ -138,27 +105,5 @@ namespace sj{
 		sjSystem * createSystem();
 	};
 
-	class OFFLoaderSource: public sjPolyhedronPipe::sjSource{
-	public:
-		OFFLoaderSource(string filename){
-			printf("OFFLoaderSource + %s 1\n", filename.c_str());
-			m_filename = filename;
-			printf("OFFLoaderSource 2\n");
-		}
-		sjPolyhedronPipe::PolyhedronType produce(){
-			printf("OFFLoaderSource produce 1\n");
-			sjDataIO dataio;
-			dataio.setFileName(m_filename );
-			try{
-				dataio.load();
-				printf("OFFLoaderSource produce 2\n");
-				return dataio.getPolyhedronModel();
-			}catch(std::exception e) {
-			}
-			return sjPolyhedronPipe::PolyhedronType();
-		}
-	private:
-		string m_filename;
-	};
 }
 #endif
