@@ -1,4 +1,5 @@
 #include "sjLaplacianSmoothing.h"
+#include "sjCoreSmoothing.h"
 
 #include <cmath>  
 #include <fstream>
@@ -32,66 +33,7 @@ using namespace std;
 using namespace OGF;
 using namespace sj;
 
-bool InitIndex::evolve(sjStateContext * ssc){
-	sjLogDebug("InitIndex::evolve");
-	int i = 0;
-	for ( sjVIterator v1 = STATE_MESH.vertices_begin(); v1 != STATE_MESH.vertices_end(); ++v1){
-		sjHalfedge_vertex_circulator vcir = v1->vertex_begin();
-		vcir->vertex()->index = i;
-		vcir->vertex()->initial_ring_area = 0.0;
-		i++;
-	}
-	m_context->setState((sjState *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_RINGS_SYSTEM)));
-	return m_context->evolve(1);
-}
 
-PluginInitIndex::PluginInitIndex() {
-	name = "PluginInitIndex";
-	sjKernelPlugin & kernel = sjKernelPlugin::getInstance();
-	name_type = kernel.SYS_INIT_INDEX_SYSTEM;
-	registerPlugin(kernel);
-}
-
-void PluginInitIndex::registerPlugin(sjKernelPlugin & K){
-	K.addPlugin(this);
-}
-
-sjSystem * PluginInitIndex::createSystem(){
-	return new InitIndex();
-}
-
-bool ComputeRings::evolve(sjStateContext * ssc){
-	sjLogDebug("ComputeRings::evolve");
-	m_context = ssc;
-	STATE_RINGS.clear();
-	for ( sjVIterator v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
-		sjHalfedge_vertex_circulator vcir = v->vertex_begin();
-		vector< sjVertex_handle> neighbors;
-		do{
-			sjVertex_handle punto = (vcir->next()->vertex());
-			neighbors.push_back(punto);
-		}while(++vcir != v->vertex_begin ());
-		vcir->vertex()->initial_ring_area = areaRing(v, neighbors);
-		STATE_RINGS.push_back(neighbors);
-	}
-	m_context->setState((sjState *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_INIT_LAPLACIAN_SMOOTHING_SYSTEM)));
-	return m_context->evolve(1);
-}
-
-PluginComputeRings::PluginComputeRings(){
-	name = "PluginComputeRings";
-	sjKernelPlugin & kernel = sjKernelPlugin::getInstance();
-	name_type = kernel.SYS_COMPUTE_RINGS_SYSTEM;
-	registerPlugin(kernel);
-}
-
-void PluginComputeRings::registerPlugin(sjKernelPlugin & K){
-	K.addPlugin(this);
-}
-
-sjSystem * PluginComputeRings::createSystem(){
-	return new ComputeRings();
-}
 		
 map<int, double> ComputeLaplacian::computeLaplacian(sjStateContext * m_ctx, sjVIterator vi, vector< sjVertex_handle> neighbors){
 		
@@ -371,42 +313,6 @@ void PluginComputeLineEquations::registerPlugin(sjKernelPlugin & K){
 
 sjSystem * PluginComputeLineEquations::createSystem(){
 	return new ComputeLineEquations();
-}
-
-
-bool InitLaplacianSmoothing::evolve(sjStateContext * ssc){
-	sjLogDebug("InitLaplacianSmoothing::evolve");
-	initLaplacianSmoothing();
-	m_context = ssc;
-	m_context->setState((sjState *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_ITERATE_SMOOTHING_ALGORITHM_SYSTEM)));
-	return m_context->evolve(1);
-}
-
-void InitLaplacianSmoothing::initLaplacianSmoothing(double a_WH0, double a_WL0, double a_SL){
-	sjLogDebug("InitLaplacianSmoothing::initLaplacianSmoothing");
-	this->m_context->AVERAGE_FACE = averageFaces(STATE_MESH);
-	//WH_0 = a_WH0;
-	this->m_context->WH_0 = 1.0;
-	//WL_0 = a_WL0 * std::sqrt(AVERAGE_FACE);
-	this->m_context->WL_0 = 1.0;
-	this->m_context->SL = a_SL;
-	int i = 0;
-	ComputeLineEquations * cle = (ComputeLineEquations *) (sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_LINE_EQUATIONS_SYSTEM));
-}
-	
-PluginInitLaplacianSmoothing::PluginInitLaplacianSmoothing(){
-	name = "PluginInitLaplacianSmoothing";
-	sjKernelPlugin & kernel = sjKernelPlugin::getInstance();
-	name_type = kernel.SYS_INIT_LAPLACIAN_SMOOTHING_SYSTEM;
-	registerPlugin(kernel);
-}
-
-void PluginInitLaplacianSmoothing::registerPlugin(sjKernelPlugin & K){
-	K.addPlugin(this);
-}
-
-sjSystem * PluginInitLaplacianSmoothing::createSystem(){
-	return new InitLaplacianSmoothing();
 }
 
 bool IterateLaplacianSmoothingSeparate::evolve(sjStateContext * ssc){
@@ -710,20 +616,5 @@ void PluginIterateLaplacianSmoothingIntegrate::registerPlugin(sjKernelPlugin & K
 sjSystem * PluginIterateLaplacianSmoothingIntegrate::createSystem(){
 	return new IterateLaplacianSmoothingIntegrate();
 }
-
-/*OFFLoaderSource::OFFLoaderSource(string filename){
-	m_filename = filename;
-}
-
-sjPolyhedronPipe::PolyhedronType * OFFLoaderSource::produce(){
-	sjDataIO dataio;
-	dataio.setFileName(m_filename );
-	try{
-		dataio.load();
-		return &(dataio.getPolyhedronModel());
-	}catch(std::exception e) {
-	}
-	return NULL;
-}*/
 
 

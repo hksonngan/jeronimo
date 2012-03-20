@@ -34,6 +34,7 @@
 #include "sjDataIO.h"
 #include "sjViewer.h"
 #include "sjLaplacianSmoothing.h"
+#include "sjCoreSmoothing.h"
 #include "sjLog.h"
 #include <QMenu>
 #include <QMenuBar>
