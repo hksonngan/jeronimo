@@ -11,7 +11,7 @@ using namespace sj;
 int main(){
 	log4cplus::BasicConfigurator config;
     config.configure();
-	sjPluginXmlLoader loader("K:/personal/maestria/tesis/Jeronimo/trunk/software/sjSkeletonizer/source/resources/example1.xml");
+	//sjPluginXmlLoader loader("K:/personal/maestria/tesis/Jeronimo/trunk/software/sjSkeletonizer/source/resources/example1.xml");
 	
 	return 0;
 }

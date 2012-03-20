@@ -1,14 +1,9 @@
 #include "sjStateContext.h"
 #include "sjKernelPlugin.h"
 #include "sjLog.h"
+#include "sjState.h"
 
 using namespace sj;
-
-sjState::sjState(){
-	m_context = NULL;
-	mesh_G = &sjStateContext::mesh_G;
-	rings = &sjStateContext::m_rings;
-}
 
 sjStateContext::sjStateContext():
 state(0), 
@@ -27,7 +22,6 @@ MIN_COT_ANGLE(0.00000000000000001){
 }
 
 bool sjStateContext::evolve(int delta_frame){
-	sjLogDebug("sjStateContext::evolve 1\n");
 	return state->evolve(this);
 }
 
