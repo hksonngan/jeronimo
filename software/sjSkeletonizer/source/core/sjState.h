@@ -19,11 +19,8 @@ namespace sj{
 		//	rings = &sjStateContext::m_rings;
 		//}
 		virtual ~sjState(){}
-		virtual void proccesEvent(sjEvent * evt){}
-		virtual bool initialize(sjStateContext * ssc){
-			this->m_context = ssc;
-			return true;
-		}
+		virtual void proccesEvent(sjEvent * evt);
+		virtual bool initialize(sjStateContext * ssc);
 		virtual bool evolve(sjStateContext * ssc) = 0;
 	protected:
 		sjStateContext * m_context;

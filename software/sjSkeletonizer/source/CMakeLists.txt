@@ -50,6 +50,7 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 		core/sjPlugin.cpp
 		core/sjSystem.h
 		core/sjState.h
+		core/sjState.cpp
 		core/sjStateContext.h
 		core/sjStateContext.cpp
 	)

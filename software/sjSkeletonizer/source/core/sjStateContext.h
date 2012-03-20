@@ -3,10 +3,9 @@
 
 #include "sjPipeFilter.h"
 #include "sjObserver.h"
-#include "sjState.h"
 
 namespace sj{
-	//class sjState;
+	class sjState;
 	
 	class sjStateContext: public sjPolyhedronPipe::sjFilter, public sjObserver{
 	public:		

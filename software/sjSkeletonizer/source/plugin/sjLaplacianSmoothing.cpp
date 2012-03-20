@@ -33,23 +33,16 @@ using namespace OGF;
 using namespace sj;
 
 bool InitIndex::evolve(sjStateContext * ssc){
-	sjLogDebug("InitIndex::evolve 1\n");
+	sjLogDebug("InitIndex::evolve");
 	int i = 0;
-	//mesh_G = m_context->getMesh();
-	sjLogDebug("InitIndex::evolve 2\n");
-	//for ( sjVIterator v1 = mesh_G.vertices_begin(); v1 != mesh_G.vertices_end(); ++v1){
 	for ( sjVIterator v1 = STATE_MESH.vertices_begin(); v1 != STATE_MESH.vertices_end(); ++v1){
 		sjHalfedge_vertex_circulator vcir = v1->vertex_begin();
 		vcir->vertex()->index = i;
 		vcir->vertex()->initial_ring_area = 0.0;
 		i++;
 	}
-	sjLogDebug("InitIndex::evolve i++ %d\n", i);
-	sjLogDebug("InitIndex::evolve 3\n");
-	sjLogDebug("InitIndex::evolve 4\n");
 	m_context->setState((sjState *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_RINGS_SYSTEM)));
-	sjLogDebug("InitIndex::evolve 5\n");
-	return true;
+	return m_context->evolve(1);
 }
 
 PluginInitIndex::PluginInitIndex() {
@@ -68,19 +61,9 @@ sjSystem * PluginInitIndex::createSystem(){
 }
 
 bool ComputeRings::evolve(sjStateContext * ssc){
-	sjLogDebug("ComputeRings::evolve 1\n");
+	sjLogDebug("ComputeRings::evolve");
 	m_context = ssc;
-	//vector< vector<sjVertex_handle> > & rings = *(m_context->getRings());
-	sjLogDebug("ComputeRings::evolve 2\n");
-	//rings = m_context->getRings();
-	sjLogDebug("ComputeRings::evolve 3\n");
-	//sjPolyhedronPipe::PolyhedronType mesh_G = m_context->getMesh();
-	//mesh_G = m_context->getMesh();
-	sjLogDebug("ComputeRings::evolve 4\n");
-	sjLogDebug("ComputeRings::evolve 5\n");
-	//rings.clear();
 	STATE_RINGS.clear();
-	//for ( sjVIterator v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 	for ( sjVIterator v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
 		sjHalfedge_vertex_circulator vcir = v->vertex_begin();
 		vector< sjVertex_handle> neighbors;
@@ -91,12 +74,8 @@ bool ComputeRings::evolve(sjStateContext * ssc){
 		vcir->vertex()->initial_ring_area = areaRing(v, neighbors);
 		STATE_RINGS.push_back(neighbors);
 	}
-	sjLogDebug("ComputeRings::evolve 6\n");
-	//m_context->setRings(&rings);
-
 	m_context->setState((sjState *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_INIT_LAPLACIAN_SMOOTHING_SYSTEM)));
-	sjLogDebug("ComputeRings::evolve 7\n");
-	return true;
+	return m_context->evolve(1);
 }
 
 PluginComputeRings::PluginComputeRings(){
@@ -396,42 +375,23 @@ sjSystem * PluginComputeLineEquations::createSystem(){
 
 
 bool InitLaplacianSmoothing::evolve(sjStateContext * ssc){
-	sjLogDebug("InitLaplacianSmoothing::evolve 1\n");
+	sjLogDebug("InitLaplacianSmoothing::evolve");
 	initLaplacianSmoothing();
-	sjLogDebug("InitLaplacianSmoothing::evolve 2\n");
 	m_context = ssc;
 	m_context->setState((sjState *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_ITERATE_SMOOTHING_ALGORITHM_SYSTEM)));
-	sjLogDebug("InitLaplacianSmoothing::evolve 3\n");
-	return true;
+	return m_context->evolve(1);
 }
 
 void InitLaplacianSmoothing::initLaplacianSmoothing(double a_WH0, double a_WL0, double a_SL){
-	sjLogDebug("InitLaplacianSmoothing::initLaplacianSmoothing 1\n");
-	//sjPolyhedronPipe::PolyhedronType mesh_G = this->m_context->getMesh();
-	sjLogDebug("InitLaplacianSmoothing::initLaplacianSmoothing 2\n");
-	//this->m_context->AVERAGE_FACE = averageFaces(mesh_G);
+	sjLogDebug("InitLaplacianSmoothing::initLaplacianSmoothing");
 	this->m_context->AVERAGE_FACE = averageFaces(STATE_MESH);
-	sjLogDebug("InitLaplacianSmoothing::initLaplacianSmoothing 3\n");
 	//WH_0 = a_WH0;
 	this->m_context->WH_0 = 1.0;
 	//WL_0 = a_WL0 * std::sqrt(AVERAGE_FACE);
 	this->m_context->WL_0 = 1.0;
 	this->m_context->SL = a_SL;
 	int i = 0;
-	sjLogDebug("InitLaplacianSmoothing::initLaplacianSmoothing 4\n");
 	ComputeLineEquations * cle = (ComputeLineEquations *) (sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_LINE_EQUATIONS_SYSTEM));
-	//if(cle== NULL) sjLogDebug("InitLaplacianSmoothing::initLaplacianSmoothing NULL\n");
-	sjLogDebug("InitLaplacianSmoothing::initLaplacianSmoothing 5\n");
-	//vector< vector<sjVertex_handle> > & rings = *(this->m_context->getRings() );
-	sjLogDebug("InitLaplacianSmoothing::initLaplacianSmoothing 6\n");
-	sjLogDebug("Mesh size %d \n", STATE_MESH.size_of_vertices());
-	sjLogDebug("InitLaplacianSmoothing::initLaplacianSmoothing 7\n");
-	/*for ( sjVIterator v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
-		v = cle->computeLineEquations(v, rings[i]);
-		i = i + 1;
-	}*/
-
-	sjLogDebug("InitLaplacianSmoothing::initLaplacianSmoothing 10\n");
 }
 	
 PluginInitLaplacianSmoothing::PluginInitLaplacianSmoothing(){
@@ -450,9 +410,8 @@ sjSystem * PluginInitLaplacianSmoothing::createSystem(){
 }
 
 bool IterateLaplacianSmoothingSeparate::evolve(sjStateContext * ssc){
-	int n = this->m_context->getNumberOfVertex();// getNsize();
+	int n = this->m_context->getNumberOfVertex();
 	LinearSolver *solver;
-	//delete solver;
 	SystemSolverParameters params ;
 	std::string  * mipo = new std::string("SUPERLU");
 	params.set_arg_value("method", *mipo) ; 
@@ -463,10 +422,6 @@ bool IterateLaplacianSmoothingSeparate::evolve(sjStateContext * ssc){
 	solver->set_invert_matrix(true) ;
 
 	cout<<"\nIterate system: No = "<<this->m_context->iteration+1<<"|\t";
-		
-	//sjPolyhedron mesh_G = this->m_context->getMesh();
-
-	//cout<<"Volume Ini= "<<calcVolume(mesh_G)<<"|\t";
 	cout<<"Volume Ini= "<<calcVolume(STATE_MESH)<<"|\t";
 	CGAL::Timer timer;
 	timer.start();
@@ -480,14 +435,11 @@ bool IterateLaplacianSmoothingSeparate::evolve(sjStateContext * ssc){
 
 		
 	IsDegenerateVertex * idv= (IsDegenerateVertex *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_IS_DEGENERATE_VERTEX_SYSTEM));
-	//vector< vector<sjVertex_handle> > & rings = *(this->m_context->getRings());
 	ComputeLaplacian * comlap= (ComputeLaplacian *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_LAPLACIAN_SYSTEM));
 	for(coord = 0; coord<3; coord++){
 
 		i = 0;
-		//for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 		for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
-			//if(idv->isDegenerateVertex(this->m_context, v,  rings[i])){
 			if(idv->isDegenerateVertex(this->m_context, v,  STATE_RINGS[i])){
 				solver->variable(i).lock();
 			}
@@ -514,13 +466,9 @@ bool IterateLaplacianSmoothingSeparate::evolve(sjStateContext * ssc){
 
 		solver->begin_system();
 		i = 0;
-		//for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 		for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
-
-			//if(!idv->isDegenerateVertex(this->m_context, v, rings[i])){
 			if(!idv->isDegenerateVertex(this->m_context, v, STATE_RINGS[i])){
 				sjHalfedge_vertex_circulator vcir = v->vertex_begin();
-				//map<int, double> mymap = comlap->computeLaplacian(this->m_context, v, rings[i]);
 				map<int, double> mymap = comlap->computeLaplacian(this->m_context, v, STATE_RINGS[i]);
 				map<int, double>::iterator it;
 				solver->begin_row();
@@ -528,22 +476,14 @@ bool IterateLaplacianSmoothingSeparate::evolve(sjStateContext * ssc){
 					int index = (*it).first ;
 					double value = (*it).second;
 					solver->add_coefficient(index, WLi * value);
-					//cout<<WLi * value<<"\t\t";
-
 				}
-				//cout<<"\n";
 				solver->set_right_hand_side(0.0);
 				solver->end_row();
-
 			}
-
-
 			i++;
 		}
 		i = 0;
-		//for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 		for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
-			//if(!idv->isDegenerateVertex(this->m_context, v, rings[i])){
 			if(!idv->isDegenerateVertex(this->m_context, v, STATE_RINGS[i])){
 			sjHalfedge_vertex_circulator vcir = v->vertex_begin();
 			sjPoint_3 point_i = v->point();
@@ -551,7 +491,6 @@ bool IterateLaplacianSmoothingSeparate::evolve(sjStateContext * ssc){
 			if(this->m_context->iteration ==0){
 				Whi = this->m_context->WH_0;
 			}else{
-				//Whi = this->m_context->WH_0*std::sqrt(v->initial_ring_area/areaRing(v, rings[i]));
 				Whi = this->m_context->WH_0*std::sqrt(v->initial_ring_area/areaRing(v, STATE_RINGS[i]));
 			}
 			solver->begin_row();
@@ -578,15 +517,12 @@ bool IterateLaplacianSmoothingSeparate::evolve(sjStateContext * ssc){
 	}
 	if(found_solution){
 		i = 0;
-		//for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 		for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
-				
 			sjPoint_3 pointn = sjPoint_3(matrixV[i][0], matrixV[i][1], matrixV[i][2]);
 			v->point() = pointn;
 			i++;
 		}
 	}
-	//cout<<"Volume = "<<calcVolume(mesh_G)<<"|\t";
 	cout<<"Volume = "<<calcVolume(STATE_MESH)<<"|\t";
 	cout<<"Time = "<< timer.time() << " seconds." << std::endl;
 	delete solver;
@@ -611,13 +547,10 @@ sjSystem * PluginIterateLaplacianSmoothingSeparate::createSystem(){
 }
 
 bool IterateLaplacianSmoothingIntegrate::evolve(sjStateContext * ssc){
-	sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 1\n");
+	sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve");
 	m_context = ssc;
-	//int n = getNsize();
 	int n = this->m_context->getNumberOfVertex();
-	sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 2\n");
 	LinearSolver *solver;
-	//delete solver;
 	SystemSolverParameters params ;
 	std::string  * mipo = new std::string("SUPERLU");
 	params.set_arg_value("method", *mipo) ; 
@@ -625,19 +558,10 @@ bool IterateLaplacianSmoothingIntegrate::evolve(sjStateContext * ssc){
 	solver->set_system_solver(params) ;
 	solver->set_least_squares(true) ;
 	solver->set_invert_matrix(true) ;
-	sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 3\n");
-
-	//sjPolyhedronPipe::PolyhedronType mesh_G = this->m_context->getMesh();
-	sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 4\n");
-
-
 	cout<<"\nIterate system: No = "<<this->m_context->iteration+1<<"|\t";
-		
-	//cout<<"Volume Ini= "<<calcVolume(mesh_G)<<"|\t";
 	cout<<"Volume Ini= "<<calcVolume(STATE_MESH)<<"|\t";
 	CGAL::Timer timer;
 	timer.start();
-	sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 5\n");
 	int i;
 	sjVIterator v;
 	int coord;
@@ -646,21 +570,11 @@ bool IterateLaplacianSmoothingIntegrate::evolve(sjStateContext * ssc){
 	//double WLi = 1.0;
 	bool found_solution = true;
 
-	sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 6\n");
-
-		
-
-	//for(coord = 0; coord<3; coord++){
-
 	IsDegenerateVertex * idv = (IsDegenerateVertex *) (sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_IS_DEGENERATE_VERTEX_SYSTEM));
-	sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 7\n");
 	ComputeLaplacian * comlap =  (ComputeLaplacian *) (sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_LAPLACIAN_SYSTEM));
-	sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 8\n");
-	//vector< vector<sjVertex_handle> > & rings = *( this->m_context->getRings());
 		i = 0;
-		//for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+		
 		for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
-			//if(idv->isDegenerateVertex(this->m_context, v, rings[i])){
 			if(idv->isDegenerateVertex(this->m_context, v, STATE_RINGS[i])){
 				solver->variable(i).lock();
 				solver->variable(i+n).lock();
@@ -668,16 +582,11 @@ bool IterateLaplacianSmoothingIntegrate::evolve(sjStateContext * ssc){
 			}
 			sjPoint_3 point_k = v->point();
 			double r = point_k[coord];
-			//solver->variable(i).set_value(r);		
 			solver->variable(i).set_value(point_k[0]);
 			solver->variable(i+n).set_value(point_k[1]);
 			solver->variable(i+2*n).set_value(point_k[2]);
-				
-				
 			i++;
 		}
-		sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 9\n");
-			
 		
 		/*for(sjHEIterator hi = mesh_G.halfedges_begin (); hi!= mesh_G.halfedges_end (); ++hi){
 			if(angleOrientedPlanes(hi)<sjpi/4){
@@ -693,47 +602,29 @@ bool IterateLaplacianSmoothingIntegrate::evolve(sjStateContext * ssc){
 		}*/
 
 		solver->begin_system();
-		sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 10\n");
-		//vector< vector<sjVertex_handle> > rings = this->m_context->getRings();
 		for(coord = 0; coord<3; coord++){
 			i = 0;
-			//for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 			for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
-
-				//if(!idv->isDegenerateVertex(this->m_context, v, rings[i])){
 				if(!idv->isDegenerateVertex(this->m_context, v, STATE_RINGS[i])){
 					sjHalfedge_vertex_circulator vcir = v->vertex_begin();
-					
-					sjLogDebug(" index %d\n", vcir->vertex()->index);
-					//map<int, double> mymap = comlap->computeLaplacian(this->m_context, v, rings[i]);
 					map<int, double> mymap = comlap->computeLaplacian(this->m_context, v, STATE_RINGS[i]);
 					map<int, double>::iterator it;
 					solver->begin_row();
 					for ( it=mymap.begin() ; it != mymap.end(); it++ ){
 						int index = (*it).first ;
 						double value = (*it).second;
-						sjLogDebug(" n %d, index %d\n", n, index);
 						solver->add_coefficient(index +coord*n , WLi * value);
-						//cout<<WLi * value<<"\t\t";
-
 					}
-					//cout<<"\n";
 					solver->set_right_hand_side(0.0);
 					solver->end_row();
-
 				}
-
-
 				i++;
 			}
 		}
-		sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 11\n");
 		int jcoord;
 		for(jcoord = 0; jcoord<3; jcoord++){
 			i = 0;
-			//for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 			for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
-				//if(!idv->isDegenerateVertex(this->m_context, v, rings[i])){
 				if(!idv->isDegenerateVertex(this->m_context, v, STATE_RINGS[i])){
 				sjHalfedge_vertex_circulator vcir = v->vertex_begin();
 				sjPoint_3 point_i = v->point();
@@ -741,7 +632,6 @@ bool IterateLaplacianSmoothingIntegrate::evolve(sjStateContext * ssc){
 				if(this->m_context->iteration ==0){
 					Whi = this->m_context->WH_0;
 				}else{
-					//Whi = this->m_context->WH_0*std::sqrt(v->initial_ring_area/areaRing(v, rings[i]));
 					Whi = this->m_context->WH_0*std::sqrt(v->initial_ring_area/areaRing(v, STATE_RINGS[i]));
 				}
 				solver->begin_row();
@@ -752,7 +642,6 @@ bool IterateLaplacianSmoothingIntegrate::evolve(sjStateContext * ssc){
 				i++;
 			}
 		}
-		sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 12\n");
 		/*
 		i = 0;
 		for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
@@ -776,9 +665,7 @@ bool IterateLaplacianSmoothingIntegrate::evolve(sjStateContext * ssc){
 			i++;
 		}*/
 			
-		sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 13\n");
 		solver->end_system();
-		sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 14\n");
 			
 		if ( solver->solve() ){
 				
@@ -791,13 +678,10 @@ bool IterateLaplacianSmoothingIntegrate::evolve(sjStateContext * ssc){
 			cout<<"No solution found"<<endl;
 			found_solution = false;
 		}
-		sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 15\n");
 		solver->restart();
-		sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 16\n");
 	//}
 	if(found_solution){
 		i = 0;
-		//for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 		for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
 				
 			sjPoint_3 pointn = sjPoint_3(matrixV[i][0], matrixV[i][1], matrixV[i][2]);
@@ -805,8 +689,6 @@ bool IterateLaplacianSmoothingIntegrate::evolve(sjStateContext * ssc){
 			i++;
 		}
 	}
-	sjLogDebug("IterateLaplacianSmoothingIntegrate::evolve 17\n");
-	//cout<<"Volume = "<<calcVolume(mesh_G)<<"|\t";
 	cout<<"Volume = "<<calcVolume(STATE_MESH)<<"|\t";
 	cout<<"Time = "<< timer.time() << " seconds." << std::endl;
 	delete solver;
