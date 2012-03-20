@@ -1821,7 +1821,6 @@
 }
 
 @OTHER{Forbes2006,
-  note = {3D Reconstruction},
   abstract = {Two planar mirrors are positioned to show five views of an object,
 	and snapshots are captured from different viewpoints. We present
 	closed form solutions for calculating the focal length, principal
@@ -1842,6 +1841,7 @@
 	Anthon},
   file = {:./Forbes2006/ForbesPosterEccv2006.pdf:PDF},
   journal = {Computer Vision – ECCV 2006},
+  note = {3D Reconstruction},
   owner = {apinzonf},
   pages = {165--178},
   timestamp = {2009.04.01},
@@ -2369,7 +2369,6 @@
 }
 
 @OTHER{Hasinoff2006,
-  note = {3D Reconstruction},
   abstract = {We present confocal stereo, a new method for computing 3D shape by
 	controlling the focus and aperture of a lens. The method is specifically
 	designed for reconstructing scenes with high geometric complexity
@@ -2391,6 +2390,7 @@
   author = {Hasinoff, Samuel and Kutulakos, Kiriakos},
   file = {:./Hasinoff2006/hasinoff-confocal-2006.pdf:PDF},
   journal = {Computer Vision – ECCV 2006},
+  note = {3D Reconstruction},
   owner = {apinzonf},
   pages = {620--634},
   timestamp = {2009.03.18},
@@ -3842,6 +3842,42 @@
   timestamp = {2009.04.03}
 }
 
+@INPROCEEDINGS{Madaras2010,
+  author = {Madaras, Martin and \v{D}urikovi\v{c}, Roman and \'{A}go\v{s}ton,
+	Tom\'{a}\v{s} and Nishita, Tomoyuki},
+  title = {Skeleton extraction from a mesh for easy skinning animation},
+  booktitle = {Proceedings of the 13th International Conference on Humans and Computers},
+  year = {2010},
+  series = {HC '10},
+  pages = {37--41},
+  address = {Fukushima-ken, Japan, Japan},
+  publisher = {University of Aizu Press},
+  abstract = {This paper proposes the extraction of a skeleton and skinning weights
+	from a given mesh, describes how to store computed data in Collada
+	1.5 and use it for an animation. Firstly, the mesh is contracted
+	using constrained Laplacian smoothing in a few iterations. Few vertices
+	from the contracted mesh are chosen as control points. Multiple edges
+	are removed and vertices that are very close to each other are merged
+	using a greedy algorithm minimizing the energy. The greedy selection
+	is applied repeatable until we have the tree structure with edges
+	corresponding to bones. We also propose the automatic assignment
+	of the skinning weights that determine the rigid or soft mesh deformations.
+	In the postprocessing stage the user can inspect the skeleton by
+	previewing skinning deformations, make desired changes and export
+	the skeleton to Collada 1.5. Transformation matrices used in a hierarchical
+	skeleton tree are not transformed to joint's local transformation
+	frame, so they are immediately compatible with majority of animation
+	software and libraries.},
+  acmid = {1994499},
+  file = {:./Madaras2010/p37-madaras.pdf:PDF},
+  keywords = {Collada 1.5, mesh contraction, mesh skinning, skeleton extraction},
+  location = {Aizu-Wakamatsu, Japan},
+  numpages = {5},
+  owner = {apinzonf},
+  timestamp = {2011.11.03},
+  url = {http://dl.acm.org/citation.cfm?id=1994486.1994499}
+}
+
 @INPROCEEDINGS{Magnor2004,
   author = {Magnor,, Marcus and Goldlucke,, Bastian},
   title = {Spacetime-Coherent Geometry Reconstruction from Multiple Video Streams},
@@ -4277,6 +4313,7 @@
   volume = {73},
   pages = {151--164},
   month = {September},
+  note = {Skeleton Extraction},
   abstract = {This paper introduces a skeletal representation, called Point Cloud
 	Graph, that generalizes the definition of the Reeb graph to arbitrary
 	point clouds sampled from m-dimensional manifolds embedded in the
@@ -4622,6 +4659,32 @@
   timestamp = {2009.04.30}
 }
 
+@INPROCEEDINGS{Qin2010,
+  author = {Xujia Qin and Xiansheng Sang and Sida Zhu and Shiwei Cheng},
+  title = {Line-Skeleton Extraction of 3D Meshes Based on Geometry Segmentation},
+  booktitle = {Cryptography and Network Security, Data Mining and Knowledge Discovery,
+	E-Commerce Its Applications and Embedded Systems (CDEE), 2010 First
+	ACIS International Symposium on},
+  year = {2010},
+  pages = {354 -357},
+  month = {oct.},
+  abstract = {Skeleton is a fundamental shape feature of 3D mesh, and it can be
+	used in many areas, such as model search, shape analysis, and mesh
+	deformation. This paper presents a novel skeleton extraction method
+	based on mesh segmentation. Firstly, the mesh is cut off by Dijkstras
+	Algorithm and the number of segments N, then the relevant sub-meshes
+	centers are connected to constitute the skeleton. At last, the noise
+	of the skeleton is removed to get the final result. The algorithm
+	is proved robust and fast through the many model demonstrations.},
+  doi = {10.1109/CDEE.2010.73},
+  file = {:./Qin2010/quin2010.pdf:PDF},
+  keywords = {3D meshes;Dijkstra's algorithm;geometry segmentation;line-skeleton
+	extraction;mesh segmentation;sub-meshes centers;bone;computational
+	geometry;solid modelling;},
+  owner = {apinzonf},
+  timestamp = {2011.11.03}
+}
+
 @ARTICLE{Remondino2004,
   author = {Fabio Remondino},
   title = {3-D Reconstruction of Static Human Body Shape from Image Sequence},
@@ -4672,7 +4735,6 @@
 }
 
 @OTHER{Remondino2003,
-  note = {3D Reconstruction},
   abstract = {In this paper, we first review the approaches to recover 3D shape
 	and related movements of a human and then we present an easy and
 	reliable approach to recover a 3D model using just one image or monocular
@@ -4683,6 +4745,7 @@
   author = {Remondino, Fabio and Roditakis, Andreas},
   file = {:./Remondino2003/dagm03.pdf:PDF},
   journal = {Pattern Recognition},
+  note = {3D Reconstruction},
   owner = {apinzonf},
   pages = {100--107},
   timestamp = {2009.03.18},
@@ -4886,6 +4949,33 @@
   owner = {apinzonf},
   publisher = {Springer-Verlag New York, Inc.},
   timestamp = {2009.04.03}
+}
+
+@INPROCEEDINGS{She2009,
+  author = {She, F.H. and Chen, R.H. and Gao, W.M. and Hodgson, P.H. and Kong,
+	L.X. and Hong, H.Y.},
+  title = {Improved 3D Thinning Algorithms for Skeleton Extraction},
+  booktitle = {Digital Image Computing: Techniques and Applications, 2009. DICTA
+	'09.},
+  year = {2009},
+  pages = {14 -18},
+  month = {dec.},
+  abstract = {In this study, we focused on developing a novel 3D Thinning algorithm
+	to extract one-voxel wide skeleton from various 3D objects aiming
+	at preserving the topological information. The 3D Thinning algorithm
+	was testified on computer-generated and real 3D reconstructed image
+	sets acquired from TEMT and compared with other existing 3D Thinning
+	algorithms. It is found that the algorithm has conserved medial axes
+	and simultaneously topologies very well, demonstrating many advantages
+	over the existing technologies. They are versatile, rigorous, efficient
+	and rotation invariant.},
+  doi = {10.1109/DICTA.2009.13},
+  file = {:./She2009/she2009.pdf:PDF},
+  keywords = {3D reconstructed image sets;3D thinning algorithms;TEMT;one-voxel
+	wide skeleton;skeleton extraction;topological information;feature
+	extraction;image reconstruction;image thinning;},
+  owner = {apinzonf},
+  timestamp = {2011.11.03}
 }
 
 @ARTICLE{Shen2009,
@@ -6181,6 +6271,47 @@
 	reconstruction},
   owner = {apinzonf},
   timestamp = {2009.04.30}
+}
+
+@INPROCEEDINGS{Visutsak2009,
+  author = {Visutsak, Porawat and Boonjing, Veera and Prachumrak, Korakot},
+  title = {Knowledge-based approach for 3D skeleton extraction},
+  booktitle = {Proceedings of the 2nd International Conference on Interaction Sciences:
+	Information Technology, Culture and Human},
+  year = {2009},
+  series = {ICIS '09},
+  pages = {796--801},
+  address = {New York, NY, USA},
+  publisher = {ACM},
+  abstract = {A 3D skeleton is a one-voxel thick, graph-like structure, widely used
+	in the area of a character animation. In this paper, we propose a
+	novel method for the 3D skeleton extraction of the polyhedral models
+	based on a priori knowledge of the learned skeleton. The method has
+	several steps. First, the octree of the input model is calculated
+	and used to compare with the octree of the 3D models stored in the
+	octrees database. By comparing the octree similarities, if the searched
+	results exactly match with the input octree, the corresponding skeleton
+	will be retrieved from the skeletons database. Otherwise, the method
+	finds the list of the close match (the octree similarity ratio which
+	the value is greater than 0.8) in order to use to estimate the new
+	skeleton. In the worst case, if the input octree does not match with
+	any case in the octrees database, the method computes the new skeleton
+	and stores it in the skeletons database. The method is fast and efficient
+	because it is not necessary to extract the skeleton from every input
+	model. Thus, the computational time of our method depends only on
+	the time of the octree similarity calculation, and the time for searching
+	the similar octree in the octrees database. Several examples show
+	the results obtained with our approach.},
+  acmid = {1656070},
+  doi = {http://doi.acm.org/10.1145/1655925.1656070},
+  file = {:./Visutsak2009/p796-visutsak.pdf:PDF},
+  isbn = {978-1-60558-710-3},
+  keywords = {computer animation, octree, skeleleton extraction, skeleton},
+  location = {Seoul, Korea},
+  numpages = {6},
+  owner = {apinzonf},
+  timestamp = {2011.11.03},
+  url = {http://doi.acm.org/10.1145/1655925.1656070}
 }
 
 @ARTICLE{Vlasic2008,
