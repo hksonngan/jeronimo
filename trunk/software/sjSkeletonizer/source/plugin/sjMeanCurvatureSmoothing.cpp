@@ -34,72 +34,34 @@ using namespace std;
 using namespace OGF;
 using namespace sj;
 
-
-bool ComputeMeanCurvature::evolve(sjStateContext * ssc){
-			
-	return true;
-}
-
-sjPoint_3 ComputeMeanCurvature::computeMeanCurvature(sjVIterator vi, vector< sjVertex_handle> neighbors){
+map<int, double> ComputeMeanCurvature::computeWeight(sjStateContext * m_ctx, sjVIterator vi, vector< sjVertex_handle> neighbors){
+		
+	sjHalfedge_vertex_circulator vcir = vi->vertex_begin();
 	sjPoint_3 point_i = vi->point();
 	vector< sjVertex_handle> vecinos = neighbors;
-	//if(isDegenerateVertex(vi, neighbors))			return point_i;
-	/*int j_pos;
-	std::vector<double> pointnew = std::vector<double>(3,0.0);
-	for(j_pos = 0; j_pos < (int)(vecinos.size()); j_pos++){
-		pointnew[0] = pointnew[0] + neighbors[j_pos]->point()[0];
-		pointnew[1] = pointnew[1] + neighbors[j_pos]->point()[1];
-		pointnew[2] = pointnew[2] + neighbors[j_pos]->point()[2];
-	}
-	pointnew[0] = pointnew[0] / (double)(vecinos.size());
-	pointnew[1] = pointnew[1] / (double)(vecinos.size());
-	pointnew[2] = pointnew[2] / (double)(vecinos.size());
-	return sjPoint_3(pointnew[0], pointnew[1], pointnew[2]);*/
-
+	map<int, double> Lij;
 
 	double Wij = 0.0;
 	double L = 0.0;
 
 	int j_pos, j_Alpha_pos, j_Beta_pos;
-	std::vector<double> pointnew = std::vector<double>(3,0.0);
-
-	double WLi = std::pow(m_context->SL,((double) m_context->iteration)) * m_context->WL_0;
-	WLi = 0.1;
-
-	double A = 0.0;
-	double Wii = 0.0;
-	for(j_pos = 0; j_pos < (int)(vecinos.size()); j_pos++){
-				
-		j_Alpha_pos = ((j_pos + 1)+vecinos.size()) % vecinos.size();
-		j_Beta_pos = ((j_pos - 1)+vecinos.size()) % vecinos.size();
-		sjPoint_3 point_Alpha = ((vecinos[j_Alpha_pos]))->point();
-		sjPoint_3 point_Beta = ((vecinos[j_Beta_pos]))->point();
-		double Alpha = angle3(point_i, point_Alpha, ((vecinos[j_pos]))->point());
-		if(Alpha < m_context->MIN_COT_ANGLE)				Alpha = m_context->MIN_COT_ANGLE;
-		double Beta = angle3(point_i, point_Beta, ((vecinos[j_pos]))->point());
-		if(Beta < m_context->MIN_COT_ANGLE)				Beta = m_context->MIN_COT_ANGLE;
-
-		Wij = 1.0/ std::tan(Alpha) + 1.0/std::tan(Beta);
-		Wii = Wii + Wij;
-		pointnew[0] = pointnew[0] + Wij*(point_i[0] - vecinos[j_pos]->point()[0] );
-		pointnew[1] = pointnew[1] + Wij*(point_i[1] - vecinos[j_pos]->point()[1]);
-		pointnew[2] = pointnew[2] + Wij*(point_i[2] - vecinos[j_pos]->point()[2]);
-		A = A + area3(point_i, vecinos[j_pos]->point(), point_Alpha);
-		//Lij = Lij + (vecinos[j_pos]->point() - point_i) * Wij;
+	int numbers_neighbor = (int)(vecinos.size());
+	for(j_pos = 0; j_pos < numbers_neighbor; j_pos++){
+		squared_distance(point_i, vecinos[j_pos]->point());
+		(vi->point(), vecinos[j_pos]);
+		//Wij = 1.0/ (double)(numbers_neighbor);
+		Wij = 1.0/sqrt( squared_distance(point_i, vecinos[j_pos]->point()));
+		Lij[vecinos[j_pos]->index] = Wij;
+		L = L - Wij;
 	}
-	double Lij = 0.1*(1.0/(4.0*A));
-	pointnew[0] = point_i[0] - Lij * pointnew[0];
-	pointnew[1] = point_i[1] - Lij * pointnew[1];
-	pointnew[2] = point_i[2] - Lij * pointnew[2];
-	(m_context->iteration)++;
-	return sjPoint_3(pointnew[0], pointnew[1], pointnew[2]);
-
+	Lij[vi->index] = L;
+	return Lij;	
 }
 
 PluginComputeMeanCurvature::PluginComputeMeanCurvature(){
 	name = "PluginComputeMeanCurvature";
 	sjKernelPlugin & kernel = sjKernelPlugin::getInstance();
-	name_type = kernel.SYS_COMPUTE_MEAN_CURVATURE_SYSTEM ;
+	name_type = kernel.SYS_COMPUTE_WEIGHT_SYSTEM ;
 	registerPlugin(kernel);
 }
 
@@ -112,40 +74,117 @@ sjSystem * PluginComputeMeanCurvature::createSystem(){
 }
 
 bool MeanCurvatureSmoothing::evolve(sjStateContext * ssc){
-	size_t n = this->m_context->getNumberOfVertex();// getNsize();
-	vector<vector<double>> matrixV = vector<vector<double>>(n,vector<double>(3,0.0));
-	sjVIterator v;
-			
-	int i = 0;
+	int n = this->m_context->getNumberOfVertex();
+	LinearSolver *solver;
+	SystemSolverParameters params ;
+	std::string  * mipo = new std::string("SUPERLU");
+	params.set_arg_value("method", *mipo) ; 
+		
+	solver = new LinearSolver(n) ;
+	solver->set_system_solver(params) ;
+	solver->set_least_squares(true) ;
+	solver->set_invert_matrix(true) ;
 
-	ComputeMeanCurvature * cmc = (ComputeMeanCurvature * )
-								( sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_MEAN_CURVATURE_SYSTEM));
-	//sjPolyhedron mesh_G = this->m_context->getMesh();
-	//vector< vector<sjVertex_handle> > & rings = *(this->m_context->getRings());
-	//for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
-	for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
-		//sjPoint_3 newvi = computeMeanCurvature(v, rings[i]);
-		//sjPoint_3 newvi = cmc->computeMeanCurvature(v, rings[i]);
-		sjPoint_3 newvi = cmc->computeMeanCurvature(v, STATE_RINGS[i]);
-		matrixV[i][0] = newvi.x();
-		matrixV[i][1] = newvi.y();
-		matrixV[i][2] = newvi.z();
-		i++;
+	cout<<"\nIterate system: No = "<<this->m_context->iteration+1<<"|\t";
+	cout<<"Volume Ini= "<<calcVolume(STATE_MESH)<<"|\t";
+	CGAL::Timer timer;
+	timer.start();
+	int i;
+	sjVIterator v;
+	int coord;
+	vector<vector<double>> matrixV = vector<vector<double>>(n,vector<double>(3,0.0));
+	double WLi = std::pow(this->m_context->SL,((double)(this->m_context->iteration))) * (this->m_context->WL_0);
+	//double WLi = 1.0;
+	bool found_solution = true;
+
+		
+	IsDegenerateVertex * idv= (IsDegenerateVertex *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_IS_DEGENERATE_VERTEX_SYSTEM));
+	ComputeWeight * comlap= (ComputeWeight *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_WEIGHT_SYSTEM));
+	for(coord = 0; coord<3; coord++){
+
+		i = 0;
+		for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
+			if(idv->isDegenerateVertex(this->m_context, v,  STATE_RINGS[i])){
+				solver->variable(i).lock();
+			}
+			sjPoint_3 point_k = v->point();
+			double r = point_k[coord];
+			solver->variable(i).set_value(r);		
+				
+				
+			i++;
+		}
+			
+		solver->begin_system();
+		i = 0;
+		for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
+			if(!idv->isDegenerateVertex(this->m_context, v, STATE_RINGS[i])){
+				sjHalfedge_vertex_circulator vcir = v->vertex_begin();
+				map<int, double> mymap = comlap->computeWeight(this->m_context, v, STATE_RINGS[i]);
+				map<int, double>::iterator it;
+				solver->begin_row();
+				for ( it=mymap.begin() ; it != mymap.end(); it++ ){
+					int index = (*it).first ;
+					double value = (*it).second;
+					solver->add_coefficient(index, WLi * value);
+				}
+				solver->set_right_hand_side(0.0);
+				solver->end_row();
+			}
+			i++;
+		}
+		i = 0;
+		for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
+			if(!idv->isDegenerateVertex(this->m_context, v, STATE_RINGS[i])){
+			sjHalfedge_vertex_circulator vcir = v->vertex_begin();
+			sjPoint_3 point_i = v->point();
+			double Whi;
+			if(this->m_context->iteration ==0){
+				Whi = this->m_context->WH_0;
+			}else{
+				Whi = this->m_context->WH_0*std::sqrt(v->initial_ring_area/areaRing(v, STATE_RINGS[i]));
+			}
+			solver->begin_row();
+			solver->add_coefficient(i, Whi);
+			solver->set_right_hand_side(Whi*point_i[coord]);
+			solver->end_row();
+			}
+			i++;
+		}
+		solver->end_system();
+			
+		if ( solver->solve() ){
+				
+			for(i=0; i<n; i++){
+				matrixV[i][coord] = solver->variable(i).value();
+			}
+		}else{
+			cout<<"No solution found"<<endl;
+			found_solution = false;
+		}
+
+		solver->restart();
+
 	}
-	i = 0;
-	//for ( v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
-	for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
-		sjPoint_3 pointn = sjPoint_3(matrixV[i][0], matrixV[i][1], matrixV[i][2]);
-		v->point() = pointn;
-		i++;
+	if(found_solution){
+		i = 0;
+		for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
+			sjPoint_3 pointn = sjPoint_3(matrixV[i][0], matrixV[i][1], matrixV[i][2]);
+			v->point() = pointn;
+			i++;
+		}
 	}
+	cout<<"Volume = "<<calcVolume(STATE_MESH)<<"|\t";
+	cout<<"Time = "<< timer.time() << " seconds." << std::endl;
+	delete solver;
+	this->m_context->iteration++;
 	return true;
 }
 
 PluginMeanCurvatureSmoothing::PluginMeanCurvatureSmoothing(){
 	name = "PluginMeanCurvatureSmoothing";
 	sjKernelPlugin & kernel = sjKernelPlugin::getInstance();
-	name_type = kernel.SYS_MEAN_CURVATURE_SMOOTHING_SYSTEM;
+	name_type = kernel.SYS_ITERATE_SMOOTHING_ALGORITHM_SYSTEM;
 	registerPlugin(kernel);
 }
 

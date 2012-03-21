@@ -128,7 +128,7 @@ bool IterateLaplacianSmoothingIntegrate::evolve(sjStateContext * ssc){
 	bool found_solution = true;
 
 	IsDegenerateVertex * idv = (IsDegenerateVertex *) (sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_IS_DEGENERATE_VERTEX_SYSTEM));
-	ComputeLaplacian * comlap =  (ComputeLaplacian *) (sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_LAPLACIAN_SYSTEM));
+	ComputeWeight * comlap =  (ComputeWeight *) (sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_WEIGHT_SYSTEM));
 		i = 0;
 		
 		for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
@@ -164,7 +164,7 @@ bool IterateLaplacianSmoothingIntegrate::evolve(sjStateContext * ssc){
 			for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
 				if(!idv->isDegenerateVertex(this->m_context, v, STATE_RINGS[i])){
 					sjHalfedge_vertex_circulator vcir = v->vertex_begin();
-					map<int, double> mymap = comlap->computeLaplacian(this->m_context, v, STATE_RINGS[i]);
+					map<int, double> mymap = comlap->computeWeight(this->m_context, v, STATE_RINGS[i]);
 					map<int, double>::iterator it;
 					solver->begin_row();
 					for ( it=mymap.begin() ; it != mymap.end(); it++ ){
