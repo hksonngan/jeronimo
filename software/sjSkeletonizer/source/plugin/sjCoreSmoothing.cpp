@@ -107,7 +107,7 @@ void InitLaplacianSmoothing::initLaplacianSmoothing(double a_WH0, double a_WL0, 
 	this->m_context->AVERAGE_FACE = averageFaces(STATE_MESH);
 	//WH_0 = a_WH0;
 	this->m_context->WH_0 = 1.0;
-	//WL_0 = a_WL0 * std::sqrt(AVERAGE_FACE);
+	//this->m_context->WL_0 = a_WL0 * std::sqrt(this->m_context->AVERAGE_FACE);
 	this->m_context->WL_0 = 1.0;
 	this->m_context->SL = a_SL;
 	int i = 0;

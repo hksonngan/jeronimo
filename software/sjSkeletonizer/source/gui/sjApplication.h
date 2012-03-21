@@ -64,6 +64,7 @@ private slots:
 	void iterateLaplacian();
 	void closeTab(int index);
 	void changueSliderIteration(int value);
+	void changueComputeWeight(QString text );
 
 
 
@@ -82,3 +83,4 @@ private:
 
 
 #endif //__SJAPPLICATION__H__
+

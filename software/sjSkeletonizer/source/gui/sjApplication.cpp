@@ -36,6 +36,7 @@
 #include "sjLaplacianSmoothing.h"
 #include "sjCoreSmoothing.h"
 #include "sjMeshContractionAu2008.h"
+#include "sjMeanCurvatureSmoothing.h"
 #include "sjLog.h"
 #include <QMenu>
 #include <QMenuBar>
@@ -43,6 +44,7 @@
 #include <QFileDialog>
 #include <iostream>
 #include <QVBoxLayout>
+#include <QComboBox>
 #include <fstream>
 #include <iostream>
 #include <CGAL/IO/Polyhedron_iostream.h>
@@ -101,7 +103,7 @@ QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 	addDockWidget(Qt::LeftDockWidgetArea, tools_QDockWidget);
 	
 	QWidget * panel = new QWidget();
-	QPushButton * cmd_iterateLaplacian = new QPushButton("Iterate Laplacian System", panel);
+	QPushButton * cmd_iterateLaplacian = new QPushButton("Iterate Skeleton System", panel);
 	connect(cmd_iterateLaplacian, SIGNAL(clicked()),this, SLOT(iterateLaplacian()));
 
 	txt_iterations = new QLineEdit("1", panel);
@@ -111,14 +113,22 @@ QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 	sld_iterations->setMinimum (1);
 	connect(sld_iterations, SIGNAL(valueChanged(int)),this, SLOT(changueSliderIteration(int)));
 
+	QComboBox * cmb_computeweight = new QComboBox(panel);
+	cmb_computeweight->addItem("Curvature Normal");
+	cmb_computeweight->addItem("Scale-dependent");
+
+	connect(cmb_computeweight, SIGNAL(activated (QString)),this, SLOT(changueComputeWeight(QString)));
+
 	QVBoxLayout *toolLayout = new QVBoxLayout;
+	toolLayout->addWidget(new QLabel("Laplacian Operator"));
+	toolLayout->addWidget(cmb_computeweight);
 	toolLayout->addWidget(txt_iterations);
 	toolLayout->addWidget(sld_iterations);
 	toolLayout->addWidget(cmd_iterateLaplacian);
 	QSpacerItem* qspaceritem = new QSpacerItem( 20, 200,	QSizePolicy::Maximum, QSizePolicy::Expanding );
 	toolLayout->addSpacerItem(qspaceritem);
 	panel->setLayout(toolLayout);
-	tool_box_QToolBox->addItem(panel, "Laplacian Smoothing");
+	tool_box_QToolBox->addItem(panel, "Mesh Smoothing");
 
 	/*log4cplus::BasicConfigurator config;
     config.configure();*/
@@ -164,8 +174,8 @@ QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 	kernel_engine.setDefaultSystem( new PluginInitIndex());
 	kernel_engine.setDefaultSystem( new PluginComputeRings());
 	kernel_engine.setDefaultSystem( new PluginComputeLaplacian());
-	kernel_engine.setDefaultSystem( new PluginComputeMeanCurvature());
-	kernel_engine.setDefaultSystem( new PluginMeanCurvatureSmoothing());
+	//kernel_engine.setDefaultSystem( new PluginComputeMeanCurvature());
+	//kernel_engine.setDefaultSystem( new PluginMeanCurvatureSmoothing());
 	kernel_engine.setDefaultSystem( new PluginIsDegenerateVertex());
 	kernel_engine.setDefaultSystem( new PluginComputeLineEquations());
 	kernel_engine.setDefaultSystem( new PluginInitLaplacianSmoothing());
@@ -251,18 +261,12 @@ void sjApplication::closeTab(int index)
 
 void sjApplication::iterateLaplacian()
 {
-	sjLogDebug("sjApplication::iterateLaplacian 1\n");
 	sjEvent * mevt = new sjEvent(sjEvent::EVT_ITERATE);
-	sjLogDebug("sjApplication::iterateLaplacian 2\n");
-	//this->kernel_engine.notify(mevt);
 	sjViewer * current = (sjViewer *)( central_QTabWidget->currentWidget());
-	sjLogDebug("sjApplication::iterateLaplacian 3\n");
 	if( current != NULL){
-		//int iter = sld_iterations->value();
-		//for(int j = 0; j<iter; j++)
-		sjLogDebug("sjApplication::iterateLaplacian 4\n");
-		current->dispatch(mevt);
-		sjLogDebug("sjApplication::iterateLaplacian 5\n");
+		int iter = sld_iterations->value();
+		for(int j = 0; j<iter; j++)
+			current->dispatch(mevt);
 	}
 }
 
@@ -279,4 +283,22 @@ void sjApplication::loadPlugins(){
 
 QTabWidget * sjApplication::getCentralQTabWidget(){
 	return central_QTabWidget;
+}
+
+void sjApplication::changueComputeWeight(QString text ){
+	//cmb_computeweight->addItem("Curvature Normal");
+	//cmb_computeweight->addItem("Scale-dependent");
+	if(text.compare("Curvature Normal")==0){
+		if(this->kernel_engine.setDefaultSystem(new PluginComputeLaplacian())){
+			cout<<"\nOk Curvature Normal\n";
+		}else{
+			cout<<"\nFail Curvature Normal\n";
+		}
+	}else if(text.compare("Scale-dependent")==0){
+		if(this->kernel_engine.setDefaultSystem(new PluginComputeMeanCurvature())){
+			cout<<"\nOk Scale-dependent\n";
+		}else{
+			cout<<"\nFail Scale-dependent\n";
+		}
+	}
 }

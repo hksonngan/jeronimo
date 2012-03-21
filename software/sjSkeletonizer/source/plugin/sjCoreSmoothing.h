@@ -59,6 +59,16 @@ namespace sj{
 			virtual ~IterateSmoothingAlgorithm(){}
 			virtual bool evolve(sjStateContext * ssc) = 0;
 	};
+
+	class ComputeWeight: public sjSystem{
+	public:
+			virtual ~ComputeWeight(){}
+			virtual void proccesEvent(sjEvent * evt){}
+			virtual map<int, double> computeWeight(sjStateContext * m_ctx, sjVIterator vi, vector< sjVertex_handle> neighbors) = 0;
+	};
+
+
+
 }
 
 #endif //__SJCORE_SMOOTH__H__

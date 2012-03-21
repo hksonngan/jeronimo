@@ -33,7 +33,7 @@ using namespace OGF;
 using namespace sj;
 
 		
-map<int, double> ComputeLaplacian::computeLaplacian(sjStateContext * m_ctx, sjVIterator vi, vector< sjVertex_handle> neighbors){
+map<int, double> ComputeLaplacian::computeWeight(sjStateContext * m_ctx, sjVIterator vi, vector< sjVertex_handle> neighbors){
 		
 	sjHalfedge_vertex_circulator vcir = vi->vertex_begin();
 	sjPoint_3 point_i = vi->point();
@@ -65,7 +65,7 @@ map<int, double> ComputeLaplacian::computeLaplacian(sjStateContext * m_ctx, sjVI
 PluginComputeLaplacian::PluginComputeLaplacian(){
 	name = "PluginComputeLaplacian";
 	sjKernelPlugin & kernel = sjKernelPlugin::getInstance();
-	name_type = kernel.SYS_COMPUTE_LAPLACIAN_SYSTEM;
+	name_type = kernel.SYS_COMPUTE_WEIGHT_SYSTEM;
 	registerPlugin(kernel);
 }
 
@@ -78,7 +78,7 @@ sjSystem * PluginComputeLaplacian::createSystem(){
 }
 
 IsDegenerateVertex::IsDegenerateVertex(){
-	m_comlapl = (ComputeLaplacian * )(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_LAPLACIAN_SYSTEM));
+	m_comlapl = (ComputeWeight * )(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_WEIGHT_SYSTEM));
 }
 
 bool IsDegenerateVertex::isDegenerateVertex(sjStateContext * m_ctx, sjVIterator vi, vector< sjVertex_handle> neighbors){
@@ -95,7 +95,7 @@ bool IsDegenerateVertex::isDegenerateVertex(sjStateContext * m_ctx, sjVIterator 
 		}
 	}
 
-	map<int, double> mymap = m_comlapl->computeLaplacian(m_ctx, vi, neighbors);
+	map<int, double> mymap = m_comlapl->computeWeight(m_ctx, vi, neighbors);
 	map<int, double>::iterator it;
 	for ( it=mymap.begin() ; it != mymap.end(); it++ ){
 		int index = (*it).first ;
@@ -148,7 +148,7 @@ bool IterateLaplacianSmoothingSeparate::evolve(sjStateContext * ssc){
 
 		
 	IsDegenerateVertex * idv= (IsDegenerateVertex *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_IS_DEGENERATE_VERTEX_SYSTEM));
-	ComputeLaplacian * comlap= (ComputeLaplacian *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_LAPLACIAN_SYSTEM));
+	ComputeWeight * comlap= (ComputeWeight *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_WEIGHT_SYSTEM));
 	for(coord = 0; coord<3; coord++){
 
 		i = 0;
@@ -169,7 +169,7 @@ bool IterateLaplacianSmoothingSeparate::evolve(sjStateContext * ssc){
 		for ( v = STATE_MESH.vertices_begin(); v != STATE_MESH.vertices_end(); ++v){
 			if(!idv->isDegenerateVertex(this->m_context, v, STATE_RINGS[i])){
 				sjHalfedge_vertex_circulator vcir = v->vertex_begin();
-				map<int, double> mymap = comlap->computeLaplacian(this->m_context, v, STATE_RINGS[i]);
+				map<int, double> mymap = comlap->computeWeight(this->m_context, v, STATE_RINGS[i]);
 				map<int, double>::iterator it;
 				solver->begin_row();
 				for ( it=mymap.begin() ; it != mymap.end(); it++ ){

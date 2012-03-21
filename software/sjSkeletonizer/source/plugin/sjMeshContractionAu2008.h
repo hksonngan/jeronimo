@@ -15,10 +15,9 @@ using namespace std;
 namespace sj{
 
 
-	class ComputeLaplacian: public sjSystem{
+	class ComputeLaplacian: public ComputeWeight{
 	public:
-		void proccesEvent(sjEvent * evt){}
-		map<int, double> computeLaplacian(sjStateContext * m_ctx, sjVIterator vi, vector< sjVertex_handle> neighbors);
+		map<int, double> computeWeight(sjStateContext * m_ctx, sjVIterator vi, vector< sjVertex_handle> neighbors);
 	};
 	class PluginComputeLaplacian: public sjPlugin{
 	public:
@@ -33,7 +32,7 @@ namespace sj{
 		void proccesEvent(sjEvent * evt){}
 		bool isDegenerateVertex(sjStateContext * m_ctx, sjVIterator vi, vector< sjVertex_handle> neighbors);
 	private:
-		ComputeLaplacian * m_comlapl;
+		ComputeWeight * m_comlapl;
 	};
 
 	class PluginIsDegenerateVertex: public sjPlugin{

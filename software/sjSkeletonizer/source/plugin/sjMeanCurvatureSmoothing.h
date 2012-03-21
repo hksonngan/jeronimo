@@ -13,10 +13,9 @@
 using namespace std;
 
 namespace sj{
-	class ComputeMeanCurvature: public sjState{
+	class ComputeMeanCurvature: public ComputeWeight{
 	public:
-		bool evolve(sjStateContext * ssc);
-		sjPoint_3 computeMeanCurvature(sjVIterator vi, vector< sjVertex_handle> neighbors);	
+		map<int, double> computeWeight(sjStateContext * m_ctx, sjVIterator vi, vector< sjVertex_handle> neighbors);
 	};
 	class PluginComputeMeanCurvature: public sjPlugin{
 		public:
@@ -25,7 +24,7 @@ namespace sj{
 		sjSystem * createSystem();
 	};
 
-	class MeanCurvatureSmoothing: public sjState{
+	class MeanCurvatureSmoothing: public IterateSmoothingAlgorithm{
 	public:
 		bool evolve(sjStateContext * ssc);
 	};

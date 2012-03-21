@@ -3,15 +3,13 @@
 using namespace sj;
 
 sjKernelPlugin sjKernelPlugin::_instance;
-const std::string sjKernelPlugin::SYS_COMPUTE_LAPLACIAN_SYSTEM			 = "SYS_COMPUTE_LAPLACIAN_SYSTEM";
+const std::string sjKernelPlugin::SYS_COMPUTE_WEIGHT_SYSTEM				 = "SYS_COMPUTE_WEIGHT_SYSTEM";
 const std::string sjKernelPlugin::SYS_COMPUTE_LINE_EQUATIONS_SYSTEM		 = "SYS_COMPUTE_LINE_EQUATIONS_SYSTEM";
-const std::string sjKernelPlugin::SYS_COMPUTE_MEAN_CURVATURE_SYSTEM		 = "SYS_COMPUTE_MEAN_CURVATURE_SYSTEM";
 const std::string sjKernelPlugin::SYS_COMPUTE_RINGS_SYSTEM				 = "SYS_COMPUTE_RINGS_SYSTEM";
 const std::string sjKernelPlugin::SYS_INIT_INDEX_SYSTEM					 = "SYS_INIT_INDEX_SYSTEM";
 const std::string sjKernelPlugin::SYS_INIT_LAPLACIAN_SMOOTHING_SYSTEM	 = "SYS_INIT_LAPLACIAN_SMOOTHING_SYSTEM";
 const std::string sjKernelPlugin::SYS_IS_DEGENERATE_VERTEX_SYSTEM		 = "SYS_IS_DEGENERATE_VERTEX_SYSTEM";
 const std::string sjKernelPlugin::SYS_ITERATE_SMOOTHING_ALGORITHM_SYSTEM = "SYS_ITERATE_SMOOTHING_ALGORITHM_SYSTEM";
-const std::string sjKernelPlugin::SYS_MEAN_CURVATURE_SMOOTHING_SYSTEM	 = "SYS_MEAN_CURVATURE_SMOOTHING_SYSTEM";
 
 sjKernelPlugin::sjKernelPlugin(void){
 }
@@ -44,6 +42,7 @@ bool sjKernelPlugin::setDefaultSystem(std::string plugin_name){
 	if(m_plugins.size() >0){
         if(m_plugins.find(plugin_name) != m_plugins.end()){
             sjPlugin * plu = (sjPlugin *)((m_plugins.find(plugin_name))->second);
+			m_systems.erase(plu->getNameType());
 			m_systems.insert(TypeMapsjSystem::value_type(plu->getNameType(), plu->createSystem()));
             return true;
         }
