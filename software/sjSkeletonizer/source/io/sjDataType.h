@@ -41,8 +41,11 @@
 #include <vector>
 #include <CGAL/Taucs_solver_traits.h>
 #include <CGAL/OpenNL/linear_solver.h>
+#include <OGF/math/linear_algebra/vector.h>
+#include <OGF/math/linear_algebra/matrix.h>
 
 using namespace std;
+using namespace OGF;
 
 template <class Refs, class T, class P>
 class sjVertexType : public CGAL::HalfedgeDS_vertex_base<Refs,T, P>{
@@ -102,5 +105,7 @@ typedef sjSparseLinearAlgebraTraits_d::Vector sjOpenNLVector;
 
 typedef vector<double> sjVectorDouble;
 typedef vector<vector<double>> sjMatrixDouble;
+
+typedef Matrix<double, 4> Matrix4d;
 
 #endif // __SJDATATYPE__H__
