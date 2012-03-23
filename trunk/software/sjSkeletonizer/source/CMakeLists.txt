@@ -82,6 +82,8 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 		plugin/sjMeshContractionAu2008.cpp
 		plugin/sjMeanCurvatureSmoothing.h
 		plugin/sjMeanCurvatureSmoothing.cpp
+		plugin/sjSimplificator.h
+		plugin/sjSimplificator.cpp
 	)
 
 	ADD_LIBRARY(log STATIC ${log_sources} )
