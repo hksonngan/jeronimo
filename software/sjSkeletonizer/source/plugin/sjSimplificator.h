@@ -15,7 +15,7 @@ namespace sj{
 		sjSimplificator();
 		Matrix4d getFundamentalErrorQuadric(sjHalfedge_handle);
 		double calculateSamplingCost(sjHalfedge_handle);
-		Matrix4d computeInitialQ();
+		Matrix4d computeInitialQ(sjVertex_handle);
 	};
 }
 
