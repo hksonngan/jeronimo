@@ -16,6 +16,7 @@ namespace sj{
 		Matrix4d getFundamentalErrorQuadric(sjHalfedge_handle);
 		double calculateSamplingCost(sjHalfedge_handle);
 		Matrix4d computeInitialQ(sjVertex_handle);
+		bool isCollapseTunnel(sjHalfedge_handle);
 	};
 }
 
