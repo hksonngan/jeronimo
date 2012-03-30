@@ -1,5 +1,7 @@
 #include "sjSimplificator.h"
 
+#include <algorithm>
+
 using namespace sj;
 using namespace std;
 using namespace OGF;
@@ -55,4 +57,38 @@ Matrix4d sjSimplificator::computeInitialQ(sjVertex_handle v){
 		he = he->prev_on_vertex();
 	} while ( he != v->halfedge() );
 	return Q;
+}
+
+bool sjSimplificator::isCollapseTunnel(sjHalfedge_handle he){
+	sjHalfedge_vertex_circulator vcir_A = he->vertex()->vertex_begin();
+	sjHalfedge_vertex_circulator vcir_B = he->opposite()->vertex()->vertex_begin();
+	vector<int> neighbors_A;
+	vector<int> neighbors_B;
+	vector<int> neighbors_intersection_AB;
+	do{
+		int punto = (vcir_A->next()->vertex()->index);
+		neighbors_A.push_back(punto);
+	}while(++vcir_A != he->vertex()->vertex_begin ());
+
+	do{
+		int punto = (vcir_B->next()->vertex()->index);
+		neighbors_B.push_back(punto);
+	}while(++vcir_B != he->vertex()->vertex_begin ());
+
+	set_intersection(neighbors_A.begin(),neighbors_A.end(), neighbors_B.begin(), neighbors_B.end(),
+    back_inserter(neighbors_intersection_AB));
+	if(neighbors_intersection_AB.size()>2){
+		return false;
+	}else{
+		if(neighbors_intersection_AB.size() == 2){
+			if(he->face()!= NULL && he->opposite()->face() != NULL ){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return true;
+		}
+	}
+	return false;
 }
