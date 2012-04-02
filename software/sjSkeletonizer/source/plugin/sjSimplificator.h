@@ -6,17 +6,28 @@
 #include "sjPipeFilter.h"
 #include "sjSystem.h"
 #include "sjUtils.h"
+#include "sjState.h"
 
 
 
 namespace sj{
 	class sjSimplificator{
 	public:
-		sjSimplificator();
+		sjSimplificator(double wa = 1.0, double wb = 0.1);
 		Matrix4d getFundamentalErrorQuadric(sjHalfedge_handle);
 		double calculateSamplingCost(sjHalfedge_handle);
+		double calculateShapeCost(Matrix4d Qi, Matrix4d Qj,  sjHalfedge_handle he);
+		double calculateTotalCost(sjHalfedge_handle he);
 		Matrix4d computeInitialQ(sjVertex_handle);
+		void computeAllInitialQ();
 		bool isCollapseTunnel(sjHalfedge_handle);
+		void computeHeap();
+		
+	private:
+		double Wa, Wb;
+		map<int, Matrix4d> Qmap;
+		sjPolyhedron mesh_G;
+		vector< vector< sjVertex_handle > > rings;
 	};
 }
 
