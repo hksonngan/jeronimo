@@ -6,8 +6,9 @@ using namespace sj;
 using namespace std;
 using namespace OGF;
 
-sjSimplificator::sjSimplificator(){
-	
+sjSimplificator::sjSimplificator(double wa, double wb){
+	Wa = wa;
+	Wb = wb;
 }
 
 Matrix4d sjSimplificator::getFundamentalErrorQuadric(sjHalfedge_handle heh){
@@ -91,4 +92,36 @@ bool sjSimplificator::isCollapseTunnel(sjHalfedge_handle he){
 		}
 	}
 	return false;
+}
+
+double sjSimplificator::calculateShapeCost(Matrix4d Qi, Matrix4d Qj,  sjHalfedge_handle he){
+	Matrix4d Q = Qi + Qj;
+	sjPoint_3 p = he->opposite()->vertex()->point();
+	// SHAPE COST
+	// Multiply v'*Q*v
+	// remember that v is in homogeneous coordinates
+	double v[4];
+	double Qv[4];
+	v[0] = p.x(); v[1] = p.y(); v[2] = p.z(); v[3] = 1.;
+	mult ( Q, v, Qv );
+	double shapeError = Qv[0]*v[0] + Qv[1]*v[1] + Qv[2]*v[2] + Qv[3]*v[3];
+	return shapeError;
+}
+
+double sjSimplificator::calculateTotalCost(sjHalfedge_handle he){
+	double Fa = calculateShapeCost(Qmap[he->vertex()->index], Qmap[he->opposite()->vertex()->index], he);
+	double Fb = calculateSamplingCost(he);
+	double total = Wa*Fa + Wb*Fb;
+	return total;
+}
+
+void sjSimplificator::computeAllInitialQ(){
+	for(sjVertex_handle v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+		Qmap[v->index]	 = computeInitialQ(v);
+	}
+}
+
+void sjSimplificator::computeHeap(){
+	
+
 }
