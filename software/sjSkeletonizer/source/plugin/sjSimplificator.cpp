@@ -1,5 +1,5 @@
 #include "sjSimplificator.h"
-
+/*
 #include <algorithm>
 
 using namespace sj;
@@ -121,7 +121,11 @@ void sjSimplificator::computeAllInitialQ(){
 	}
 }
 
-void sjSimplificator::computeHeap(){
-	
-
-}
+void sjSimplificator::computeHeapError(){
+	for(sjHalfedge_handle he = mesh_G.halfedges_begin(); he != mesh_G.halfedges_end(); ++he){
+		
+		sjNodeHeap node(he->vertex()->index, calculateTotalCost(he));
+		heap_error.push_back(node);
+	}
+	heap_error.sort();
+}*/
