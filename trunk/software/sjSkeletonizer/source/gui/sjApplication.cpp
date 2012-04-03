@@ -29,7 +29,6 @@
  * @author Alexander Pinzon Fernandez.
  * @date 21/01/2011 10:07 a.m.
  */
-
 #include "sjApplication.h"
 #include "sjDataIO.h"
 #include "sjViewer.h"

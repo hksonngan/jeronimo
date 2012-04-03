@@ -60,6 +60,15 @@ public:
 	double d1,d2;
 };
 
+template <class Refs>
+class Halfedge : public CGAL::HalfedgeDS_halfedge_base<Refs> {
+public:
+   Halfedge() :
+      hedgeid(-1){
+   }
+   int      hedgeid; // halfedge id
+};
+
 /*template <class Refs>
 struct sjFaceType : public CGAL::HalfedgeDS_face_base<Refs> {
     int index;
@@ -72,6 +81,11 @@ struct sj_ItemsType : public CGAL::Polyhedron_items_3 {
         typedef typename Traits::Point_3 Point;
 		typedef sjVertexType<Refs, CGAL::Tag_true, Point> Vertex;
     };
+
+	template <class Refs, class Traits>
+   struct Halfedge_wrapper {
+      typedef Halfedge<Refs>                             Halfedge;
+   };
 
 	/*template <class Refs, class Traits>
     struct Face_wrapper {

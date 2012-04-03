@@ -87,7 +87,7 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 	)
 
 	ADD_LIBRARY(log STATIC ${log_sources} )
-	TARGET_LINK_LIBRARIES (log log4cplus )
+	TARGET_LINK_LIBRARIES (log log4cplus basic)
 	
 	ADD_LIBRARY(exception STATIC ${exception_sources} )
 	TARGET_LINK_LIBRARIES (exception log log4cplus)
