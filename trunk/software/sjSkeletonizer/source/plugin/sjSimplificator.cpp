@@ -1,5 +1,5 @@
 #include "sjSimplificator.h"
-/*
+
 #include <algorithm>
 
 using namespace sj;
@@ -9,6 +9,7 @@ using namespace OGF;
 sjSimplificator::sjSimplificator(double wa, double wb){
 	Wa = wa;
 	Wb = wb;
+	m_init = false;
 }
 
 Matrix4d sjSimplificator::getFundamentalErrorQuadric(sjHalfedge_handle heh){
@@ -124,8 +125,45 @@ void sjSimplificator::computeAllInitialQ(){
 void sjSimplificator::computeHeapError(){
 	for(sjHalfedge_handle he = mesh_G.halfedges_begin(); he != mesh_G.halfedges_end(); ++he){
 		
-		sjNodeHeap node(he->vertex()->index, calculateTotalCost(he));
+		sjNodeHeap node(he->hedgeid, calculateTotalCost(he));
 		heap_error.push_back(node);
 	}
 	heap_error.sort();
-}*/
+}
+
+void sjSimplificator::init(){
+	computeAllInitialQ();
+	computeHeapError();
+}
+
+void sjSimplificator::collapseEdge(sjHalfedge_handle he){
+	sjVertex_handle vi, vj;
+	vi = he->vertex();
+	vj = he->opposite()->vertex();
+	Qmap[vi->index] = Qmap[vi->index] + Qmap[vj->index];
+	mesh_G.join_vertex(he);
+}
+
+sjPolyhedronPipe::PolyhedronType sjSimplificator::iterate(){
+	if(m_init == false){
+		init();
+		m_init = true;
+	}else{
+		sjNodeHeap nh = heap_error.front();
+		sjHalfedge_handle hcoll;
+		sjHalfedge_handle he = mesh_G.halfedges_begin();
+		while(he != mesh_G.halfedges_end() && nh.index != he->hedgeid){
+			++he;
+		}
+		if(he != mesh_G.halfedges_end()){
+			if(isCollapseTunnel(he)){
+				collapseEdge(he);
+				heap_error.pop_front();
+			}else{
+				heap_error.pop_front();
+				//heap_error.push_back(nh);
+				//heap_error.sort();
+			}			
+		}
+	}
+}
