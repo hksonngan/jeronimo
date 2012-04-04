@@ -62,6 +62,7 @@ private slots:
     void save();
     void about();
 	void iterateLaplacian();
+	void iterateSimplificator();
 	void closeTab(int index);
 	void changueSliderIteration(int value);
 	void changueComputeWeight(QString text );

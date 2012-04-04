@@ -1,6 +1,6 @@
 #ifndef __SJ_SIMPLI_H__
 #define __SJ_SIMPLI_H__
-/*
+
 #include "sjDataType.h"
 #include "sjKernelPlugin.h"
 #include "sjPipeFilter.h"
@@ -28,7 +28,7 @@ namespace sj{
 		}
 	};
 
-	class sjSimplificator{
+	class sjSimplificator: public sjPolyhedronPipe::sjFilter{
 	public:
 		sjSimplificator(double wa = 1.0, double wb = 0.1);
 		Matrix4d getFundamentalErrorQuadric(sjHalfedge_handle);
@@ -39,6 +39,24 @@ namespace sj{
 		void computeAllInitialQ();
 		bool isCollapseTunnel(sjHalfedge_handle);
 		void computeHeapError();
+		void init();
+		void collapseEdge(sjHalfedge_handle he);
+
+		void setParameters(sjPolyhedronPipe::ParametersType *){}
+		void setMesh(sjPolyhedronPipe::PolyhedronType amesh ){
+			mesh_G = amesh;
+		}
+		size_t getNumberOfVertex(){
+			return mesh_G.size_of_vertices();
+		}
+		sjPolyhedronPipe::PolyhedronType iterate();
+		sjPolyhedronPipe::PolyhedronType getMesh(){
+			return mesh_G;
+		}
+		sjPolyhedronPipe::ParametersType * getParameters(){
+			return NULL;
+		}
+
 		
 	private:
 		double Wa, Wb;
@@ -46,8 +64,9 @@ namespace sj{
 		sjPolyhedron mesh_G;
 		vector< vector< sjVertex_handle > > rings;
 		list<sjNodeHeap> heap_error;
+		bool m_init;
 	};
 
 }
-*/
+
 #endif //__SJ_SIMPLI_H__

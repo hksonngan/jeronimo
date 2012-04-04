@@ -42,6 +42,11 @@ bool InitIndex::evolve(sjStateContext * ssc){
 		vcir->vertex()->initial_ring_area = 0.0;
 		i++;
 	}
+	i = 0;
+	for(sjHalfedge_handle he = STATE_MESH.halfedges_begin(); he != STATE_MESH.halfedges_end(); ++he){
+		he->hedgeid = i;
+		i++;
+	}
 	m_context->setState((sjState *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_RINGS_SYSTEM)));
 	return m_context->evolve(1);
 }

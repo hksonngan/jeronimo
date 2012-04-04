@@ -301,3 +301,7 @@ void sjApplication::changueComputeWeight(QString text ){
 		}
 	}
 }
+
+void sjApplication::iterateSimplificator(){
+
+}

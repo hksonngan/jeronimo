@@ -80,7 +80,7 @@ void sjViewer::initializeGL(){
 
 void sjViewer::drawModel(){
 	sjPoint_3 puntos[3], a,b,c;
-	for ( sjFIterator f = polyhedron.facets_begin(); f != polyhedron.facets_end(); ++f){
+	/*for ( sjFIterator f = polyhedron.facets_begin(); f != polyhedron.facets_end(); ++f){
 		
 		sjHalfedge_facet_circulator j = f->facet_begin();
 		
@@ -99,6 +99,7 @@ void sjViewer::drawModel(){
 		//Point_3 color3 = normalize(a);
 		sjPoint_3 color3(0.9,0.1,0.1);
    
+		
 		glBegin(GL_TRIANGLES);
 			//glColor3f(1.0f,1.0f,1.0f);
 			glColor3f( (float)color3[0] ,(float)color3[1],(float)color3[2]);
@@ -106,6 +107,25 @@ void sjViewer::drawModel(){
 			glVertex3f( (float)a[0]/max_min, (float)a[1]/max_min, (float)a[2]/max_min);
 			glVertex3f( (float)b[0]/max_min, (float)b[1]/max_min, (float)b[2]/max_min);
 			glVertex3f( (float)c[0]/max_min, (float)c[1]/max_min, (float)c[2]/max_min);
+		glEnd();
+	}*/
+	for ( sjHalfedge_handle f = polyhedron.halfedges_begin(); f != polyhedron.halfedges_end(); ++f){
+		
+		a = f->vertex()->point();
+		b = f->opposite()->vertex()->point();
+
+
+		//sjPoint_3 pnormal = normalVector(puntos[0], puntos[1], puntos[2]);
+		//Point_3 color3 = normalize(a);
+		sjPoint_3 color3(0.9,0.1,0.1);
+   
+		
+		glBegin(GL_LINES);
+			//glColor3f(1.0f,1.0f,1.0f);
+			glColor3f( (float)color3[0] ,(float)color3[1],(float)color3[2]);
+			//glNormal3f( (float)pnormal[0],(float)pnormal[1], (float)pnormal[2]);
+			glVertex3f( (float)a[0]/max_min, (float)a[1]/max_min, (float)a[2]/max_min);
+			glVertex3f( (float)b[0]/max_min, (float)b[1]/max_min, (float)b[2]/max_min);
 		glEnd();
 	}
 
