@@ -7,6 +7,7 @@
 #include "sjSystem.h"
 #include "sjUtils.h"
 #include "sjState.h"
+#include "sjLog.h"
 #include <list>
 
 using namespace std;
@@ -28,7 +29,7 @@ namespace sj{
 		}
 	};
 
-	class sjSimplificator: public sjPolyhedronPipe::sjFilter{
+	class sjSimplificator: public sjPolyhedronPipe::sjFilter, public sjObserver{
 	public:
 		sjSimplificator(double wa = 1.0, double wb = 0.1);
 		Matrix4d getFundamentalErrorQuadric(sjHalfedge_handle);
@@ -41,9 +42,13 @@ namespace sj{
 		void computeHeapError();
 		void init();
 		void collapseEdge(sjHalfedge_handle he);
+		sjHalfedge_handle getHalfedgeFromID(int id);
+		list<sjNodeHeap>::iterator getValidEdgeToCollapse();
 
+		void proccesEvent(sjEvent * evt);
 		void setParameters(sjPolyhedronPipe::ParametersType *){}
 		void setMesh(sjPolyhedronPipe::PolyhedronType amesh ){
+			sjLogInformation("setMesh");
 			mesh_G = amesh;
 		}
 		size_t getNumberOfVertex(){
@@ -51,6 +56,7 @@ namespace sj{
 		}
 		sjPolyhedronPipe::PolyhedronType iterate();
 		sjPolyhedronPipe::PolyhedronType getMesh(){
+			sjLogInformation("getMesh");
 			return mesh_G;
 		}
 		sjPolyhedronPipe::ParametersType * getParameters(){

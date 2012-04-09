@@ -28,6 +28,9 @@ template<class T, class B> class sjPF{
 			void setOutputPipe(sjPipe * p){
 				output_pipe = p;
 			}
+			sjPipe * getOutputPipe(){
+				return output_pipe;
+			}
 		protected:
 			sjPipe * output_pipe;
 		};
@@ -39,6 +42,9 @@ template<class T, class B> class sjPF{
 			virtual void notify() = 0;
 			void setInputPipe(sjPipe * p){
 				input_pipe = p;
+			}
+			sjPipe * getInputPipe(){
+				return input_pipe;
 			}
 		protected:
 			sjPipe * input_pipe;
@@ -111,6 +117,10 @@ template<class T, class B> class sjPF{
 			}
 			void setOuputConsumer(sjConsumer * consumer){
 				this->ouput_consumer  = consumer;
+			}
+
+			sjConsumer * getOuputConsumer(){
+				return ouput_consumer;
 			}
 			protected:
 				sjConsumer * ouput_consumer;
