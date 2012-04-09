@@ -46,7 +46,7 @@ sj::sjConfigLog::sjConfigLog(){
 }
 
 
-inline void sj::sjLogDebug(const char* format, ...){
+void sj::sjLogDebug(const char* format, ...){
 	va_list args;
 	char buffer[BUFSIZ];
 	va_start(args,format);
@@ -55,12 +55,12 @@ inline void sj::sjLogDebug(const char* format, ...){
 	Logger logger = Logger::getInstance("debuglogger");
 	LOG4CPLUS_DEBUG(logger, buffer);
 }
-inline void sj::sjLogDebug(std::string message){
+void sj::sjLogDebug(std::string message){
 	Logger logger = Logger::getInstance("debuglogger");
 	LOG4CPLUS_DEBUG(logger, message);
 }
 
-inline void sj::sjLogInformation(const char* format, ...){
+void sj::sjLogInformation(const char* format, ...){
 	va_list args;
 	char buffer[BUFSIZ];
 	va_start(args,format);
@@ -69,12 +69,12 @@ inline void sj::sjLogInformation(const char* format, ...){
 	Logger logger = Logger::getInstance("infologger");
 	LOG4CPLUS_INFO(logger, buffer);
 }
-inline void sj::sjLogInformation(std::string message){
+void sj::sjLogInformation(std::string message){
 	Logger logger = Logger::getInstance("infologger");
 	LOG4CPLUS_INFO(logger, message);
 }
 
-inline void sj::sjLogWarning(const char* format, ...){
+void sj::sjLogWarning(const char* format, ...){
 	va_list args;
 	char buffer[BUFSIZ];
 	va_start(args,format);
@@ -83,12 +83,12 @@ inline void sj::sjLogWarning(const char* format, ...){
 	Logger logger = Logger::getInstance("warninglogger");
 	LOG4CPLUS_WARN(logger, buffer);
 }
-inline void sj::sjLogWarning(std::string message){
+void sj::sjLogWarning(std::string message){
 	Logger logger = Logger::getInstance("warninglogger");
 	LOG4CPLUS_WARN(logger, message);
 }
 
-inline void sj::sjLogError(const char* format, ...){
+void sj::sjLogError(const char* format, ...){
 	va_list args;
 	char buffer[BUFSIZ];
 	va_start(args,format);
@@ -97,18 +97,18 @@ inline void sj::sjLogError(const char* format, ...){
 	Logger logger = Logger::getInstance("errorlogger");
 	LOG4CPLUS_ERROR(logger, buffer);
 }
-inline void sj::sjLogError(std::string message){
+void sj::sjLogError(std::string message){
 	Logger logger = Logger::getInstance("errorlogger");
 	LOG4CPLUS_ERROR(logger, message);
 }
 
-inline void sj::sjLogSetLevel(SJ_LOG_LEVEL a_level){
+void sj::sjLogSetLevel(SJ_LOG_LEVEL a_level){
 	//Logger logger = Logger::getInstance("main");
 	//logger.setLogLevel(a_level);
 }
 
-inline void sj::sjLogSetFileName(std::string file_name){
+void sj::sjLogSetFileName(std::string file_name){
 }
 
-inline void sj::sjLogSetInstance(std::string name_instance){
+void sj::sjLogSetInstance(std::string name_instance){
 }

@@ -45,3 +45,7 @@ void sjSubject::dispatch(sjEvent * evt)
 		sjLogDebug("sjSubject::dispatch 4\n");
 	}
 }
+
+void sjSubject::clear(){
+	observers.clear();
+}

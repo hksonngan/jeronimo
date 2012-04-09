@@ -7,6 +7,7 @@ using namespace std;
 using namespace OGF;
 
 sjSimplificator::sjSimplificator(double wa, double wb){
+	sjLogDebug("sjSimplificator");
 	Wa = wa;
 	Wb = wb;
 	m_init = false;
@@ -117,23 +118,36 @@ double sjSimplificator::calculateTotalCost(sjHalfedge_handle he){
 }
 
 void sjSimplificator::computeAllInitialQ(){
+	sjLogDebug("computeAllInitialQ 1");
 	for(sjVertex_handle v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 		Qmap[v->index]	 = computeInitialQ(v);
 	}
+	sjLogDebug("computeAllInitialQ 2");
 }
 
 void sjSimplificator::computeHeapError(){
+	sjLogDebug("computeHeapError 1");
 	for(sjHalfedge_handle he = mesh_G.halfedges_begin(); he != mesh_G.halfedges_end(); ++he){
 		
 		sjNodeHeap node(he->hedgeid, calculateTotalCost(he));
 		heap_error.push_back(node);
 	}
 	heap_error.sort();
+	sjLogDebug("computeHeapError 2");
 }
 
 void sjSimplificator::init(){
+	sjLogDebug("init 1");
 	computeAllInitialQ();
+	sjLogDebug("init 2");
 	computeHeapError();
+	sjLogDebug("init 3");
+	for(sjHalfedge_handle he = mesh_G.halfedges_begin(); he != mesh_G.halfedges_end(); ++he){
+		sjPoint_3 p3 = he->vertex()->point();
+		sjLogDebug("init 4: hedgeid=%d, vertex->id %d, point: %f, %f, %f", he->hedgeid, he->vertex()->index, 
+			p3.x(), p3.y(), p3.z());
+	}
+	sjLogDebug("init 5: sizeV=%d, sizeE=%d", mesh_G.size_of_vertices(), mesh_G.size_of_halfedges());
 }
 
 void sjSimplificator::collapseEdge(sjHalfedge_handle he){
@@ -144,26 +158,74 @@ void sjSimplificator::collapseEdge(sjHalfedge_handle he){
 	mesh_G.join_vertex(he);
 }
 
+sjHalfedge_handle sjSimplificator::getHalfedgeFromID(int id){
+	sjLogDebug("getHalfedgeFromID 1: id: %d", id);
+	sjHalfedge_handle he = mesh_G.halfedges_begin();
+	sjLogDebug("getHalfedgeFromID 2");
+	while(he != mesh_G.halfedges_end() && he->hedgeid != id){
+		sjLogDebug("getHalfedgeFromID 3: id: %d", he->hedgeid);
+		++he;
+	}
+	sjLogDebug("getHalfedgeFromID 4: id: %d", he->hedgeid);
+	return he;
+}
+
+list<sjNodeHeap>::iterator sjSimplificator::getValidEdgeToCollapse(){
+	sjLogDebug("getValidEdgeToCollapse 1");
+	list<sjNodeHeap>::iterator heap_iterator = heap_error.begin();
+	sjLogDebug("getValidEdgeToCollapse 2");
+	bool stop = false;
+	sjLogDebug("getValidEdgeToCollapse 3");
+	sjHalfedge_handle he = getHalfedgeFromID(heap_iterator->index);
+	sjLogDebug("getValidEdgeToCollapse 3-> %d", he->hedgeid);
+	sjLogDebug("getValidEdgeToCollapse 4");
+	while(heap_iterator !=heap_error.end() && he != mesh_G.halfedges_end() && !isCollapseTunnel(he)){
+		sjLogDebug("getValidEdgeToCollapse 5");
+		heap_iterator++;
+		sjLogDebug("getValidEdgeToCollapse 6");
+		if(heap_iterator !=heap_error.end()){
+			sjLogDebug("getValidEdgeToCollapse 7");
+			he = getHalfedgeFromID(heap_iterator->index);
+		}
+		sjLogDebug("getValidEdgeToCollapse 8");
+	}
+	sjLogDebug("getValidEdgeToCollapse 9");
+	return heap_iterator;
+}
+
+
 sjPolyhedronPipe::PolyhedronType sjSimplificator::iterate(){
+	sjLogDebug("iterate 1");
 	if(m_init == false){
+		sjLogDebug("iterate 2");
+		this->mesh_G = input_pipe->read();
+		if(mesh_G.is_valid()){
+			sjLogDebug("iterate 2.1 Es Valido");
+		}else{
+			sjLogDebug("iterate 2.1 No Es Valido");
+		}
+		
 		init();
+		sjLogDebug("iterate 3");
 		m_init = true;
 	}else{
-		sjNodeHeap nh = heap_error.front();
-		sjHalfedge_handle hcoll;
-		sjHalfedge_handle he = mesh_G.halfedges_begin();
-		while(he != mesh_G.halfedges_end() && nh.index != he->hedgeid){
-			++he;
+		sjLogDebug("iterate 4");
+		list<sjNodeHeap>::iterator heap_iterator = getValidEdgeToCollapse();
+		sjLogDebug("iterate 5");
+		if(heap_iterator != heap_error.end()){
+			sjLogDebug("iterate 6");
+			sjHalfedge_handle he = getHalfedgeFromID(heap_iterator->index);
+			sjNodeHeap nh = (*heap_iterator);
+			collapseEdge(he);
+			heap_error.erase(heap_iterator);
 		}
-		if(he != mesh_G.halfedges_end()){
-			if(isCollapseTunnel(he)){
-				collapseEdge(he);
-				heap_error.pop_front();
-			}else{
-				heap_error.pop_front();
-				//heap_error.push_back(nh);
-				//heap_error.sort();
-			}			
-		}
+		sjLogDebug("iterate 7");
+	}
+	return getMesh();
+}
+
+void sjSimplificator::proccesEvent(sjEvent * evt){
+	if(evt->getType() == sjEvent::EVT_ITERATE){
+		this->update();
 	}
 }

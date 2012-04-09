@@ -45,6 +45,7 @@ namespace sj{
 		void attach( sjObserver* observer );
 		void detach( sjObserver* observer );
 		void dispatch(sjEvent * evt);
+		void clear();
 	protected:
 		std::vector < sjObserver * > observers;
 	};

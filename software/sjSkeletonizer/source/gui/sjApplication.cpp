@@ -37,6 +37,7 @@
 #include "sjMeshContractionAu2008.h"
 #include "sjMeanCurvatureSmoothing.h"
 #include "sjLog.h"
+#include "sjSimplificator.h"
 #include <QMenu>
 #include <QMenuBar>
 #include <QAction>
@@ -105,6 +106,12 @@ QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 	QPushButton * cmd_iterateLaplacian = new QPushButton("Iterate Skeleton System", panel);
 	connect(cmd_iterateLaplacian, SIGNAL(clicked()),this, SLOT(iterateLaplacian()));
 
+	QPushButton * cmd_initSimplificator = new QPushButton("Init Simplificator System", panel);
+	connect(cmd_initSimplificator, SIGNAL(clicked()),this, SLOT(initSimplificator()));
+
+	QPushButton * cmd_iterateSimplificator = new QPushButton("Iterate Simplificator System", panel);
+	connect(cmd_iterateSimplificator, SIGNAL(clicked()),this, SLOT(iterateSimplificator()));
+
 	txt_iterations = new QLineEdit("1", panel);
 	txt_iterations->setModified(false);
 	sld_iterations = new QSlider(Qt::Horizontal, panel);
@@ -124,6 +131,8 @@ QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 	toolLayout->addWidget(txt_iterations);
 	toolLayout->addWidget(sld_iterations);
 	toolLayout->addWidget(cmd_iterateLaplacian);
+	toolLayout->addWidget(cmd_initSimplificator);
+	toolLayout->addWidget(cmd_iterateSimplificator);
 	QSpacerItem* qspaceritem = new QSpacerItem( 20, 200,	QSizePolicy::Maximum, QSizePolicy::Expanding );
 	toolLayout->addSpacerItem(qspaceritem);
 	panel->setLayout(toolLayout);
@@ -302,6 +311,39 @@ void sjApplication::changueComputeWeight(QString text ){
 	}
 }
 
-void sjApplication::iterateSimplificator(){
+void sjApplication::initSimplificator(){
+	sjLogDebug("iterateSimplificator 1");
+	sjViewer * myviewer = (sjViewer *)(central_QTabWidget->widget(central_QTabWidget->currentIndex()));
+	sjLogDebug("iterateSimplificator 2");
+	sjPolyhedronPipe::sjPipe * pipe_sink = myviewer->getInputPipe();
+	sjLogDebug("iterateSimplificator 3");
+	sjSimplificator * simpli = new sjSimplificator();
+	sjLogDebug("iterateSimplificator 4");
+	simpli->setInputPipe(pipe_sink);
+	sjLogDebug("iterateSimplificator 5");
+	pipe_sink->setOuputConsumer(simpli);
+	sjLogDebug("iterateSimplificator 6");
+	sjPolyhedronPipe::sjPipe * pipe_sink2 = new sjPolyhedronPipe::sjPipe();
+	sjLogDebug("iterateSimplificator 7");
+	simpli->setOutputPipe(pipe_sink2);
+	sjLogDebug("iterateSimplificator 8");
+	pipe_sink2->setOuputConsumer(myviewer);
+	sjLogDebug("iterateSimplificator 9");
+	myviewer->setInputPipe(pipe_sink2);
+	sjLogDebug("iterateSimplificator 10");
+	myviewer->clear();
+	myviewer->attach(simpli);
 
+	//simpli->update();
+	pipe_sink->write(myviewer->getVerticesFaces());
+}
+
+void sjApplication::iterateSimplificator(){
+	sjEvent * mevt = new sjEvent(sjEvent::EVT_ITERATE);
+	sjViewer * current = (sjViewer *)( central_QTabWidget->currentWidget());
+	if( current != NULL){
+		int iter = sld_iterations->value();
+		for(int j = 0; j<iter; j++)
+			current->dispatch(mevt);
+	}
 }
