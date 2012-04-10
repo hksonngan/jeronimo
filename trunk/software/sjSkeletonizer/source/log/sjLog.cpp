@@ -53,7 +53,7 @@ void sj::sjLogDebug(const char* format, ...){
 	sprintf (buffer, format, args );
 	va_end(args);
 	Logger logger = Logger::getInstance("debuglogger");
-	LOG4CPLUS_DEBUG(logger, buffer);
+	LOG4CPLUS_DEBUG(logger, std::string(buffer));
 }
 void sj::sjLogDebug(std::string message){
 	Logger logger = Logger::getInstance("debuglogger");
@@ -67,7 +67,7 @@ void sj::sjLogInformation(const char* format, ...){
 	sprintf (buffer, format, args );
 	va_end(args);
 	Logger logger = Logger::getInstance("infologger");
-	LOG4CPLUS_INFO(logger, buffer);
+	LOG4CPLUS_INFO(logger, std::string(buffer));
 }
 void sj::sjLogInformation(std::string message){
 	Logger logger = Logger::getInstance("infologger");
@@ -81,7 +81,7 @@ void sj::sjLogWarning(const char* format, ...){
 	sprintf (buffer, format, args );
 	va_end(args);
 	Logger logger = Logger::getInstance("warninglogger");
-	LOG4CPLUS_WARN(logger, buffer);
+	LOG4CPLUS_WARN(logger, std::string(buffer));
 }
 void sj::sjLogWarning(std::string message){
 	Logger logger = Logger::getInstance("warninglogger");
@@ -95,7 +95,7 @@ void sj::sjLogError(const char* format, ...){
 	sprintf (buffer, format, args );
 	va_end(args);
 	Logger logger = Logger::getInstance("errorlogger");
-	LOG4CPLUS_ERROR(logger, buffer);
+	LOG4CPLUS_ERROR(logger, std::string(buffer));
 }
 void sj::sjLogError(std::string message){
 	Logger logger = Logger::getInstance("errorlogger");
