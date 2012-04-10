@@ -48,17 +48,13 @@ void sjStateContext::proccesEvent(sjEvent * evt){
 }
 
 sjPolyhedronPipe::PolyhedronType sjStateContext::iterate(){
-	sjLogDebug("PolyhedronType iterate 1\n");
 	if(m_init_system == false){
-		sjLogDebug("PolyhedronType iterate 2\n");
 		this->mesh_G = input_pipe->read();
-		sjLogDebug("PolyhedronType iterate 3\n");
 		m_init_system = true;
 		return this->getMesh();
 	}
-	sjLogDebug("PolyhedronType iterate 4\n");
 	if(this->evolve(1)){
-		sjLogDebug("PolyhedronType iterate 5\n");
+		int sizenn = getNumberOfVertex();
 		return this->getMesh();
 	}else{
 		//No more iterations

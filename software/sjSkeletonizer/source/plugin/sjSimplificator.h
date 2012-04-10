@@ -18,12 +18,17 @@ namespace sj{
 
 	class sjNodeHeap {
 	public:
-		sjNodeHeap(int a_index, double a_value){
-			index = a_index;
+		sjNodeHeap(sjHalfedge_handle he, double a_value){
+			hedge = he;
 			value = a_value;
 		}
+		/*~sjNodeHeap(){
+			cout<<"Destruir nodo; "<<hedge->hedgeid<<endl;
+			sjHalfedge_handle nulo;
+			hedge = nulo;
+		}*/
+		sjHalfedge_handle hedge;
 		double value;
-		int index;
 		bool operator < (const sjNodeHeap& rhs){
 			return value < rhs.value;
 		}
@@ -42,7 +47,7 @@ namespace sj{
 		void computeHeapError();
 		void init();
 		void collapseEdge(sjHalfedge_handle he);
-		sjHalfedge_handle getHalfedgeFromID(int id);
+		//sjHalfedge_handle getHalfedgeFromID(int id);
 		list<sjNodeHeap>::iterator getValidEdgeToCollapse();
 
 		void proccesEvent(sjEvent * evt);
@@ -63,6 +68,14 @@ namespace sj{
 			return NULL;
 		}
 
+		int getNumberNodes(){
+			return number_nodes;
+		}
+
+		void setNumberNodes(int num_nodes){
+			number_nodes = num_nodes;
+		}
+
 		
 	private:
 		double Wa, Wb;
@@ -71,6 +84,7 @@ namespace sj{
 		vector< vector< sjVertex_handle > > rings;
 		list<sjNodeHeap> heap_error;
 		bool m_init;
+		int number_nodes;
 	};
 
 }

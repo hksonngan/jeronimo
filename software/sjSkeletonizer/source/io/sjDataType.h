@@ -43,6 +43,7 @@
 #include <CGAL/OpenNL/linear_solver.h>
 #include <OGF/math/linear_algebra/vector.h>
 #include <OGF/math/linear_algebra/matrix.h>
+#include <iostream>
 
 using namespace std;
 using namespace OGF;

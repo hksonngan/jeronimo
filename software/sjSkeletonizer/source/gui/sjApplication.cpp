@@ -122,8 +122,13 @@ QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 	QComboBox * cmb_computeweight = new QComboBox(panel);
 	cmb_computeweight->addItem("Curvature Normal");
 	cmb_computeweight->addItem("Scale-dependent");
-
 	connect(cmb_computeweight, SIGNAL(activated (QString)),this, SLOT(changueComputeWeight(QString)));
+
+	txt_number_nodes = new QLineEdit("1", panel);
+	sld_number_nodes = new QSlider(Qt::Horizontal, panel);
+	sld_number_nodes->setMaximum (500 );
+	sld_number_nodes->setMinimum (1);
+	connect(sld_number_nodes, SIGNAL(valueChanged(int)),this, SLOT(changueSliderNumberNodes(int)));
 
 	QVBoxLayout *toolLayout = new QVBoxLayout;
 	toolLayout->addWidget(new QLabel("Laplacian Operator"));
@@ -132,6 +137,8 @@ QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 	toolLayout->addWidget(sld_iterations);
 	toolLayout->addWidget(cmd_iterateLaplacian);
 	toolLayout->addWidget(cmd_initSimplificator);
+	toolLayout->addWidget(txt_number_nodes);
+	toolLayout->addWidget(sld_number_nodes);
 	toolLayout->addWidget(cmd_iterateSimplificator);
 	QSpacerItem* qspaceritem = new QSpacerItem( 20, 200,	QSizePolicy::Maximum, QSizePolicy::Expanding );
 	toolLayout->addSpacerItem(qspaceritem);
@@ -314,7 +321,8 @@ void sjApplication::changueComputeWeight(QString text ){
 void sjApplication::initSimplificator(){
 	sjLogDebug("iterateSimplificator 1");
 	sjViewer * myviewer = (sjViewer *)(central_QTabWidget->widget(central_QTabWidget->currentIndex()));
-	sjLogDebug("iterateSimplificator 2");
+	sjPolyhedron meshg = myviewer->getVerticesFaces();
+	sjLogDebug("iterateSimplificator 2 size:%d", (int)(meshg.size_of_vertices()));
 	sjPolyhedronPipe::sjPipe * pipe_sink = myviewer->getInputPipe();
 	sjLogDebug("iterateSimplificator 3");
 	sjSimplificator * simpli = new sjSimplificator();
@@ -333,6 +341,7 @@ void sjApplication::initSimplificator(){
 	sjLogDebug("iterateSimplificator 10");
 	myviewer->clear();
 	myviewer->attach(simpli);
+	simpli->setNumberNodes(sld_number_nodes->value());
 
 	//simpli->update();
 	pipe_sink->write(myviewer->getVerticesFaces());
@@ -342,8 +351,15 @@ void sjApplication::iterateSimplificator(){
 	sjEvent * mevt = new sjEvent(sjEvent::EVT_ITERATE);
 	sjViewer * current = (sjViewer *)( central_QTabWidget->currentWidget());
 	if( current != NULL){
-		int iter = sld_iterations->value();
+		int iter = sld_number_nodes->value();
 		for(int j = 0; j<iter; j++)
 			current->dispatch(mevt);
 	}
+}
+
+void sjApplication::changueSliderNumberNodes(int value){
+	char num[256];
+	sprintf(num, "%d", value);
+	txt_number_nodes->setText(QString(num));
+	sld_number_nodes->setValue(value);
 }

@@ -36,12 +36,14 @@ using namespace sj;
 bool InitIndex::evolve(sjStateContext * ssc){
 	sjLogDebug("InitIndex::evolve");
 	int i = 0;
+	cout<<"InitIndex::evolve, size="<< STATE_MESH.size_of_vertices()<<endl;
 	for ( sjVIterator v1 = STATE_MESH.vertices_begin(); v1 != STATE_MESH.vertices_end(); ++v1){
 		sjHalfedge_vertex_circulator vcir = v1->vertex_begin();
 		vcir->vertex()->index = i;
 		vcir->vertex()->initial_ring_area = 0.0;
 		i++;
 	}
+	cout<<"InitIndex::evolve, size="<< i<<endl;
 	i = 0;
 	for(sjHalfedge_handle he = STATE_MESH.halfedges_begin(); he != STATE_MESH.halfedges_end(); ++he){
 		he->hedgeid = i;

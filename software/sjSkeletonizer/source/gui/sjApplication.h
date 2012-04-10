@@ -66,6 +66,7 @@ private slots:
 	void iterateSimplificator();
 	void closeTab(int index);
 	void changueSliderIteration(int value);
+	void changueSliderNumberNodes(int value);
 	void changueComputeWeight(QString text );
 
 
@@ -77,6 +78,8 @@ private:
 	QToolBox * tool_box_QToolBox;
 	QLineEdit * txt_iterations;
 	QSlider * sld_iterations;
+	QLineEdit * txt_number_nodes;
+	QSlider * sld_number_nodes;
 
 	sjKernelPlugin & kernel_engine;
 
