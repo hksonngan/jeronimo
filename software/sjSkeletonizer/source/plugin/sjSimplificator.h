@@ -8,6 +8,7 @@
 #include "sjUtils.h"
 #include "sjState.h"
 #include "sjLog.h"
+#include "sjGraphSkeleton.h"
 #include <list>
 
 using namespace std;
@@ -16,18 +17,36 @@ using namespace std;
 
 namespace sj{
 
+	class sjGraphPoint{
+	public:
+		sjGraphPoint(double ax = 0, double ay = 0, double az = 0, int aid=-1): x(ax), y(ay), z(az), id(aid){}
+		sjPoint_3 getPoint_3(){
+			return sjPoint_3(x,y,z);
+		}
+		double x, y, z;
+		int id;
+	};
+
+	class sjGetIdFromPoint{
+		public:
+		int getID(sjGraphPoint p){
+			return p.id;
+		}
+	};
+
+	typedef sjGraphSkeleton<sjGraphPoint, sjGetIdFromPoint> sjGraphSkeletonType;
+
+
+	
+
 	class sjNodeHeap {
 	public:
-		sjNodeHeap(sjHalfedge_handle he, double a_value){
+		sjNodeHeap(int he, double a_value){
 			hedge = he;
 			value = a_value;
+			//sjSkelVertexType::PointerHalfedgeType he344 = new sjSkelVertexType::HalfedgeType();
 		}
-		/*~sjNodeHeap(){
-			cout<<"Destruir nodo; "<<hedge->hedgeid<<endl;
-			sjHalfedge_handle nulo;
-			hedge = nulo;
-		}*/
-		sjHalfedge_handle hedge;
+		int hedge;
 		double value;
 		bool operator < (const sjNodeHeap& rhs){
 			return value < rhs.value;
@@ -37,16 +56,17 @@ namespace sj{
 	class sjSimplificator: public sjPolyhedronPipe::sjFilter, public sjObserver{
 	public:
 		sjSimplificator(double wa = 1.0, double wb = 0.1);
-		Matrix4d getFundamentalErrorQuadric(sjHalfedge_handle);
-		double calculateSamplingCost(sjHalfedge_handle);
-		double calculateShapeCost(Matrix4d Qi, Matrix4d Qj,  sjHalfedge_handle he);
-		double calculateTotalCost(sjHalfedge_handle he);
-		Matrix4d computeInitialQ(sjVertex_handle);
+		void convertPolyhedronToSkeleton();
+		Matrix4d getFundamentalErrorQuadric(int);
+		double calculateSamplingCost(int);
+		double calculateShapeCost(Matrix4d Qi, Matrix4d Qj,  int he);
+		double calculateTotalCost(int he);
+		Matrix4d computeInitialQ(int);
 		void computeAllInitialQ();
-		bool isCollapseTunnel(sjHalfedge_handle);
+		bool isCollapseTunnel(int);
 		void computeHeapError();
 		void init();
-		void collapseEdge(sjHalfedge_handle he);
+		void collapseEdge(int he);
 		//sjHalfedge_handle getHalfedgeFromID(int id);
 		list<sjNodeHeap>::iterator getValidEdgeToCollapse();
 
@@ -85,6 +105,7 @@ namespace sj{
 		list<sjNodeHeap> heap_error;
 		bool m_init;
 		int number_nodes;
+		sjGraphSkeletonType sjskeleton;
 	};
 
 }
