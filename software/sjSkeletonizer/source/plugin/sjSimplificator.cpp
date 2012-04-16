@@ -26,10 +26,11 @@ void sjSimplificator::convertPolyhedronToSkeleton(){
 }
 
 Matrix4d sjSimplificator::getFundamentalErrorQuadric(int heh){
-	//sjVector_3 a = normalizeVector( heh->vertex()->point() - heh->opposite()->vertex()->point());
-	sjVector_3 a = normalizeVector( sjskeleton.getPointFromHalfedgeId(heh).getPoint_3() 
-								- sjskeleton.getPointFromHalfedgeId(sjskeleton.getHalfedgeOppositeIdFromHalfedgeId(heh)).getPoint_3());
-	sjVector_3 vi = sjskeleton.getPointFromHalfedgeId(heh).getPoint_3()  - sjPoint_3(0.0, 0.0, 0.0);
+	sjPoint_3 point_inc = sjskeleton.getPointFromHalfedgeId(heh).getPoint_3();
+	sjPoint_3 point_opp = sjskeleton.getPointFromHalfedgeId(sjskeleton.getHalfedgeOppositeIdFromHalfedgeId(heh)).getPoint_3();
+
+	sjVector_3 a = normalizeVector(point_inc - point_opp );
+	sjVector_3 vi = point_opp - sjPoint_3(0.0, 0.0, 0.0);
 	sjVector_3 b = CGAL::cross_product(a, vi);
 	
 	Matrix4d K;
@@ -43,37 +44,46 @@ Matrix4d sjSimplificator::getFundamentalErrorQuadric(int heh){
 }
 
 double sjSimplificator::calculateSamplingCost(int he){
-	//sjVector_3			v = he->vertex()->point() - he->opposite()->vertex()->point();
-	sjVector_3			v = sjskeleton.getPointFromHalfedgeId(he).getPoint_3()  - sjskeleton.getPointFromHalfedgeId(sjskeleton.getHalfedgeOppositeIdFromHalfedgeId(he)).getPoint_3());
+	sjPoint_3 point_inc = sjskeleton.getPointFromHalfedgeId(he).getPoint_3();
+	sjPoint_3 point_opp = sjskeleton.getPointFromHalfedgeId(sjskeleton.getHalfedgeOppositeIdFromHalfedgeId(he)).getPoint_3();
+	sjVector_3			v = point_opp - point_inc;
 	double			  dij = sqrt(v.squared_length () );
 	double			 dtot = 0;
-	sjVertex_handle  vert = he->vertex();
 
-	do{
-		v = he->vertex()->point() - he->opposite()->vertex()->point();
+	set<int> neighbors_opposite = sjskeleton.getNeighborsToPoint(sjskeleton.halfedges_data[he].point_opposite_id);
+
+	for(set<int>::iterator it=neighbors_opposite.begin(); it!=neighbors_opposite.end(); it++){
+		sjPoint_3 pk = sjskeleton.getPointFromHalfedgeId(*it).getPoint_3();
+		v = point_opp - pk;
 		dtot = dtot + sqrt(v.squared_length());
-		//OGF::: he = he->prev_around_vertex();
-		he = he->prev_on_vertex();
-	} while ( he != vert->halfedge() );
+	}
 
 	return dij*dtot;
 }
 
-Matrix4d sjSimplificator::computeInitialQ(sjVertex_handle v){
+Matrix4d sjSimplificator::computeInitialQ(int vid){
 	Matrix4d Q;
 	Matrix4d K;
 	Matrix4d Kt;
 
 	// loop around the edges around this vertex and add up the K matrices
 	Q.load_zero();
-	sjHalfedge_handle he = v->halfedge();
+	//sjHalfedge_handle he = v->halfedge();
 	
-	do {
+	set<int> incident_hedges = sjskeleton.points_set_halfedges[vid];
+	for(set<int>::iterator it=incident_hedges.begin(); it!=incident_hedges.end(); it++){
+		K = getFundamentalErrorQuadric( sjskeleton.getHalfedgeOppositeIdFromHalfedgeId(*it) );
+		Kt = K.transpose();
+		Q = Q + (Kt*K);
+	}
+
+	/*do {
 		K = getFundamentalErrorQuadric( he );
 		Kt = K.transpose();
 		Q = Q + (Kt*K);
 		he = he->prev_on_vertex();
-	} while ( he != v->halfedge() );
+	} while ( he != v->halfedge() );*/
+
 	return Q;
 }
 
@@ -90,7 +100,7 @@ Matrix4d sjSimplificator::computeInitialQ(sjVertex_handle v){
 	link condition
 */
 
-bool sjSimplificator::isCollapseTunnel(sjHalfedge_handle he){
+/*bool sjSimplificator::isCollapseTunnel(sjHalfedge_handle he){
 	char strbuf[256];
 	if(he->hedgeid==-1 || he == mesh_G.halfedges_end() ){
 		return false;
@@ -135,11 +145,12 @@ bool sjSimplificator::isCollapseTunnel(sjHalfedge_handle he){
 		}
 	}
 	return false;
-}
+}*/
 
-double sjSimplificator::calculateShapeCost(Matrix4d Qi, Matrix4d Qj,  sjHalfedge_handle he){
+double sjSimplificator::calculateShapeCost(Matrix4d Qi, Matrix4d Qj,  int he){
 	Matrix4d Q = Qi + Qj;
-	sjPoint_3 p = he->opposite()->vertex()->point();
+	//sjPoint_3 p = he->opposite()->vertex()->point();
+	sjPoint_3 p = sjskeleton.getPointFromHalfedgeId(sjskeleton.getHalfedgeOppositeIdFromHalfedgeId(he)).getPoint_3();
 	// SHAPE COST
 	// Multiply v'*Q*v
 	// remember that v is in homogeneous coordinates
@@ -151,8 +162,9 @@ double sjSimplificator::calculateShapeCost(Matrix4d Qi, Matrix4d Qj,  sjHalfedge
 	return shapeError;
 }
 
-double sjSimplificator::calculateTotalCost(sjHalfedge_handle he){
-	double Fa = calculateShapeCost(Qmap[he->vertex()->index], Qmap[he->opposite()->vertex()->index], he);
+double sjSimplificator::calculateTotalCost(int he){
+	//double Fa = calculateShapeCost(Qmap[he->vertex()->index], Qmap[he->opposite()->vertex()->index], he);
+	double Fa = calculateShapeCost(Qmap[sjskeleton.halfedges_data[he].point_opposite_id ], Qmap[sjskeleton.halfedges_data[he].point_incident_id], he);
 	double Fb = calculateSamplingCost(he);
 	double total = Wa*Fa + Wb*Fb;
 	return total;
@@ -160,24 +172,33 @@ double sjSimplificator::calculateTotalCost(sjHalfedge_handle he){
 
 void sjSimplificator::computeAllInitialQ(){
 	sjLogDebug("computeAllInitialQ 1");
-	for(sjVertex_handle v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
-		Qmap[v->index]	 = computeInitialQ(v);
+	for(vector<sjGraphPoint>::iterator it=sjskeleton.points_data.begin(); it!=sjskeleton.points_data.end();it++){
+		Qmap[(*it).id] = computeInitialQ((*it).id);
 	}
+	/*for(sjVertex_handle v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
+		Qmap[v->index]	 = computeInitialQ(v);
+	}*/
 	sjLogDebug("computeAllInitialQ 2");
 }
 
 void sjSimplificator::computeHeapError(){
 	sjLogDebug("computeHeapError 1");
-	for(sjHalfedge_handle he = mesh_G.halfedges_begin(); he != mesh_G.halfedges_end(); ++he){
+	for(vector<sjGraphHalfedge>::iterator it=sjskeleton.halfedges_data.begin(); it!=sjskeleton.halfedges_data.end(); it++){
+		sjNodeHeap node((*it).id, calculateTotalCost((*it).id));
+		heap_error.push_back(node);
+	}
+	/*for(sjHalfedge_handle he = mesh_G.halfedges_begin(); he != mesh_G.halfedges_end(); ++he){
 		
 		sjNodeHeap node(he, calculateTotalCost(he));
 		heap_error.push_back(node);
-	}
+	}*/
 	heap_error.sort();
+	cout<<"HeapError Size: "<<heap_error.size()<<endl;
 	sjLogDebug("computeHeapError 2");
 }
 
 void sjSimplificator::init(){
+	convertPolyhedronToSkeleton();
 	sjLogDebug("init 1");
 	computeAllInitialQ();
 	sjLogDebug("init 2");
@@ -190,15 +211,16 @@ void sjSimplificator::init(){
 			p3.x(), p3.y(), p3.z());
 		sjLogDebug(std::string(strbuf));
 	}
-	convertPolyhedronToSkeleton();
+	
 }
 
-void sjSimplificator::collapseEdge(sjHalfedge_handle he){
-	sjVertex_handle vi, vj;
-	vi = he->vertex();
-	vj = he->opposite()->vertex();
-	Qmap[vi->index] = Qmap[vi->index] + Qmap[vj->index];
-	mesh_G.join_vertex(he->opposite());
+void sjSimplificator::collapseEdge(int he){
+	int vi, vj;
+	vi = sjskeleton.halfedges_data[he].point_opposite_id;
+	vj = sjskeleton.halfedges_data[he].point_incident_id;
+	Qmap[vj] = Qmap[vi] + Qmap[vj];
+	//mesh_G.join_vertex(he->opposite());
+	sjskeleton.collapseHalfedge(he);
 }
 
 /*sjHalfedge_handle sjSimplificator::getHalfedgeFromID(int id){
@@ -221,16 +243,19 @@ list<sjNodeHeap>::iterator sjSimplificator::getValidEdgeToCollapse(){
 	char strbuf [80];
 	sjLogDebug("getValidEdgeToCollapse 1");
 	list<sjNodeHeap>::iterator heap_iterator = heap_error.begin();
+	if(heap_iterator == heap_error.end()){
+		sjLogDebug("getValidEdgeToCollapse 2 END");
+	}
 	sjLogDebug("getValidEdgeToCollapse 2");
 	bool stop = false;
 	sjLogDebug("getValidEdgeToCollapse 3");
 	//sjHalfedge_handle he = getHalfedgeFromID(heap_iterator->index);
-	sjHalfedge_handle he = heap_iterator->hedge;
-	sprintf(strbuf, "getValidEdgeToCollapse 3-> %d", he->hedgeid);
+	int he = heap_iterator->hedge;
+	sprintf(strbuf, "getValidEdgeToCollapse 3-> %d", he);
 	sjLogDebug(string(strbuf));
 	sjLogDebug("getValidEdgeToCollapse 4");
 	//while(heap_iterator !=heap_error.end() && (he != mesh_G.halfedges_end() || he->hedgeid !=-1) && !isCollapseTunnel(he)){
-	while(!isCollapseTunnel(he)){
+	while(!sjskeleton.isCollapseTunnel(he)){
 		sjLogDebug("getValidEdgeToCollapse 5");
 		heap_iterator++;
 		sjLogDebug("getValidEdgeToCollapse 6");
@@ -241,7 +266,7 @@ list<sjNodeHeap>::iterator sjSimplificator::getValidEdgeToCollapse(){
 		}else{
 			break;
 		}
-		sprintf(strbuf, "getValidEdgeToCollapse 7.1 hedgeid-> %d", he->hedgeid);
+		sprintf(strbuf, "getValidEdgeToCollapse 7.1 hedgeid-> %d", he);
 		sjLogDebug(string(strbuf));
 		sjLogDebug("getValidEdgeToCollapse 8");
 	}
@@ -266,18 +291,19 @@ sjPolyhedronPipe::PolyhedronType sjSimplificator::iterate(){
 		sjLogDebug("iterate 3");
 		m_init = true;
 	}else{
+		sjskeleton.printData();
 		sjLogDebug("iterate 4");
 		list<sjNodeHeap>::iterator heap_iterator = getValidEdgeToCollapse();
 		sjLogDebug("iterate 5");
 		if(heap_iterator != heap_error.end()){
 			sjLogDebug("iterate 6");
 			//sjHalfedge_handle he = getHalfedgeFromID(heap_iterator->index);
-			sjHalfedge_handle he = heap_iterator->hedge;
+			int he = heap_iterator->hedge;
 			sjNodeHeap nh = (*heap_iterator);
 			collapseEdge(he);
 			list<sjNodeHeap>::iterator heap_iterator2;
 			for(heap_iterator2 = heap_error.begin();heap_iterator2!=heap_error.end(); ++heap_iterator2){
-				if(heap_iterator2->hedge->hedgeid == he->opposite()->hedgeid)
+				if(heap_iterator2->hedge == sjskeleton.getHalfedgeOppositeIdFromHalfedgeId(he))
 					break;
 			}
 			
@@ -286,6 +312,7 @@ sjPolyhedronPipe::PolyhedronType sjSimplificator::iterate(){
 			sprintf(strbuf, "iterate 6.1: V=%d, E=%d", mesh_G.size_of_vertices(), mesh_G.size_of_halfedges());
 			sjLogDebug(string(strbuf));
 			cout<<strbuf<<endl;
+
 		}
 		sjLogDebug("iterate 7");
 	}
