@@ -9,6 +9,7 @@
 using namespace std;
 
 #define SJGRAPH_INVALID_ID -1
+#define SJGRAPH_NOT_FACE -2
 
 namespace sj{
 
@@ -38,6 +39,34 @@ public:
 	}
 };
 
+class sjGraphFace{
+public:
+	int id;
+	int point_a_id;
+	int point_b_id;
+	int point_c_id;
+
+	sjGraphFace(
+		int apoint_a_id	= SJGRAPH_INVALID_ID, 
+		int apoint_b_id	= SJGRAPH_INVALID_ID,	
+		int apoint_c_id	= SJGRAPH_INVALID_ID, 
+		int			aid = SJGRAPH_INVALID_ID):
+	id(aid),
+	point_a_id(apoint_a_id),
+	point_b_id(apoint_b_id),
+	point_c_id(apoint_c_id)
+	{}
+
+	bool isValid(){
+		if( id == SJGRAPH_INVALID_ID ||
+		point_a_id == SJGRAPH_INVALID_ID ||
+		point_b_id == SJGRAPH_INVALID_ID ||
+		point_c_id == SJGRAPH_INVALID_ID)
+			return false;
+		return true;
+	}
+};
+
 template <class T_PointClass, class T_GetIdClass>
 class sjGraphSkeleton{
 public:
@@ -46,18 +75,25 @@ public:
 	vector<bool>				points_bool;
 	vector<sjGraphHalfedge>		halfedges_data;
 	vector<bool>				halfedges_bool;
-	vector<int>					halfedges_pair;
+	vector<sjGraphFace>			faces_data;
+	vector<bool>				faces_bool;
 	vector<set<int> >			points_set_halfedges;	
+	vector<set<int> >			halfedges_set_faces;	
 
 	sjGraphSkeleton(){}
 
-	void init(int a_size_points, int a_size_halfedges){
+	void init(int a_size_points, int a_size_halfedges, int a_size_faces){
 		points_data = vector<PointType>(a_size_points, PointType());
 		points_bool = vector<bool>(a_size_points, false);
 
 		halfedges_data = vector<sjGraphHalfedge>(a_size_halfedges, sjGraphHalfedge());
 		halfedges_bool = vector<bool>(a_size_halfedges, false);
 		points_set_halfedges = vector<set<int> >(a_size_halfedges, set<int>());
+
+		faces_data = vector<sjGraphFace>(a_size_faces, sjGraphFace());
+		faces_bool = vector<bool>(a_size_faces, false);
+		halfedges_set_faces = vector<set<int>>(a_size_faces, set<int>());
+
 	}
 
 
@@ -116,6 +152,32 @@ public:
 		return insertIncidentHalfedgeToPoint(he.point_incident_id, he.id) && insertIncidentHalfedgeToPoint(heop->point_incident_id, heop->id);
 	}
 
+	bool insertFaceData(sjGraphFace fa){
+		if(!fa.isValid()) return false;
+		if(fa.id<0 || fa.id>=faces_data.size()) return false;
+		faces_data[fa.id] = fa;
+		faces_bool[fa.id] = true;
+
+		set<int>::iterator it;
+		for(it = points_set_halfedges[fa.point_a_id].begin(); it!=points_set_halfedges[fa.point_a_id].end(); it++){
+			if(halfedges_data[*it].point_opposite_id == fa.point_b_id || halfedges_data[*it].point_opposite_id == fa.point_c_id){
+				halfedges_set_faces[*it].insert(fa.id);
+			}
+		}
+		for(it = points_set_halfedges[fa.point_b_id].begin(); it!=points_set_halfedges[fa.point_b_id].end(); it++){
+			if(halfedges_data[*it].point_opposite_id == fa.point_a_id || halfedges_data[*it].point_opposite_id == fa.point_c_id){
+				halfedges_set_faces[*it].insert(fa.id);
+			}
+		}
+		for(it = points_set_halfedges[fa.point_c_id].begin(); it!=points_set_halfedges[fa.point_c_id].end(); it++){
+			if(halfedges_data[*it].point_opposite_id == fa.point_a_id || halfedges_data[*it].point_opposite_id == fa.point_b_id){
+				halfedges_set_faces[*it].insert(fa.id);
+			}
+		}
+		
+		return;
+	}
+
 	set<int> getNeighborsToPoint(int point_id){
 		set<int> neighbors = set<int>();
 		if(point_id <0 || point_id>=points_bool.size() ) return neighbors;
@@ -139,10 +201,44 @@ public:
 		points_set_halfedges[old_point_incident_id].erase(hegde_id);
 		points_set_halfedges[point_id].insert(hegde_id);
 
+
+
 		return true;
 	}
 
-	bool deleteHalfedge(int hedge_id){
+	set<int> getHalfedgesIncidentToFace(int face_id){
+		set<int> inci;
+		if(face_id >= faces_bool.size() || face_id<0) return inci;
+		sjGraphFace gf = faces_data[face_id];
+		set<int> he_incident_to_point;
+		set<int>::iterator it;
+		
+		he_incident_to_point = points_set_halfedges[gf.point_a_id];
+		for(it=he_incident_to_point.begin(); it!=he_incident_to_point.end(); it++){
+			if(halfedges_set_faces[*it].find(face_id)!=halfedges_set_faces[*it].end()){
+				inci.insert(*it);
+			}
+		}
+
+		he_incident_to_point = points_set_halfedges[gf.point_b_id];
+		for(it=he_incident_to_point.begin(); it!=he_incident_to_point.end(); it++){
+			if(halfedges_set_faces[*it].find(face_id)!=halfedges_set_faces[*it].end()){
+				inci.insert(*it);
+			}
+		}
+
+		he_incident_to_point = points_set_halfedges[gf.point_c_id];
+		for(it=he_incident_to_point.begin(); it!=he_incident_to_point.end(); it++){
+			if(halfedges_set_faces[*it].find(face_id)!=halfedges_set_faces[*it].end()){
+				inci.insert(*it);
+			}
+		}
+
+		return inci;
+		
+	}
+
+	bool deleteHalfedge(int hedge_id, bool preserve_face=true){
 		if(hedge_id >= halfedges_bool.size() || hedge_id<0) return false;
 		int hedge_opposite_id = halfedges_data[hedge_id].hedge_opposite_id;
 		int incident_point_id = halfedges_data[hedge_id].point_incident_id;
@@ -152,6 +248,28 @@ public:
 		points_set_halfedges[opposite_point_id].erase(hedge_opposite_id);
 		halfedges_bool[hedge_id] = false;
 		halfedges_bool[hedge_opposite_id] = false;
+		
+		set<int> incident_faces_to_halfedges; 
+		set<int>::iterator it, ihe;
+		set<int> other_halfedges_incident_to_face;
+
+		incident_faces_to_halfedges = halfedges_set_faces[hedge_id];
+		for(it=incident_faces_to_halfedges.begin(); it!=incident_faces_to_halfedges.end(); it++){
+			faces_bool[*it] = preserve_face;
+			other_halfedges_incident_to_face = getHalfedgesIncidentToFace(*it);
+			for(ihe=other_halfedges_incident_to_face.begin(); ihe!=other_halfedges_incident_to_face.end();ihe++){
+				halfedges_set_faces[*ihe].erase(*it);
+			}
+		}
+
+		incident_faces_to_halfedges = halfedges_set_faces[hedge_opposite_id];
+		for(it=incident_faces_to_halfedges.begin(); it!=incident_faces_to_halfedges.end(); it++){
+			faces_bool[*it] = preserve_face;
+			other_halfedges_incident_to_face = getHalfedgesIncidentToFace(*it);
+			for(ihe=other_halfedges_incident_to_face.begin(); ihe!=other_halfedges_incident_to_face.end();ihe++){
+				halfedges_set_faces[*ihe].erase(*it);
+			}
+		}
 		return true;
 	}
 
@@ -204,7 +322,7 @@ public:
 
 		set<int> halfedges_to_delete;
 		set<int> halfedges_to_changue;
-		halfedges_to_delete.insert(hedge_id);
+		deleteHalfedge(hedge_id, false);
 
 		set<int> halfedges_incident_to_point_opposite = points_set_halfedges[point_opposite_id];
 		set<int>::iterator it;
@@ -233,7 +351,7 @@ public:
 	}
 
 	
-	/*void printData(){
+	void printData(){
 		T_GetIdClass printObj;
 		vector<PointType>::iterator it;
 		for(it = points_data.begin(); it!=points_data.end(); it++){
@@ -258,7 +376,7 @@ public:
 		}
 		cout<<"}";
 
-	}*/
+	}
 
 
 };

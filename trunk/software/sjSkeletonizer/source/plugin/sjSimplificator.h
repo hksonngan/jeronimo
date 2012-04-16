@@ -32,6 +32,9 @@ namespace sj{
 		int getID(sjGraphPoint p){
 			return p.id;
 		}
+		void print(sjGraphPoint p){
+			cout<<p.getPoint_3();
+		}
 	};
 
 	typedef sjGraphSkeleton<sjGraphPoint, sjGetIdFromPoint> sjGraphSkeletonType;
@@ -63,7 +66,7 @@ namespace sj{
 		double calculateTotalCost(int he);
 		Matrix4d computeInitialQ(int);
 		void computeAllInitialQ();
-		bool isCollapseTunnel(int);
+		//bool isCollapseTunnel(int);
 		void computeHeapError();
 		void init();
 		void collapseEdge(int he);
