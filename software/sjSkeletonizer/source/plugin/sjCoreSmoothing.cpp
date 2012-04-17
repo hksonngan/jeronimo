@@ -49,6 +49,11 @@ bool InitIndex::evolve(sjStateContext * ssc){
 		he->hedgeid = i;
 		i++;
 	}
+	i = 0;
+	for(sjPolyhedron::Face_handle fe = STATE_MESH.facets_begin(); fe != STATE_MESH.facets_end(); ++fe){
+		fe->index = i;
+		i++;
+	}
 	m_context->setState((sjState *)(sjKernelPlugin::getInstance().getSystem(sjKernelPlugin::SYS_COMPUTE_RINGS_SYSTEM)));
 	return m_context->evolve(1);
 }

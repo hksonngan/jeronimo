@@ -70,11 +70,10 @@ public:
    int      hedgeid; // halfedge id
 };
 
-/*template <class Refs>
+template <class Refs>
 struct sjFaceType : public CGAL::HalfedgeDS_face_base<Refs> {
     int index;
-	double area;
-};*/
+};
 
 struct sj_ItemsType : public CGAL::Polyhedron_items_3 {
 	template <class Refs, class Traits>
@@ -88,10 +87,10 @@ struct sj_ItemsType : public CGAL::Polyhedron_items_3 {
       typedef Halfedge<Refs>                             Halfedge;
    };
 
-	/*template <class Refs, class Traits>
+	template <class Refs, class Traits>
     struct Face_wrapper {
         typedef sjFaceType<Refs> Face;
-    };*/
+    };
 };
 
 typedef CGAL::Simple_cartesian<double>					sjKernel;

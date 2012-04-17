@@ -14,7 +14,7 @@ sjSimplificator::sjSimplificator(double wa, double wb){
 }
 
 void sjSimplificator::convertPolyhedronToSkeleton(){
-	sjskeleton.init(mesh_G.size_of_vertices(), mesh_G.size_of_halfedges());
+	sjskeleton.init(mesh_G.size_of_vertices(), mesh_G.size_of_halfedges(), mesh_G.size_of_facets());
 	for ( sjVIterator v1 = mesh_G.vertices_begin(); v1 != mesh_G.vertices_end(); ++v1){
 		sjGraphPoint p(v1->point().x(), v1->point().y(), v1->point().z(), v1->index);
 		sjskeleton.insertPointData(p);
@@ -22,6 +22,14 @@ void sjSimplificator::convertPolyhedronToSkeleton(){
 	for(sjHalfedge_handle he = mesh_G.halfedges_begin(); he != mesh_G.halfedges_end(); ++he){
 		sjGraphHalfedge ghe(he->opposite()->vertex()->index, he->vertex()->index, he->hedgeid, he->opposite()->hedgeid);
 		sjskeleton.insertHalfedgeData(ghe);
+	}
+	for(sjPolyhedron::Facet_handle fe = mesh_G.facets_begin(); fe != mesh_G.facets_end(); ++fe){
+		sjGraphFace gfce(fe->halfedge()->vertex()->index,
+			fe->halfedge()->next()->vertex()->index,
+			fe->halfedge()->next()->next()->vertex()->index, fe->index);
+		sjskeleton.insertFaceData(gfce);
+		//sjGraphHalfedge ghe(he->opposite()->vertex()->index, he->vertex()->index, he->hedgeid, he->opposite()->hedgeid);
+		//sjskeleton.insertHalfedgeData(ghe);
 	}
 }
 
