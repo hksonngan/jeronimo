@@ -352,8 +352,12 @@ void sjApplication::iterateSimplificator(){
 	sjViewer * current = (sjViewer *)( central_QTabWidget->currentWidget());
 	if( current != NULL){
 		int iter = sld_number_nodes->value();
-		for(int j = 0; j<iter; j++)
+		for(int j = 0; j<iter; j++){
 			current->dispatch(mevt);
+			sjSimplificator * msimpliu;
+			msimpliu = (sjSimplificator *)(current->getObserver(0));
+			current->setSkeleton(msimpliu->getSkeleton());			
+		}
 	}
 }
 

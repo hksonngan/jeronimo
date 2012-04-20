@@ -49,3 +49,7 @@ void sjSubject::dispatch(sjEvent * evt)
 void sjSubject::clear(){
 	observers.clear();
 }
+
+sjObserver * sjSubject::getObserver(int index){
+	return observers[index];
+}

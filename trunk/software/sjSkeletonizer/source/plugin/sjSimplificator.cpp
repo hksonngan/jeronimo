@@ -38,7 +38,7 @@ Matrix4d sjSimplificator::getFundamentalErrorQuadric(int heh){
 	sjPoint_3 point_opp = sjskeleton.getPointFromHalfedgeId(sjskeleton.getHalfedgeOppositeIdFromHalfedgeId(heh)).getPoint_3();
 
 	sjVector_3 a = normalizeVector(point_inc - point_opp );
-	sjVector_3 vi = point_opp - sjPoint_3(0.0, 0.0, 0.0);
+	sjVector_3 vi = point_inc - sjPoint_3(0.0, 0.0, 0.0);
 	sjVector_3 b = CGAL::cross_product(a, vi);
 	
 	Matrix4d K;
@@ -80,7 +80,8 @@ Matrix4d sjSimplificator::computeInitialQ(int vid){
 	
 	set<int> incident_hedges = sjskeleton.points_set_halfedges[vid];
 	for(set<int>::iterator it=incident_hedges.begin(); it!=incident_hedges.end(); it++){
-		K = getFundamentalErrorQuadric( sjskeleton.getHalfedgeOppositeIdFromHalfedgeId(*it) );
+		K = getFundamentalErrorQuadric( *it );
+		//K = getFundamentalErrorQuadric( *it );
 		Kt = K.transpose();
 		Q = Q + (Kt*K);
 	}
@@ -156,9 +157,10 @@ Matrix4d sjSimplificator::computeInitialQ(int vid){
 }*/
 
 double sjSimplificator::calculateShapeCost(Matrix4d Qi, Matrix4d Qj,  int he){
-	Matrix4d Q = Qi + Qj;
+	//Matrix4d Q = Qi + Qj;
+	Matrix4d Q = Qmap[sjskeleton.halfedges_data[he].point_opposite_id];
 	//sjPoint_3 p = he->opposite()->vertex()->point();
-	sjPoint_3 p = sjskeleton.getPointFromHalfedgeId(sjskeleton.getHalfedgeOppositeIdFromHalfedgeId(he)).getPoint_3();
+	sjPoint_3 p = sjskeleton.getPointFromHalfedgeId(he).getPoint_3();
 	// SHAPE COST
 	// Multiply v'*Q*v
 	// remember that v is in homogeneous coordinates
@@ -299,7 +301,7 @@ sjPolyhedronPipe::PolyhedronType sjSimplificator::iterate(){
 		sjLogDebug("iterate 3");
 		m_init = true;
 	}else{
-		sjskeleton.printData();
+		//sjskeleton.printData();
 		sjLogDebug("iterate 4");
 		list<sjNodeHeap>::iterator heap_iterator = getValidEdgeToCollapse();
 		sjLogDebug("iterate 5");
@@ -320,6 +322,7 @@ sjPolyhedronPipe::PolyhedronType sjSimplificator::iterate(){
 			sprintf(strbuf, "iterate 6.1: V=%d, E=%d", mesh_G.size_of_vertices(), mesh_G.size_of_halfedges());
 			sjLogDebug(string(strbuf));
 			cout<<strbuf<<endl;
+			
 
 		}
 		sjLogDebug("iterate 7");

@@ -99,6 +99,10 @@ namespace sj{
 			number_nodes = num_nodes;
 		}
 
+		sjGraphSkeletonType getSkeleton(){
+			return sjskeleton;
+		}
+
 		
 	private:
 		double Wa, Wb;

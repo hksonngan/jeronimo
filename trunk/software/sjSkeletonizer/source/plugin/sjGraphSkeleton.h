@@ -276,6 +276,7 @@ public:
 		if(pa_id<0 || pa_id>=points_bool.size()) return false;
 		if(pb_id<0 || pb_id>=points_bool.size()) return false;
 		if(pc_id<0 || pc_id>=points_bool.size()) return false;
+		if(!(points_bool[pa_id] && points_bool[pb_id] && points_bool[pc_id])) return false;
 
 		set<int> all_faces;
 		set<int>::iterator it;
@@ -292,11 +293,12 @@ public:
 			all_faces.insert(halfedges_set_faces[halfedges_data[*it].hedge_opposite_id].begin(), halfedges_set_faces[halfedges_data[*it].hedge_opposite_id].end());
 		}
 		for(it=all_faces.begin(); it!=all_faces.end(); it++){
-			if(
-				(pa_id == faces_data[*it].point_a_id || pa_id == faces_data[*it].point_b_id || pa_id == faces_data[*it].point_c_id)
-			&&  (pb_id == faces_data[*it].point_a_id || pb_id == faces_data[*it].point_b_id || pb_id == faces_data[*it].point_c_id)
-			&&  (pc_id == faces_data[*it].point_a_id || pc_id == faces_data[*it].point_b_id || pc_id == faces_data[*it].point_c_id)
-			) return true;
+			if(faces_bool[*it])
+				if(
+					(pa_id == faces_data[*it].point_a_id || pa_id == faces_data[*it].point_b_id || pa_id == faces_data[*it].point_c_id)
+				&&  (pb_id == faces_data[*it].point_a_id || pb_id == faces_data[*it].point_b_id || pb_id == faces_data[*it].point_c_id)
+				&&  (pc_id == faces_data[*it].point_a_id || pc_id == faces_data[*it].point_b_id || pc_id == faces_data[*it].point_c_id)
+				) return true;
 		}
 
 		return false;

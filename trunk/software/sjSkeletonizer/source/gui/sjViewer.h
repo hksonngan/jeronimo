@@ -52,6 +52,8 @@
 #include "sjDataType.h"
 #include "sjDataType.h"
 #include "sjPipeFilter.h"
+#include "sjGraphSkeleton.h"
+#include "sjSimplificator.h"
 
 using namespace sj;
 
@@ -62,6 +64,15 @@ class sjViewer : public QGLViewer, public sjPolyhedronPipe::sjSink, public sjSub
   Q_OBJECT
 
 public:
+
+	void setSkeleton(sjGraphSkeletonType aske){
+		m_skeleton = aske;
+		paint_skeleton = true;
+	}
+
+	sjGraphSkeletonType getSkeleton(){
+		return m_skeleton;
+	}
 
     
   
@@ -129,6 +140,8 @@ private:
 
   //sjLaplacianSmoothing * laplacian_system;
   sjIso_cuboid_3 bounding_box;
+  bool paint_skeleton;
+  sjGraphSkeletonType m_skeleton;
   
   static int index_id;
   int m_index_id;
