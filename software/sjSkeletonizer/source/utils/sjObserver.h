@@ -44,6 +44,7 @@ namespace sj{
 	public:
 		void attach( sjObserver* observer );
 		void detach( sjObserver* observer );
+		sjObserver * getObserver(int index);
 		void dispatch(sjEvent * evt);
 		void clear();
 	protected:

@@ -47,7 +47,8 @@ int sjViewer::index_id = 0;
 sjViewer::sjViewer(QWidget* parent, bool antialiasing)
   : QGLViewer(parent),
     antialiasing(antialiasing),
-    twosides(false)/*,
+    twosides(false),
+	paint_skeleton(false)/*,
 	laplacian_system(0)*/
 {
 	m_index_id = index_id++;
@@ -79,7 +80,7 @@ void sjViewer::initializeGL(){
 }
 
 void sjViewer::drawModel(){
-	sjPoint_3 puntos[3], a,b,c;
+
 	/*for ( sjFIterator f = polyhedron.facets_begin(); f != polyhedron.facets_end(); ++f){
 		
 		sjHalfedge_facet_circulator j = f->facet_begin();
@@ -109,24 +110,43 @@ void sjViewer::drawModel(){
 			glVertex3f( (float)c[0]/max_min, (float)c[1]/max_min, (float)c[2]/max_min);
 		glEnd();
 	}*/
-	for ( sjHalfedge_handle f = polyhedron.halfedges_begin(); f != polyhedron.halfedges_end(); ++f){
+
+	if(paint_skeleton){
+		for(int i=0; i<m_skeleton.halfedges_bool.size(); i++){
+			if(m_skeleton.halfedges_bool[i]){
+				sjGraphPoint p1, p2;
+				p1 = m_skeleton.points_data[m_skeleton.halfedges_data[i].point_incident_id];
+				p2 = m_skeleton.points_data[m_skeleton.halfedges_data[i].point_opposite_id];
+   
+				glBegin(GL_LINES);
+					glColor3f( (float)0.9 ,(float)0.1,(float)0.1);
+					glVertex3f( (float)p1.x/max_min, (float)p1.y/max_min, (float)p1.z/max_min);
+					glVertex3f( (float)p2.x/max_min, (float)p2.y/max_min, (float)p2.z/max_min);
+				glEnd();
+			}
+		}
+	}else{
+		sjPoint_3 puntos[3], a,b,c;
+	
+		for ( sjHalfedge_handle f = polyhedron.halfedges_begin(); f != polyhedron.halfedges_end(); ++f){
 		
-		a = f->vertex()->point();
-		b = f->opposite()->vertex()->point();
+			a = f->vertex()->point();
+			b = f->opposite()->vertex()->point();
 
 
-		//sjPoint_3 pnormal = normalVector(puntos[0], puntos[1], puntos[2]);
-		//Point_3 color3 = normalize(a);
-		sjPoint_3 color3(0.9,0.1,0.1);
+			//sjPoint_3 pnormal = normalVector(puntos[0], puntos[1], puntos[2]);
+			//Point_3 color3 = normalize(a);
+			sjPoint_3 color3(0.9,0.1,0.1);
    
 		
-		glBegin(GL_LINES);
-			//glColor3f(1.0f,1.0f,1.0f);
-			glColor3f( (float)color3[0] ,(float)color3[1],(float)color3[2]);
-			//glNormal3f( (float)pnormal[0],(float)pnormal[1], (float)pnormal[2]);
-			glVertex3f( (float)a[0]/max_min, (float)a[1]/max_min, (float)a[2]/max_min);
-			glVertex3f( (float)b[0]/max_min, (float)b[1]/max_min, (float)b[2]/max_min);
-		glEnd();
+			glBegin(GL_LINES);
+				//glColor3f(1.0f,1.0f,1.0f);
+				glColor3f( (float)color3[0] ,(float)color3[1],(float)color3[2]);
+				//glNormal3f( (float)pnormal[0],(float)pnormal[1], (float)pnormal[2]);
+				glVertex3f( (float)a[0]/max_min, (float)a[1]/max_min, (float)a[2]/max_min);
+				glVertex3f( (float)b[0]/max_min, (float)b[1]/max_min, (float)b[2]/max_min);
+			glEnd();
+		}
 	}
 
 }
