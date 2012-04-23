@@ -111,6 +111,8 @@ void sjViewer::drawModel(){
 		glEnd();
 	}*/
 
+
+
 	if(paint_skeleton){
 		for(int i=0; i<m_skeleton.halfedges_bool.size(); i++){
 			if(m_skeleton.halfedges_bool[i]){
@@ -120,6 +122,12 @@ void sjViewer::drawModel(){
    
 				glBegin(GL_LINES);
 					glColor3f( (float)0.9 ,(float)0.1,(float)0.1);
+					glVertex3f( (float)p1.x/max_min, (float)p1.y/max_min, (float)p1.z/max_min);
+					glVertex3f( (float)p2.x/max_min, (float)p2.y/max_min, (float)p2.z/max_min);
+				glEnd();
+
+				glBegin(GL_POINTS);
+					glColor3f( (float)0.1 ,(float)0.1,(float)0.9);
 					glVertex3f( (float)p1.x/max_min, (float)p1.y/max_min, (float)p1.z/max_min);
 					glVertex3f( (float)p2.x/max_min, (float)p2.y/max_min, (float)p2.z/max_min);
 				glEnd();
@@ -239,6 +247,8 @@ void sjViewer::init(){
 	   glColorMaterial(GL_FRONT, GL_DIFFUSE);
    glEnable(GL_COLOR_MATERIAL);
    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+   glPointSize(5.0f);
 
    
    

@@ -69,7 +69,9 @@ namespace sj{
 		//bool isCollapseTunnel(int);
 		void computeHeapError();
 		void init();
+		list<sjNodeHeap>::iterator findNodeInHeapError(int he);
 		void collapseEdge(int he);
+		void updateError(int he);
 		//sjHalfedge_handle getHalfedgeFromID(int id);
 		list<sjNodeHeap>::iterator getValidEdgeToCollapse();
 
@@ -113,6 +115,7 @@ namespace sj{
 		bool m_init;
 		int number_nodes;
 		sjGraphSkeletonType sjskeleton;
+		int iteration;
 	};
 
 }
