@@ -11,6 +11,7 @@ sjSimplificator::sjSimplificator(double wa, double wb){
 	Wa = wa;
 	Wb = wb;
 	m_init = false;
+	iteration = 0;
 }
 
 void sjSimplificator::convertPolyhedronToSkeleton(){
@@ -181,18 +182,15 @@ double sjSimplificator::calculateTotalCost(int he){
 }
 
 void sjSimplificator::computeAllInitialQ(){
-	sjLogDebug("computeAllInitialQ 1");
 	for(vector<sjGraphPoint>::iterator it=sjskeleton.points_data.begin(); it!=sjskeleton.points_data.end();it++){
 		Qmap[(*it).id] = computeInitialQ((*it).id);
 	}
 	/*for(sjVertex_handle v = mesh_G.vertices_begin(); v != mesh_G.vertices_end(); ++v){
 		Qmap[v->index]	 = computeInitialQ(v);
 	}*/
-	sjLogDebug("computeAllInitialQ 2");
 }
 
 void sjSimplificator::computeHeapError(){
-	sjLogDebug("computeHeapError 1");
 	for(vector<sjGraphHalfedge>::iterator it=sjskeleton.halfedges_data.begin(); it!=sjskeleton.halfedges_data.end(); it++){
 		sjNodeHeap node((*it).id, calculateTotalCost((*it).id));
 		heap_error.push_back(node);
@@ -203,34 +201,81 @@ void sjSimplificator::computeHeapError(){
 		heap_error.push_back(node);
 	}*/
 	heap_error.sort();
-	cout<<"HeapError Size: "<<heap_error.size()<<endl;
-	sjLogDebug("computeHeapError 2");
 }
 
 void sjSimplificator::init(){
 	convertPolyhedronToSkeleton();
-	sjLogDebug("init 1");
 	computeAllInitialQ();
-	sjLogDebug("init 2");
 	computeHeapError();
-	sjLogDebug("init 3");
-	for(sjHalfedge_handle he = mesh_G.halfedges_begin(); he != mesh_G.halfedges_end(); ++he){
-		sjPoint_3 p3 = he->vertex()->point();
-		char strbuf [80];
-		sprintf(strbuf, "init 4: hedgeid=%d, vertex->id %d, point: %f, %f, %f", he->hedgeid, he->vertex()->index, 
-			p3.x(), p3.y(), p3.z());
-		sjLogDebug(std::string(strbuf));
-	}
 	
 }
 
 void sjSimplificator::collapseEdge(int he){
-	int vi, vj;
+	/*int vi, vj;
 	vi = sjskeleton.halfedges_data[he].point_opposite_id;
 	vj = sjskeleton.halfedges_data[he].point_incident_id;
 	Qmap[vj] = Qmap[vi] + Qmap[vj];
 	//mesh_G.join_vertex(he->opposite());
+	sjskeleton.collapseHalfedge(he);*/
+	updateError(he);
+}
+
+list<sjNodeHeap>::iterator sjSimplificator::findNodeInHeapError(int he){
+	list<sjNodeHeap>::iterator it = heap_error.end();
+	for(it=heap_error.begin(); it!=heap_error.end(); it++){
+		if((*it).hedge == he)
+			return it;
+	}
+	return it;
+
+}
+
+void sjSimplificator::updateError(int he){
+	if(he>=sjskeleton.halfedges_bool.size() || he<0) return;
+	int vi, vj;
+	vi = sjskeleton.halfedges_data[he].point_opposite_id;
+	vj = sjskeleton.halfedges_data[he].point_incident_id;
+	Qmap[vj] = Qmap[vi] + Qmap[vj];
+	set<int> halfedges_incident_vi;
+	set<int>::iterator heit;
+	halfedges_incident_vi.insert(sjskeleton.points_set_halfedges[vi].begin(), sjskeleton.points_set_halfedges[vi].end());
+
 	sjskeleton.collapseHalfedge(he);
+
+	for(heit=halfedges_incident_vi.begin(); heit != halfedges_incident_vi.end(); heit++){
+		int heid = *heit;
+		list<sjNodeHeap>::iterator itnode;
+		itnode = findNodeInHeapError(heid);
+		if(itnode!=heap_error.end()){
+			if(sjskeleton.halfedges_bool[heid]){
+				itnode->value = calculateTotalCost(heid);
+			}else{
+				heap_error.erase(itnode);
+			}
+		}else{
+			if(sjskeleton.halfedges_bool[heid]){
+				sjNodeHeap nhe(heid, calculateTotalCost(heid));
+				heap_error.push_back(nhe);
+			}
+		}
+
+		heid = sjskeleton.halfedges_data[heid].hedge_opposite_id;
+		itnode = findNodeInHeapError(heid);
+		if(itnode!=heap_error.end()){
+			if(sjskeleton.halfedges_bool[heid]){
+				itnode->value = calculateTotalCost(heid);
+			}else{
+				heap_error.erase(itnode);
+			}
+		}else{
+			if(sjskeleton.halfedges_bool[heid]){
+				sjNodeHeap nhe(heid, calculateTotalCost(heid));
+				heap_error.push_back(nhe);
+			}
+		}
+	}
+	heap_error.sort();
+
 }
 
 /*sjHalfedge_handle sjSimplificator::getHalfedgeFromID(int id){
@@ -251,82 +296,63 @@ void sjSimplificator::collapseEdge(int he){
 
 list<sjNodeHeap>::iterator sjSimplificator::getValidEdgeToCollapse(){
 	char strbuf [80];
-	sjLogDebug("getValidEdgeToCollapse 1");
 	list<sjNodeHeap>::iterator heap_iterator = heap_error.begin();
-	if(heap_iterator == heap_error.end()){
-		sjLogDebug("getValidEdgeToCollapse 2 END");
-	}
-	sjLogDebug("getValidEdgeToCollapse 2");
 	bool stop = false;
-	sjLogDebug("getValidEdgeToCollapse 3");
-	//sjHalfedge_handle he = getHalfedgeFromID(heap_iterator->index);
 	int he = heap_iterator->hedge;
-	sprintf(strbuf, "getValidEdgeToCollapse 3-> %d", he);
-	sjLogDebug(string(strbuf));
-	sjLogDebug("getValidEdgeToCollapse 4");
-	//while(heap_iterator !=heap_error.end() && (he != mesh_G.halfedges_end() || he->hedgeid !=-1) && !isCollapseTunnel(he)){
 	while(!sjskeleton.isCollapseTunnel(he)){
-		sjLogDebug("getValidEdgeToCollapse 5");
 		heap_iterator++;
-		sjLogDebug("getValidEdgeToCollapse 6");
 		if(heap_iterator !=heap_error.end()){
-			sjLogDebug("getValidEdgeToCollapse 7");
-			//he = getHalfedgeFromID(heap_iterator->index);
 			he = heap_iterator->hedge;
 		}else{
 			break;
 		}
-		sprintf(strbuf, "getValidEdgeToCollapse 7.1 hedgeid-> %d", he);
-		sjLogDebug(string(strbuf));
-		sjLogDebug("getValidEdgeToCollapse 8");
 	}
-	sjLogDebug("getValidEdgeToCollapse 9");
 	return heap_iterator;
 }
 
 
 sjPolyhedronPipe::PolyhedronType sjSimplificator::iterate(){
-	sjLogDebug("iterate 1");
-	char strbuf[512];
+	char bufferstr[512];
 	if(m_init == false){
-		sjLogDebug("iterate 2");
 		this->mesh_G = input_pipe->read();
-		if(mesh_G.is_valid()){
-			sjLogDebug("iterate 2.1 Es Valido");
-		}else{
-			sjLogDebug("iterate 2.1 No Es Valido");
-		}
-		
 		init();
-		sjLogDebug("iterate 3");
 		m_init = true;
 	}else{
-		//sjskeleton.printData();
-		sjLogDebug("iterate 4");
-		list<sjNodeHeap>::iterator heap_iterator = getValidEdgeToCollapse();
-		sjLogDebug("iterate 5");
-		if(heap_iterator != heap_error.end()){
-			sjLogDebug("iterate 6");
-			//sjHalfedge_handle he = getHalfedgeFromID(heap_iterator->index);
-			int he = heap_iterator->hedge;
-			sjNodeHeap nh = (*heap_iterator);
-			collapseEdge(he);
-			list<sjNodeHeap>::iterator heap_iterator2;
-			for(heap_iterator2 = heap_error.begin();heap_iterator2!=heap_error.end(); ++heap_iterator2){
-				if(heap_iterator2->hedge == sjskeleton.getHalfedgeOppositeIdFromHalfedgeId(he))
-					break;
-			}
+		double error_in_heap = 10;
+		int lasthedelete = -10;
+		int he;
+		list<sjNodeHeap>::iterator heap_iterator;
+		double promedio = 0.0;
+		double last_error = 0.0;
+		do{
 			
-			heap_error.erase(heap_iterator);
-			heap_error.erase(heap_iterator2);
-			sprintf(strbuf, "iterate 6.1: V=%d, E=%d", mesh_G.size_of_vertices(), mesh_G.size_of_halfedges());
-			sjLogDebug(string(strbuf));
-			cout<<strbuf<<endl;
-			
+			heap_iterator = getValidEdgeToCollapse();
+			if(heap_iterator != heap_error.end()){
+				he = heap_iterator->hedge;
+				sjNodeHeap nh = (*heap_iterator);
+				error_in_heap = nh.value;
+				promedio = promedio + std::abs( last_error-error_in_heap);
+				cout<<"sjNodeHeap error: "<<nh.value<<"\t\t";
+				sprintf(bufferstr, "%f\n", nh.value);
+				sjLogError(std::string(bufferstr));
+				collapseEdge(he);
+				heap_iterator = findNodeInHeapError(he);
+				if(heap_iterator!=heap_error.end()){
+					heap_error.erase(heap_iterator);
+				}
+				heap_iterator = findNodeInHeapError(sjskeleton.halfedges_data[he].hedge_opposite_id);
+				if(heap_iterator!=heap_error.end()){
+					heap_error.erase(heap_iterator);
+				}
 
-		}
-		sjLogDebug("iterate 7");
+			}
+			if(lasthedelete == he) break;
+			lasthedelete = he;
+			cout<<"sjSimplificator::iterate: "<<iteration++<<", HeapSize="<<heap_error.size()<<endl;
+		}while(error_in_heap<20.0 && heap_error.size()>0 );
+		
 	}
+	cout<<"sjSimplificator::iterate: "<<iteration++<<", HeapSize="<<heap_error.size()<<endl;
 	return getMesh();
 }
 

@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <set>
 #include <vector>
+#include "sjUtils.h"
 
 using namespace std;
 
@@ -79,6 +80,7 @@ public:
 	vector<sjGraphFace>			faces_data;
 	vector<bool>				faces_bool;
 	vector<set<int> >			points_set_halfedges;	
+	vector<set<int> >			points_set_delete_points;	
 	vector<set<int> >			halfedges_set_faces;	
 
 	sjGraphSkeleton(){}
@@ -87,6 +89,7 @@ public:
 		points_data = vector<PointType>(a_size_points, PointType());
 		points_bool = vector<bool>(a_size_points, false);
 		points_set_halfedges = vector<set<int> >(a_size_points, set<int>());
+		points_set_delete_points = vector<set<int> >(a_size_points, set<int>());
 
 		halfedges_data = vector<sjGraphHalfedge>(a_size_halfedges, sjGraphHalfedge());
 		halfedges_bool = vector<bool>(a_size_halfedges, false);
@@ -304,11 +307,22 @@ public:
 		return false;
 	}
 
+	bool isExtremePoint(int vid){
+		if(vid<0 || vid>=points_bool.size()) return false;
+		set<int> points_neighbor_to_vi = getNeighborsToPoint(vid);
+		if(points_neighbor_to_vi.size()<=1) return true;
+		return false;
+	}
+
 	bool isCollapseTunnel(int hedge_id){
 		if(hedge_id >= halfedges_bool.size() || hedge_id<0) return false;
+		if(!halfedges_bool[ hedge_id]) return false;
 
 		int pointAid = halfedges_data[hedge_id].point_incident_id;
 		int pointBid = halfedges_data[hedge_id].point_opposite_id;
+		
+		if(isExtremePoint(pointAid)) return false;
+		if(isExtremePoint(pointBid)) return false;
 
 		set<int> neighbors_A = getNeighborsToPoint(pointAid);
 		set<int> neighbors_B = getNeighborsToPoint(pointBid);
@@ -316,12 +330,12 @@ public:
 		vector<int>::iterator it;
 
 		set_intersection(neighbors_A.begin(),neighbors_A.end(), neighbors_B.begin(), neighbors_B.end(), back_inserter(neighbors_intersection_AB));
-
+		/*
 		if(neighbors_intersection_AB.size()>0){
 			for(it=neighbors_intersection_AB.begin(); it!=neighbors_intersection_AB.end(); it++){
 				if(!isFace(pointAid, pointBid, *it)) return false;
 			}		
-		}
+		}*/
 		return true;
 	}
 
@@ -431,7 +445,6 @@ public:
 		//set_intersection(neighbors_A.begin(),neighbors_A.end(), neighbors_B.begin(), neighbors_B.end(),    back_inserter(neighbors_intersection_AB));
 		if(hedge_id<0 ||hedge_id>=halfedges_bool.size()) return false;
 		if(!isCollapseTunnel(hedge_id)) return false;
-		cout<<"collapseHalfedge"<<endl;
 
 		int point_incident_id = halfedges_data[hedge_id].point_incident_id;	//a
 		int point_opposite_id = halfedges_data[hedge_id].point_opposite_id;	//b
@@ -476,6 +489,9 @@ public:
 			changeHalfedgeIncidentPoint(*it, point_incident_id);
 		}
 
+		points_set_delete_points[point_incident_id].insert(point_opposite_id);
+		points_set_delete_points[point_incident_id].insert(points_set_delete_points[point_opposite_id].begin(), points_set_delete_points[point_opposite_id].end());
+		points_set_delete_points[point_opposite_id].clear();
 		
 	}
 
