@@ -349,7 +349,7 @@ sjPolyhedronPipe::PolyhedronType sjSimplificator::iterate(){
 			if(lasthedelete == he) break;
 			lasthedelete = he;
 			cout<<"sjSimplificator::iterate: "<<iteration++<<", HeapSize="<<heap_error.size()<<endl;
-		}while(error_in_heap<20.0 && heap_error.size()>0 );
+		}while(error_in_heap<100.0 && heap_error.size()>0 );
 		
 	}
 	cout<<"sjSimplificator::iterate: "<<iteration++<<", HeapSize="<<heap_error.size()<<endl;
