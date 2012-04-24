@@ -88,6 +88,8 @@ IF(CGAL_Qt4_FOUND AND QT4_FOUND AND OPENGL_FOUND AND QGLVIEWER_FOUND)
 		plugin/sjSimplificator.h
 		plugin/sjSimplificator.cpp
 		plugin/sjGraphSkeleton.h
+		plugin/sjRefinement.h
+		plugin/sjRefinement.cpp
 	)
 
 	ADD_LIBRARY(log STATIC ${log_sources} )
