@@ -17,6 +17,105 @@ using namespace std;
 
 namespace sj{
 
+	class StopConstraint{
+	public:
+		StopConstraint(){
+			n_window = 100.0;
+			X.push_back(0.0);
+			Y.push_back(0.0);
+			XY.push_back(0.0);
+			SUMX.push_back(0.0);
+			SUMY.push_back(0.0);
+			SUMXX.push_back(0.0);
+			SUMXY.push_back(0.0);
+			SUMX_WINDOW.push_back(0.0);
+			SUMY_WINDOW.push_back(0.0);
+			SUMXX_WINDOW.push_back(0.0);
+			SUMXY_WINDOW.push_back(0.0);
+			M.push_back(0.0);
+			MWINDOW.push_back(0.0);
+		}
+		vector<double> X, Y, XY;
+		vector<double> SUMX, SUMY, SUMXX, SUMXY;
+		vector<double> SUMX_WINDOW, SUMY_WINDOW, SUMXX_WINDOW, SUMXY_WINDOW;
+		vector<double> M, MWINDOW;
+		double n_window;
+		double threshold;
+		void insert(double ay){
+			double x,y,xx,xy,m;
+			x = (double)(X.size());
+			y = ay;
+			xx = x*x;
+			xy = x*y;
+
+			X.push_back(x);
+			Y.push_back(y);
+			XY.push_back(xy);
+			
+			SUMX.push_back(SUMX.back() + X.back());
+			SUMY.push_back(SUMY.back() + Y.back());
+			SUMXY.push_back(SUMXY.back() + XY.back());
+			SUMXX.push_back(SUMXX.back() + X.back() * X.back());
+
+			double nsize, sx, sy, sxx, sxy, adiv;
+			nsize = (double)(X.size());
+			sx  = SUMX.back();
+			sy  = SUMY.back();
+			sxx = SUMXX.back();
+			sxy = SUMXY.back();
+
+			adiv = nsize*sxx - sx*sx;
+			if(std::abs(adiv) < 0.000000000000001){
+				m = 0.0;
+			}else{
+				m = (nsize * sxy - sx*sy)/adiv;
+			}
+			M.push_back(m);
+
+			vector<double>::size_type size_window = (vector<double>::size_type)n_window;
+
+			if(nsize > size_window){
+				SUMX_WINDOW.push_back(SUMX.back() - SUMX[SUMX.size()-1-size_window]);
+				SUMY_WINDOW.push_back(SUMY.back() - SUMY[SUMY.size()-1-size_window]);
+				SUMXX_WINDOW.push_back(SUMXX.back() - SUMXX[SUMX.size()-1-size_window]);
+				SUMXY_WINDOW.push_back(SUMXY.back() - SUMXY[SUMXY.size()-1-size_window]);
+
+				nsize = n_window;
+				sx  = SUMX_WINDOW.back();
+				sy  = SUMY_WINDOW.back();
+				sxx = SUMXX_WINDOW.back();
+				sxy = SUMXY_WINDOW.back();
+
+				adiv = nsize*sxx - sx*sx;
+				if(std::abs(adiv) < 0.000000000000001){
+					m = 0.0;
+				}else{
+					m = (nsize * sxy - sx*sy)/adiv;
+				}
+				MWINDOW.push_back(m);
+
+			}else{
+				SUMX_WINDOW.push_back(SUMX.back());
+				SUMY_WINDOW.push_back(SUMY.back());
+				SUMXX_WINDOW.push_back(SUMXX.back());
+				SUMXY_WINDOW.push_back(SUMXY.back());
+				MWINDOW.push_back(M.back());
+			}
+
+
+		}
+
+		double getGlobalSlope(){
+			return M[M.size()-1];
+		}
+
+		double getWindowSlope(){
+			return MWINDOW[MWINDOW.size()-1];
+		}
+
+	};
+
+
 	class sjGraphPoint{
 	public:
 		sjGraphPoint(double ax = 0, double ay = 0, double az = 0, int aid=-1): x(ax), y(ay), z(az), id(aid){}
@@ -58,10 +157,11 @@ namespace sj{
 
 	class sjSimplificator: public sjPolyhedronPipe::sjFilter, public sjObserver{
 	public:
-		sjSimplificator(double wa = 1.0, double wb = 0.1);
+		sjSimplificator(double wa = 1.0, double wb = 0.1, double wn = 10.0);
 		void convertPolyhedronToSkeleton();
 		Matrix4d getFundamentalErrorQuadric(int);
 		double calculateSamplingCost(int);
+		double calculateNeighboringCost(int);
 		double calculateShapeCost(Matrix4d Qi, Matrix4d Qj,  int he);
 		double calculateTotalCost(int he);
 		Matrix4d computeInitialQ(int);
@@ -107,7 +207,7 @@ namespace sj{
 
 		
 	private:
-		double Wa, Wb;
+		double Wa, Wb, Wn;
 		map<int, Matrix4d> Qmap;
 		sjPolyhedron mesh_G;
 		vector< vector< sjVertex_handle > > rings;
@@ -116,6 +216,7 @@ namespace sj{
 		int number_nodes;
 		sjGraphSkeletonType sjskeleton;
 		int iteration;
+		StopConstraint m_stop_constraint;
 	};
 
 }
