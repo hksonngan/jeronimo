@@ -186,8 +186,8 @@ double sjSimplificator::calculateTotalCost(int he){
 	double Fb = calculateSamplingCost(he);
 	double Fn = calculateNeighboringCost(he);
 	//double total = Wa*Fa + Wb*Fb
-	double total = Wa*Fa + Wb*Fb;
-	total = total/(1.0 + Wn*Fn*Fn);
+	double total = Wa*Fa + Wb*Fb/(1.0 + Wn*Fn*Fn);
+	//total = total/(1.0 + Wn*Fn*Fn);
 	return total;
 }
 
