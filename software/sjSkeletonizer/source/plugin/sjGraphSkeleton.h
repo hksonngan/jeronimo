@@ -314,6 +314,22 @@ public:
 		return false;
 	}
 
+	vector<int> getNeighborsIntersection(int hedge_id){
+		vector<int> neighbors_intersection_AB;
+		if(hedge_id >= halfedges_bool.size() || hedge_id<0) return neighbors_intersection_AB;
+		if(!halfedges_bool[ hedge_id]) return neighbors_intersection_AB;
+
+		int pointAid = halfedges_data[hedge_id].point_incident_id;
+		int pointBid = halfedges_data[hedge_id].point_opposite_id;
+
+		set<int> neighbors_A = getNeighborsToPoint(pointAid);
+		set<int> neighbors_B = getNeighborsToPoint(pointBid);
+
+		set_intersection(neighbors_A.begin(),neighbors_A.end(), neighbors_B.begin(), neighbors_B.end(), back_inserter(neighbors_intersection_AB));
+		return neighbors_intersection_AB;
+	}
+
+
 	bool isCollapseTunnel(int hedge_id){
 		if(hedge_id >= halfedges_bool.size() || hedge_id<0) return false;
 		if(!halfedges_bool[ hedge_id]) return false;
@@ -525,6 +541,15 @@ public:
 			else cout<<"False";
 			cout<<endl;
 		}
+	}
+
+	int getActiveHalfedge(){
+		int nmh = 0;
+		for(size_t i = 0; i<halfedges_bool.size(); i++ ){
+			if(halfedges_bool[i])
+				nmh ++;
+		}
+		return nmh;
 	}
 
 	void printNeighbors(int point_id){

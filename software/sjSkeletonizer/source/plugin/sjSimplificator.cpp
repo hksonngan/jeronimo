@@ -6,12 +6,14 @@ using namespace sj;
 using namespace std;
 using namespace OGF;
 
-sjSimplificator::sjSimplificator(double wa, double wb){
+sjSimplificator::sjSimplificator(double wa, double wb, double wn){
 	sjLogDebug("sjSimplificator");
 	Wa = wa;
 	Wb = wb;
+	Wn = wn;
 	m_init = false;
 	iteration = 0;
+	m_stop_constraint.n_window = 100;
 }
 
 void sjSimplificator::convertPolyhedronToSkeleton(){
@@ -68,6 +70,11 @@ double sjSimplificator::calculateSamplingCost(int he){
 	}
 
 	return dij*dtot;
+}
+
+double sjSimplificator::calculateNeighboringCost(int he){
+	return (double)(sjskeleton.getNeighborsIntersection(he).size());
+
 }
 
 Matrix4d sjSimplificator::computeInitialQ(int vid){
@@ -177,7 +184,10 @@ double sjSimplificator::calculateTotalCost(int he){
 	//double Fa = calculateShapeCost(Qmap[he->vertex()->index], Qmap[he->opposite()->vertex()->index], he);
 	double Fa = calculateShapeCost(Qmap[sjskeleton.halfedges_data[he].point_opposite_id ], Qmap[sjskeleton.halfedges_data[he].point_incident_id], he);
 	double Fb = calculateSamplingCost(he);
+	double Fn = calculateNeighboringCost(he);
+	//double total = Wa*Fa + Wb*Fb
 	double total = Wa*Fa + Wb*Fb;
+	total = total/(1.0 + Wn*Fn*Fn);
 	return total;
 }
 
@@ -322,8 +332,8 @@ sjPolyhedronPipe::PolyhedronType sjSimplificator::iterate(){
 		int lasthedelete = -10;
 		int he;
 		list<sjNodeHeap>::iterator heap_iterator;
-		double promedio = 0.0;
-		double last_error = 0.0;
+		double mwin_vs_global;
+
 		do{
 			
 			heap_iterator = getValidEdgeToCollapse();
@@ -331,7 +341,7 @@ sjPolyhedronPipe::PolyhedronType sjSimplificator::iterate(){
 				he = heap_iterator->hedge;
 				sjNodeHeap nh = (*heap_iterator);
 				error_in_heap = nh.value;
-				promedio = promedio + std::abs( last_error-error_in_heap);
+				m_stop_constraint.insert(error_in_heap);
 				cout<<"sjNodeHeap error: "<<nh.value<<"\t\t";
 				sprintf(bufferstr, "%f\n", nh.value);
 				sjLogError(std::string(bufferstr));
@@ -348,8 +358,15 @@ sjPolyhedronPipe::PolyhedronType sjSimplificator::iterate(){
 			}
 			if(lasthedelete == he) break;
 			lasthedelete = he;
-			cout<<"sjSimplificator::iterate: "<<iteration++<<", HeapSize="<<heap_error.size()<<endl;
-		}while(error_in_heap<100.0 && heap_error.size()>0 );
+			
+			if(sjskeleton.getActiveHalfedge()>500){
+				mwin_vs_global = 0.0;
+			}else{
+				if (m_stop_constraint.getGlobalSlope() == 0.0) mwin_vs_global = 0.0;
+				else mwin_vs_global = m_stop_constraint.getWindowSlope()/m_stop_constraint.getGlobalSlope();
+			}
+			cout<<"sjSimplificator::iterate: "<<iteration++<<", HeapSize="<<heap_error.size()<<", Stop Cons="<<mwin_vs_global<<endl;
+		}while(std::abs(mwin_vs_global) < 3.0 && heap_error.size()>0 );
 		
 	}
 	cout<<"sjSimplificator::iterate: "<<iteration++<<", HeapSize="<<heap_error.size()<<endl;
