@@ -158,7 +158,7 @@ namespace sj{
 
 	class sjSimplificator: public sjPolyhedronPipe::sjFilter, public sjObserver{
 	public:
-		sjSimplificator(double wa = 1.0, double wb = 1.0, double wn = 1000.0);
+		sjSimplificator(double wa = 1.0, double wb = 0.1, double wn = 1.0);
 		void convertPolyhedronToSkeleton();
 		Matrix4d getFundamentalErrorQuadric(int);
 		double calculateSamplingCost(int);
