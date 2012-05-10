@@ -22,6 +22,8 @@ public:
 	int id;
 	int hedge_opposite_id;
 
+	double weight;
+
 	sjGraphHalfedge(int a_point_opposite_id		=	SJGRAPH_INVALID_ID,
 					int a_point_incident_id		=	SJGRAPH_INVALID_ID,
 					int				   a_id		=	SJGRAPH_INVALID_ID,
@@ -82,6 +84,9 @@ public:
 	vector<set<int> >			points_set_halfedges;	
 	vector<set<int> >			points_set_delete_points;	
 	vector<set<int> >			halfedges_set_faces;	
+
+	double MAX_WEIGHT;
+	double MIN_WEIGHT;
 
 	sjGraphSkeleton(){}
 
@@ -346,8 +351,17 @@ public:
 		vector<int>::iterator it;
 
 		set_intersection(neighbors_A.begin(),neighbors_A.end(), neighbors_B.begin(), neighbors_B.end(), back_inserter(neighbors_intersection_AB));
-		/*
-		if(neighbors_intersection_AB.size()>0){
+		
+		if(neighbors_intersection_AB.size()<=1)return false;
+
+		if(neighbors_intersection_AB.size()==0){
+			if(neighbors_A.size()<=2 && neighbors_B.size()<=2){
+				return false;
+			}
+
+		}
+
+		/*if(neighbors_intersection_AB.size()>0){
 			for(it=neighbors_intersection_AB.begin(); it!=neighbors_intersection_AB.end(); it++){
 				if(!isFace(pointAid, pointBid, *it)) return false;
 			}		

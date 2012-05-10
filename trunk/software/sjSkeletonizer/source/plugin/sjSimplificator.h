@@ -124,6 +124,7 @@ namespace sj{
 		}
 		double x, y, z;
 		int id;
+		double weight;
 	};
 
 	class sjGetIdFromPoint{
@@ -157,11 +158,12 @@ namespace sj{
 
 	class sjSimplificator: public sjPolyhedronPipe::sjFilter, public sjObserver{
 	public:
-		sjSimplificator(double wa = 1.0, double wb = 0.1, double wn = 10.0);
+		sjSimplificator(double wa = 1.0, double wb = 1.0, double wn = 1000.0);
 		void convertPolyhedronToSkeleton();
 		Matrix4d getFundamentalErrorQuadric(int);
 		double calculateSamplingCost(int);
 		double calculateNeighboringCost(int);
+		double calculateAreaCost(int);
 		double calculateShapeCost(Matrix4d Qi, Matrix4d Qj,  int he);
 		double calculateTotalCost(int he);
 		Matrix4d computeInitialQ(int);

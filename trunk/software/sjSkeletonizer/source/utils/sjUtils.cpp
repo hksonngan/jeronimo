@@ -213,3 +213,21 @@ double averageFaces(sjPolyhedron mesh_G){
 	}
 	return average/((double)nface);
 }
+
+float getRedSpectrumColor(double wmin, double wmax, double value){
+	float normaliza_value = (float)(value/(wmax - wmin));
+	int red_index = (int)(255.0 * normaliza_value);
+	return ((double)(Spectrum[red_index ]))/255.0;
+}
+
+float getGreenSpectrumColor(double wmin, double wmax, double value){
+	float normaliza_value = (float)(value/(wmax - wmin));
+	int green_index = (int)(255.0 * normaliza_value);
+	return ((double)(Spectrum[256 + green_index ]))/255.0;
+}
+
+float getBlueSpectrumColor(double wmin, double wmax, double value){
+	float normaliza_value = (float)(value/(wmax - wmin));
+	int blue_index = (int)(255.0 * normaliza_value);
+	return ((double)(Spectrum[256*2 + blue_index ]))/255.0;
+}

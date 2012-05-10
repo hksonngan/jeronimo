@@ -114,20 +114,29 @@ void sjViewer::drawModel(){
 
 
 	if(paint_skeleton){
+		
 		for(int i=0; i<m_skeleton.halfedges_bool.size(); i++){
 			if(m_skeleton.halfedges_bool[i]){
 				sjGraphPoint p1, p2;
 				p1 = m_skeleton.points_data[m_skeleton.halfedges_data[i].point_incident_id];
 				p2 = m_skeleton.points_data[m_skeleton.halfedges_data[i].point_opposite_id];
    
+				float wred, wgreen, wblue;
+				wred = getRedSpectrumColor(m_skeleton.MIN_WEIGHT, m_skeleton.MAX_WEIGHT, m_skeleton.halfedges_data[i].weight);
+				wgreen = getGreenSpectrumColor(m_skeleton.MIN_WEIGHT, m_skeleton.MAX_WEIGHT, m_skeleton.halfedges_data[i].weight);
+				wblue = getBlueSpectrumColor(m_skeleton.MIN_WEIGHT, m_skeleton.MAX_WEIGHT, m_skeleton.halfedges_data[i].weight);
+
+				glPointSize(3.0f + 5.0f * (1.0f - (float)(m_skeleton.halfedges_data[i].weight/( m_skeleton.MAX_WEIGHT - m_skeleton.MIN_WEIGHT))));
+				
 				glBegin(GL_LINES);
-					glColor3f( (float)0.9 ,(float)0.1,(float)0.1);
+					glColor3f( wred,wgreen,wblue);
 					glVertex3f( (float)p1.x/max_min, (float)p1.y/max_min, (float)p1.z/max_min);
 					glVertex3f( (float)p2.x/max_min, (float)p2.y/max_min, (float)p2.z/max_min);
 				glEnd();
 
 				glBegin(GL_POINTS);
-					glColor3f( (float)0.1 ,(float)0.1,(float)0.9);
+					//glColor3f( (float)0.1 ,(float)0.1,(float)0.9);
+					glColor3f( wred,wgreen,wblue);
 					glVertex3f( (float)p1.x/max_min, (float)p1.y/max_min, (float)p1.z/max_min);
 					glVertex3f( (float)p2.x/max_min, (float)p2.y/max_min, (float)p2.z/max_min);
 				glEnd();

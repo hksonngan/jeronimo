@@ -74,7 +74,19 @@ double sjSimplificator::calculateSamplingCost(int he){
 
 double sjSimplificator::calculateNeighboringCost(int he){
 	return (double)(sjskeleton.getNeighborsIntersection(he).size());
+}
 
+double sjSimplificator::calculateAreaCost(int he){
+	vector<int> neighbors = sjskeleton.getNeighborsIntersection(he);
+	double area_neighbors = 0.0;
+	sjGraphSkeletonType::PointType pa, pb, pc;
+	pa =  sjskeleton.points_data[sjskeleton.halfedges_data[he].point_incident_id];
+	pb =  sjskeleton.points_data[sjskeleton.halfedges_data[he].point_opposite_id];
+	for(vector<int>::iterator vit = neighbors.begin(); vit != neighbors.end(); vit++){
+		pc = sjskeleton.points_data[*vit];
+		area_neighbors = area_neighbors + area3(pa.getPoint_3(), pb.getPoint_3(), pc.getPoint_3());
+	}
+	return area_neighbors;
 }
 
 Matrix4d sjSimplificator::computeInitialQ(int vid){
@@ -185,8 +197,9 @@ double sjSimplificator::calculateTotalCost(int he){
 	double Fa = calculateShapeCost(Qmap[sjskeleton.halfedges_data[he].point_opposite_id ], Qmap[sjskeleton.halfedges_data[he].point_incident_id], he);
 	double Fb = calculateSamplingCost(he);
 	double Fn = calculateNeighboringCost(he);
-	//double total = Wa*Fa + Wb*Fb
-	double total = Wa*Fa + Wb*Fb/(1.0 + Wn*Fn*Fn);
+	double Farea = calculateAreaCost(he);
+	//double total = Wa*Fa + Wb*Fb;
+	double total = (Wa*Fa + Wb*Fb + Farea)/(1.0 + Wn*Fn*Fn);
 	//total = total/(1.0 + Wn*Fn*Fn);
 	return total;
 }
@@ -203,6 +216,7 @@ void sjSimplificator::computeAllInitialQ(){
 void sjSimplificator::computeHeapError(){
 	for(vector<sjGraphHalfedge>::iterator it=sjskeleton.halfedges_data.begin(); it!=sjskeleton.halfedges_data.end(); it++){
 		sjNodeHeap node((*it).id, calculateTotalCost((*it).id));
+		sjskeleton.halfedges_data[(*it).id].weight = node.value;
 		heap_error.push_back(node);
 	}
 	/*for(sjHalfedge_handle he = mesh_G.halfedges_begin(); he != mesh_G.halfedges_end(); ++he){
@@ -211,6 +225,8 @@ void sjSimplificator::computeHeapError(){
 		heap_error.push_back(node);
 	}*/
 	heap_error.sort();
+	sjskeleton.MAX_WEIGHT = heap_error.back().value;
+	sjskeleton.MIN_WEIGHT = heap_error.front().value;
 }
 
 void sjSimplificator::init(){
@@ -246,6 +262,7 @@ void sjSimplificator::updateError(int he){
 	vi = sjskeleton.halfedges_data[he].point_opposite_id;
 	vj = sjskeleton.halfedges_data[he].point_incident_id;
 	Qmap[vj] = Qmap[vi] + Qmap[vj];
+	//Qmap[vj] = computeInitialQ(vj);
 	set<int> halfedges_incident_vi;
 	set<int>::iterator heit;
 	halfedges_incident_vi.insert(sjskeleton.points_set_halfedges[vi].begin(), sjskeleton.points_set_halfedges[vi].end());
@@ -259,6 +276,7 @@ void sjSimplificator::updateError(int he){
 		if(itnode!=heap_error.end()){
 			if(sjskeleton.halfedges_bool[heid]){
 				itnode->value = calculateTotalCost(heid);
+				sjskeleton.halfedges_data[heid].weight = itnode->value;
 			}else{
 				heap_error.erase(itnode);
 			}
@@ -266,6 +284,7 @@ void sjSimplificator::updateError(int he){
 			if(sjskeleton.halfedges_bool[heid]){
 				sjNodeHeap nhe(heid, calculateTotalCost(heid));
 				heap_error.push_back(nhe);
+				sjskeleton.halfedges_data[heid].weight = nhe.value;
 			}
 		}
 
@@ -274,6 +293,7 @@ void sjSimplificator::updateError(int he){
 		if(itnode!=heap_error.end()){
 			if(sjskeleton.halfedges_bool[heid]){
 				itnode->value = calculateTotalCost(heid);
+				sjskeleton.halfedges_data[heid].weight = itnode->value;
 			}else{
 				heap_error.erase(itnode);
 			}
@@ -281,10 +301,13 @@ void sjSimplificator::updateError(int he){
 			if(sjskeleton.halfedges_bool[heid]){
 				sjNodeHeap nhe(heid, calculateTotalCost(heid));
 				heap_error.push_back(nhe);
+				sjskeleton.halfedges_data[heid].weight = nhe.value;
 			}
 		}
 	}
 	heap_error.sort();
+	sjskeleton.MAX_WEIGHT = heap_error.back().value;
+	sjskeleton.MIN_WEIGHT = heap_error.front().value;
 
 }
 
