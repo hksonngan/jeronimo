@@ -48,6 +48,7 @@ sjViewer::sjViewer(QWidget* parent, bool antialiasing)
   : QGLViewer(parent),
     antialiasing(antialiasing),
     twosides(false),
+	first_paint(false),
 	paint_skeleton(false)/*,
 	laplacian_system(0)*/
 {
@@ -80,44 +81,22 @@ void sjViewer::initializeGL(){
 }
 
 void sjViewer::drawModel(){
+	if(first_paint == false){
+		m_original = sjPolyhedron( this->getVerticesFaces());
+		first_paint = true;
+	}
 
-	/*for ( sjFIterator f = polyhedron.facets_begin(); f != polyhedron.facets_end(); ++f){
-		
-		sjHalfedge_facet_circulator j = f->facet_begin();
-		
-		
-		int i = 0;
-		do{
-		
-			puntos[i++] = j->vertex()->point();
-		}while(++j != f->facet_begin());
-		a = puntos[0];
-		b = puntos[1];
-		c = puntos[2];
-
-
-		sjPoint_3 pnormal = normalVector(puntos[0], puntos[1], puntos[2]);
-		//Point_3 color3 = normalize(a);
-		sjPoint_3 color3(0.9,0.1,0.1);
-   
-		
-		glBegin(GL_TRIANGLES);
-			//glColor3f(1.0f,1.0f,1.0f);
-			glColor3f( (float)color3[0] ,(float)color3[1],(float)color3[2]);
-			glNormal3f( (float)pnormal[0],(float)pnormal[1], (float)pnormal[2]);
-			glVertex3f( (float)a[0]/max_min, (float)a[1]/max_min, (float)a[2]/max_min);
-			glVertex3f( (float)b[0]/max_min, (float)b[1]/max_min, (float)b[2]/max_min);
-			glVertex3f( (float)c[0]/max_min, (float)c[1]/max_min, (float)c[2]/max_min);
-		glEnd();
-	}*/
-
-
+	sjPoint_3 puntos[3], a,b,c;
+	
+	sjGraphPoint p1, p2;
 
 	if(paint_skeleton){
+
+
 		
 		for(int i=0; i<m_skeleton.halfedges_bool.size(); i++){
 			if(m_skeleton.halfedges_bool[i]){
-				sjGraphPoint p1, p2;
+				
 				p1 = m_skeleton.points_data[m_skeleton.halfedges_data[i].point_incident_id];
 				p2 = m_skeleton.points_data[m_skeleton.halfedges_data[i].point_opposite_id];
    
@@ -143,7 +122,7 @@ void sjViewer::drawModel(){
 			}
 		}
 	}else{
-		sjPoint_3 puntos[3], a,b,c;
+		
 	
 		for ( sjHalfedge_handle f = polyhedron.halfedges_begin(); f != polyhedron.halfedges_end(); ++f){
 		
@@ -158,12 +137,31 @@ void sjViewer::drawModel(){
 		
 			glBegin(GL_LINES);
 				//glColor3f(1.0f,1.0f,1.0f);
-				glColor3f( (float)color3[0] ,(float)color3[1],(float)color3[2]);
+				glColor4f( (float)color3[0] ,(float)color3[1],(float)color3[2],1.0f);
 				//glNormal3f( (float)pnormal[0],(float)pnormal[1], (float)pnormal[2]);
 				glVertex3f( (float)a[0]/max_min, (float)a[1]/max_min, (float)a[2]/max_min);
 				glVertex3f( (float)b[0]/max_min, (float)b[1]/max_min, (float)b[2]/max_min);
 			glEnd();
 		}
+	}
+
+	for ( sjFIterator f = m_original.facets_begin(); f != m_original.facets_end(); ++f){	
+		sjHalfedge_facet_circulator j = f->facet_begin();
+		int i = 0;
+		do{
+			puntos[i++] = j->vertex()->point();
+		}while(++j != f->facet_begin());
+		a = puntos[0];		b = puntos[1];		c = puntos[2];
+		sjPoint_3 pnormal = normalVector(puntos[0], puntos[1], puntos[2]);
+		sjPoint_3 color3(0.9,0.1,0.1);
+		
+		glBegin(GL_TRIANGLES);
+			glColor4f ( 0.1f,0.2f, 0.95f, 0.4f); 
+			glNormal3f( (float)pnormal[0],(float)pnormal[1], (float)pnormal[2]);
+			glVertex3f( (float)a[0]/max_min, (float)a[1]/max_min, (float)a[2]/max_min);
+			glVertex3f( (float)b[0]/max_min, (float)b[1]/max_min, (float)b[2]/max_min);
+			glVertex3f( (float)c[0]/max_min, (float)c[1]/max_min, (float)c[2]/max_min);
+		glEnd();
 	}
 
 }
@@ -239,30 +237,25 @@ void sjViewer::postSelection(const QPoint&){
 
 void sjViewer::init(){
 	
-	glShadeModel ( GL_FLAT );     //off
+	 //glutInitDisplayMode(GLUT_SINGLE|GLUT_RGBA);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable( GL_BLEND );
 
-	glShadeModel ( GL_SMOOTH ); 
-
-	glClearColor (0.4, 0.4, 0.4, 0.0);
+	glShadeModel ( GL_FLAT ); 
 	
-
+	//glShadeModel ( GL_SMOOTH ); 
+	//glClearColor (0.4, 0.4, 0.4, 0.0);
+	glClearColor (1.0, 1.0, 1.0, 0.0);
 	glEnable(GL_LIGHTING);
-
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHT1);
 	glEnable(GL_LIGHT2);
-    glEnable(GL_DEPTH_TEST);
-
-	   glColorMaterial(GL_FRONT, GL_DIFFUSE);
-   glEnable(GL_COLOR_MATERIAL);
-   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-   glPointSize(5.0f);
-
-   
-   
-
-glDepthFunc(GL_LEQUAL);
+	glEnable(GL_DEPTH_TEST);
+	glColorMaterial(GL_FRONT, GL_DIFFUSE);
+	glEnable(GL_COLOR_MATERIAL);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glPointSize(5.0f);
+	glDepthFunc(GL_LEQUAL);
 
 
 	// Restore previous viewer state.

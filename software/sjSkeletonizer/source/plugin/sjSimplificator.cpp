@@ -69,8 +69,8 @@ double sjSimplificator::calculateSamplingCost(int he){
 		dtot = dtot + sqrt(v.squared_length());
 	}
 
-	//return dij*dtot;
-	return dij;
+	return dij*dtot;
+	//return dij;
 }
 
 double sjSimplificator::calculateNeighboringCost(int he){
@@ -203,6 +203,7 @@ double sjSimplificator::calculateTotalCost(int he){
 	double total = Wa*Fa + Wb*Fb  ;
 	//double total = (Wa*Fa + Wb*Fb )/(Farea*1000000);
 	total = total/(1.0 + Farea);
+	//total = total*Farea;
 	
 	return total;
 }
