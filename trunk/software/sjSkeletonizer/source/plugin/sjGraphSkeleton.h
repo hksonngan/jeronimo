@@ -344,6 +344,20 @@ public:
 		return neighbors_intersection_AB;
 	}
 
+	bool isPointInLine(int vid){
+		if(vid >= points_bool.size() || vid<0) return false;
+		if(!points_bool[vid]) return false;
+		set<int> neighbors_to_point_vid = getNeighborsToPoint(vid);
+		if(neighbors_to_point_vid.size() == 2){
+			vector<int> vect_neighbors_to_point_vid;
+			for(set<int>::iterator it = neighbors_to_point_vid.begin();it != neighbors_to_point_vid.end(); it ++){
+				vect_neighbors_to_point_vid.push_back(*it);
+			}
+			if(getNeighborsIntersection(vect_neighbors_to_point_vid[0], vect_neighbors_to_point_vid[1]).size() == 1) return true;
+		}
+		return false;
+	}
+
 
 	bool isCollapseTunnel(int hedge_id){
 		if(hedge_id >= halfedges_bool.size() || hedge_id<0) return false;
@@ -362,13 +376,16 @@ public:
 
 		set_intersection(neighbors_A.begin(),neighbors_A.end(), neighbors_B.begin(), neighbors_B.end(), back_inserter(neighbors_intersection_AB));
 		
-		
+
 
 		/*if(neighbors_intersection_AB.size()>0){
 			for(it=neighbors_intersection_AB.begin(); it!=neighbors_intersection_AB.end(); it++){
 				if(!isFace(pointAid, pointBid, *it)) return false;
 			}		
 		}*/
+
+		//if(isPointInLine(pointAid) || isPointInLine(pointBid)) return false;
+
 		if(neighbors_intersection_AB.size()==0){
 			if(neighbors_A.size()<=2 || neighbors_B.size()<=2) return false;
 		}

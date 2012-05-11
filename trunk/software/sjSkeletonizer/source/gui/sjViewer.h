@@ -141,7 +141,9 @@ private:
   //sjLaplacianSmoothing * laplacian_system;
   sjIso_cuboid_3 bounding_box;
   bool paint_skeleton;
+  bool first_paint;
   sjGraphSkeletonType m_skeleton;
+  sjPolyhedron m_original;
   
   static int index_id;
   int m_index_id;
