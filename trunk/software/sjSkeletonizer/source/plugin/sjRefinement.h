@@ -8,7 +8,6 @@
 #include "sjDataType.h"
 #include "sjUtils.h"
 
-
 using namespace std;
 
 namespace sj{
