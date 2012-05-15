@@ -89,13 +89,49 @@ set<int> sjRefinement::getNeighborsToMeshRegion(set<int> mesh_region){
 	return neighbors_mesh_region;
 }
 
-vector<int> getAdjacentEdgesinBoundaryToVertex(vector<int> boundary, int vid){
-	//itersection betwen boundary and neighbors to vid in original mesh
-
+vector<int> sjRefinement::getAdjacentEdgesinBoundaryToVertex(vector<int> boundary, int vid){
+	set<int> neighbors_to_vid = original_skeleton.getNeighborsToPoint(vid);
+	set<int> set_boundary = set<int>(boundary.begin(), boundary.end());
+	vector<int> adjacent_points;
+	set_intersection(
+		neighbors_to_vid.begin(), neighbors_to_vid.end(),
+		set_boundary.begin(), set_boundary.end(),
+		back_inserter(adjacent_points));
+	return adjacent_points;
 }
 
-sjVector_3 sjRefinement::calculateWeightedAverageDisplacement(vector<int> boundary, int node_id){
+double sjRefinement::getLengthAdjacentEdges(vector<int> adjacent_points, int vid){
+	double length_i = 0.0;
+	sjPoint_3 point_i = original_skeleton.points_data[vid].getPoint_3();
+	for(vector<int>::iterator it = adjacent_points.begin(); it != adjacent_points.end(); it++){
+		length_i = length_i + distance2Points(point_i, original_skeleton.points_data[*it].getPoint_3());
+	}
+	return length_i;
+}
 
+sjVector_3 sjRefinement::calculateWeightedAverageDisplacement(vector<vector<int>> boundaries, int node_id){
+	sjVector_3 d_vect3(0.0,0.0,0.0);
+	double suml = 0.0;
+	double lij = 0.0;
+	vector<int>::iterator it;
+	if(isTerminalNode(node_id)){
+		vector<int> boundary = boundaries[0];
+		for(it = boundary.begin(); it!= boundary.end(); it++){
+			double length_i = getLengthAdjacentEdges(getAdjacentEdgesinBoundaryToVertex(boundary, *it), *it);
+			d_vect3 = d_vect3 + length_i * (contracted_skeleton.points_data[*it].getPoint_3() - original_skeleton.points_data[*it].getPoint_3());
+			lij = lij + length_i;
+		}		
+		if(lij != 0.0)
+			d_vect3 = d_vect3  / lij;
+	}else if(isLineNode(node_id)){
+		sjVector_3 d_vect3_a;
+		sjVector_3 d_vect3_b;
+		vector<int> boundary_a = boundaries[0];
+		vector<int> boundary_b = boundaries[0];
+
+	}
+
+	return d_vect3;
 }
 
 a::a(){}
