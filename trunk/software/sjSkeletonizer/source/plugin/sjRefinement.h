@@ -9,16 +9,32 @@
 #include "sjUtils.h"
 #include "sjGraphSkeleton.h"
 #include "sjSimplificator.h"
+#include "sjPipeFilter.h"
+#include "sjObserver.h"
 
 using namespace std;
 
 namespace sj{
-	class a{
-		a();
-	};
 
-	class sjRefinement{
+	class sjRefinement: public sjPolyhedronPipe::sjFilter, public sjObserver{
 	public:
+		sjRefinement();
+		void proccesEvent(sjEvent * evt);
+		void setParameters(sjPolyhedronPipe::ParametersType *){}
+		void setMesh(sjPolyhedronPipe::PolyhedronType meshg){
+			mesh_G = meshg;
+		}
+		size_t getNumberOfVertex(){
+			return mesh_G.size_of_vertices();
+		}
+		sjPolyhedronPipe::PolyhedronType iterate();
+		sjPolyhedronPipe::PolyhedronType getMesh(){
+			return mesh_G;
+		}
+		sjPolyhedronPipe::ParametersType * getParameters(){
+			return NULL;
+		}
+
 		bool isTerminalNode(int vid);
 		bool isLineNode(int vid);
 		bool isJunctionNode(int vid);
@@ -28,9 +44,13 @@ namespace sj{
 		vector<int> getAdjacentEdgesinBoundaryToVertex(vector<int> boundary, int vid);
 		double getLengthAdjacentEdges(vector<int> adjacent_points, int vid);
 
+		void embeddingRefinement();
+
 		sjGraphSkeletonType sjskeleton;
 		sjGraphSkeletonType original_skeleton;
 		sjGraphSkeletonType contracted_skeleton;
+		sjPolyhedron mesh_G;
+		bool refinement_complete;
 
 	};
 }

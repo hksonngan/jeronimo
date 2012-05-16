@@ -2,6 +2,10 @@
 
 using namespace sj;
 
+sjRefinement::sjRefinement(){
+	refinement_complete = false;
+}
+
 bool sjRefinement::isTerminalNode(int vid){
 	if(sjskeleton.getNeighborsToPoint(vid).size() == 1) return true;
 	return false;
@@ -111,6 +115,7 @@ double sjRefinement::getLengthAdjacentEdges(vector<int> adjacent_points, int vid
 
 sjVector_3 sjRefinement::calculateWeightedAverageDisplacement(vector<vector<int>> boundaries, int node_id){
 	sjVector_3 d_vect3(0.0,0.0,0.0);
+	sjVector_3 u_vect3(0.0,0.0,0.0);
 	double suml = 0.0;
 	double lij = 0.0;
 	vector<int>::iterator it;
@@ -120,18 +125,74 @@ sjVector_3 sjRefinement::calculateWeightedAverageDisplacement(vector<vector<int>
 			double length_i = getLengthAdjacentEdges(getAdjacentEdgesinBoundaryToVertex(boundary, *it), *it);
 			d_vect3 = d_vect3 + length_i * (contracted_skeleton.points_data[*it].getPoint_3() - original_skeleton.points_data[*it].getPoint_3());
 			lij = lij + length_i;
-		}		
+		}
 		if(lij != 0.0)
 			d_vect3 = d_vect3  / lij;
+		u_vect3 = (sjskeleton.points_data[node_id].getPoint_3() - sjPoint_3(0.0,0.0,0.0)) - d_vect3;
 	}else if(isLineNode(node_id)){
 		sjVector_3 d_vect3_a;
 		sjVector_3 d_vect3_b;
+		double lij_a = 0.0;
+		double lij_b = 0.0;
 		vector<int> boundary_a = boundaries[0];
-		vector<int> boundary_b = boundaries[0];
+		vector<int> boundary_b = boundaries[1];
+		for(it = boundary_a.begin(); it!= boundary_a.end(); it++){
+			double length_i = getLengthAdjacentEdges(getAdjacentEdgesinBoundaryToVertex(boundary_a, *it), *it);
+			d_vect3_a = d_vect3_a + length_i * (contracted_skeleton.points_data[*it].getPoint_3() - original_skeleton.points_data[*it].getPoint_3());
+			lij_a = lij_a + length_i;
+		}
+		if(lij_a != 0.0)
+			d_vect3_a = d_vect3_a  / lij_a;
+		for(it = boundary_b.begin(); it!= boundary_b.end(); it++){
+			double length_i = getLengthAdjacentEdges(getAdjacentEdgesinBoundaryToVertex(boundary_b, *it), *it);
+			d_vect3_b = d_vect3_b + length_i * (contracted_skeleton.points_data[*it].getPoint_3() - original_skeleton.points_data[*it].getPoint_3());
+			lij_b = lij_b + length_i;
+		}
+		if(lij_b != 0.0)
+			d_vect3_b = d_vect3_b  / lij_b;
+		d_vect3 = d_vect3_a + d_vect3_b;
+		u_vect3 = (sjskeleton.points_data[node_id].getPoint_3() - sjPoint_3(0.0,0.0,0.0)) - d_vect3 / 2.0;
+	}else{
+		double bound_size = (double)(boundaries.size());
+		for(vector<vector<int>>::iterator itb = boundaries.begin(); itb!=boundaries.end(); itb++){
+			sjVector_3 d_vect3_i;
+			double lij_i = 0.0;
+			vector<int> boundary_i = *itb;
+			for(it = boundary_i.begin(); it!= boundary_i.end(); it++){
+				double length_i = getLengthAdjacentEdges(getAdjacentEdgesinBoundaryToVertex(boundary_i, *it), *it);
+				d_vect3_i = d_vect3_i + length_i * (contracted_skeleton.points_data[*it].getPoint_3() - original_skeleton.points_data[*it].getPoint_3());
+				lij_i = lij_i + length_i;
+			}
+			if(lij_i != 0.0)
+				d_vect3_i = d_vect3_i / lij_i;
 
+			d_vect3 = d_vect3 + d_vect3_i ;
+		}
+		if(bound_size>0) 
+			d_vect3 = d_vect3 / bound_size;
+		u_vect3 = d_vect3; //Shift 
 	}
 
-	return d_vect3;
+	return u_vect3;
 }
 
-a::a(){}
+void sjRefinement::proccesEvent(sjEvent * evt){
+	if(evt->getType() == sjEvent::EVT_ITERATE){
+		this->update();
+	}
+}
+
+sjPolyhedronPipe::PolyhedronType sjRefinement::iterate(){
+	if(!refinement_complete){
+		for(int i=0; i<sjskeleton.points_bool.size(); i++){
+			if(sjskeleton.points_bool[i]){
+				sjVector_3 uv = calculateWeightedAverageDisplacement(getBoundaries(i), i);
+				sjskeleton.points_data[i].x = uv.x();
+				sjskeleton.points_data[i].y = uv.y();
+				sjskeleton.points_data[i].z = uv.z();
+			}
+		}
+		refinement_complete = true;
+	}
+	return getMesh();
+}
