@@ -64,6 +64,7 @@ private slots:
 	void iterateLaplacian();
 	void initSimplificator();
 	void iterateSimplificator();
+	void embeddingRefinement();
 	void closeTab(int index);
 	void changueSliderIteration(int value);
 	void changueSliderNumberNodes(int value);

@@ -176,6 +176,45 @@ sjVector_3 sjRefinement::calculateWeightedAverageDisplacement(vector<vector<int>
 	return u_vect3;
 }
 
+void sjRefinement::convertPolyhedronToSkeleton(){
+	//sjGraphSkeletonType sjskeleton;
+	//sjGraphSkeletonType original_skeleton;
+	//sjGraphSkeletonType contracted_skeleton;
+
+	contracted_skeleton.init(mesh_G.size_of_vertices(), mesh_G.size_of_halfedges(), mesh_G.size_of_facets());
+	for ( sjVIterator v1 = mesh_G.vertices_begin(); v1 != mesh_G.vertices_end(); ++v1){
+		sjGraphPoint p(v1->point().x(), v1->point().y(), v1->point().z(), v1->index);
+		sjskeleton.insertPointData(p);
+	}
+	for(sjHalfedge_handle he = mesh_G.halfedges_begin(); he != mesh_G.halfedges_end(); ++he){
+		sjGraphHalfedge ghe(he->opposite()->vertex()->index, he->vertex()->index, he->hedgeid, he->opposite()->hedgeid);
+		sjskeleton.insertHalfedgeData(ghe);
+	}
+	for(sjPolyhedron::Facet_handle fe = mesh_G.facets_begin(); fe != mesh_G.facets_end(); ++fe){
+		sjGraphFace gfce(fe->halfedge()->vertex()->index,
+			fe->halfedge()->next()->vertex()->index,
+			fe->halfedge()->next()->next()->vertex()->index, fe->index);
+		sjskeleton.insertFaceData(gfce);
+	}
+
+	original_skeleton.init(original_mesh_G.size_of_vertices(), original_mesh_G.size_of_halfedges(), original_mesh_G.size_of_facets());
+	for ( sjVIterator v1 = original_mesh_G.vertices_begin(); v1 != original_mesh_G.vertices_end(); ++v1){
+		sjGraphPoint p(v1->point().x(), v1->point().y(), v1->point().z(), v1->index);
+		original_skeleton.insertPointData(p);
+	}
+	for(sjHalfedge_handle he = original_mesh_G.halfedges_begin(); he != original_mesh_G.halfedges_end(); ++he){
+		sjGraphHalfedge ghe(he->opposite()->vertex()->index, he->vertex()->index, he->hedgeid, he->opposite()->hedgeid);
+		original_skeleton.insertHalfedgeData(ghe);
+	}
+	for(sjPolyhedron::Facet_handle fe = original_mesh_G.facets_begin(); fe != original_mesh_G.facets_end(); ++fe){
+		sjGraphFace gfce(fe->halfedge()->vertex()->index,
+			fe->halfedge()->next()->vertex()->index,
+			fe->halfedge()->next()->next()->vertex()->index, fe->index);
+		original_skeleton.insertFaceData(gfce);
+	}
+
+}
+
 void sjRefinement::proccesEvent(sjEvent * evt){
 	if(evt->getType() == sjEvent::EVT_ITERATE){
 		this->update();
@@ -183,13 +222,24 @@ void sjRefinement::proccesEvent(sjEvent * evt){
 }
 
 sjPolyhedronPipe::PolyhedronType sjRefinement::iterate(){
-	if(!refinement_complete){
+	sjLogDebug("sjRefinement::iterate 0");
+	if(refinement_complete == false){
+		sjLogDebug("sjRefinement::iterate 1");
+		convertPolyhedronToSkeleton();
+		sjLogDebug("sjRefinement::iterate 2");
 		for(int i=0; i<sjskeleton.points_bool.size(); i++){
 			if(sjskeleton.points_bool[i]){
+				sjLogDebug("sjRefinement::iterate Point");
+				char  buffer[1024];
+				sprintf(buffer, "x=%f, y=%f, z=%f", sjskeleton.points_data[i].x, sjskeleton.points_data[i].y, sjskeleton.points_data[i].z);
+				sjLogDebug(string(buffer));
 				sjVector_3 uv = calculateWeightedAverageDisplacement(getBoundaries(i), i);
 				sjskeleton.points_data[i].x = uv.x();
 				sjskeleton.points_data[i].y = uv.y();
 				sjskeleton.points_data[i].z = uv.z();
+				
+				sprintf(buffer, "x=%f, y=%f, z=%f", sjskeleton.points_data[i].x, sjskeleton.points_data[i].y, sjskeleton.points_data[i].z);
+				sjLogDebug(string(buffer));
 			}
 		}
 		refinement_complete = true;

@@ -38,6 +38,7 @@
 #include "sjMeanCurvatureSmoothing.h"
 #include "sjLog.h"
 #include "sjSimplificator.h"
+#include "sjRefinement.h"
 #include <QMenu>
 #include <QMenuBar>
 #include <QAction>
@@ -111,6 +112,9 @@ QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 
 	QPushButton * cmd_iterateSimplificator = new QPushButton("Iterate Simplificator System", panel);
 	connect(cmd_iterateSimplificator, SIGNAL(clicked()),this, SLOT(iterateSimplificator()));
+	
+	QPushButton * cmd_embeddingRefinement = new QPushButton("Embedding Refinement", panel);
+	connect(cmd_embeddingRefinement , SIGNAL(clicked()),this, SLOT(embeddingRefinement ()));
 
 	txt_iterations = new QLineEdit("1", panel);
 	txt_iterations->setModified(false);
@@ -140,6 +144,7 @@ QMainWindow( 0), kernel_engine(sjKernelPlugin::getInstance())
 	toolLayout->addWidget(txt_number_nodes);
 	toolLayout->addWidget(sld_number_nodes);
 	toolLayout->addWidget(cmd_iterateSimplificator);
+	toolLayout->addWidget(cmd_embeddingRefinement);
 	QSpacerItem* qspaceritem = new QSpacerItem( 20, 200,	QSizePolicy::Maximum, QSizePolicy::Expanding );
 	toolLayout->addSpacerItem(qspaceritem);
 	panel->setLayout(toolLayout);
@@ -366,4 +371,48 @@ void sjApplication::changueSliderNumberNodes(int value){
 	sprintf(num, "%d", value);
 	txt_number_nodes->setText(QString(num));
 	sld_number_nodes->setValue(value);
+}
+
+void sjApplication::embeddingRefinement(){
+	sjEvent * mevt = new sjEvent(sjEvent::EVT_ITERATE);
+	sjViewer * current = (sjViewer *)( central_QTabWidget->currentWidget());
+	if( current != NULL){
+
+		
+		sjViewer * myviewer = current;
+		sjPolyhedronPipe::sjPipe * pipe_sink = myviewer->getInputPipe();
+		
+		sjRefinement * refi = new sjRefinement();
+
+		
+		
+		refi->setInputPipe(pipe_sink);
+		
+		pipe_sink->setOuputConsumer(refi);
+		
+		sjPolyhedronPipe::sjPipe * pipe_sink2 = new sjPolyhedronPipe::sjPipe();
+		
+		refi->setOutputPipe(pipe_sink2);
+		
+		pipe_sink2->setOuputConsumer(myviewer);
+		
+		myviewer->setInputPipe(pipe_sink2);
+		
+		myviewer->clear();
+		myviewer->attach(refi);
+		
+		refi->mesh_G = myviewer->getContractedMesh();
+		refi->original_mesh_G = myviewer->getOriginalMesh();
+		refi->sjskeleton = myviewer->getSkeleton();
+
+		//simpli->update();
+		pipe_sink->write(myviewer->getVerticesFaces());
+
+		//current->setSkeleton(refi->sjskeleton);
+
+		//current->dispatch(mevt);
+		
+		
+	}
+
 }
