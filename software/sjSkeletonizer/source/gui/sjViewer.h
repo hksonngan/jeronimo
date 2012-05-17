@@ -129,6 +129,19 @@ public slots:
   void setTwoSides(bool b);
   void LaplacianSmoothing();
 
+public:
+	sjPolyhedron getOriginalMesh(){
+		return m_original;
+	}
+
+	sjPolyhedron getContractedMesh(){
+		return this->polyhedron;
+	}
+
+	sjGraphSkeletonType getSimplifiedSkeleton(){
+		return m_skeleton;
+	}
+
 private:
   double max_min;
   void drawModel();

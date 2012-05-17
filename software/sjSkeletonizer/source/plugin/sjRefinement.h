@@ -45,11 +45,13 @@ namespace sj{
 		double getLengthAdjacentEdges(vector<int> adjacent_points, int vid);
 
 		void embeddingRefinement();
+		void convertPolyhedronToSkeleton();
 
 		sjGraphSkeletonType sjskeleton;
 		sjGraphSkeletonType original_skeleton;
 		sjGraphSkeletonType contracted_skeleton;
 		sjPolyhedron mesh_G;
+		sjPolyhedron original_mesh_G;
 		bool refinement_complete;
 
 	};
