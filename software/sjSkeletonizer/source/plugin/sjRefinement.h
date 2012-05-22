@@ -43,6 +43,7 @@ namespace sj{
 		sjVector_3 calculateWeightedAverageDisplacement(vector<vector<int>> boundaries, int node_id);
 		vector<int> getAdjacentEdgesinBoundaryToVertex(vector<int> boundary, int vid);
 		double getLengthAdjacentEdges(vector<int> adjacent_points, int vid);
+		set<int> getValidNodesFromHedgeTrue();
 
 		void embeddingRefinement();
 		void convertPolyhedronToSkeleton();
