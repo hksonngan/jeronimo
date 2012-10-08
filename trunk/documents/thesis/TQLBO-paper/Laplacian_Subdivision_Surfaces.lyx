@@ -764,6 +764,58 @@ Our method allows the use of soft constraints weighting the effect of smoothing
 Laplace Beltrami operator over triangular and quadrilateral meshes
 \end_layout
 
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/beltrami.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+The 5 basic triangle-quad cases with common vertex 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+ and the relationship with 
+\begin_inset Formula $V_{j}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{j}^{\prime}$
+\end_inset
+
+.
+ (a) Two triangles [Desbrun 1999].
+ (b) (c) Two quads and one quad [Xiong 2011].
+ (d) (e) Triangles and quads (TQLBO).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Curvature normal calculation
 \end_layout
@@ -773,7 +825,7 @@ Demostracion basado en em MLBO, con una extension
 \end_layout
 
 \begin_layout Standard
-Given a mesh
+Given a mesh 
 \begin_inset Formula $M=\left(V,Q,T\right)$
 \end_inset
 
@@ -806,7 +858,7 @@ The area (
 \end_inset
 
  ring neihborrhod (
-\begin_inset Formula $N_{p}$
+\begin_inset Formula $N_{1}$
 \end_inset
 
 ) of vertex 
@@ -821,100 +873,158 @@ The area (
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $A\left(v\right)=A\left(Q_{N_{1}\left(p\right)}\right)+A\left(T_{N_{1}\left(p\right)}\right)$
+\align center
+
+\size small
+\begin_inset Formula $A\left(v_{i}\right)=A\left(Q_{N_{1}\left(v_{i}\right)}\right)+A\left(T_{N_{1}\left(v_{i}\right)}\right)$
 \end_inset
 
 .
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $A\left(v\right)=\frac{1}{2^{m}}\underset{q_{i}}{\sum}2^{m-1}A\left(q_{i}\right)+\underset{t_{j}}{\sum}A\left(t_{j}\right)$
+
+\size small
+\begin_inset Formula $A\left(v_{i}\right)=\frac{1}{2^{m}}\overset{m}{\underset{j=1}{\sum}}2^{m-1}A\left(q_{j}\right)+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)$
 \end_inset
 
 , where 
-\begin_inset Formula $q_{1},q_{2},...,q_{i},...,q_{m}\in Q_{N_{1}\left(p\right)}$
+\begin_inset Formula $q_{1},q_{2},...,q_{i},...,q_{m}\in Q_{N_{1}\left(v_{i}\right)}$
 \end_inset
 
  and 
-\begin_inset Formula $t_{1},t_{2},...,t_{j},...,t_{k}\in T_{N_{1}\left(p\right)}$
+\begin_inset Formula $t_{1},t_{2},...,t_{k},...,t_{r}\in T_{N_{1}\left(v_{i}\right)}$
 \end_inset
 
 .
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $A\left(v\right)=\frac{1}{2}\underset{q_{i}}{\sum}\left[A\left(t_{i1}^{*}\right)+A\left(t_{i2}^{*}\right)+A\left(t_{i3}^{*}\right)\right]+\underset{t_{j}}{\sum}A\left(t_{j}\right)$
+
+\size small
+\begin_inset Formula 
+\begin{equation}
+A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[A\left(t_{j1}^{*}\right)+A\left(t_{j2}^{*}\right)+A\left(t_{j3}^{*}\right)\right]+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)\label{eq:equArea}
+\end{equation}
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-Applying the gradient operator to equation below.
+
+\size small
+Applying the gradient operator to equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:equArea"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\nabla A\left(v\right)=\frac{1}{2}\underset{q_{i}}{\sum}\left[\nabla A\left(t_{i1}^{*}\right)+\nabla A\left(t_{i2}^{*}\right)+\nabla A\left(t_{i3}^{*}\right)\right]+\underset{t_{j}}{\sum}\nabla A\left(t_{j}\right)$
+
+\size small
+\begin_inset Formula 
+\begin{equation}
+\nabla A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[\nabla A\left(t_{j1}^{*}\right)+\nabla A\left(t_{j2}^{*}\right)+\nabla A\left(t_{j3}^{*}\right)\right]+\overset{r}{\underset{k=1}{\sum}}\nabla A\left(t_{k}\right)\label{eq:EqGrad}
+\end{equation}
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\nabla A\left(t_{i1}^{*}\right)=\frac{\cot\alpha_{i3}\left(v_{i}-v\right)+\cot\alpha_{i2}\left(v_{i}^{\prime}-v\right)}{2}$
+\align center
+
+\size small
+\begin_inset Formula $\nabla A\left(t_{j1}^{*}\right)=\frac{\cot\theta_{j3}\left(v_{j}-v_{i}\right)+\cot\theta_{j2}\left(v_{j}^{\prime}-v_{i}\right)}{2}$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\nabla A\left(t_{i2}^{*}\right)=\frac{\cot\alpha_{i5}\left(v_{i}^{\prime}-v\right)+\cot\alpha_{i4}\left(v_{i+1}-v\right)}{2}$
+\align center
+
+\size small
+\begin_inset Formula $\nabla A\left(t_{j2}^{*}\right)=\frac{\cot\theta_{j5}\left(v_{j}^{\prime}-v_{i}\right)+\cot\theta_{j4}\left(v_{j+1}-v_{i}\right)}{2}$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\nabla A\left(t_{i3}^{*}\right)=\frac{\cot\alpha_{i6}\left(v_{i}-v\right)+\cot\alpha_{i1}\left(v_{i+1}-v\right)}{2}$
+\align center
+
+\size small
+\begin_inset Formula $\nabla A\left(t_{j3}^{*}\right)=\frac{\cot\theta_{j6}\left(v_{j}-v_{i}\right)+\cot\theta_{j1}\left(v_{j+1}-v_{i}\right)}{2}$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\nabla A\left(t_{j}\right)=\frac{\left(\cot\alpha+\cot\beta\right)\left(v_{j}-v\right)}{2}$
+\align center
+
+\size small
+\begin_inset Formula $\nabla A\left(t_{k}\right)=\frac{\left(\cot\alpha_{k}+\cot\beta_{k}\right)\left(v_{k}-v_{i}\right)}{2}$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-Rewritten ASDASD as
+
+\size small
+Rewritten (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:EqGrad"
+
+\end_inset
+
+) as
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\nabla A\left(v\right)=\underset{i=0}{\overset{m}{\sum}}w_{i}\left(v_{i}-v\right)+\underset{i=0}{\overset{m}{\sum}}w_{i}^{\prime}\left(v_{i}^{\prime}-v\right)+\underset{j=0}{\overset{k}{\sum}}w_{j}\left(v_{j}-v\right)$
+
+\size small
+\begin_inset Formula $\nabla A\left(v_{i}\right)=\underset{i=0}{\overset{m-1}{\sum}}w_{ij}\left(v_{j}-v_{i}\right)+\underset{i=0}{\overset{m-1}{\sum}}w_{ij}^{\prime}\left(v_{j}^{\prime}-v_{i}\right)+\underset{k=0}{\overset{r-1}{\sum}}w_{ik}\left(v_{k}-v_{i}\right)$
 \end_inset
 
 , where
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $w_{i}=\frac{1}{4}\cot\alpha_{i3}+\cot\alpha_{i6}+\cot\alpha_{\left(i-1\right)4}+\cot\alpha_{\left(i-1\right)1}$
+\align center
+
+\size small
+\begin_inset Formula $w_{ij}=\frac{1}{4}\left(\cot\theta_{j3}+\cot\theta_{j6}+\cot\theta_{\left(j-1\right)4}+\cot\theta_{\left(j-1\right)1}\right)$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $w_{i}^{\prime}=\frac{1}{4}\cot\alpha_{i2}+\cot\alpha_{i5}$
+\align center
+
+\size small
+\begin_inset Formula $w_{ij}^{\prime}=\frac{1}{4}\left(\cot\theta_{j2}+\cot\theta_{j5}\right)$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $w_{j}=\frac{1}{2}\cot\alpha+\cot\beta$
+\align center
+
+\size small
+\begin_inset Formula $w_{ik}=\frac{1}{2}\left(\cot\alpha_{k}+\cot\beta_{k}\right)$
 \end_inset
 
 
