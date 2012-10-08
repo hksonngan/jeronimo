@@ -764,6 +764,153 @@ Our method allows the use of soft constraints weighting the effect of smoothing
 Laplace Beltrami operator over triangular and quadrilateral meshes
 \end_layout
 
+\begin_layout Subsubsection
+Gradient of Voronoi Area
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/voronoi_region.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:voronoi_region"
+
+\end_inset
+
+Area of Voronoi region around 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ in dark blue.
+\begin_inset Newline newline
+\end_inset
+
+ 
+\begin_inset Formula $v_{j}$
+\end_inset
+
+ 1-ring neighbors around 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+ 
+\begin_inset Formula $\alpha_{j}$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta_{j}$
+\end_inset
+
+ opposite angles between edge 
+\begin_inset Formula $\overrightarrow{v_{j}-v_{i}}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Consider a surface 
+\begin_inset Formula $S$
+\end_inset
+
+ compound by a set of triangles around vertex 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+ We can define the 
+\shape italic
+Voronoi region
+\shape default
+ of 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ as show in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:voronoi_region"
+
+\end_inset
+
+, The change in area produced by move 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ is named gradient of 
+\shape italic
+Voronoi region,
+\shape default
+ if we normalize this gradient by the total area in ring around 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, we have the 
+\shape italic
+discrete mean curvature normal
+\shape default
+ of a surface 
+\begin_inset Formula $S$
+\end_inset
+
+ as shown in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:eq_gradient_voronoi_area"
+
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Desbrun1999"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\bar{\kappa\mathbf{n}}=\frac{\nabla A}{2A}=\frac{1}{2A}\underset{j}{\sum}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\label{eq:eq_gradient_voronoi_area}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset Float figure
 wide true
@@ -784,6 +931,12 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:LBO-basic-5-TQ"
+
+\end_inset
+
 The 5 basic triangle-quad cases with common vertex 
 \begin_inset Formula $V_{i}$
 \end_inset
@@ -807,10 +960,67 @@ The 5 basic triangle-quad cases with common vertex
 
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
+
 
 \end_layout
 
+\begin_layout Subsubsection
+Normalized LBO over triangular and quadrilateral meshes
+\end_layout
+
+\begin_layout Standard
+based on 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Desbrun1999"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Xiong2011"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $L\left(i,j\right)=\begin{cases}
+-\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum w_{ij}}} & \mbox{if }j\in N\left(v_{i}\right)\\
+\delta_{ij} & \mbox{otherwise}
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $N\left(v_{i}\right)$
+\end_inset
+
+ is the 1-ring neighbors with shared face to 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, and 
+\begin_inset Formula $\delta_{ij}$
+\end_inset
+
+ being the Kronecker delta function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $w_{ij}=\begin{cases}
+\frac{1}{2}\left(\cot\alpha_{j}+\cot\beta_{j}\right) & \mbox{case }\mathit{a.}\\
+\frac{1}{4}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}+\cot\theta_{j3}+\cot\theta_{j6}\right) & \mbox{case \mathit{b}.}\\
+\frac{1}{4}\left(\cot\theta_{j2}+\cot\theta_{j5}\right) & \mbox{case \mathit{c}.}\\
+\frac{1}{4}\left(\cot\theta_{j3}+\cot\theta_{j6}\right)+\frac{1}{2}\cot\beta_{j} & \mbox{case \mathit{d}.}\\
+\frac{1}{4}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}\right)+\frac{1}{2}\cot\alpha_{j} & \mbox{case \mathit{e}.}
+\end{cases}$
 \end_inset
 
 
