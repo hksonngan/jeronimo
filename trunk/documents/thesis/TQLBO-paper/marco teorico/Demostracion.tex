@@ -1,0 +1,155 @@
+
+\documentclass{article}
+\usepackage{amsfonts}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Tuesday, September 25, 2012 13:55:47}
+%TCIDATA{LastRevised=Tuesday, September 25, 2012 15:23:01}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\input{tcilatex}
+
+\begin{document}
+
+
+$Q=\{q_{1},q_{2},...,q_{m}\}|q_{i}=\{v_{0},v_{1},v_{2},v_{3}\}\in 
+%TCIMACRO{\U{211d} }%
+%BeginExpansion
+\mathbb{R}
+%EndExpansion
+^{3},i=[1,m]$
+
+$T=\{t_{1},t_{2},...,t_{k}\}|t_{j}=\{v_{0},v_{1},v_{2}\}\in 
+%TCIMACRO{\U{211d} }%
+%BeginExpansion
+\mathbb{R}
+%EndExpansion
+^{3},j=[1,k]$
+
+$A\left( p\right) =A\left( Q\right) +A\left( T\right) $
+
+$A\left( p\right) =\frac{1}{2^{m}}\dsum\limits_{1\leq i\leq m}2^{m-1}A\left(
+q_{i}\right) +\dsum\limits_{1\leq j\leq k}A\left( t_{j}\right) $
+
+$A\left( p\right) =\frac{1}{2}\dsum\limits_{1\leq i\leq m}A\left(
+q_{i}\right) +\dsum\limits_{1\leq j\leq k}A\left( t_{j}\right) $
+
+$A\left( p\right) =\frac{1}{2}\dsum\limits_{1\leq i\leq m}\left[ A\left(
+T_{i1}\right) +A\left( T_{i2}\right) +A\left( T_{i3}\right) \right]
++\dsum\limits_{1\leq j\leq k}A\left( t_{j}\right) $
+
+$\nabla A\left( p\right) =\nabla (\frac{1}{2}\dsum\limits_{1\leq i\leq m}%
+\left[ A\left( T_{i1}\right) +A\left( T_{i2}\right) +A\left( T_{i3}\right) %
+\right] +\dsum\limits_{1\leq j\leq k}A\left( t_{j}\right) )$
+
+$\nabla A\left( p\right) =(\frac{1}{2}\dsum\limits_{1\leq i\leq m}\left[
+\nabla A\left( T_{i1}\right) +\nabla A\left( T_{i2}\right) +\nabla A\left(
+T_{i3}\right) \right] +\dsum\limits_{1\leq j\leq k}\nabla A\left(
+t_{j}\right) )$
+
+$\nabla A\left( T_{i1}\right) =\frac{\cot \alpha _{i3}\left( p_{i}-p\right)
++\cot \alpha _{i2}\left( p_{i}^{\prime }-p\right) }{2}$
+
+$\nabla A\left( T_{i2}\right) =\frac{\cot \alpha _{j5}\left( p_{i}^{\prime
+}-p\right) +\cot \alpha _{i4}\left( p_{i+1}-p\right) }{2}$
+
+$\nabla A\left( T_{i3}\right) =\frac{\cot \alpha _{i6}\left( p_{i}-p\right)
++\cot \alpha _{i1}\left( p_{i+1}-p\right) }{2}$
+
+$\nabla A\left( t_{j}\right) =\frac{(\cot \alpha +\cot \beta )(p_{j}-p)}{2}$
+
+$\nabla A\left( p\right) =\frac{1}{2}\dsum\limits_{1\leq i\leq m}\left[ 
+\frac{\cot \alpha _{i3}\left( p_{i}-p\right) +\cot \alpha _{i2}\left(
+p_{i}^{\prime }-p\right) }{2}+\frac{\cot \alpha _{j5}\left( p_{i}^{\prime
+}-p\right) +\cot \alpha _{i4}\left( p_{i+1}-p\right) }{2}+\frac{\cot \alpha
+_{i6}\left( p_{i}-p\right) +\cot \alpha _{i1}\left( p_{i+1}-p\right) }{2}%
+\right] $
+
+$+\dsum\limits_{1\leq j\leq k}\frac{(\cot \alpha +\cot \beta )(p_{j}-p)}{2}$
+
+\bigskip $\nabla A\left( p\right) =\frac{1}{2}\dsum\limits_{1\leq i\leq m}%
+\left[ \frac{(\cot \alpha _{i3}+\cot \alpha _{i6})\left( p_{i}-p\right)
++\left( \cot \alpha _{i4}+\cot \alpha _{i1}\right) \left( \left(
+p_{i+1}-p\right) \right) }{2}+\frac{\left( \cot \alpha _{i2}+\cot \alpha
+_{j5}\right) \left( p_{i}^{\prime }-p\right) }{2}\right] $
+
+$+\dsum\limits_{1\leq j\leq k}\frac{(\cot \alpha +\cot \beta )(p_{j}-p)}{2}$
+
+$\nabla A\left( p\right) =\frac{1}{4}\dsum\limits_{1\leq i\leq m}(\cot
+\alpha _{i3}+\cot \alpha _{i6})\left( p_{i}-p\right) +\left( \cot \alpha
+_{i4}+\cot \alpha _{i1}\right) \left( \left( p_{i+1}-p\right) \right) $
+
+$+\frac{1}{4}\dsum\limits_{1\leq i\leq m}\left( \cot \alpha _{i2}+\cot
+\alpha _{j5}\right) \left( p_{i}^{\prime }-p\right) $
+
+$+\dsum\limits_{1\leq j\leq k}\frac{(\cot \alpha +\cot \beta )(p_{j}-p)}{2}$
+
+$\nabla A\left( p\right) =\frac{1}{4}\dsum\limits_{1\leq i\leq m}(\cot
+\alpha _{i3}+\cot \alpha _{i6})\left( p_{i}-p\right) $
+
+$+\frac{1}{4}\dsum\limits_{1\leq i\leq m}\left( \cot \alpha _{i4}+\cot
+\alpha _{i1}\right) \left( \left( p_{i+1}-p\right) \right) $
+
+$+\frac{1}{4}\dsum\limits_{1\leq i\leq m}\left( \cot \alpha _{i2}+\cot
+\alpha _{j5}\right) \left( p_{i}^{\prime }-p\right) $
+
+$+\dsum\limits_{1\leq j\leq k}\frac{(\cot \alpha +\cot \beta )(p_{j}-p)}{2}$
+
+\bigskip 
+
+$\nabla A\left( p\right) =\frac{1}{4}\dsum\limits_{1\leq i\leq m}(\cot
+\alpha _{i3}+\cot \alpha _{i6})\left( p_{i}-p\right) $
+
+$+\frac{1}{4}\dsum\limits_{1\leq i\leq m}\left( \cot \alpha _{\left(
+i-1\right) 4}+\cot \alpha _{(i-1)1}\right) \left( \left( p_{i}-p\right)
+\right) $
+
+$+\frac{1}{4}\dsum\limits_{1\leq i\leq m}\left( \cot \alpha _{i2}+\cot
+\alpha _{j5}\right) \left( p_{i}^{\prime }-p\right) $
+
+$+\dsum\limits_{1\leq j\leq k}\frac{(\cot \alpha +\cot \beta )(p_{j}-p)}{2}$
+
+\bigskip 
+
+$\nabla A\left( p\right) =\frac{1}{4}\dsum\limits_{1\leq i\leq m}(\cot
+\alpha _{i3}+\cot \alpha _{i6}+\cot \alpha _{\left( i-1\right) 4}+\cot
+\alpha _{(i-1)1})\left( p_{i}-p\right) $
+
+$+\frac{1}{4}\dsum\limits_{1\leq i\leq m}\left( \cot \alpha _{i2}+\cot
+\alpha _{j5}\right) \left( p_{i}^{\prime }-p\right) $
+
+$+\frac{1}{2}\dsum\limits_{1\leq j\leq k}(\cot \alpha +\cot \beta )(p_{j}-p)$
+
+$\nabla A\left( p\right) =\dsum\limits_{1\leq i\leq m}w_{i}\left(
+p_{i}-p\right) +\dsum\limits_{1\leq i\leq m}w_{i}^{\prime }\left(
+p_{i}^{\prime }-p\right) +\dsum\limits_{1\leq j\leq k}w_{j}(p_{j}-p)$
+
+\end{document}

@@ -1,0 +1,130 @@
+\usetheme{Rochester}
+
+\RequirePackage{pgf}
+\usepackage{txfonts}
+\usepackage{multirow}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{default}
+\usepackage{array}
+\usepackage{tabularx,colortbl}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{ulem}
+
+
+\def \simbolo {\alpha}
+
+\DeclareOptionBeamer{simbolo}{\def \simbolo {#1}}
+\ProcessOptionsBeamer
+
+
+\pgfdeclareimage[width=1.0\paperwidth]{cabecera-curso}{cabecera-curso}
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercovered{transparent}
+
+\beamer@headheight=0.13\paperwidth
+
+\definecolor{grisClaro}{HTML}{F4F4F4}
+\definecolor{oxygenorange}{HTML}{F7800A}
+\definecolor{oxygengray}{HTML}{686868}
+\definecolor{oxygenlightgray}{HTML}{EEEEEE}
+\definecolor{oxygenblue}{HTML}{236EAF}
+\setbeamercolor*{Title bar}{fg=white}
+\setbeamercolor*{Location bar}{fg=oxygenorange,bg=oxygenlightgray}
+\setbeamercolor*{frametitle}{parent=Title bar}
+\setbeamercolor*{block title}{bg=oxygenblue,fg=white}
+\setbeamercolor*{block body}{bg=oxygenlightgray,fg=oxygengray}
+\setbeamercolor*{normal text}{bg=white,fg=oxygengray}
+\setbeamercolor*{section in head/foot}{bg=oxygenblue,fg=white}
+\setbeamercolor*{color letra fondo}{fg=grisClaro}
+
+\usecolortheme[named=oxygenorange]{structure}
+
+\setbeamerfont{section in head/foot}{size=\tiny,series=\normalfont}
+\setbeamerfont{frametitle}{size=\Large}
+
+%\setbeamertemplate{headline}
+\setbeamertemplate{frametitle}
+{
+  \vskip-0.25\beamer@headheight
+  \vskip-\baselineskip
+  \vskip-0.2cm
+  \hskip0.7cm\usebeamerfont*{frametitle}\insertframetitle
+  \vskip-0.10em
+  \hskip0.7cm\usebeamerfont*{framesubtitle}\insertframesubtitle
+}
+
+\setbeamertemplate{headline}
+{
+  \pgfuseimage{cabecera-curso}
+  \vskip -1.95cm
+  \linethickness{0pt}
+
+  \framelatex{
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.3\beamer@headheight]{Title bar}
+    \usebeamerfont{section in head/foot}%
+    \insertsectionnavigationhorizontal{0pt}{\hskip0.22cm}{}%
+  \end{beamercolorbox}}
+
+  \framelatex{
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.7\beamer@headheight]{Title bar}
+  \end{beamercolorbox}}
+}
+
+\setbeamertemplate{footline}
+{
+  \linethickness{0pt}
+  \framelatex{
+  \begin{beamercolorbox}[leftskip=.3cm,wd=\paperwidth,ht=0.3\beamer@headheight,sep=0.1cm]{Location bar}
+    \usebeamerfont{section in head/foot}%
+    \insertshortauthor~|~\insertshorttitle
+    \hfill
+    \insertframenumber/\inserttotalframenumber
+  \end{beamercolorbox}}
+}
+
+\setbeamertemplate{background}{
+  \parbox[c][\paperheight]{\paperwidth}{%
+    \boldmath
+\fontsize{125pt}{125pt}\selectfont
+
+    \usebeamercolor{color letra fondo}
+    \color{fg}
+
+    \vfill \hfill 
+    $ \simbolo $
+    \vspace{1cm} \hspace{-1cm}
+    \unboldmath
+  }
+} 
+
+
+\newcommand{\licencia}{
+\begin{frame}
+  \frametitle{Licencia\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \includegraphics[width=2.7cm,bb=0 0 400 103]{cc.png}}
+  \framesubtitle{M\'as info: \url{http://creativecommons.org/licenses/by-sa/3.0/es/}}
+\footnotesize
+
+  \begin{exampleblock}{Usted es libre de:}
+\begin{center}
+% use packages: array
+\begin{tabular}{m{0.75cm}m{7.25cm}m{1.25cm}}
+\includegraphics[width=0.75cm,bb=0 0 50 50]{share.png} & copiar, distribuir y comunicar p\'ublicamente la obra & \multirow{2}{*}{\includegraphics[width=1.25cm,bb=0 0 127 127]{seal.png} } \\ 
+\includegraphics[width=0.75cm,bb=0 0 50 50]{remix.png} & hacer obras derivadas \\ 
+\end{tabular}
+\end{center}
+  \end{exampleblock}
+
+  \begin{alertblock}{Bajo las condiciones siguientes:}
+\begin{center}
+% use packages: array
+\begin{tabular}{m{0.75cm}m{9cm}}
+\includegraphics[width=0.75cm,bb=0 0 50 50]{by.png} & \textbf{Reconocimiento.} Debe reconocer los cr\'editos de la obra de la manera especificada por el autor o el licenciador (pero no de una manera que sugiera que tiene su apoyo o apoyan el uso que hace de su obra). \\ 
+\includegraphics[width=0.75cm,bb=0 0 50 50]{sa.png} & \textbf{Compartir bajo la misma licencia.} Si transforma o modifica esta obra para crear una obra derivada, s\'olo puede distribuir la obra resultante bajo la misma licencia, una similar o una compatible. \\ 
+\end{tabular}
+\end{center}
+  \end{alertblock}
+\end{frame}
+}

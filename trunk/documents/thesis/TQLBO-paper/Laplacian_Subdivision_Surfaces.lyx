@@ -1,0 +1,1048 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass acmsiggraph
+\begin_preamble
+% for the following cases use the listed document class option:
+% [annual] - Technical paper accepted for presentation at the ACM SIGGRAPH 
+%   or SIGGRAPH Asia annual conference.
+% [sponsored] - Short or full-length technical paper accepted for 
+%   presentation at an event sponsored by ACM SIGGRAPH
+%   (but not the annual conference Technical Papers program).
+% [abstract] - A one-page abstract of your accepted content
+%   (Technical Sketches, Posters, Emerging Technologies, etc.). 
+%   Content greater than one page in length should use the "[sponsored]"
+%   parameter.
+% [preprint] - A preprint version of your final content.
+% [review] - A technical paper submitted for review. Includes line
+%   numbers and anonymization of author and affiliation information.
+
+% When you submit your paper for review, please use the \TOGonlineID''
+% command to include the online ID value assigned to your paper by the
+% submission management system. Replace '45678' with the value you were
+% assigned.
+\TOGonlineid{45678}
+
+% If you are preparing a preprint of your accepted paper, and your paper
+% will be published in an issue of the ACM "Transactions on Graphics''
+% journal, replace the "0'' values in the commands below with the correct
+% volume and number values for that issue - you'll get them before your
+% final paper is due.
+\TOGvolume{0}
+\TOGnumber{0}
+
+% The TOGarticleDOI' command accepts the DOI information provided to you
+% during production, and which makes up the URLs which identifies the ACM
+% article page and direct PDF link in the ACM Digital Library.
+% Replace "1111111.2222222'' with the values you are given.
+\TOGarticleDOI{1111111.2222222}
+
+% If you would like to include links to personal repositories for auxiliary
+% material related your research contribution, you may use one or more of
+% these commands to define an appropriate URL. The "\TOGlinkslist'' command
+% found just before the first section of your document will add hyperlinked
+% icons to your document, in addition to hyperlinked icons which point to
+% the ACM Digital Library article page and the ACM Digital Library-held PDF.
+\TOGprojectURL{}
+\TOGvideoURL{}
+\TOGdataURL{}
+\TOGcodeURL{}
+
+% Paper title.
+\title{Laplacian Subdivision Surfaces}
+
+% Author and Affiliation (single author).
+%\author{Name \thanks{e-mail: name@unknown.uu}\\ Research Institute}
+
+% Author and Affiliation (multiple authors).
+\author{Alexander Pinzon\thanks{e-mail: apinzonf@gmail.com}\\ Cimalab Research Group %
+\and Eduardo Romero\thanks{e-mail:edromero@unal.edu.co}\\Cimalab Research Group}
+%\and Ton Roosendaal\thanks{e-mail:ton@blender.org}\\ Blender CEO}
+
+% The ``pdfauthor'' command accepts the authors of the work,
+% comma-delimited, and adds this information to the PDF metadata.
+\pdfauthor{Alexander Pinzon, Eduardo Romero, Ton Roosendaal}
+
+% Keywords that describe your work.
+\keywords{laplacian smooth, subdivision surface}
+\end_preamble
+\options annual
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 92
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 0
+\use_esint 0
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+This is a template LyX file for articles to be submitted to the Special
+ Interest Group on Computer Graphics and Interactive Techniques (SIGGRAPH).
+ How to install the SIGGRAPH LaTeX class to your LaTeX system is explained
+ in 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://wiki.lyx.org/Examples/AcmSiggraph
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+Note:
+\series default
+ The author, affiliation, email addresses, and the document title have to
+ set up in the LaTeX preamble of this document!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\series bold
+Note:
+\series default
+ The document type (review etc.) is specified by using one of the document
+ class options listed in the preamble of this file.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Teaser
+\begin_inset Graphics
+	filename images/teaser.png
+	lyxscale 10
+	width 100text%
+
+\end_inset
+
+ 
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+You can ignore that LyX writes here 
+\begin_inset Quotes eld
+\end_inset
+
+Senseless!!!
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+Laplacian subdivision surface with weigth vertex group
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+maketitle 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The command 
+\series bold
+
+\backslash
+maketitle
+\series default
+ prepares and prints the title block.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+This paper proposes a novel method for modelling poligonal mesh using subdivisio
+n surface and laplacian smoothing.
+ This method use laplacian smooth for modelling global curvature in the
+ model, to permit most flexible, robust and predictable results.
+ 
+\end_layout
+
+\begin_layout Abstract
+This method can correct traditional problems in extraordinary vertices present
+ at catmull-clark subdivision method.
+ The convergent rate of the laplacian smooth can be controlled by adjusting
+ the weight in lambda parameter.
+\end_layout
+
+\begin_layout Abstract
+This proposal contains NN novel features
+\end_layout
+
+\begin_layout Abstract
+ESTE ABSTRACT NO SIRVE
+\end_layout
+
+\begin_layout Abstract
+(
+\series bold
+we provide a series of examples to graphically and numerically demonstrate
+ the quality of our results.
+\series default
+) debe ser cambiado copiado de desbrun 99
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+See 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.acm.org/class/1998/
+\end_layout
+
+\end_inset
+
+ for details about the ACM Computing Review categories.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout CR categories
+\begin_inset Flex CRcat
+status open
+
+\begin_layout Plain Layout
+I.3.5
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+Computer Graphics
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+Computational Geometry and Object Modeling 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+Modeling packages
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The CR categories expects 4 infos that are separated by 
+\begin_inset Quotes eld
+\end_inset
+
+
+\series bold
+}{
+\series default
+
+\begin_inset Quotes erd
+\end_inset
+
+ in TeX code.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout CRcat
+\begin_inset Flex CRcat
+status open
+
+\begin_layout Plain Layout
+I.3.5
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+Computer Graphics
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+Computational Geometry and Object Modeling 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+Curve, surface, solid, and object representations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+keywordlist
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The command 
+\series bold
+
+\backslash
+keywordlist
+\series default
+ prints out the keywords.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%
+\backslash
+copyrightspace
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+When you use a copyright note, the 
+\series bold
+
+\backslash
+copyrightspace
+\series default
+ command must be the first command after the start of the first section
+ of the body of your paper.
+ It ensures the copyright space is left at the bottom of the first column
+ on the first page of your paper.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Mencionar la gran importancia que tiene trabajar con mallas de triangulos
+ y poligonos, ya no se nececitara preprocesar la malla para poder aplicar
+ alguna tecnica de procesamiento que involucre el operador laplace beltrami.
+ en el mundo real los dise;adores crean modelos con triangulos y cuadrados.
+\end_layout
+
+\begin_layout Standard
+Mesh modelling from a coarse geometry is an important step in computer graphics
+ process such as design, art and other fields.
+\end_layout
+
+\begin_layout Standard
+Nuestro metodos propone tre cosas muy novedosas:
+\end_layout
+
+\begin_layout Standard
+Operador Laplace beltrami para mallas de topologia arbitraria formadas por
+ triangulos y cuadrados, para cualquier tipo de procesamiento en geometria
+ diferencial
+\end_layout
+
+\begin_layout Standard
+Permite generar una familia de formas parametrizadas.
+\end_layout
+
+\begin_layout Standard
+Controlar el nivel de suavizado y curvatura al subdividir mallas de poligonos
+\end_layout
+
+\begin_layout Subsection*
+1.1 Previous work
+\end_layout
+
+\begin_layout Subsection*
+1.2 Overview of our method
+\end_layout
+
+\begin_layout Standard
+Nuestro metodo usa el un bosquejo de maya le aplica una subdivision cualquiera
+ y esa subdivision la modifica a lo largo de su curvatura de flujo usando
+ un operador laplaciano para triangulos y cuadrados
+\end_layout
+
+\begin_layout Section
+Theoretical Review of Related Work
+\end_layout
+
+\begin_layout Subsection
+Subdivision Surface
+\end_layout
+
+\begin_layout Standard
+Subdivision is an iterated transformation 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Warren2001"
+
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $F$
+\end_inset
+
+ be a function (subdivision transformation) that maps one geometry 
+\begin_inset Formula $M_{i}$
+\end_inset
+
+ into another similar geometry with same topology 
+\begin_inset Formula $M_{i+1}$
+\end_inset
+
+.
+\begin_inset Formula 
+\begin{equation}
+M_{i+1}=F\left(M_{i}\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Catmull-Clark subdivision transformation is used to smooth a surface
+ as the limit of sequence of subdivision steps
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Stam1998"
+
+\end_inset
+
+.
+ This method do a recursive subdivision transformation that refines the
+ model into a linear interpolationthat is a approximate smooth surface.
+ The process of Catmull-Clark is govern o properties of B-spline curve from
+ multivariate spline theory
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Loop1987"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In many subdivision surfaces methods catmull clark loop so on.
+ the smoothness of the model is autmaically guarantteed
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DeRose1998"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Subdivision surfaces with catmull clark is continuos except at a extraordinary
+ points
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Loop1987"
+
+\end_inset
+
+, but with our method can correct this problem
+\end_layout
+
+\begin_layout Subsection
+Curvature flow
+\end_layout
+
+\begin_layout Standard
+La curvatura la tomamos segun desbrun 1999
+\end_layout
+
+\begin_layout Subsection
+Laplacian smooth
+\end_layout
+
+\begin_layout Standard
+The functional used in many related work to constrain energy minimization
+ is based on a total curvature of a surface 
+\begin_inset Formula $S$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+E\left(S\right)=\int_{S}\kappa_{1}^{2}+\kappa_{2}^{2}dS
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Proposed Method
+\end_layout
+
+\begin_layout Standard
+Our method simplifies the design of irregular polygon meshes, generating
+ a parameterized family of shapes using a set of vertices representing a
+ coarse sketch of the desired model.
+ Our method is iterative and converges towards a continuous and smooth version
+ of the original model.
+ 
+\end_layout
+
+\begin_layout Standard
+Unlike other methods, our method allows use arbitrary topologys types of
+ representation as triangles and quads, exploiting the basic geometrical
+ relationships facilitating and ensuring convergence of the algorithm and
+ similar shapes consistent with the original shape against the other methods.
+ 
+\end_layout
+
+\begin_layout Standard
+Our method allows the use of soft constraints weighting the effect of smoothing
+ at each vertex based on a normalized weight, the weights are assigned to
+ the control vertices of the original mesh or.
+ The weights of the new vertices resulting from the iterations are calculated
+ by interpolation, allowing to modify the behavior of the method on exact
+ regions of the original model.
+\end_layout
+
+\begin_layout Subsection
+Laplace Beltrami operator over triangular and quadrilateral meshes
+\end_layout
+
+\begin_layout Subsubsection
+Curvature normal calculation
+\end_layout
+
+\begin_layout Standard
+Demostracion basado en em MLBO, con una extension
+\end_layout
+
+\begin_layout Standard
+Given a mesh
+\begin_inset Formula $M=\left(V,Q,T\right)$
+\end_inset
+
+, with vertices 
+\begin_inset Formula $V$
+\end_inset
+
+ and quads 
+\begin_inset Formula $Q$
+\end_inset
+
+ and triangles 
+\begin_inset Formula $T$
+\end_inset
+
+, where 
+\begin_inset Formula $V=\left[v_{1}^{T},v_{2}^{T},...,v_{n}^{T}\right]$
+\end_inset
+
+ are the vertex positions.
+\end_layout
+
+\begin_layout Standard
+The area (
+\begin_inset Formula $A$
+\end_inset
+
+) of 
+\begin_inset Formula $1$
+\end_inset
+
+ ring neihborrhod (
+\begin_inset Formula $N_{p}$
+\end_inset
+
+) of vertex 
+\begin_inset Formula $v$
+\end_inset
+
+ in 
+\begin_inset Formula $M$
+\end_inset
+
+ is.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $A\left(v\right)=A\left(Q_{N_{1}\left(p\right)}\right)+A\left(T_{N_{1}\left(p\right)}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $A\left(v\right)=\frac{1}{2^{m}}\underset{q_{i}}{\sum}2^{m-1}A\left(q_{i}\right)+\underset{t_{j}}{\sum}A\left(t_{j}\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $q_{1},q_{2},...,q_{i},...,q_{m}\in Q_{N_{1}\left(p\right)}$
+\end_inset
+
+ and 
+\begin_inset Formula $t_{1},t_{2},...,t_{j},...,t_{k}\in T_{N_{1}\left(p\right)}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $A\left(v\right)=\frac{1}{2}\underset{q_{i}}{\sum}\left[A\left(t_{i1}^{*}\right)+A\left(t_{i2}^{*}\right)+A\left(t_{i3}^{*}\right)\right]+\underset{t_{j}}{\sum}A\left(t_{j}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Applying the gradient operator to equation below.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\nabla A\left(v\right)=\frac{1}{2}\underset{q_{i}}{\sum}\left[\nabla A\left(t_{i1}^{*}\right)+\nabla A\left(t_{i2}^{*}\right)+\nabla A\left(t_{i3}^{*}\right)\right]+\underset{t_{j}}{\sum}\nabla A\left(t_{j}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\nabla A\left(t_{i1}^{*}\right)=\frac{\cot\alpha_{i3}\left(v_{i}-v\right)+\cot\alpha_{i2}\left(v_{i}^{\prime}-v\right)}{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\nabla A\left(t_{i2}^{*}\right)=\frac{\cot\alpha_{i5}\left(v_{i}^{\prime}-v\right)+\cot\alpha_{i4}\left(v_{i+1}-v\right)}{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\nabla A\left(t_{i3}^{*}\right)=\frac{\cot\alpha_{i6}\left(v_{i}-v\right)+\cot\alpha_{i1}\left(v_{i+1}-v\right)}{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\nabla A\left(t_{j}\right)=\frac{\left(\cot\alpha+\cot\beta\right)\left(v_{j}-v\right)}{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Rewritten ASDASD as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\nabla A\left(v\right)=\underset{i=0}{\overset{m}{\sum}}w_{i}\left(v_{i}-v\right)+\underset{i=0}{\overset{m}{\sum}}w_{i}^{\prime}\left(v_{i}^{\prime}-v\right)+\underset{j=0}{\overset{k}{\sum}}w_{j}\left(v_{j}-v\right)$
+\end_inset
+
+, where
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $w_{i}=\frac{1}{4}\cot\alpha_{i3}+\cot\alpha_{i6}+\cot\alpha_{\left(i-1\right)4}+\cot\alpha_{\left(i-1\right)1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $w_{i}^{\prime}=\frac{1}{4}\cot\alpha_{i2}+\cot\alpha_{i5}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $w_{j}=\frac{1}{2}\cot\alpha+\cot\beta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Normalized curvature operator
+\end_layout
+
+\begin_layout Standard
+Normalizarlo igual que los otros metodos
+\end_layout
+
+\begin_layout Subsection
+Boundaries scale-dependent
+\end_layout
+
+\begin_layout Standard
+El manejo de los bordes con operador dependiente de escala
+\end_layout
+
+\begin_layout Subsection
+Anti-shrinking fairing - Volume preservation 
+\end_layout
+
+\begin_layout Standard
+Preservacion de volumen en el centroide funciona mejor que lo propuesto
+ por desbrum 99
+\end_layout
+
+\begin_layout Standard
+The diffusion process, induce shrinkage 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Desbrun1999"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Weight based somooth constraints
+\end_layout
+
+\begin_layout Standard
+Las familias que se generan pueden cambiar substancialmente con el ponderamiento
+ de puntos de control especificos
+\end_layout
+
+\begin_layout Section
+Experimental Results and Applications
+\end_layout
+
+\begin_layout Standard
+Se trabajo con blender software blblbsd
+\end_layout
+
+\begin_layout Standard
+se hicieron pruebas de rendimiento asdadasd
+\end_layout
+
+\begin_layout Standard
+Pruebas de catmull clark vs nuestro metodo
+\end_layout
+
+\begin_layout Standard
+pruebas de T Q, y nuestro metodos de Ty Q
+\end_layout
+
+\begin_layout Standard
+Pruebas generando familias de objetos, que involucran y no CatCl.
+\end_layout
+
+\begin_layout Subsection
+Implementation
+\end_layout
+
+\begin_layout Standard
+c y c++ blender.
+\end_layout
+
+\begin_layout Subsection
+Sparse linear system
+\end_layout
+
+\begin_layout Standard
+superlu opennl 
+\end_layout
+
+\begin_layout Section
+Conclusion and future work
+\end_layout
+
+\begin_layout Standard
+optimizacion del metodo de solucion
+\end_layout
+
+\begin_layout Standard
+aplicarlo en otras areas
+\end_layout
+
+\begin_layout Section*
+Acknowledgements
+\end_layout
+
+\begin_layout Standard
+CIM&LAB Computer Image & Medical Applications Laboratory.
+\end_layout
+
+\begin_layout Standard
+Blender Foundation.
+\end_layout
+
+\begin_layout Standard
+Google Summer of code program.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "template"
+options "acmsiggraph/acmsiggraph"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_body
+\end_document
