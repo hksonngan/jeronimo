@@ -699,7 +699,7 @@ key "Loop1987"
 \end_layout
 
 \begin_layout Subsection
-Curvature flow
+Mean Curvature Normal
 \end_layout
 
 \begin_layout Standard
@@ -820,7 +820,7 @@ Area of Voronoi region around
 \begin_inset Formula $\beta_{j}$
 \end_inset
 
- opposite angles between edge 
+ opposite angles to edge 
 \begin_inset Formula $\overrightarrow{v_{j}-v_{i}}$
 \end_inset
 
@@ -869,9 +869,22 @@ reference "fig:voronoi_region"
 
  is named gradient of 
 \shape italic
-Voronoi region,
-\shape default
- if we normalize this gradient by the total area in ring around 
+Voronoi region.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\nabla A=\frac{1}{4}\underset{j}{\sum}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\left(v_{i}-v_{j}\right)\label{eq:eq_gradient_voronoi_area}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If we normalize this gradient by the total area in 1-ring around 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -903,7 +916,37 @@ key "Desbrun1999"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\bar{\kappa\mathbf{n}}=\frac{\nabla A}{2A}=\frac{1}{2A}\underset{j}{\sum}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\label{eq:eq_gradient_voronoi_area}
+H=\frac{\nabla A}{A}=
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In differential geometry literature 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Meyer2003"
+
+\end_inset
+
+ the mean curvature 
+\begin_inset Formula $\kappa_{H}$
+\end_inset
+
+ of the surface 
+\begin_inset Formula $S$
+\end_inset
+
+ is defined as the average of the normal curvatures:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\kappa_{H}=\frac{1}{2\pi}\int_{0}^{2\pi}
 \end{equation}
 
 \end_inset
@@ -915,7 +958,7 @@ key "Desbrun1999"
 \begin_inset Float figure
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1031,10 +1074,6 @@ Curvature normal calculation
 \end_layout
 
 \begin_layout Standard
-Demostracion basado en em MLBO, con una extension
-\end_layout
-
-\begin_layout Standard
 Given a mesh 
 \begin_inset Formula $M=\left(V,Q,T\right)$
 \end_inset
@@ -1043,36 +1082,28 @@ Given a mesh
 \begin_inset Formula $V$
 \end_inset
 
- and quads 
+, quads 
 \begin_inset Formula $Q$
 \end_inset
 
- and triangles 
+, triangles 
 \begin_inset Formula $T$
 \end_inset
 
-, where 
-\begin_inset Formula $V=\left[v_{1}^{T},v_{2}^{T},...,v_{n}^{T}\right]$
-\end_inset
-
- are the vertex positions.
+.
 \end_layout
 
 \begin_layout Standard
-The area (
-\begin_inset Formula $A$
-\end_inset
-
-) of 
+The area of 
 \begin_inset Formula $1$
 \end_inset
 
- ring neihborrhod (
+-ring neighborhood (
 \begin_inset Formula $N_{1}$
 \end_inset
 
-) of vertex 
-\begin_inset Formula $v$
+) with shared face to vertex 
+\begin_inset Formula $v_{i}$
 \end_inset
 
  in 
@@ -1093,12 +1124,82 @@ The area (
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/quad_xiong.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:quad_xiong"
+
+\end_inset
+
+
+\begin_inset Formula $t_{j1}^{*}\equiv\vartriangle v_{i}v_{j}v_{j}^{\prime},\, t_{j2}^{*}\equiv\vartriangle v_{i}v_{j}^{\prime}v_{j+1},\, t_{j3}^{*}\equiv\vartriangle v_{i}v_{j}v_{j+1}$
+\end_inset
+
+ Triangulations of the quad with common vertex 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ proposed by [Xiong 2011] to define Mean LBO.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Appling the mean average area of all posible triangulations for each quad
+ to 
+\begin_inset Formula $A\left(Q_{N_{1}\left(v_{i}\right)}\right)$
+\end_inset
+
+ as show in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:quad_xiong"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\align center
 
 \size small
 \begin_inset Formula $A\left(v_{i}\right)=\frac{1}{2^{m}}\overset{m}{\underset{j=1}{\sum}}2^{m-1}A\left(q_{j}\right)+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)$
 \end_inset
 
-, where 
+
+\end_layout
+
+\begin_layout Standard
+
+\size small
+Where 
 \begin_inset Formula $q_{1},q_{2},...,q_{i},...,q_{m}\in Q_{N_{1}\left(v_{i}\right)}$
 \end_inset
 
@@ -1110,11 +1211,9 @@ The area (
 \end_layout
 
 \begin_layout Standard
-
-\size small
 \begin_inset Formula 
 \begin{equation}
-A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[A\left(t_{j1}^{*}\right)+A\left(t_{j2}^{*}\right)+A\left(t_{j3}^{*}\right)\right]+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)\label{eq:equArea}
+A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[A\left(t_{j1}^{*}\right)+A\left(t_{j2}^{*}\right)+A\left(t_{j3}^{*}\right)\right]+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)\label{eq:area_1_ring_triangles_quads}
 \end{equation}
 
 \end_inset
@@ -1125,10 +1224,10 @@ A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[A\left(t_{
 \begin_layout Standard
 
 \size small
-Applying the gradient operator to equation (
+Applying the gradient operator to (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:equArea"
+reference "eq:area_1_ring_triangles_quads"
 
 \end_inset
 
@@ -1146,6 +1245,19 @@ reference "eq:equArea"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+
+\size small
+According to (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:eq_gradient_voronoi_area"
+
+\end_inset
+
+), we have.
 \end_layout
 
 \begin_layout Standard
@@ -1182,62 +1294,23 @@ reference "eq:equArea"
 \align center
 
 \size small
-\begin_inset Formula $\nabla A\left(t_{k}\right)=\frac{\left(\cot\alpha_{k}+\cot\beta_{k}\right)\left(v_{k}-v_{i}\right)}{2}$
+\begin_inset Formula $\nabla A\left(t_{k}\right)=\frac{\cot\alpha_{k}\left(v_{k}-v_{i}\right)+\cot\beta_{k+1}\left(v_{k+1}-v_{i}\right)}{2}$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-
-\size small
-Rewritten (
+Note que de todas las posibles configuraciones de triangulos y cuadrangulos
+ en los vecinos un 1-anillo del vertice v, nosotros podemos simplificarlas
+ en 5 sencillos casos como se muestra en la figura 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:EqGrad"
+reference "fig:LBO-basic-5-TQ"
 
 \end_inset
 
-) as
-\end_layout
-
-\begin_layout Standard
-
-\size small
-\begin_inset Formula $\nabla A\left(v_{i}\right)=\underset{i=0}{\overset{m-1}{\sum}}w_{ij}\left(v_{j}-v_{i}\right)+\underset{i=0}{\overset{m-1}{\sum}}w_{ij}^{\prime}\left(v_{j}^{\prime}-v_{i}\right)+\underset{k=0}{\overset{r-1}{\sum}}w_{ik}\left(v_{k}-v_{i}\right)$
-\end_inset
-
-, where
-\end_layout
-
-\begin_layout Standard
-\align center
-
-\size small
-\begin_inset Formula $w_{ij}=\frac{1}{4}\left(\cot\theta_{j3}+\cot\theta_{j6}+\cot\theta_{\left(j-1\right)4}+\cot\theta_{\left(j-1\right)1}\right)$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-
-\size small
-\begin_inset Formula $w_{ij}^{\prime}=\frac{1}{4}\left(\cot\theta_{j2}+\cot\theta_{j5}\right)$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-
-\size small
-\begin_inset Formula $w_{ik}=\frac{1}{2}\left(\cot\alpha_{k}+\cot\beta_{k}\right)$
-\end_inset
-
-
+, de esta manera nuestra ecuacion del TQLBO quedaria asi
 \end_layout
 
 \begin_layout Subsubsection
