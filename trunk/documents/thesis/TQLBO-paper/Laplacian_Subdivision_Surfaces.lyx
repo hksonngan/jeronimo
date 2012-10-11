@@ -190,7 +190,7 @@ Note:
 
 \begin_layout Teaser
 \begin_inset Graphics
-	filename images/teaser.png
+	filename images/teaser2.png
 	lyxscale 10
 	width 100text%
 
@@ -594,6 +594,10 @@ Permite generar una familia de formas parametrizadas.
 
 \begin_layout Standard
 Controlar el nivel de suavizado y curvatura al subdividir mallas de poligonos
+\end_layout
+
+\begin_layout Standard
+Enhanced brush for sculpting modelling
 \end_layout
 
 \begin_layout Subsection*
@@ -1353,6 +1357,53 @@ Normalized curvature operator
 
 \begin_layout Standard
 Normalizarlo igual que los otros metodos
+\end_layout
+
+\begin_layout Subsubsection
+Enhancing Features
+\end_layout
+
+\begin_layout Standard
+realzar las caractersisticas
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/sillas2.png
+	lyxscale 20
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+FGHFHFG
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection

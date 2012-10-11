@@ -144,7 +144,7 @@ Universidad Nacional de Colombia
 \end_layout
 
 \begin_layout Date
-June 22, 2012
+October 11, 2012
 \end_layout
 
 \begin_layout Standard
@@ -248,49 +248,69 @@ Introduction
 \end_layout
 
 \begin_layout BeginFrame
-Subdivision Surface
+Laplacian smooth
 \end_layout
 
-\begin_layout Block
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<1->
-\end_layout
-
+\begin_layout Standard
+The functional used in many laplacian smoothing approach to constrain energy
+ minimization is based on a total curvature of a surface 
+\begin_inset Formula $S$
 \end_inset
 
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{
+.
 \end_layout
 
-\end_inset
-
-System
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-}
-\end_layout
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+E\left(S\right)=\int_{S}\kappa_{1}^{2}+\kappa_{2}^{2}dS\label{eq:total_cuarvature_integral}
+\end{equation}
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Block
-A subdivision surface, in the field of 3D computer graphics, is a method
- of representing a smooth surface via the specification of a coarser piecewise
- linear polygon mesh.
+\begin_layout BeginFrame
+Gradient of Voronoi Area
+\end_layout
+
+\begin_layout Standard
+Consider a surface 
+\begin_inset Formula $S$
+\end_inset
+
+ compound by a set of triangles around vertex 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+ We can define the 
+\shape italic
+Voronoi region
+\shape default
+ of 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, the change in area produced by move 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ is named gradient of 
+\shape italic
+Voronoi region.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\nabla A=\frac{1}{2}\underset{j}{\sum}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\left(v_{i}-v_{j}\right)\label{eq:eq_gradient_voronoi_area}
+\end{equation}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -301,11 +321,24 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\align center
 \begin_inset Graphics
-	filename img/loopSubdivision.png
-	lyxscale 50
-	scale 28
+	filename E:/personal/maestria/tesis/Jeronimo/trunk/documents/thesis/TQLBO-paper/images/voronoi_region.pdf
+	scale 40
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Graphics
+	filename E:/personal/maestria/tesis/Jeronimo/trunk/documents/thesis/TQLBO-paper/images/quad_xiong.pdf
+	scale 40
 
 \end_inset
 
@@ -313,15 +346,44 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
-\align center
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Catmull Clark Subdivision Surface
+Area of Voronoi region around 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ in dark blue.
+ 
+\begin_inset Formula $v_{j}$
+\end_inset
+
+ 1-ring neighbors around 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+ 
+\begin_inset Formula $\alpha_{j}$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta_{j}$
+\end_inset
+
+ opposite angles to edge 
+\begin_inset Formula $\overrightarrow{v_{j}-v_{i}}$
+\end_inset
+
+.
 \end_layout
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Plain Layout
 
 \end_layout
 
@@ -331,531 +393,85 @@ Catmull Clark Subdivision Surface
 \end_layout
 
 \begin_layout BeginFrame
-Subdivision Surface Methods
-\end_layout
-
-\begin_layout Itemize
-
-\size footnotesize
-Catmull–Clark (1978) generalized bi-cubic uniform B-spline to produce their
- subdivision scheme.
-\end_layout
-
-\begin_layout Itemize
-
-\size footnotesize
-In computer graphics, Doo–Sabin subdivision surface is a type of subdivision
- surface based on a generalization of bi-quadratic uniform B-splines.
- It was developed in 1978 by Daniel Doo and Malcolm Sabin.
-\end_layout
-
-\begin_layout Itemize
-
-\size footnotesize
-Loop, Triangles - Loop (1987) proposed his subdivision scheme based on a
- quartic box-spline of six direction vectors to provide a rule to generate
- C2 continuous limit surfaces everywhere except at extraordinary vertices
- where they are C1 continuous.
-\end_layout
-
-\begin_layout Itemize
-
-\size footnotesize
-Mid-Edge subdivision scheme - The mid-edge subdivision scheme was proposed
- independently by Peters–Reif (1997) and Habib–Warren (1999).
- The former used the mid-point of each edge to build the new mesh.
-\end_layout
-
-\begin_layout Itemize
-
-\size footnotesize
-√3 subdivision scheme - This scheme has been developed by Kobbelt (2000)
- and offers several interesting features: it handles arbitrary triangular
- meshes, it is C2 continuous everywhere except at extraordinary vertices
- where it is C1 continuous and it offers a natural adaptive refinement when
- required.
-\end_layout
-
-\begin_layout BeginFrame
-Laplacian Smoothing
+Laplace Beltrami Operator
 \end_layout
 
 \begin_layout Standard
-The basic idea is that a vertex of a mesh is incrementally moved towards
- the Laplacian direction [Bray2004].
+If we normalize this gradient in equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:eq_gradient_voronoi_area"
+
+\end_inset
+
+) by the total area in 1-ring around 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, we have the 
+\shape italic
+discrete mean curvature normal
+\shape default
+ of a surface 
+\begin_inset Formula $S$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-\align center
+\begin_inset Formula 
+\begin{equation}
+2\kappa\mathbf{n}=\frac{\nabla A}{A}\label{eq:discrete_mean_curvature_normal}
+\end{equation}
 
-\color red
-\begin_inset Formula $\frac{\partial X}{\partial t}=\lambda L\left(X\right)$
-\end_inset
-
-,
-\color blue
- 
-\end_layout
-
-\begin_layout Standard
-which is implemented as the forward difference equation: 
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\color red
- 
-\begin_inset Formula $X_{t+1}=\left(I+\lambda L\right)X_{t}$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-where 
-\begin_inset Formula $X$
+The LBO has desirable features, one feature of the LBO is in direction of
+ surface area minimization, allowing us to minimize energy using it on a
+ total curvature of a surface 
+\begin_inset Formula $S$
 \end_inset
 
- is the set of vertices, 
-\begin_inset Formula $L$
+ equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:total_cuarvature_integral"
+
 \end_inset
 
- is the Laplacian, and 
-\begin_inset Formula $\lambda\in\mathbb{R}$
-\end_inset
-
- is a diffusion speed.
- 
+).
 \end_layout
 
 \begin_layout Standard
-and the discrete Approximation reads as: 
-\series bold
-\color red
+\begin_inset Formula 
+\begin{equation}
+\triangle_{g}S=2\kappa\mathbf{n}
+\end{equation}
 
-\begin_inset Formula ${\color{blue}{\color{red}L\left(x_{i}\right)=\sum w_{ij}\left(x_{j}-x_{i}\right),\,\,\,\,\,\,\,\,\, x_{j}\in Neighbor\left(x_{i}\right)}}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout BeginFrame
-The Laplacian can be approximated as
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename img/curvaturenormal.png
-	lyxscale 30
-	scale 20
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-Simple Laplacian
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Formula $w_{ij}=\frac{1}{m}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-Scale-dependent Laplacian
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Formula $w_{ij}=\frac{1}{\left\Vert x_{i}-x_{j}\right\Vert }$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-Normal Curvature 
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Formula $w_{ij}=\cot\alpha_{j}+\cot\beta_{j}$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Section
-Laplacian Subdivision Surface
+Normalized LBO over triangles and quads
 \end_layout
 
 \begin_layout BeginFrame
-Laplacian Subdivision Surface
-\end_layout
-
-\begin_layout Standard
-Simple subdivision
-\end_layout
-
-\begin_layout Itemize
-For every edge create new vertex
-\end_layout
-
-\begin_layout Itemize
-For every face create new vertex
-\end_layout
-
-\begin_layout Standard
-Smooth the surface
-\end_layout
-
-\begin_layout Itemize
-Laplacian smooth based on .
-\end_layout
-
-\begin_layout BeginFrame
-Laplacian Subdivision Surface
+Normalized LBO over triangles and quads
 \end_layout
 
 \begin_layout Standard
 \align center
-\begin_inset Formula $M=\{Q,T,V\},V=\{v_{1},v_{2},...,v_{n}\}|v\in\mathbb{R}^{3}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Formula $Q=Quads=\{q_{1},q_{2},...,q_{m}\}|q_{i}=\{v_{1},v_{2},v_{3},v_{4}\},i=[1,...,m]$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Formula $T=Triangles=\{t_{1},t_{2},...,t_{k}\}|t_{j}=\{v,v_{2},v_{3}\},j=[1,...,k]$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Formula $A(v)=A(Q_{N(v)})+A(T_{N(v)})|\,\,\,\,\, A=Area,N=1-Neighbor$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Formula $A(v)=\frac{1}{2}\underset{q_{i}\in N(v)}{\sum}A(q_{i})+\underset{t_{j}\in N(v)}{\sum}A(t_{j})$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $\nabla A(v)=\frac{1}{2}\underset{q_{i}\in N(v)}{\sum}\nabla A(q_{i})+\underset{t_{j}\in N(v)}{\sum}\nabla A(t_{j})$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $\nabla A(v)=\underset{q_{i}\in N(v)}{\sum}w_{i}\left(q_{i}-v\right)+\underset{q_{i}\in N(v)}{\sum}w_{i}\left(q_{i}^{\prime}-v\right)+\underset{t_{j}\in N(v)}{\sum}w$
-\end_inset
-
-
-\end_layout
-
-\begin_layout BeginFrame
-Linear system
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Formula $W_{L}L\cdot X_{t+1}=X_{t}$
+\begin_inset Formula $L\left(i,j\right)=\begin{cases}
+-\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum w_{ij}}} & \mbox{if }j\in N\left(v_{i}\right)\\
+\delta_{ij} & \mbox{otherwise}
+\end{cases}$
 \end_inset
 
 
@@ -863,47 +479,145 @@ Linear system
 
 \begin_layout Standard
 Where 
-\begin_inset Formula $N$
+\begin_inset Formula $N\left(v_{i}\right)$
 \end_inset
 
- is number of vertices (
-\begin_inset Formula $X$
+ is the 1-ring neighbors with shared face to 
+\begin_inset Formula $v_{i}$
 \end_inset
 
- 
-\begin_inset Formula $\approx30.000$
+, and 
+\begin_inset Formula $\delta_{ij}$
 \end_inset
 
-)
+ being the Kronecker delta function.
 \end_layout
 
-\begin_layout Standard
-We need to solve the system 
-\begin_inset Formula $Ax=B$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-We solve it in the least-squares sense
+\begin_layout BeginFrame
+The 5 basic triangle-quad cases
 \end_layout
 
 \begin_layout Standard
 \align center
-\begin_inset Formula $minimize\left\Vert Ax-b\right\Vert ^{2}$
+\begin_inset Formula $w_{ij}=\begin{cases}
+\frac{1}{2}\left(\cot\alpha_{j}+\cot\beta_{j}\right) & \mbox{case }\mathit{a.}\\
+\frac{1}{4}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}+\cot\theta_{j3}+\cot\theta_{j6}\right) & \mbox{case \mathit{b}.}\\
+\frac{1}{4}\left(\cot\theta_{j2}+\cot\theta_{j5}\right) & \mbox{case \mathit{c}.}\\
+\frac{1}{4}\left(\cot\theta_{j3}+\cot\theta_{j6}\right)+\frac{1}{2}\cot\beta_{j} & \mbox{case \mathit{d}.}\\
+\frac{1}{4}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}\right)+\frac{1}{2}\cot\alpha_{j} & \mbox{case \mathit{e}.}
+\end{cases}$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-which is equivalent to minimizing the following quadratic energy.
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename E:/personal/maestria/tesis/Jeronimo/trunk/documents/thesis/TQLBO-paper/images/beltrami.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+The 5 basic triangle-quad cases with common vertex 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+ and the relationship with 
+\begin_inset Formula $V_{j}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{j}^{\prime}$
+\end_inset
+
+.
+ (a) Two triangles.
+ (b) (c) Two quads and one quad.
+ (d) (e) Triangles and quads.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Results
+\end_layout
+
+\begin_layout FrameSubtitle
+Enhancing Features
 \end_layout
 
 \begin_layout Standard
 \align center
-\begin_inset Formula $\left\Vert W_{L}LX_{t+1}\right\Vert ^{2}+\underset{i}{\sum}W_{H,i}^{2}\left\Vert x_{t+1}-x_{t}\right\Vert ^{2}$
+\begin_inset Graphics
+	filename E:/personal/maestria/tesis/Jeronimo/trunk/documents/thesis/TQLBO-paper/images/camello.png
+	lyxscale 50
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Results
+\end_layout
+
+\begin_layout FrameSubtitle
+Enhancing Features
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename E:/personal/maestria/tesis/Jeronimo/trunk/documents/thesis/TQLBO-paper/images/sillas2.png
+	lyxscale 50
+	height 100theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Results
+\end_layout
+
+\begin_layout FrameSubtitle
+Enhancing Features
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename E:/personal/maestria/tesis/Jeronimo/trunk/documents/thesis/TQLBO-paper/images/teaser2.png
+	lyxscale 10
+	width 100text%
+
 \end_inset
 
 
@@ -967,7 +681,7 @@ Bibliography
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 btprint "btPrintAll"
-bibfiles "E:/personal/maestria/tesis/Jeronimo/trunk/documents/thesis/Siggraph-paper/template"
+bibfiles "E:/personal/maestria/tesis/Jeronimo/trunk/documents/thesis/TQLBO-paper/template"
 options "acmtrans"
 
 \end_inset
