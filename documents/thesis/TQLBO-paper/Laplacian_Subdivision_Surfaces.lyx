@@ -699,20 +699,22 @@ key "Loop1987"
 \end_layout
 
 \begin_layout Subsection
-Mean Curvature Normal
-\end_layout
-
-\begin_layout Standard
-La curvatura la tomamos segun desbrun 1999
-\end_layout
-
-\begin_layout Subsection
 Laplacian smooth
 \end_layout
 
 \begin_layout Standard
-The functional used in many related work to constrain energy minimization
- is based on a total curvature of a surface 
+The Laplacian Smooth techniques allows you to reduce noise on a mesh's surface
+ with minimal changes on its shape.
+ Computer graphics objects which have been reconstructed from real world,
+ contain undesirable noise.
+ A laplacian smoothing removes undesirable noise while still preserves desirable
+ geometry as well as the shape of the original model.
+ 
+\end_layout
+
+\begin_layout Standard
+The functional used in many laplacian smoothing approach to constrain energy
+ minimization is based on a total curvature of a surface 
 \begin_inset Formula $S$
 \end_inset
 
@@ -722,7 +724,7 @@ The functional used in many related work to constrain energy minimization
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-E\left(S\right)=\int_{S}\kappa_{1}^{2}+\kappa_{2}^{2}dS
+E\left(S\right)=\int_{S}\kappa_{1}^{2}+\kappa_{2}^{2}dS\label{eq:total_cuarvature_integral}
 \end{equation}
 
 \end_inset
@@ -730,38 +732,20 @@ E\left(S\right)=\int_{S}\kappa_{1}^{2}+\kappa_{2}^{2}dS
 
 \end_layout
 
-\begin_layout Section
-Proposed Method
-\end_layout
-
 \begin_layout Standard
-Our method simplifies the design of irregular polygon meshes, generating
- a parameterized family of shapes using a set of vertices representing a
- coarse sketch of the desired model.
- Our method is iterative and converges towards a continuous and smooth version
- of the original model.
- 
-\end_layout
+Where 
+\begin_inset Formula $\kappa_{1}$
+\end_inset
 
-\begin_layout Standard
-Unlike other methods, our method allows use arbitrary topologys types of
- representation as triangles and quads, exploiting the basic geometrical
- relationships facilitating and ensuring convergence of the algorithm and
- similar shapes consistent with the original shape against the other methods.
- 
-\end_layout
+ and 
+\begin_inset Formula $\kappa_{2}$
+\end_inset
 
-\begin_layout Standard
-Our method allows the use of soft constraints weighting the effect of smoothing
- at each vertex based on a normalized weight, the weights are assigned to
- the control vertices of the original mesh or.
- The weights of the new vertices resulting from the iterations are calculated
- by interpolation, allowing to modify the behavior of the method on exact
- regions of the original model.
-\end_layout
+ are the two principal curvatures of the surface 
+\begin_inset Formula $S$
+\end_inset
 
-\begin_layout Subsection
-Laplace Beltrami operator over triangular and quadrilateral meshes
+.
 \end_layout
 
 \begin_layout Subsubsection
@@ -773,7 +757,7 @@ Gradient of Voronoi Area
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -869,13 +853,20 @@ reference "fig:voronoi_region"
 
  is named gradient of 
 \shape italic
-Voronoi region.
+Voronoi region 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pinkall1993,Desbrun1999,Meyer2003"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\nabla A=\frac{1}{4}\underset{j}{\sum}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\left(v_{i}-v_{j}\right)\label{eq:eq_gradient_voronoi_area}
+\nabla A=\frac{1}{2}\underset{j}{\sum}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\left(v_{i}-v_{j}\right)\label{eq:eq_gradient_voronoi_area}
 \end{equation}
 
 \end_inset
@@ -884,7 +875,14 @@ Voronoi region.
 \end_layout
 
 \begin_layout Standard
-If we normalize this gradient by the total area in 1-ring around 
+If we normalize this gradient in equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:eq_gradient_voronoi_area"
+
+\end_inset
+
+) by the total area in 1-ring around 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -896,27 +894,60 @@ discrete mean curvature normal
 \begin_inset Formula $S$
 \end_inset
 
- as shown in equation 
+ as shown in equation (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:eq_gradient_voronoi_area"
+reference "eq:discrete_mean_curvature_normal"
 
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+2\kappa\mathbf{n}=\frac{\nabla A}{A}\label{eq:discrete_mean_curvature_normal}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Laplace Beltrami Operator
+\end_layout
+
+\begin_layout Standard
+The 
+\shape italic
+Laplace Beltrami operator
+\shape default
+ LBO denoted 
+\begin_inset Formula $\triangle_{g}$
+\end_inset
+
+ is common used in differential geometry for measures mean curvature normal
+ of the Surface 
+\begin_inset Formula $S$
 \end_inset
 
  
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Desbrun1999"
+key "Pinkall1993"
 
 \end_inset
 
 .
+ 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-H=\frac{\nabla A}{A}=
+\triangle_{g}S=2\kappa\mathbf{n}
 \end{equation}
 
 \end_inset
@@ -925,87 +956,54 @@ H=\frac{\nabla A}{A}=
 \end_layout
 
 \begin_layout Standard
-In differential geometry literature 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Meyer2003"
-
-\end_inset
-
- the mean curvature 
-\begin_inset Formula $\kappa_{H}$
-\end_inset
-
- of the surface 
+The LBO has desirable features, one feature of the LBO is in direction of
+ surface area minimization, allowing us to minimize energy using it on a
+ total curvature of a surface 
 \begin_inset Formula $S$
 \end_inset
 
- is defined as the average of the normal curvatures:
+ equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:total_cuarvature_integral"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Section
+Proposed Method
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-\kappa_{H}=\frac{1}{2\pi}\int_{0}^{2\pi}
-\end{equation}
-
-\end_inset
-
-
+Our method simplifies the design of irregular polygon meshes, generating
+ a parameterized family of shapes using a set of vertices representing a
+ coarse sketch of the desired model.
+ Our method is iterative and converges towards a continuous and smooth version
+ of the original model.
+ 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide true
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename images/beltrami.pdf
-	width 100text%
-
-\end_inset
-
-
+Unlike other methods, our method allows use arbitrary topologys types of
+ representation as triangles and quads, exploiting the basic geometrical
+ relationships facilitating and ensuring convergence of the algorithm and
+ similar shapes consistent with the original shape against the other methods.
+ 
 \end_layout
 
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:LBO-basic-5-TQ"
-
-\end_inset
-
-The 5 basic triangle-quad cases with common vertex 
-\begin_inset Formula $V_{i}$
-\end_inset
-
- and the relationship with 
-\begin_inset Formula $V_{j}$
-\end_inset
-
- and 
-\begin_inset Formula $V_{j}^{\prime}$
-\end_inset
-
-.
- (a) Two triangles [Desbrun 1999].
- (b) (c) Two quads and one quad [Xiong 2011].
- (d) (e) Triangles and quads (TQLBO).
+\begin_layout Standard
+Our method allows the use of soft constraints weighting the effect of smoothing
+ at each vertex based on a normalized weight, the weights are assigned to
+ the control vertices of the original mesh or.
+ The weights of the new vertices resulting from the iterations are calculated
+ by interpolation, allowing to modify the behavior of the method on exact
+ regions of the original model.
 \end_layout
 
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+\begin_layout Subsection
+Laplace Beltrami operator over triangular and quadrilateral meshes
 \end_layout
 
 \begin_layout Subsubsection
@@ -1074,6 +1072,61 @@ Curvature normal calculation
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+placement t
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/beltrami.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:LBO-basic-5-TQ"
+
+\end_inset
+
+The 5 basic triangle-quad cases with common vertex 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+ and the relationship with 
+\begin_inset Formula $V_{j}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{j}^{\prime}$
+\end_inset
+
+.
+ (a) Two triangles [Desbrun 1999].
+ (b) (c) Two quads and one quad [Xiong 2011].
+ (d) (e) Triangles and quads (TQLBO).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 Given a mesh 
 \begin_inset Formula $M=\left(V,Q,T\right)$
 \end_inset
@@ -1115,8 +1168,6 @@ The area of
 
 \begin_layout Standard
 \align center
-
-\size small
 \begin_inset Formula $A\left(v_{i}\right)=A\left(Q_{N_{1}\left(v_{i}\right)}\right)+A\left(T_{N_{1}\left(v_{i}\right)}\right)$
 \end_inset
 
@@ -1125,9 +1176,10 @@ The area of
 
 \begin_layout Standard
 \begin_inset Float figure
+placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1188,8 +1240,6 @@ reference "fig:quad_xiong"
 
 \begin_layout Standard
 \align center
-
-\size small
 \begin_inset Formula $A\left(v_{i}\right)=\frac{1}{2^{m}}\overset{m}{\underset{j=1}{\sum}}2^{m-1}A\left(q_{j}\right)+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)$
 \end_inset
 
@@ -1197,8 +1247,6 @@ reference "fig:quad_xiong"
 \end_layout
 
 \begin_layout Standard
-
-\size small
 Where 
 \begin_inset Formula $q_{1},q_{2},...,q_{i},...,q_{m}\in Q_{N_{1}\left(v_{i}\right)}$
 \end_inset
@@ -1222,8 +1270,6 @@ A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[A\left(t_{
 \end_layout
 
 \begin_layout Standard
-
-\size small
 Applying the gradient operator to (
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1235,8 +1281,6 @@ reference "eq:area_1_ring_triangles_quads"
 \end_layout
 
 \begin_layout Standard
-
-\size small
 \begin_inset Formula 
 \begin{equation}
 \nabla A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[\nabla A\left(t_{j1}^{*}\right)+\nabla A\left(t_{j2}^{*}\right)+\nabla A\left(t_{j3}^{*}\right)\right]+\overset{r}{\underset{k=1}{\sum}}\nabla A\left(t_{k}\right)\label{eq:EqGrad}
@@ -1248,8 +1292,6 @@ reference "eq:area_1_ring_triangles_quads"
 \end_layout
 
 \begin_layout Standard
-
-\size small
 According to (
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1262,8 +1304,6 @@ reference "eq:eq_gradient_voronoi_area"
 
 \begin_layout Standard
 \align center
-
-\size small
 \begin_inset Formula $\nabla A\left(t_{j1}^{*}\right)=\frac{\cot\theta_{j3}\left(v_{j}-v_{i}\right)+\cot\theta_{j2}\left(v_{j}^{\prime}-v_{i}\right)}{2}$
 \end_inset
 
@@ -1272,8 +1312,6 @@ reference "eq:eq_gradient_voronoi_area"
 
 \begin_layout Standard
 \align center
-
-\size small
 \begin_inset Formula $\nabla A\left(t_{j2}^{*}\right)=\frac{\cot\theta_{j5}\left(v_{j}^{\prime}-v_{i}\right)+\cot\theta_{j4}\left(v_{j+1}-v_{i}\right)}{2}$
 \end_inset
 
@@ -1282,8 +1320,6 @@ reference "eq:eq_gradient_voronoi_area"
 
 \begin_layout Standard
 \align center
-
-\size small
 \begin_inset Formula $\nabla A\left(t_{j3}^{*}\right)=\frac{\cot\theta_{j6}\left(v_{j}-v_{i}\right)+\cot\theta_{j1}\left(v_{j+1}-v_{i}\right)}{2}$
 \end_inset
 
@@ -1292,8 +1328,6 @@ reference "eq:eq_gradient_voronoi_area"
 
 \begin_layout Standard
 \align center
-
-\size small
 \begin_inset Formula $\nabla A\left(t_{k}\right)=\frac{\cot\alpha_{k}\left(v_{k}-v_{i}\right)+\cot\beta_{k+1}\left(v_{k+1}-v_{i}\right)}{2}$
 \end_inset
 
