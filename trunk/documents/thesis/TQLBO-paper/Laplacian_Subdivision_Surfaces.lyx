@@ -291,7 +291,7 @@ we provide a series of examples to graphically and numerically demonstrate
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 See 
@@ -761,7 +761,7 @@ Gradient of Voronoi Area
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -932,8 +932,7 @@ Laplace Beltrami operator
 \begin_inset Formula $\triangle_{g}$
 \end_inset
 
- is common used in differential geometry for measures mean curvature normal
- of the Surface 
+ is used for measures mean curvature normal of the Surface 
 \begin_inset Formula $S$
 \end_inset
 
