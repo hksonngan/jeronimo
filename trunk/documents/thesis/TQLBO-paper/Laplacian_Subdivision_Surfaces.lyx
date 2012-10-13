@@ -950,7 +950,7 @@ key "Pinkall1993"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\triangle_{g}S=2\kappa\mathbf{n}
+\triangle_{g}S=2\kappa\mathbf{n}\label{eq:def_LBO}
 \end{equation}
 
 \end_inset
@@ -1006,72 +1006,7 @@ Our method allows the use of soft constraints weighting the effect of smoothing
 \end_layout
 
 \begin_layout Subsection
-Laplace Beltrami operator over triangular and quadrilateral meshes
-\end_layout
-
-\begin_layout Subsubsection
-Normalized LBO over triangular and quadrilateral meshes
-\end_layout
-
-\begin_layout Standard
-based on 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Desbrun1999"
-
-\end_inset
-
- and 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Xiong2011"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $L\left(i,j\right)=\begin{cases}
--\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum w_{ij}}} & \mbox{if }j\in N\left(v_{i}\right)\\
-\delta_{ij} & \mbox{otherwise}
-\end{cases}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Where 
-\begin_inset Formula $N\left(v_{i}\right)$
-\end_inset
-
- is the 1-ring neighbors with shared face to 
-\begin_inset Formula $v_{i}$
-\end_inset
-
-, and 
-\begin_inset Formula $\delta_{ij}$
-\end_inset
-
- being the Kronecker delta function.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $w_{ij}=\begin{cases}
-\frac{1}{2}\left(\cot\alpha_{j}+\cot\beta_{j}\right) & \mbox{case }\mathit{a.}\\
-\frac{1}{4}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}+\cot\theta_{j3}+\cot\theta_{j6}\right) & \mbox{case \mathit{b}.}\\
-\frac{1}{4}\left(\cot\theta_{j2}+\cot\theta_{j5}\right) & \mbox{case \mathit{c}.}\\
-\frac{1}{4}\left(\cot\theta_{j3}+\cot\theta_{j6}\right)+\frac{1}{2}\cot\beta_{j} & \mbox{case \mathit{d}.}\\
-\frac{1}{4}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}\right)+\frac{1}{2}\cot\alpha_{j} & \mbox{case \mathit{e}.}
-\end{cases}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Curvature normal calculation
+Laplace Beltrami operator over triangular and quadrilateral meshes TQLBO
 \end_layout
 
 \begin_layout Standard
@@ -1226,8 +1161,14 @@ name "fig:quad_xiong"
 \end_layout
 
 \begin_layout Standard
-Appling the mean average area of all posible triangulations for each quad
- to 
+Appling the mean average area according to 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Xiong2011"
+
+\end_inset
+
+ of all posible triangulations for each quad to 
 \begin_inset Formula $A\left(Q_{N_{1}\left(v_{i}\right)}\right)$
 \end_inset
 
@@ -1338,32 +1279,120 @@ reference "eq:eq_gradient_voronoi_area"
 \end_layout
 
 \begin_layout Standard
-Note que de todas las posibles configuraciones de triangulos y cuadrangulos
- en los vecinos un 1-anillo del vertice v, nosotros podemos simplificarlas
- en 5 sencillos casos como se muestra en la figura 
+All triangles and quads configurations of the 1-neighborhood faces adjacent
+ to 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ can be simplified in 5 simple cases how show in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:LBO-basic-5-TQ"
 
 \end_inset
 
-, de esta manera nuestra ecuacion del TQLBO quedaria asi
-\end_layout
-
-\begin_layout Subsubsection
-Normalized curvature operator
+.
 \end_layout
 
 \begin_layout Standard
-Normalizarlo igual que los otros metodos
-\end_layout
+Then according to (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:discrete_mean_curvature_normal"
 
-\begin_layout Subsubsection
-Enhancing Features
+\end_inset
+
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:def_LBO"
+
+\end_inset
+
+), and 5 simples cases defined in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:LBO-basic-5-TQ"
+
+\end_inset
+
+ the TQLBO (Triangle-Quad LBO) of 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ is.
 \end_layout
 
 \begin_layout Standard
-realzar las caractersisticas
+\begin_inset Formula 
+\begin{equation}
+\triangle_{g}\left(v_{i}\right)=2\kappa\mathbf{n}=\frac{\nabla A}{A}=\underset{v_{j}\in N_{1}\left(v_{i}\right)}{\frac{1}{A}\sum}w_{ij}\left(v_{j}-v_{i}\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\size small
+\begin_inset Formula $w_{ij}=\begin{cases}
+\frac{1}{2}\left(\cot\alpha_{j}+\cot\beta_{j}\right) & \mbox{case }\mathit{a.}\\
+\frac{1}{4}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}+\cot\theta_{j3}+\cot\theta_{j6}\right) & \mbox{case \mathit{b}.}\\
+\frac{1}{4}\left(\cot\theta_{j2}+\cot\theta_{j5}\right) & \mbox{case \mathit{c}.}\\
+\frac{1}{4}\left(\cot\theta_{j3}+\cot\theta_{j6}\right)+\frac{1}{2}\cot\beta_{j} & \mbox{case \mathit{d}.}\\
+\frac{1}{4}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}\right)+\frac{1}{2}\cot\alpha_{j} & \mbox{case \mathit{e}.}
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+TQLBO over triangular and quadrilateral meshes
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $L\left(i,j\right)=\begin{cases}
+-\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum w_{ij}}} & \mbox{if }j\in N\left(v_{i}\right)\\
+\delta_{ij} & \mbox{otherwise}
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $N\left(v_{i}\right)$
+\end_inset
+
+ is the 1-ring neighbors with shared face to 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, and 
+\begin_inset Formula $\delta_{ij}$
+\end_inset
+
+ being the Kronecker delta function.
+\end_layout
+
+\begin_layout Subsubsection
+Laplacian Enhancement
+\end_layout
+
+\begin_layout Standard
+El proceso de realce de los detalles de la superfice de malla aplicando
+ el operador laplaciano que mueve los vertices a lo largo de la direccion
+ de la curvatra normal.
+\end_layout
+
+\begin_layout Standard
+realzar las caractersisticas, usando el cambio producido por la ecuacion
+ de difusion
 \end_layout
 
 \begin_layout Standard
@@ -1375,7 +1404,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename images/sillas2.png
+	filename images/camello.png
 	lyxscale 20
 	width 100col%
 
