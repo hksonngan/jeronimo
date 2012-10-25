@@ -144,7 +144,7 @@ Universidad Nacional de Colombia
 \end_layout
 
 \begin_layout Date
-October 11, 2012
+October 16, 2012
 \end_layout
 
 \begin_layout Standard
@@ -558,6 +558,81 @@ The 5 basic triangle-quad cases with common vertex
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Diffusion Equation
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\frac{\partial X}{\partial t}=\lambda L\left(X\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Implicit integration: Backward Euler method.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $X_{n+1}=X_{n}+\lambda dtLX_{n+1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\left(I-\lambda dtL\right)X_{n+1}=X_{n}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Solve 
+\begin_inset Formula $Ax=B$
+\end_inset
+
+ where 
+\begin_inset Formula $A=\left(I-\lambda dtL\right)$
+\end_inset
+
+, 
+\begin_inset Formula $x=X_{n+1}$
+\end_inset
+
+ and 
+\begin_inset Formula $B=X_{n}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $dx=X_{n+1}-X_{n}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Mesh Smoothing 
+\begin_inset Formula $X_{n+1}=X_{n}+dx$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Mesh Enhancing 
+\begin_inset Formula $X_{n+1}=X_{n}-dx$
 \end_inset
 
 
