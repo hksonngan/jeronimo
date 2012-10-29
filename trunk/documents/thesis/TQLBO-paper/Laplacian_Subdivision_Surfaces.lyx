@@ -567,17 +567,19 @@ copyrightspace
 \end_layout
 
 \begin_layout Standard
-Novedosas técnicas en computación grafica han permitido a los artistas crear
- objetos sintéticos con gran variedad de formas orgánicas con aspecto natural
- y realista, las técnicas de ediciona han evolucionado desde las transformacione
-s afines a avanzados métodos tales como esculpir mayas de polígonos, edición
- y creación a partir de bocetos, complejas técnicas de morfing e interpolación
- de poses La definición o la necesidad que resuelve tu proyecto Nuestro
- método permite ser usado como un brocha en el esculpido para inflar una
- parte la malla sin que esta pierda su forma esencial y características
- que lo definen, de forma mas esticta nuestro método permite generar una
- familia de formas parametizables que realizan un realce de las características
- del objeto cambiando su curvatura.
+Las Mallas de poligonos son usadas para representar los objetos del mundo
+ real en espacios tridimensionales, estos objetos son obtenidos de escaners
+ o creados a partir de novedosas técnicas de edicion y modelamiento que
+ permiten a las personas crear objetos sintéticos con gran variedad de formas
+ orgánicas con aspecto natural y realista, las técnicas de ediciona han
+ evolucionado desde las transformaciones afines a avanzados métodos tales
+ como esculpir mayas de polígonos, edición y creación a partir de bocetos,
+ complejas técnicas de morfing e interpolación de poses La definición o
+ la necesidad que resuelve tu proyecto Nuestro método permite ser usado
+ como un brocha en el esculpido para inflar una parte la malla sin que esta
+ pierda su forma esencial y características que lo definen, de forma mas
+ esticta nuestro método permite generar una familia de formas parametizables
+ que realizan un realce de las características del objeto cambiando su curvatura.
  En este trabajo también presentamos una definicion del operador Laplace
  beltrami en mallas de topología arbitraria compuestas por triángulos y
  cuadrángulos que representan un especto mas grande de las mallas con las
