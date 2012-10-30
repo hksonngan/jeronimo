@@ -567,31 +567,71 @@ copyrightspace
 \end_layout
 
 \begin_layout Standard
-Las Mallas de poligonos son usadas para representar los objetos del mundo
- real en espacios tridimensionales, estos objetos son obtenidos de escaners
+Las Mallas de poligonos son usadas para representar objetos del mundo real
+ en espacios tridimensionales, estos objetos son capurados con escaners
  o creados a partir de novedosas técnicas de edicion y modelamiento que
- permiten a las personas crear objetos sintéticos con gran variedad de formas
- orgánicas con aspecto natural y realista, las técnicas de ediciona han
- evolucionado desde las transformaciones afines a avanzados métodos tales
- como esculpir mayas de polígonos, edición y creación a partir de bocetos,
- complejas técnicas de morfing e interpolación de poses La definición o
- la necesidad que resuelve tu proyecto Nuestro método permite ser usado
- como un brocha en el esculpido para inflar una parte la malla sin que esta
- pierda su forma esencial y características que lo definen, de forma mas
- esticta nuestro método permite generar una familia de formas parametizables
- que realizan un realce de las características del objeto cambiando su curvatura.
- En este trabajo también presentamos una definicion del operador Laplace
- beltrami en mallas de topología arbitraria compuestas por triángulos y
- cuadrángulos que representan un especto mas grande de las mallas con las
- que trabajan los artistas e investigadores, eliminando la necesidad de
- prepsocesamiento requerido para convertir a triangulos y se muestran ventajas
- en el resultado final en la convergencia de la solucion.
+ permiten crear objetos sintéticos con gran variedad de formas de aspecto
+ natural y realista, las técnicas de edicion han evolucionado desde las
+ transformaciones afines a avanzadas herramientas como la esculpcion, edición
+ y creación a partir de bocetos, complejas técnicas de morfing, interpolación
+ de poses etc.
+ 
+\end_layout
+
+\begin_layout Standard
+Metodos tradicionales para obtener modelos suaves desde coarse geometry
+ como catmull clark y otros han sido ampliamente desarrollados, algunos
+ de estos trabajos definen cierto control de los resultados con el uso de
+ creases para configurar bordes mas pronunciados, o la modificacion de pesos
+ sobre los bordes que permiten un pequenio control de la zona de influencia,
+ nuestro metodo en cambio realiza un realce de las caracteristicas del modelo
+ permitiendo parametrizar la curvatura de la superficie generando una familia
+ de distintas versiones de un mismo objeto.
+ conservando los detalles y el aspecto natural y realista del modelo original.
+\end_layout
+
+\begin_layout Standard
+Muchos tipos de brochas han sido desarrollados para sculpir mallas, las
+ brochas que realizan inflacion usan unicamente informaciona de las normales
+ perdiendo detalle al inflar los vertices, nuestro metodo permite realizar
+ la inflacion de la malla moviendo los vertices en direccion contraria a
+ la curvatura permitiendo conservar la forma y las caracteristicas afiliadas
+ del modelo.
+\end_layout
+
+\begin_layout Standard
+En este trabajo también presentamos una definicion del operador Laplace
+ beltrami para mallas de topología arbitraria compuestas por triángulos
+ y cuadrángulos que representan un espectro mas grande de las mallas con
+ las que se trabaja hoy dia eliminando la necesidad de preprocesamiento
+ requerido.
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+y se muestran ventajas en el resultado final en la convergencia de la solucion.
  
 \end_layout
 
 \begin_layout Standard
 Mesh modelling from a coarse geometry is an important step in computer graphics
  process such as design, art and other fields.
+\end_layout
+
+\begin_layout Standard
+permite generar una familia de formas parametizables que realzan las característ
+icas del objeto cambiando su curvatura
 \end_layout
 
 \begin_layout Subsection*
