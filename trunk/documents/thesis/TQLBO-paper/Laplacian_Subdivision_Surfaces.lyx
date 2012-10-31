@@ -571,10 +571,37 @@ Las Mallas de poligonos son usadas para representar objetos del mundo real
  en espacios tridimensionales, estos objetos son capurados con escaners
  o creados a partir de novedosas técnicas de edicion y modelamiento que
  permiten crear objetos sintéticos con gran variedad de formas de aspecto
- natural y realista, las técnicas de edicion han evolucionado desde las
- transformaciones afines a avanzadas herramientas como la esculpcion, edición
- y creación a partir de bocetos, complejas técnicas de morfing, interpolación
- de poses etc.
+ natural y realista 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Botsch2006"
+
+\end_inset
+
+.
+ Las técnicas de edicion han evolucionado desde las transformaciones afines
+ a avanzadas herramientas como la esculpcion 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Coquillart1990,Galyean1991,Stanculescu2011"
+
+\end_inset
+
+, edición y creación a partir de bocetos 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Igarashi1999,Gonen2012"
+
+\end_inset
+
+, complejas técnicas de interpolación 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sorkine2004,Zhou2005"
+
+\end_inset
+
+, etc.
  
 \end_layout
 
@@ -625,8 +652,8 @@ y se muestran ventajas en el resultado final en la convergencia de la solucion.
 \end_layout
 
 \begin_layout Standard
-Mesh modelling from a coarse geometry is an important step in computer graphics
- process such as design, art and other fields.
+Modelling freeform surface Mesh modelling from a coarse geometry is an important
+ step in computer graphics process such as design, art and other fields.
 \end_layout
 
 \begin_layout Standard
