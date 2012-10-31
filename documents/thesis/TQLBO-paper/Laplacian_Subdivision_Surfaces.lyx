@@ -414,87 +414,6 @@ The CR categories expects 4 infos that are separated by
 
 \end_layout
 
-\begin_deeper
-\begin_layout CRcat
-\begin_inset Flex CRcat
-status open
-
-\begin_layout Plain Layout
-I.3.5
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\end_inset
-
-Computer Graphics
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\end_inset
-
-Computational Geometry and Object Modeling 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\end_inset
-
-Curve, surface, solid, and object representations
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_deeper
 \begin_layout Standard
 \begin_inset ERT
 status collapsed
@@ -567,102 +486,209 @@ copyrightspace
 \end_layout
 
 \begin_layout Standard
+The polygon meshes are used to represent real-world objects in three-dimensional
+ space, these objects are captured with scanners or created with novel technique
+s of modeling that can generate a variety of shapes to look natural and
+ realistic [Botsch2006].
+ Editing techniques have evolved from affine transformations to advanced
+ tools like scuplting [Coquillart1990, Galyean1991, Stanculescu2011], editing
+ and creation from sketches [Igarashi1999, Gonen2012], complex interpolation
+ techniques [Sorkine2004, Zhou2005], and so on .
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Las Mallas de poligonos son usadas para representar objetos del mundo real
- en espacios tridimensionales, estos objetos son capurados con escaners
- o creados a partir de novedosas técnicas de edicion y modelamiento que
- permiten crear objetos sintéticos con gran variedad de formas de aspecto
- natural y realista 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Botsch2006"
-
-\end_inset
-
-.
+ en espacios tridimensionales, estos objetos son capturados con escaners
+ o creados con técnicas novedosas de edicion y modelamiento que permiten
+ generar una gran variedad de formas de aspecto natural y realista [Botsch2006].
  Las técnicas de edicion han evolucionado desde las transformaciones afines
- a avanzadas herramientas como la esculpcion 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Coquillart1990,Galyean1991,Stanculescu2011"
+ a avanzadas herramientas como la tallado[Coquillart1990, Galyean1991, Stancules
+cu2011], edición y creación a partir de bocetos [Igarashi1999, Gonen2012],
+ complejas técnicas de interpolación [Sorkine2004, Zhou2005], and so on.
+\end_layout
 
 \end_inset
 
-, edición y creación a partir de bocetos 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Igarashi1999,Gonen2012"
-
-\end_inset
-
-, complejas técnicas de interpolación 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Sorkine2004,Zhou2005"
-
-\end_inset
-
-, etc.
  
 \end_layout
 
 \begin_layout Standard
-Metodos tradicionales para obtener modelos suaves desde coarse geometry
- como catmull clark y otros han sido ampliamente desarrollados, algunos
- de estos trabajos definen cierto control de los resultados con el uso de
- creases para configurar bordes mas pronunciados, o la modificacion de pesos
- sobre los bordes que permiten un pequenio control de la zona de influencia,
- nuestro metodo en cambio realiza un realce de las caracteristicas del modelo
- permitiendo parametrizar la curvatura de la superficie generando una familia
- de distintas versiones de un mismo objeto.
+Traditional methods for smooth surfaces from coarse geometry like Catmull-Clark
+ have been widely developed 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Catmull1978,Stam1998"
+
+\end_inset
+
+, these works generalize uniform B-cubic splines on freform surfaces, some
+ of them add control of the results with the use of creases to produce sharp
+ edges 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DeRose1998"
+
+\end_inset
+
+, or the modification of weights on the vertices that control locally the
+ zone of influence 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Biermann2000"
+
+\end_inset
+
+, instead our method performs a feature enhancement of the model allowing
+ parameterize the curvature of the surface creating a family of different
+ versions of the same object preserving detail and realistic natural look
+ of the original model.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Metodos tradicionales para obtener superficies suaves desde coarse geometry
+ like Catmull-clark han sido ampliamente desarrollados [Catmull1978, Stam1998],
+ estos trabajos generalizan uniform B-spline on freform surfaces, algunos
+ de ellos añaden cierto control de los resultados con el uso de creases
+ para producir bordes pronunciados [DeRose1998], o la modificacion de pesos
+ sobre los vertices que permiten controlar localmente la zona de influencia
+ [Biermann2000], en cambio nuestro metodo realiza un realce de las caracteristic
+as del modelo, permitiendo parametrizar la curvatura de la superficie, generando
+ una familia de distintas versiones de un mismo objeto.
  conservando los detalles y el aspecto natural y realista del modelo original.
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
+Many types of brushes have been developed to sculpt meshes, brushes that
+ perform inflation lose detail when inflating the vertices 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Stanculescu2011"
+
+\end_inset
+
+, our method allows inflation of the mesh vertices moving in the opposite
+ direction to the curvature preserving the shape and sharp features of the
+ model.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Muchos tipos de brochas han sido desarrollados para sculpir mallas, las
- brochas que realizan inflacion usan unicamente informaciona de las normales
- perdiendo detalle al inflar los vertices, nuestro metodo permite realizar
- la inflacion de la malla moviendo los vertices en direccion contraria a
- la curvatura permitiendo conservar la forma y las caracteristicas afiliadas
- del modelo.
+ brochas que realizan inflacion pierden detalle al inflar los vertices 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Stanculescu2011"
+
+\end_inset
+
+, nuestro metodo permite realizar la inflacion de la malla moviendo los
+ vertices en direccion contraria a la curvatura permitiendo conservar la
+ forma y las caracteristicas afiliadas del modelo.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-En este trabajo también presentamos una definicion del operador Laplace
- beltrami para mallas de topología arbitraria compuestas por triángulos
- y cuadrángulos que representan un espectro mas grande de las mallas con
- las que se trabaja hoy dia eliminando la necesidad de preprocesamiento
- requerido.
+We present an extension of the Laplace Beltrami operator for meshes of arbitrary
+ topology composed for triangles and quads representing a larger spectrum
+ of mesh that works with today eliminating the need for preprocessing.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+En este trabajo presentamos una definicion del operador Laplace beltrami
+ para mallas de topología arbitraria compuestas por triángulos y cuadrángulos
+ que representan un espectro mas grande de las mallas con las que se trabaja
+ hoy dia eliminando la necesidad de preprocesamiento requerido.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 y se muestran ventajas en el resultado final en la convergencia de la solucion.
  
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 Modelling freeform surface Mesh modelling from a coarse geometry is an important
  step in computer graphics process such as design, art and other fields.
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 permite generar una familia de formas parametizables que realzan las característ
 icas del objeto cambiando su curvatura
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection*
 1.1 Previous work
+\end_layout
+
+\begin_layout Standard
+han sido desarrollado muchos herramientas para el modelamiento de mallas
+ con base en Laplacian processing, gracias a las bondades del operador laplacian
+o estas herramientas tienen en comun la necesidad de conservacion de los
+ detalles geometricos de la superficie durante distintos procesos como por
+ ejemplo, free-form deformation, fusion, morphing and other aplications
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sorkine2004"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Metodos para realizar offset o dilatacion de mallas de poligonos basados
+ en la curvatura local definida a partir del operador laplace beltrami han
+ sido definidos estos metodos permiten con gran presicion obtener dilataciones
+ que minimizan el error de hasdorf y pueden adjusting shape by a constant
+ distance offeset, el problema de estos metodos radica en la perdida de
+ detalle debido al suavizado inducido que depende directamente del tamanio
+ del offset 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Zhuo2012"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection*
@@ -698,95 +724,7 @@ Enhanced brush for sculpting modelling
 \end_layout
 
 \begin_layout Section
-Theoretical Review of Related Work
-\end_layout
-
-\begin_layout Subsection
-Subdivision Surface
-\end_layout
-
-\begin_layout Standard
-Subdivision is an iterated transformation 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Warren2001"
-
-\end_inset
-
-.
- Let 
-\begin_inset Formula $F$
-\end_inset
-
- be a function (subdivision transformation) that maps one geometry 
-\begin_inset Formula $M_{i}$
-\end_inset
-
- into another similar geometry with same topology 
-\begin_inset Formula $M_{i+1}$
-\end_inset
-
-.
-\begin_inset Formula 
-\begin{equation}
-M_{i+1}=F\left(M_{i}\right)
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The Catmull-Clark subdivision transformation is used to smooth a surface
- as the limit of sequence of subdivision steps
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Stam1998"
-
-\end_inset
-
-.
- This method do a recursive subdivision transformation that refines the
- model into a linear interpolationthat is a approximate smooth surface.
- The process of Catmull-Clark is govern o properties of B-spline curve from
- multivariate spline theory
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Loop1987"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-In many subdivision surfaces methods catmull clark loop so on.
- the smoothness of the model is autmaically guarantteed
-\begin_inset CommandInset citation
-LatexCommand cite
-key "DeRose1998"
-
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-Subdivision surfaces with catmull clark is continuos except at a extraordinary
- points
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Loop1987"
-
-\end_inset
-
-, but with our method can correct this problem
-\end_layout
-
-\begin_layout Subsection
-Laplacian smooth
+Laplacian Smooth
 \end_layout
 
 \begin_layout Standard
@@ -835,7 +773,7 @@ Where
 .
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Gradient of Voronoi Area
 \end_layout
 
@@ -1002,7 +940,7 @@ reference "eq:discrete_mean_curvature_normal"
 
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Laplace Beltrami Operator
 \end_layout
 
@@ -1409,7 +1347,7 @@ reference "fig:LBO-basic-5-TQ"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\triangle_{g}\left(v_{i}\right)=2\kappa\mathbf{n}=\frac{\nabla A}{A}=\underset{v_{j}\in N_{1}\left(v_{i}\right)}{\frac{1}{A}\sum}w_{ij}\left(v_{j}-v_{i}\right)
+\triangle_{g}\left(v_{i}\right)=2\kappa\mathbf{n}=\frac{\nabla A}{A}=\underset{v_{j}\in N_{1}\left(v_{i}\right)}{\frac{1}{2A}\sum}w_{ij}\left(v_{j}-v_{i}\right)
 \end{equation}
 
 \end_inset
@@ -1422,11 +1360,11 @@ reference "fig:LBO-basic-5-TQ"
 
 \size small
 \begin_inset Formula $w_{ij}=\begin{cases}
-\frac{1}{2}\left(\cot\alpha_{j}+\cot\beta_{j}\right) & \mbox{case }\mathit{a.}\\
-\frac{1}{4}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}+\cot\theta_{j3}+\cot\theta_{j6}\right) & \mbox{case \mathit{b}.}\\
-\frac{1}{4}\left(\cot\theta_{j2}+\cot\theta_{j5}\right) & \mbox{case \mathit{c}.}\\
-\frac{1}{4}\left(\cot\theta_{j3}+\cot\theta_{j6}\right)+\frac{1}{2}\cot\beta_{j} & \mbox{case \mathit{d}.}\\
-\frac{1}{4}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}\right)+\frac{1}{2}\cot\alpha_{j} & \mbox{case \mathit{e}.}
+\left(\cot\alpha_{j}+\cot\beta_{j}\right) & \mbox{case }\mathit{a.}\\
+\frac{1}{2}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}+\cot\theta_{j3}+\cot\theta_{j6}\right) & \mbox{case \mathit{b}.}\\
+\left(\cot\theta_{j2}+\cot\theta_{j5}\right) & \mbox{case \mathit{c}.}\\
+\frac{1}{2}\left(\cot\theta_{j3}+\cot\theta_{j6}\right)+\cot\beta_{j} & \mbox{case \mathit{d}.}\\
+\frac{1}{2}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}\right)+\cot\alpha_{j} & \mbox{case \mathit{e}.}
 \end{cases}$
 \end_inset
 
@@ -1483,7 +1421,7 @@ realzar las caractersisticas, usando el cambio producido por la ecuacion
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1552,6 +1490,90 @@ Weight based somooth constraints
 \begin_layout Standard
 Las familias que se generan pueden cambiar substancialmente con el ponderamiento
  de puntos de control especificos
+\end_layout
+
+\begin_layout Subsection
+Subdivision Surface
+\end_layout
+
+\begin_layout Standard
+Subdivision is an iterated transformation 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Warren2001"
+
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $F$
+\end_inset
+
+ be a function (subdivision transformation) that maps one geometry 
+\begin_inset Formula $M_{i}$
+\end_inset
+
+ into another similar geometry with same topology 
+\begin_inset Formula $M_{i+1}$
+\end_inset
+
+.
+\begin_inset Formula 
+\begin{equation}
+M_{i+1}=F\left(M_{i}\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Catmull-Clark subdivision transformation is used to smooth a surface
+ as the limit of sequence of subdivision steps
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Stam1998"
+
+\end_inset
+
+.
+ This method do a recursive subdivision transformation that refines the
+ model into a linear interpolationthat is a approximate smooth surface.
+ The process of Catmull-Clark is govern o properties of B-spline curve from
+ multivariate spline theory
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Loop1987"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In many subdivision surfaces methods catmull clark loop so on.
+ the smoothness of the model is autmaically guarantteed
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DeRose1998"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Subdivision surfaces with catmull clark is continuos except at a extraordinary
+ points
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Loop1987"
+
+\end_inset
+
+, but with our method can correct this problem
 \end_layout
 
 \begin_layout Section
