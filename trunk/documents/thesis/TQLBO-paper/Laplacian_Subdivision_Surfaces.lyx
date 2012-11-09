@@ -1081,7 +1081,7 @@ The LBO has desirable features, one feature of the LBO is in direction of
 \begin_inset Formula $S$
 \end_inset
 
- equation (
+ at equation (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:total_cuarvature_integral"
@@ -1096,17 +1096,29 @@ Proposed Method
 \end_layout
 
 \begin_layout Standard
-Our method simplifies the design of irregular polygon meshes, generating
- a parameterized family of shapes using a set of vertices representing a
- coarse sketch of the desired model.
- Our method is iterative and converges towards a continuous and smooth version
- of the original model.
+Our method allow the editing of geometric features using the curvature enhanceme
+nt and smoothing.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+simplifies the design of irregular polygon meshes, 
+\end_layout
+
+\end_inset
+
+ Generating a parameterized family of shapes using a set of vertices representin
+g a coarse sketch of the desired model.
+ Our approach can be mixed with traditional or uniform subdivision surfaces
+ methods and is iterative and converges towards a continuous and smooth
+ version of the original model.
  
 \end_layout
 
 \begin_layout Standard
-Unlike other methods, our method allows use arbitrary topologys types of
- representation as triangles and quads, exploiting the basic geometrical
+Unlike other methods, our method allows to use mixed arbitrary types of
+ mesh representation as triangles and quads, exploiting the basic geometrical
  relationships facilitating and ensuring convergence of the algorithm and
  similar shapes consistent with the original shape against the other methods.
  
@@ -1116,9 +1128,71 @@ Unlike other methods, our method allows use arbitrary topologys types of
 Our method allows the use of soft constraints weighting the effect of smoothing
  at each vertex based on a normalized weight, the weights are assigned to
  the control vertices of the original mesh or.
- The weights of the new vertices resulting from the iterations are calculated
+ The weights of the new vertices resulting from the subdivisions are calculated
  by interpolation, allowing to modify the behavior of the method on exact
  regions of the original model.
+\end_layout
+
+\begin_layout Standard
+Our approach contain an extension of the Laplace Beltrami operator for meshes
+ composed by triangles and quads.
+ Using meshes composed by triangles and quads has been increasing in recent
+ years due to the flexibility of modeling tools as Blender 3D 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blender"
+
+\end_inset
+
+.
+ Today many artists manually connecting vertices such that its edition allows
+ simplest way to perform animation processes and interpolation 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Mullen2007"
+
+\end_inset
+
+.
+ For these reasons it is very important to develop an operator that allows
+ working with this type of mesh immediately, eliminating the need to preprocess
+ the mesh to convert to triangles and losing the original design made by
+ users.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+En este trabajo presentamos una extension del operador laplace beltrami
+ para mallas compuestas por mesclas de triangulos y cuadrangulos.
+ El uso de mallas compuestas por triangulos y cuadrangulos a ido en aumento
+ en los ultimos años, debido a la flexibilidad de las herramientas de modelamien
+to 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blender"
+
+\end_inset
+
+ de hoy dia .
+ Hoy dia muchos artistas conectan manualmente los vertices de manera que
+ faciliten su edicion en el momento de animacion para facilitar el proceso
+ de interpolacion 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Mullen2007"
+
+\end_inset
+
+.
+ Debido a estas razones es muy importante desarrollar un operador que permita
+ trabajar con este tipo de mallas de forma rapida, eliminando la nececidad
+ de preprocesar la malla para convertirla a triangulos y perdiendo el diseño
+ original realizado por los usuarios.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -1400,7 +1474,7 @@ All triangles and quads configurations of the 1-neighborhood faces adjacent
 \begin_inset Formula $v_{i}$
 \end_inset
 
- can be simplified in 5 simple cases how show in figure 
+ can be simplified in five simple cases how show in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:LBO-basic-5-TQ"
@@ -1411,7 +1485,7 @@ reference "fig:LBO-basic-5-TQ"
 \end_layout
 
 \begin_layout Standard
-Then according to (
+Then according to equation (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:discrete_mean_curvature_normal"
@@ -1425,7 +1499,7 @@ reference "eq:def_LBO"
 
 \end_inset
 
-), and 5 simples cases defined in figure 
+), and five simples cases defined in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:LBO-basic-5-TQ"
