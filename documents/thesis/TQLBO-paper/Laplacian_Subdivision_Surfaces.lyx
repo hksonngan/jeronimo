@@ -491,9 +491,28 @@ The polygon meshes are used to represent real-world objects in three-dimensional
 s of modeling that can generate a variety of shapes to look natural and
  realistic [Botsch2006].
  Editing techniques have evolved from affine transformations to advanced
- tools like scuplting [Coquillart1990, Galyean1991, Stanculescu2011], editing
- and creation from sketches [Igarashi1999, Gonen2012], complex interpolation
- techniques [Sorkine2004, Zhou2005], and so on .
+ tools like scuplting 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Coquillart1990,Galyean1991,Stanculescu2011"
+
+\end_inset
+
+, editing and creation from sketches 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Igarashi1999,Gonen2012"
+
+\end_inset
+
+, complex interpolation techniques 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sorkine2004,Zhou2005"
+
+\end_inset
+
+, and so on .
 \begin_inset Note Note
 status collapsed
 
@@ -696,8 +715,8 @@ key "Sorkine2004"
 \end_layout
 
 \begin_layout Standard
-Methods for offset, and dilation of polygon meshes based on the curvature
- defined by the Laplace Beltrami operator have been developed.
+Methods for offset polygon meshes based on the curvature defined by the
+ Laplace Beltrami operator have been developed.
  These methods allow adjusting shape offset by a constant distance with
  high enough precision to minimize Hausdorf error.
  The problem with these methods is the loss of detail caused by smoothing,
@@ -784,6 +803,31 @@ ps.
  geometric shapes such as lines, circles or ellipses but this method has
  difficulties when models are smoother with organic forms and cannot find
  the features to edit and preserve.
+\end_layout
+
+\begin_layout Standard
+Digital sculpting is divided into two principal methods: based on polygonal
+ methods and voxel grids-based methods.
+ Brushes for inflate operations in polygonal methods only depends on the
+ normal at each vertex 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Stanculescu2011"
+
+\end_inset
+
+, in grids-based some operations permit add or remove voxels and then have
+ that processing isosurfaces from volume to produce polygonal meshes representat
+ion 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Galyean1991"
+
+\end_inset
+
+.
+ The problem whit this type of operations is the difficult to maintain surface
+ details during larger scale deformation.
 \end_layout
 
 \begin_layout Subsection*
