@@ -1614,8 +1614,14 @@ Where
  being the Kronecker delta function.
 \end_layout
 
-\begin_layout Subsubsection
-Laplacian Enhancement
+\begin_layout Subsection
+Laplacian Enhancement (Enhancement Brush)
+\end_layout
+
+\begin_layout Standard
+En este parrafo se debe mostrar como esta herramienta, permite, realzar
+ y realizar un inflado inteligente de la malla, que es diferente al convencional
+ para ser en tiempo real .
 \end_layout
 
 \begin_layout Standard
@@ -1666,6 +1672,23 @@ FGHFHFG
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+Laplacian and Subdivision Surfaces
+\end_layout
+
+\begin_layout Standard
+El laplaciano puede aproximar la curvatura generada por el proceso de ss.
+\end_layout
+
+\begin_layout Standard
+El laplaciano y el ss producen juntos resultados mas personalizables, que
+ continuan siendo suaves.
+\end_layout
+
+\begin_layout Standard
+el laplaciano y los pesos y el ss tambien funcionan
 \end_layout
 
 \begin_layout Subsection
