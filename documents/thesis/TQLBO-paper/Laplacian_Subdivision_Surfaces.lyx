@@ -1569,30 +1569,54 @@ reference "fig:LBO-basic-5-TQ"
 \end_layout
 
 \begin_layout Standard
-\align center
-
-\size small
-\begin_inset Formula $w_{ij}=\begin{cases}
+\begin_inset Formula 
+\begin{equation}
+w_{ij}=\begin{cases}
 \left(\cot\alpha_{j}+\cot\beta_{j}\right) & \mbox{case }\mathit{a.}\\
-\frac{1}{2}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}+\cot\theta_{j3}+\cot\theta_{j6}\right) & \mbox{case \mathit{b}.}\\
-\left(\cot\theta_{j2}+\cot\theta_{j5}\right) & \mbox{case \mathit{c}.}\\
-\frac{1}{2}\left(\cot\theta_{j3}+\cot\theta_{j6}\right)+\cot\beta_{j} & \mbox{case \mathit{d}.}\\
-\frac{1}{2}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}\right)+\cot\alpha_{j} & \mbox{case \mathit{e}.}
-\end{cases}$
+\frac{1}{2}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}+\cot\theta_{j3}+\cot\theta_{j6}\right) & \mbox{case \ensuremath{\mathit{b}}.}\\
+\left(\cot\theta_{j2}+\cot\theta_{j5}\right) & \mbox{case \ensuremath{\mathit{c}}.}\\
+\frac{1}{2}\left(\cot\theta_{j3}+\cot\theta_{j6}\right)+\cot\beta_{j} & \mbox{case \ensuremath{\mathit{d}}.}\\
+\frac{1}{2}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}\right)+\cot\alpha_{j} & \mbox{case \ensuremath{\mathit{e}}.}
+\end{cases}\label{eq:TQLBO_wij}
+\end{equation}
+
 \end_inset
 
 
 \end_layout
 
-\begin_layout Subsubsection
-TQLBO over triangular and quadrilateral meshes
+\begin_layout Standard
+We define a Laplacian operator as a matrix equation
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $L\left(i,j\right)=\begin{cases}
+\begin_inset Formula 
+\begin{equation}
+L\left(i,j\right)=\begin{cases}
+-\frac{1}{2A}w_{ij} & \mbox{if }j\in N\left(v_{i}\right)\\
+\underset{j\in N\left(v_{i}\right)}{\frac{1}{2A}\sum w_{ij}} & \mbox{if }i=j\\
+0 & \mbox{otherwise}
+\end{cases}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Normalized version of the TQLBO as a matrix equation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+L\left(i,j\right)=\begin{cases}
 -\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum w_{ij}}} & \mbox{if }j\in N\left(v_{i}\right)\\
 \delta_{ij} & \mbox{otherwise}
-\end{cases}$
+\end{cases}\label{eq:TQLBO-Normalized_Matrix}
+\end{equation}
+
 \end_inset
 
 
@@ -1600,6 +1624,33 @@ TQLBO over triangular and quadrilateral meshes
 
 \begin_layout Standard
 Where 
+\begin_inset Formula $L$
+\end_inset
+
+ is the 
+\begin_inset Formula $n\times n$
+\end_inset
+
+, 
+\begin_inset Formula $n$
+\end_inset
+
+ is the number of vertices of a given mesh 
+\begin_inset Formula $M$
+\end_inset
+
+, 
+\begin_inset Formula $w_{ij}$
+\end_inset
+
+ is the TQLBO defined in equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_wij"
+
+\end_inset
+
+), 
 \begin_inset Formula $N\left(v_{i}\right)$
 \end_inset
 
@@ -1615,7 +1666,50 @@ Where
 \end_layout
 
 \begin_layout Subsection
-Laplacian Enhancement (Enhancement Brush)
+Curvature Enhancing
+\end_layout
+
+\begin_layout Standard
+The curvature enhance proccess increase details from the mesh surface by
+ applying a inverse Laplacian smoothing that moves the vertices along the
+ inverse curvature normal directions.
+ In this proccess we use a diffusion proccess: 
+\begin_inset Formula $\frac{\partial V}{\partial t}=\lambda L\left(V\right)$
+\end_inset
+
+ proposed by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Desbrun1999"
+
+\end_inset
+
+, for solve this equation we use implicit integration and a normalized version
+ of TQLBO matrix 
+\begin_inset Formula $\left(I-\lambda dtL\right)V^{\prime}=V$
+\end_inset
+
+, the vertices 
+\begin_inset Formula $V^{\prime}$
+\end_inset
+
+are enhance along their inverse curvature normal directions by solving the
+ simple linear system: 
+\begin_inset Formula $\left(I-\lambda dtL\right)V^{\prime}=V$
+\end_inset
+
+, where 
+\begin_inset Formula $L$
+\end_inset
+
+ is the Normalized TQLBO defined in the equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO-Normalized_Matrix"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Standard
@@ -1628,6 +1722,11 @@ En este parrafo se debe mostrar como esta herramienta, permite, realzar
 El proceso de realce de los detalles de la superfice de malla aplicando
  el operador laplaciano que mueve los vertices a lo largo de la direccion
  de la curvatra normal.
+\end_layout
+
+\begin_layout Standard
+it is because this operator has most predictable and robust results that
+ simple Laplace Beltrami Operator.
 \end_layout
 
 \begin_layout Standard
