@@ -1670,6 +1670,11 @@ Curvature Enhancing
 \end_layout
 
 \begin_layout Standard
+using the change produced by laplacian somoothing in the inverse direction
+ of the curvature flow.
+\end_layout
+
+\begin_layout Standard
 The curvature enhance proccess increase details from the mesh surface by
  applying a inverse Laplacian smoothing that moves the vertices along the
  inverse curvature normal directions.
@@ -1686,19 +1691,39 @@ key "Desbrun1999"
 
 , for solve this equation we use implicit integration and a normalized version
  of TQLBO matrix 
-\begin_inset Formula $\left(I-\lambda dtL\right)V^{\prime}=V$
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\left(I-\left|\lambda\right|dtL\right)V^{\prime}=V^{n}$
 \end_inset
 
-, the vertices 
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $V^{n+1}=V^{n}+\lambda\left(V^{\prime}-V^{n}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The vertices 
 \begin_inset Formula $V^{\prime}$
 \end_inset
 
 are enhance along their inverse curvature normal directions by solving the
  simple linear system: 
-\begin_inset Formula $\left(I-\lambda dtL\right)V^{\prime}=V$
+\begin_inset Formula $Ax=b$
 \end_inset
 
 , where 
+\begin_inset Formula $A=I-\left|\lambda\right|dtL$
+\end_inset
+
+, 
 \begin_inset Formula $L$
 \end_inset
 
@@ -1709,29 +1734,21 @@ reference "eq:TQLBO-Normalized_Matrix"
 
 \end_inset
 
-).
-\end_layout
+), 
+\begin_inset Formula $x=V^{\prime}$
+\end_inset
 
-\begin_layout Standard
-En este parrafo se debe mostrar como esta herramienta, permite, realzar
- y realizar un inflado inteligente de la malla, que es diferente al convencional
- para ser en tiempo real .
-\end_layout
+ are the unknow variables, 
+\begin_inset Formula $b=V^{n}$
+\end_inset
 
-\begin_layout Standard
-El proceso de realce de los detalles de la superfice de malla aplicando
- el operador laplaciano que mueve los vertices a lo largo de la direccion
- de la curvatra normal.
-\end_layout
+ are the actual vertices positions, and 
+\begin_inset Formula $\lambda$
+\end_inset
 
-\begin_layout Standard
-it is because this operator has most predictable and robust results that
- simple Laplace Beltrami Operator.
-\end_layout
-
-\begin_layout Standard
-realzar las caractersisticas, usando el cambio producido por la ecuacion
- de difusion
+ is the enhance factor that support negative and positive values more greather
+ that one maintain in most cases the stability of the system should be to
+ the use of normalized version of TQLBO.
 \end_layout
 
 \begin_layout Standard
