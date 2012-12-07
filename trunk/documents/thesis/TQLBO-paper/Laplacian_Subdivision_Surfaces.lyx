@@ -512,7 +512,7 @@ key "Sorkine2004,Zhou2005"
 
 \end_inset
 
-, and so on .
+, among others.
 \begin_inset Note Note
 status collapsed
 
@@ -1670,14 +1670,9 @@ Curvature Enhancing
 \end_layout
 
 \begin_layout Standard
-using the change produced by laplacian somoothing in the inverse direction
- of the curvature flow.
-\end_layout
-
-\begin_layout Standard
-The curvature enhance proccess increase details from the mesh surface by
- applying a inverse Laplacian smoothing that moves the vertices along the
- inverse curvature normal directions.
+The curvature enhancing use the change produced by laplacian smoothing in
+ the inverse direction of the curvature flow for moves the vertices in the
+ portions of the mesh with most curvature.
  In this proccess we use a diffusion proccess: 
 \begin_inset Formula $\frac{\partial V}{\partial t}=\lambda L\left(V\right)$
 \end_inset
@@ -1689,8 +1684,9 @@ key "Desbrun1999"
 
 \end_inset
 
-, for solve this equation we use implicit integration and a normalized version
- of TQLBO matrix 
+.
+ For solve this equation we use implicit integration and a normalized version
+ of TQLBO matrix.
 \end_layout
 
 \begin_layout Standard
@@ -1714,7 +1710,7 @@ The vertices
 \begin_inset Formula $V^{\prime}$
 \end_inset
 
-are enhance along their inverse curvature normal directions by solving the
+are enhance along their inverse curvature normal directions by solving this
  simple linear system: 
 \begin_inset Formula $Ax=b$
 \end_inset
@@ -1738,7 +1734,7 @@ reference "eq:TQLBO-Normalized_Matrix"
 \begin_inset Formula $x=V^{\prime}$
 \end_inset
 
- are the unknow variables, 
+ are the smoothing vertices, 
 \begin_inset Formula $b=V^{n}$
 \end_inset
 
@@ -1746,9 +1742,8 @@ reference "eq:TQLBO-Normalized_Matrix"
 \begin_inset Formula $\lambda$
 \end_inset
 
- is the enhance factor that support negative and positive values more greather
- that one maintain in most cases the stability of the system should be to
- the use of normalized version of TQLBO.
+ is the enhance factor that support negative and positive values, negative
+ for enhancing positive for smoothing.
 \end_layout
 
 \begin_layout Standard
