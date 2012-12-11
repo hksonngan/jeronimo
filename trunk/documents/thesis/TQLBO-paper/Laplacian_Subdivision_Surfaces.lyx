@@ -1691,7 +1691,7 @@ key "Desbrun1999"
 
 \begin_layout Standard
 \align center
-\begin_inset Formula $\left(I-\left|\lambda\right|dtL\right)V^{\prime}=V^{n}$
+\begin_inset Formula $\left(I-\left|\lambda dt\right|W_{p}L\right)V^{\prime}=V^{n}$
 \end_inset
 
 
@@ -1699,7 +1699,7 @@ key "Desbrun1999"
 
 \begin_layout Standard
 \align center
-\begin_inset Formula $V^{n+1}=V^{n}+\lambda\left(V^{\prime}-V^{n}\right)$
+\begin_inset Formula $V^{n+1}=V^{n}+\mbox{sign}\left(\lambda\right)\left(V^{\prime}-V^{n}\right)$
 \end_inset
 
 
@@ -1738,12 +1738,67 @@ reference "eq:TQLBO-Normalized_Matrix"
 \begin_inset Formula $b=V^{n}$
 \end_inset
 
- are the actual vertices positions, and 
-\begin_inset Formula $\lambda$
+ are the actual vertices positions, 
+\begin_inset Formula $W_{p}$
+\end_inset
+
+ is a diagonal matrix with weigth vertex group, 
+\begin_inset Formula $\mbox{sign}\left(x\right)$
+\end_inset
+
+ is the sign function, and 
+\begin_inset Formula $\lambda dt$
 \end_inset
 
  is the enhance factor that support negative and positive values, negative
  for enhancing positive for smoothing.
+\end_layout
+
+\begin_layout Standard
+Our method was designed for use with weigth vertex groups para especificar
+ el grado de afectacion sobre la solucion, los pesos varian entre 0 y 1
+ con un valor de 0 no realiza ningun cambio y con valores de 1 se aplica
+ el cambio total.
+\end_layout
+
+\begin_layout Standard
+Los pesos pueden ser aplicados sobre el modelo tosco y luego al realizan
+ subdivision estos pesos son suavizados de forma que produce resultados
+ con cambios suaves en las zonas de influencia donde se aplica el laplaciano,
+ en la formaula xy, donde Wp es una matriz diagonal con los pesos correspondient
+es para cada vertice, ver imagen xyz.
+ Los pesos sobre cada vertice produciran una solucion diferente por esa
+ razon son puestos antes de obtener la solucion del sistema lineal.
+ Las familias que se generan pueden cambiar substancialmente con el ponderamient
+o de puntos de control especificos.
+\end_layout
+
+\begin_layout Standard
+El manejo de los bordes con operador dependiente de escala
+\end_layout
+
+\begin_layout Section
+Experimental Results and Applications
+\end_layout
+
+\begin_layout Standard
+Se trabajo con blender software blblbsd
+\end_layout
+
+\begin_layout Standard
+se hicieron pruebas de rendimiento asdadasd
+\end_layout
+
+\begin_layout Standard
+Pruebas de catmull clark vs nuestro metodo
+\end_layout
+
+\begin_layout Standard
+pruebas de T Q, y nuestro metodos de Ty Q
+\end_layout
+
+\begin_layout Standard
+Pruebas generando familias de objetos, que involucran y no CatCl.
 \end_layout
 
 \begin_layout Standard
@@ -1755,7 +1810,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename images/camello_enhanced_lambda2.pdf
+	filename images/camello_enhanced_lambda3.pdf
 	lyxscale 20
 	width 100col%
 
@@ -1792,10 +1847,14 @@ Top row: Curvatture enhancing with
 
 .
  Bottom row: Curvature enhancing with weigth vertex group, 
-\begin_inset Formula $\lambda=-300.0$
+\begin_inset Formula $\lambda=-50.0$
 \end_inset
 
-, 
+ and 2 iterations at legs, 
+\begin_inset Formula $\lambda=-200.0$
+\end_inset
+
+ and 1 iteration in head and neck.
 \end_layout
 
 \end_inset
@@ -1809,57 +1868,19 @@ Top row: Curvatture enhancing with
 \end_layout
 
 \begin_layout Subsection
-Laplacian and Subdivision Surfaces
+Implementation
 \end_layout
 
 \begin_layout Standard
-El laplaciano puede aproximar la curvatura generada por el proceso de ss.
-\end_layout
-
-\begin_layout Standard
-El laplaciano y el ss producen juntos resultados mas personalizables, que
- continuan siendo suaves.
-\end_layout
-
-\begin_layout Standard
-el laplaciano y los pesos y el ss tambien funcionan
+c y c++ blender.
 \end_layout
 
 \begin_layout Subsection
-Boundaries scale-dependent
+Sparse linear system
 \end_layout
 
 \begin_layout Standard
-El manejo de los bordes con operador dependiente de escala
-\end_layout
-
-\begin_layout Subsection
-Anti-shrinking fairing - Volume preservation 
-\end_layout
-
-\begin_layout Standard
-Preservacion de volumen en el centroide funciona mejor que lo propuesto
- por desbrum 99
-\end_layout
-
-\begin_layout Standard
-The diffusion process, induce shrinkage 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Desbrun1999"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsection
-Weight based somooth constraints
-\end_layout
-
-\begin_layout Standard
-Las familias que se generan pueden cambiar substancialmente con el ponderamiento
- de puntos de control especificos
+superlu opennl 
 \end_layout
 
 \begin_layout Subsection
@@ -1946,44 +1967,25 @@ key "Loop1987"
 , but with our method can correct this problem
 \end_layout
 
-\begin_layout Section
-Experimental Results and Applications
+\begin_layout Subsection
+Laplacian and Subdivision Surfaces
 \end_layout
 
 \begin_layout Standard
-Se trabajo con blender software blblbsd
+El laplaciano puede aproximar la curvatura generada por el proceso de ss.
 \end_layout
 
 \begin_layout Standard
-se hicieron pruebas de rendimiento asdadasd
+El laplaciano y el ss producen juntos resultados mas personalizables, que
+ continuan siendo suaves.
 \end_layout
 
 \begin_layout Standard
-Pruebas de catmull clark vs nuestro metodo
-\end_layout
-
-\begin_layout Standard
-pruebas de T Q, y nuestro metodos de Ty Q
-\end_layout
-
-\begin_layout Standard
-Pruebas generando familias de objetos, que involucran y no CatCl.
+el laplaciano y los pesos y el ss tambien funcionan
 \end_layout
 
 \begin_layout Subsection
-Implementation
-\end_layout
-
-\begin_layout Standard
-c y c++ blender.
-\end_layout
-
-\begin_layout Subsection
-Sparse linear system
-\end_layout
-
-\begin_layout Standard
-superlu opennl 
+Sculpting
 \end_layout
 
 \begin_layout Section
