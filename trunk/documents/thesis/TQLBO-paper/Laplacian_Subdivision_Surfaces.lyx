@@ -1751,11 +1751,11 @@ reference "eq:TQLBO-Normalized_Matrix"
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename images/camello.png
+	filename images/camello_enhanced_lambda2.pdf
 	lyxscale 20
 	width 100col%
 
@@ -1768,15 +1768,38 @@ status collapsed
 \begin_inset Caption
 
 \begin_layout Plain Layout
-FGHFHFG
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:camello_enhanced"
+
+\end_inset
+
+Top row: Curvatture enhancing with 
+\begin_inset Formula $\lambda=-400.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda=-30.0$
+\end_inset
+
+, Original Model 
+\begin_inset Formula $\lambda=0.0$
+\end_inset
+
+, Smoothing Model 
+\begin_inset Formula $\lambda=5.0$
+\end_inset
+
+.
+ Bottom row: Curvature enhancing with weigth vertex group, 
+\begin_inset Formula $\lambda=-300.0$
+\end_inset
+
+, 
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 
