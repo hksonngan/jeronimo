@@ -867,6 +867,61 @@ Laplacian Smooth
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+placement t
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/beltrami.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:LBO-basic-5-TQ"
+
+\end_inset
+
+The 5 basic triangle-quad cases with common vertex 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+ and the relationship with 
+\begin_inset Formula $V_{j}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{j}^{\prime}$
+\end_inset
+
+.
+ (a) Two triangles [Desbrun 1999].
+ (b) (c) Two quads and one quad [Xiong 2011].
+ (d) (e) Triangles and quads (TQLBO).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The Laplacian Smooth techniques allows you to reduce noise on a mesh's surface
  with minimal changes on its shape.
  Computer graphics objects which have been reconstructed from real world,
@@ -1244,61 +1299,6 @@ Laplace Beltrami operator over triangular and quadrilateral meshes TQLBO
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-placement t
-wide true
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename images/beltrami.pdf
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:LBO-basic-5-TQ"
-
-\end_inset
-
-The 5 basic triangle-quad cases with common vertex 
-\begin_inset Formula $V_{i}$
-\end_inset
-
- and the relationship with 
-\begin_inset Formula $V_{j}$
-\end_inset
-
- and 
-\begin_inset Formula $V_{j}^{\prime}$
-\end_inset
-
-.
- (a) Two triangles [Desbrun 1999].
- (b) (c) Two quads and one quad [Xiong 2011].
- (d) (e) Triangles and quads (TQLBO).
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 Given a mesh 
 \begin_inset Formula $M=\left(V,Q,T\right)$
 \end_inset
@@ -1670,6 +1670,82 @@ Curvature Enhancing
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+placement t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/cruz_lambda2.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Left: Original Model, in green color model with Catmull-Clark Subdivision.
+ Models with laplacian smoothing: 
+\begin_inset Formula $\lambda=60.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=12.0$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda=90.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=80.0$
+\end_inset
+
+.
+ Models first filter with laplacian smoothing 
+\begin_inset Formula $\lambda=60.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=12.0$
+\end_inset
+
+ and before applied curvature enhancing: 
+\begin_inset Formula $\lambda=-200.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=12.0$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda=-40.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=-100.0$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The curvature enhancing use the change produced by laplacian smoothing in
  the inverse direction of the curvature flow for moves the vertices in the
  portions of the mesh with most curvature.
@@ -1806,7 +1882,7 @@ Pruebas generando familias de objetos, que involucran y no CatCl.
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
