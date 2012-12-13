@@ -483,13 +483,38 @@ copyrightspace
 \end_inset
 
 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+En los ultimos años se han desarrollado novedosas y eficientes tecnicas
+ de edicion y modelamiento de mallas de poligonos que han permitido a los
+ artistas y diseñadores realizar de forma mas rapida y sencilla su trabajo
+ duarante la creacion of shapes to look natural and realistic.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The polygon meshes are used to represent real-world objects in three-dimensional
+ space, these objects are captured with scanners or created with novel technique
+s of modeling 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-The polygon meshes are used to represent real-world objects in three-dimensional
- space, these objects are captured with scanners or created with novel technique
-s of modeling that can generate a variety of shapes to look natural and
- realistic [Botsch2006].
+Over the last years have been developed novel techniques of modeling that
+ can generate a variety of shapes to look natural and realistic 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Botsch2006"
+
+\end_inset
+
+.
  Editing techniques have evolved from affine transformations to advanced
  tools like scuplting 
 \begin_inset CommandInset citation
@@ -673,6 +698,38 @@ icas del objeto cambiando su curvatura
 
 \end_layout
 
+\begin_layout Standard
+Overview ed nuestro metodo
+\end_layout
+
+\begin_layout Standard
+Nuestro metodo usa el un bosquejo de maya le aplica una subdivision cualquiera
+ y esa subdivision la modifica a lo largo de su curvatura de flujo usando
+ un operador laplaciano para triangulos y cuadrados
+\end_layout
+
+\begin_layout Standard
+Nuestro metodos propone tre cosas muy novedosas:
+\end_layout
+
+\begin_layout Standard
+Operador Laplace beltrami para mallas de topologia arbitraria formadas por
+ triangulos y cuadrados, para cualquier tipo de procesamiento en geometria
+ diferencial
+\end_layout
+
+\begin_layout Standard
+Permite generar una familia de formas parametrizadas.
+\end_layout
+
+\begin_layout Standard
+Controlar el nivel de suavizado y curvatura al subdividir mallas de poligonos
+\end_layout
+
+\begin_layout Standard
+Enhanced brush for sculpting modelling
+\end_layout
+
 \begin_layout Subsection*
 1.1 Previous work
 \end_layout
@@ -828,38 +885,6 @@ key "Galyean1991"
 .
  The problem whit this type of operations is the difficult to maintain surface
  details during larger scale deformation.
-\end_layout
-
-\begin_layout Subsection*
-1.2 Overview of our method
-\end_layout
-
-\begin_layout Standard
-Nuestro metodo usa el un bosquejo de maya le aplica una subdivision cualquiera
- y esa subdivision la modifica a lo largo de su curvatura de flujo usando
- un operador laplaciano para triangulos y cuadrados
-\end_layout
-
-\begin_layout Standard
-Nuestro metodos propone tre cosas muy novedosas:
-\end_layout
-
-\begin_layout Standard
-Operador Laplace beltrami para mallas de topologia arbitraria formadas por
- triangulos y cuadrados, para cualquier tipo de procesamiento en geometria
- diferencial
-\end_layout
-
-\begin_layout Standard
-Permite generar una familia de formas parametrizadas.
-\end_layout
-
-\begin_layout Standard
-Controlar el nivel de suavizado y curvatura al subdividir mallas de poligonos
-\end_layout
-
-\begin_layout Standard
-Enhanced brush for sculpting modelling
 \end_layout
 
 \begin_layout Section
