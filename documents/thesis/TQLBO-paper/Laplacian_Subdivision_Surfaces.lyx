@@ -731,7 +731,7 @@ Enhanced brush for sculpting modelling
 \end_layout
 
 \begin_layout Subsection*
-1.1 Previous work
+1.1 Related work
 \end_layout
 
 \begin_layout Standard
@@ -1618,28 +1618,10 @@ We define a Laplacian operator as a matrix equation
 \begin_inset Formula 
 \begin{equation}
 L\left(i,j\right)=\begin{cases}
--\frac{1}{2A}w_{ij} & \mbox{if }j\in N\left(v_{i}\right)\\
-\underset{j\in N\left(v_{i}\right)}{\frac{1}{2A}\sum w_{ij}} & \mbox{if }i=j\\
+-\frac{1}{2A_{i}}w_{ij} & \mbox{if }j\in N\left(v_{i}\right)\\
+\frac{1}{2A_{i}}\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij} & \mbox{if }i=j\\
 0 & \mbox{otherwise}
 \end{cases}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Normalized version of the TQLBO as a matrix equation
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-L\left(i,j\right)=\begin{cases}
--\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum w_{ij}}} & \mbox{if }j\in N\left(v_{i}\right)\\
-\delta_{ij} & \mbox{otherwise}
-\end{cases}\label{eq:TQLBO-Normalized_Matrix}
 \end{equation}
 
 \end_inset
@@ -1683,7 +1665,37 @@ reference "eq:TQLBO_wij"
 \begin_inset Formula $v_{i}$
 \end_inset
 
-, and 
+, 
+\begin_inset Formula $A_{i}$
+\end_inset
+
+ is the ring area around 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Normalized version of the TQLBO as a matrix equation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+L\left(i,j\right)=\begin{cases}
+-\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij}} & \mbox{if }j\in N\left(v_{i}\right)\\
+\delta_{ij} & \mbox{otherwise}
+\end{cases}\label{eq:TQLBO-Normalized_Matrix}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
 \begin_inset Formula $\delta_{ij}$
 \end_inset
 
@@ -1699,7 +1711,7 @@ Curvature Enhancing
 placement t
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1774,20 +1786,20 @@ Left: Original Model, in green color model with Catmull-Clark Subdivision.
 The curvature enhancing use the change produced by laplacian smoothing in
  the inverse direction of the curvature flow for moves the vertices in the
  portions of the mesh with most curvature.
- In this proccess we use a diffusion proccess: 
+ In this proccess we use a diffusion proccess:
+\end_layout
+
+\begin_layout Standard
+\align center
 \begin_inset Formula $\frac{\partial V}{\partial t}=\lambda L\left(V\right)$
 \end_inset
 
- proposed by 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Desbrun1999"
+ 
+\end_layout
 
-\end_inset
-
-.
- For solve this equation we use implicit integration and a normalized version
- of TQLBO matrix.
+\begin_layout Standard
+For solve the equation above we use implicit integration and a normalized
+ version of TQLBO matrix.
 \end_layout
 
 \begin_layout Standard
@@ -1808,7 +1820,7 @@ key "Desbrun1999"
 
 \begin_layout Standard
 The vertices 
-\begin_inset Formula $V^{\prime}$
+\begin_inset Formula $V^{n+1}$
 \end_inset
 
 are enhance along their inverse curvature normal directions by solving this
@@ -1878,8 +1890,166 @@ o de puntos de control especificos.
 El manejo de los bordes con operador dependiente de escala
 \end_layout
 
+\begin_layout Subsection
+Sculpting
+\end_layout
+
+\begin_layout Standard
+En nuestro trabajo se diseño una nueva brocha que permite realizar el realce
+ de las curvaturas en un modelo en tiempo real.
+\end_layout
+
+\begin_layout Standard
+Nuestro brocha trabajo bien con el metodo 
+\begin_inset Quotes eld
+\end_inset
+
+drag drot
+\begin_inset Quotes erd
+\end_inset
+
+ desarrollado en el sistema de sculptin de 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blender"
+
+\end_inset
+
+ el cual permite previsualizar el cambio que se produce en el modelo hasta
+ que se libera el boton del mouse o la tableta, ademas permite mover el
+ mouse a lo largo del modelo para ajustar el lugar exacto donde se desea
+ realizar el realce de la curvatura.
+\end_layout
+
+\begin_layout Standard
+Brochas que realizan trabajos similares como la brocha de inflacion, crean
+ problemas en el modelo pues al aplicarlo se pueden producir autointersecciones
+ del modelo pues este metodo solo mueve los vertices a lo largo de la normal,
+ y no toma en cuenta la informacion global, nuestro metodo en cambio busca
+ la mejor manera de realizar la inflacion mientras conservar las curvaturas
+ que le dan la apariencia caracteristica a ese objeto.
+\end_layout
+
+\begin_layout Standard
+Nuestro metodo simplifica el trabajo que se requiere para realizar el realce
+ que consistiria en usar algunos brocas diferentes algunas para inflar y
+ otras para suavizar y estilizar.
+ con nuestra brocha este tipo de realces se pueden realizar en un solo paso.
+\end_layout
+
+\begin_layout Standard
+Para que la brocha trabaje en tiempo real es necesario que cuando se construya
+ la matriz con los vertices solo sean tomados encuenta aquellos vertices
+ que estan dentro del radio de afectacion definido por el usuario lo cual
+ reduce drasticamente el tamaño de los vertices a procesar, el centro de
+ esta esfera depende del lugar donde el usuario haga click en el canvas
+ y el lugar tridimensional en el modelo donde el click se proyecta.
+ Es necesario ademas realizar una cambio con los vertices que se encuentran
+ en la frontera los cuales tienen vecinos que nos se encuentran dentro del
+ radio de afectacion estos vertices seran marcados como de frontera y en
+ ellos no se calculara el laplaciano perso estaran presentes en el sistema
+ lineal de forma invariante para permitir que los vertices que tengan todos
+ sus vecinos en el interior del radio de afectacion puedan calcular de forma
+ correcta la curvatura, este cambio permite que los resultados sean mucho
+ mas suaves en la frontera.
+\end_layout
+
+\begin_layout Subsection
+Subdivision surfaces
+\end_layout
+
+\begin_layout Standard
+Metodo para generar modelos suaves y continuos desde un bosquejo como catmull
+ clark producen resultados rapidamente debido a la simplicidad de implementacion
+, el unico problema es que es dificial realizar cambios en la curvatura
+ general del modelo.
+ Si nosotro usamos catmull clark y curvatura enhancing juntos en bosqujos
+ con pocos vertices podemos generar familias de formas con solo la modificacion
+ de un parametro, lo que permitiria a un diseñador escoger el modelo que
+ mas se adapte a sus nececidades sin nececidad que tenga que modificar cada
+ uno de los vertices de control en metodos como catmull clark.
+\end_layout
+
+\begin_layout Standard
+Nuestro metodo tambien permite el uso de weigth vertex paint sobre los puntos
+ de control desarrollado en 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blender"
+
+\end_inset
+
+, al realizar la subdivision estos pesos son interpolados sobre los nuevos
+ vertices de manera que se puede pintar la zona en la cual se desea realzar
+ la curvatura.
+\end_layout
+
+\begin_layout Standard
+The Catmull-Clark subdivision transformation is used to smooth a surface
+ as the limit of sequence of subdivision steps
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Stam1998"
+
+\end_inset
+
+.
+ This method do a recursive subdivision transformation that refines the
+ model into a linear interpolation that is a approximate smooth surface.
+ The process of Catmull-Clark is govern by properties of B-spline curve
+ from multivariate spline theory
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Loop1987"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In many subdivision surfaces methods catmull clark loop so on.
+ the smoothness of the model is autmaically guarantteed
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DeRose1998"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Subdivision surfaces with catmull clark is continuos except at a extraordinary
+ points
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Loop1987"
+
+\end_inset
+
+, but with our method can correct this problem
+\end_layout
+
 \begin_layout Section
-Experimental Results and Applications
+Results
+\end_layout
+
+\begin_layout Standard
+we test the curvature enhance on a PC with amd core ixyu proce @ 10.45 ghz
+ and 8 GB RAM.
+\end_layout
+
+\begin_layout Standard
+In this section we describe the results of our curvature enhanced method
+ with our extension of laplace beltrami operator for triangles and quads.
+\end_layout
+
+\begin_layout Standard
+We demonstrate the results of our approach with several example models in
+ figures x, y, z.
+ Figure x show a a a a ...
 \end_layout
 
 \begin_layout Standard
@@ -1973,6 +2143,18 @@ Implementation
 \end_layout
 
 \begin_layout Standard
+We implementer our algorithm in C and C++ on the blender platform version
+ 2.56
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blender"
+
+\end_inset
+
+, 
+\end_layout
+
+\begin_layout Standard
 c y c++ blender.
 \end_layout
 
@@ -1982,111 +2164,6 @@ Sparse linear system
 
 \begin_layout Standard
 superlu opennl 
-\end_layout
-
-\begin_layout Subsection
-Subdivision Surface
-\end_layout
-
-\begin_layout Standard
-Subdivision is an iterated transformation 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Warren2001"
-
-\end_inset
-
-.
- Let 
-\begin_inset Formula $F$
-\end_inset
-
- be a function (subdivision transformation) that maps one geometry 
-\begin_inset Formula $M_{i}$
-\end_inset
-
- into another similar geometry with same topology 
-\begin_inset Formula $M_{i+1}$
-\end_inset
-
-.
-\begin_inset Formula 
-\begin{equation}
-M_{i+1}=F\left(M_{i}\right)
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The Catmull-Clark subdivision transformation is used to smooth a surface
- as the limit of sequence of subdivision steps
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Stam1998"
-
-\end_inset
-
-.
- This method do a recursive subdivision transformation that refines the
- model into a linear interpolationthat is a approximate smooth surface.
- The process of Catmull-Clark is govern o properties of B-spline curve from
- multivariate spline theory
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Loop1987"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-In many subdivision surfaces methods catmull clark loop so on.
- the smoothness of the model is autmaically guarantteed
-\begin_inset CommandInset citation
-LatexCommand cite
-key "DeRose1998"
-
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-Subdivision surfaces with catmull clark is continuos except at a extraordinary
- points
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Loop1987"
-
-\end_inset
-
-, but with our method can correct this problem
-\end_layout
-
-\begin_layout Subsection
-Laplacian and Subdivision Surfaces
-\end_layout
-
-\begin_layout Standard
-El laplaciano puede aproximar la curvatura generada por el proceso de ss.
-\end_layout
-
-\begin_layout Standard
-El laplaciano y el ss producen juntos resultados mas personalizables, que
- continuan siendo suaves.
-\end_layout
-
-\begin_layout Standard
-el laplaciano y los pesos y el ss tambien funcionan
-\end_layout
-
-\begin_layout Subsection
-Sculpting
 \end_layout
 
 \begin_layout Section
