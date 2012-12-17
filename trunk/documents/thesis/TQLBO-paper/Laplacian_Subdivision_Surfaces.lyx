@@ -190,7 +190,7 @@ Note:
 
 \begin_layout Teaser
 \begin_inset Graphics
-	filename images/teaser2.png
+	filename images/teaser_cup.pdf
 	lyxscale 10
 	width 100text%
 
@@ -1829,7 +1829,7 @@ are enhance along their inverse curvature normal directions by solving this
 \end_inset
 
 , where 
-\begin_inset Formula $A=I-\left|\lambda\right|dtL$
+\begin_inset Formula $A=I-\left|\lambda dt\right|W_{p}L$
 \end_inset
 
 , 
@@ -2070,6 +2070,44 @@ pruebas de T Q, y nuestro metodos de Ty Q
 
 \begin_layout Standard
 Pruebas generando familias de objetos, que involucran y no CatCl.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/sculpt_brush.pdf
+	lyxscale 20
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
+ Enhance curvature brush for leg into red circle.
+ Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
+ Enhance curvature brush for fingers in red circle.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
