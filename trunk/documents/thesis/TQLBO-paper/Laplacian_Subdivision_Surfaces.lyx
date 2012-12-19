@@ -2045,11 +2045,32 @@ In this section we describe the results of our curvature enhanced method
 \end_layout
 
 \begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:camello_enhanced"
+
+\end_inset
+
+ show the generation of diferent version of camel with the variation of
+ parameter lambda.
+ In the top row you can see results of do curvature enhance over all model,
+ a medida que el lambda se hace mas negativo la curvatura del modelo tiende
+ a cerrarse e intersectarse en las partes concavas y a inflarse en las partes
+ convexas.
+ El realce de curvatura con el laplaciano normalizado tiene un comportamiento
+ regular y predecible e invariante frente a transformaciones isometricas
+ como las animaciones de caminatas por ejemplo, pues a medida que se varia
+ el lambda cambia el modelo, entre mas negativo sea mas realce en las curvaturas
+ realiza, 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2080,7 +2101,7 @@ Top row: Curvatture enhancing with
 \begin_inset Formula $\lambda=-30.0$
 \end_inset
 
-, Original Model 
+ and volume preservation, Original Model 
 \begin_inset Formula $\lambda=0.0$
 \end_inset
 
@@ -2108,25 +2129,6 @@ Top row: Curvatture enhancing with
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:camello_enhanced"
-
-\end_inset
-
- show the generation of diferent version of camel with the variation of
- parameter lambda.
- In the top row you can see results of do curvature enhance over all model,
- a medida que el lambda se hace mas negativo el modelo tiende a colapsarse.
- El realce de curvatura con el laplaciano normalizado tiene un comportamiento
- regular y predecible e invariante frente a transformaciones isometricas
- como las animaciones de caminatas por ejemplo, pues a medida que se varia
- el lambda cambia el modelo, entre mas negativo sea mas realce en las curvaturas
- realiza, 
 \end_layout
 
 \begin_layout Standard
@@ -2257,6 +2259,77 @@ Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
  Enhance curvature brush for leg into red circle.
  Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
  Enhance curvature brush for fingers in red circle.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nuestro metodo es invariante de la pose si el realce es realizado sobre
+ la misma malla, modificaciones locales producidas con metodos como pose
+ interpolation or rigging animation no afectan significativamente el resultado
+ como se observa en las piernas del camello en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Animated_Camell"
+
+\end_inset
+
+.
+ Esto se debe al proceso de difusion al cual es sometida la malla de forma
+ que peque;os cambios locales son tratados globalmente sin que afecte significat
+ivamente la solucion.
+ Nuestro metodo es invariante de rotacion pues unicamente depende del normal
+ field of the mesh, wish is invariant under global rotations.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement t
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/camello_walk2.png
+	lyxscale 20
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Animated_Camell"
+
+\end_inset
+
+Our method is pose insensitive.
+ The enhanced for the different poses are similar in terms of shape.
+ Top row: Curvature enhancing with weigth vertex group, 
+\begin_inset Formula $\lambda=-400$
+\end_inset
+
+ and 
+\begin_inset Formula $2$
+\end_inset
+
+ iterations.
+ Bottom row: Original walk cycle camel model.
 \end_layout
 
 \end_inset
