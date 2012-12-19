@@ -1621,7 +1621,7 @@ L\left(i,j\right)=\begin{cases}
 -\frac{1}{2A_{i}}w_{ij} & \mbox{if }j\in N\left(v_{i}\right)\\
 \frac{1}{2A_{i}}\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij} & \mbox{if }i=j\\
 0 & \mbox{otherwise}
-\end{cases}
+\end{cases}\label{eq:TQLBO_Simple_Matrix}
 \end{equation}
 
 \end_inset
@@ -2037,39 +2037,11 @@ Results
 \end_layout
 
 \begin_layout Standard
-we test the curvature enhance on a PC with amd core ixyu proce @ 10.45 ghz
- and 8 GB RAM.
-\end_layout
-
-\begin_layout Standard
 In this section we describe the results of our curvature enhanced method
- with our extension of laplace beltrami operator for triangles and quads.
-\end_layout
-
-\begin_layout Standard
-We demonstrate the results of our approach with several example models in
- figures x, y, z.
- Figure x show a a a a ...
-\end_layout
-
-\begin_layout Standard
-Se trabajo con blender software blblbsd
-\end_layout
-
-\begin_layout Standard
-se hicieron pruebas de rendimiento asdadasd
-\end_layout
-
-\begin_layout Standard
-Pruebas de catmull clark vs nuestro metodo
-\end_layout
-
-\begin_layout Standard
-pruebas de T Q, y nuestro metodos de Ty Q
-\end_layout
-
-\begin_layout Standard
-Pruebas generando familias de objetos, que involucran y no CatCl.
+ that used our extension of laplace beltrami operator for triangles and
+ quads TQLBO with several example models in figures x, y, z.
+ We test the curvature enhance on a PC with AMD Quad-Core Processor @ 2.40
+ GHz and 8 GB RAM.
 \end_layout
 
 \begin_layout Standard
@@ -2077,45 +2049,7 @@ Pruebas generando familias de objetos, que involucran y no CatCl.
 placement h
 wide false
 sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename images/sculpt_brush.pdf
-	lyxscale 20
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
- Enhance curvature brush for leg into red circle.
- Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
- Enhance curvature brush for fingers in red circle.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2164,6 +2098,165 @@ Top row: Curvatture enhancing with
 \end_inset
 
  and 1 iteration in head and neck.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:camello_enhanced"
+
+\end_inset
+
+ show the generation of diferent version of camel with the variation of
+ parameter lambda.
+ In the top row you can see results of do curvature enhance over all model,
+ a medida que el lambda se hace mas negativo el modelo tiende a colapsarse.
+ El realce de curvatura con el laplaciano normalizado tiene un comportamiento
+ regular y predecible e invariante frente a transformaciones isometricas
+ como las animaciones de caminatas por ejemplo, pues a medida que se varia
+ el lambda cambia el modelo, entre mas negativo sea mas realce en las curvaturas
+ realiza, 
+\end_layout
+
+\begin_layout Standard
+Nosotros realizamos pruebas del operador laplaciano 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+ y su version normalizada 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO-Normalized_Matrix"
+
+\end_inset
+
+, las dos producen resultados similares si los triangulos que componen la
+ malla son del mismo tama;o en promedio, pero la version normalizada es
+ mucho mas estable y predecible, debido a que no es dividida por el area
+ del anillo que puede producir problemas de calculo debido a erroreres de
+ punto flotante como se observa en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+ (c) bottom row en la cual la malla se deformo pues el TQLBO es suceptible
+ al tamaño de los triangulo.
+ El modelo se puede deformar en la version normalizada de l TQLBO con lambdas
+ grandes > 400 se autointersecta, pero no produce los picos que se observan
+ con el TQLBO .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/monkey.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:(a)Monkey"
+
+\end_inset
+
+(a) Top row: Original model scaled by 4.
+ Bottom row: Original Model (b) Top and bottom row: enhancing with Normalized-TQ
+LBO 
+\begin_inset Formula $\lambda=-50$
+\end_inset
+
+ (c) Top and bottom row: enhancing with TQLBO 
+\begin_inset Formula $\lambda=-50$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Se trabajo con blender software blblbsd
+\end_layout
+
+\begin_layout Standard
+se hicieron pruebas de rendimiento asdadasd
+\end_layout
+
+\begin_layout Standard
+Pruebas de catmull clark vs nuestro metodo
+\end_layout
+
+\begin_layout Standard
+pruebas de T Q, y nuestro metodos de Ty Q
+\end_layout
+
+\begin_layout Standard
+Pruebas generando familias de objetos, que involucran y no CatCl.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/sculpt_brush.pdf
+	lyxscale 20
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
+ Enhance curvature brush for leg into red circle.
+ Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
+ Enhance curvature brush for fingers in red circle.
 \end_layout
 
 \end_inset
