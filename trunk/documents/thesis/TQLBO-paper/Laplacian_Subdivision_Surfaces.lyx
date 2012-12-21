@@ -1711,7 +1711,7 @@ Curvature Enhancing
 placement t
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1784,8 +1784,11 @@ For solve the equation above we use implicit integration and a normalized
 \end_layout
 
 \begin_layout Standard
-\align center
-\begin_inset Formula $\left(I-\left|\lambda dt\right|W_{p}L\right)V^{\prime}=V^{n}$
+\begin_inset Formula 
+\begin{equation}
+\left(I-\left|\lambda dt\right|W_{p}L\right)V^{\prime}=V^{t}\label{eq:Lineal_System_with_wp}
+\end{equation}
+
 \end_inset
 
 
@@ -1793,7 +1796,7 @@ For solve the equation above we use implicit integration and a normalized
 
 \begin_layout Standard
 \align center
-\begin_inset Formula $V^{n+1}=V^{n}+\mbox{sign}\left(\lambda\right)\left(V^{\prime}-V^{n}\right)$
+\begin_inset Formula $V^{t+1}=V^{t}+\mbox{sign}\left(\lambda\right)\left(V^{\prime}-V^{t}\right)$
 \end_inset
 
 
@@ -1801,7 +1804,7 @@ For solve the equation above we use implicit integration and a normalized
 
 \begin_layout Standard
 The vertices 
-\begin_inset Formula $V^{n+1}$
+\begin_inset Formula $V^{t+1}$
 \end_inset
 
 are enhance along their inverse curvature normal directions by solving this
@@ -1829,7 +1832,7 @@ reference "eq:TQLBO-Normalized_Matrix"
 \end_inset
 
  are the smoothing vertices, 
-\begin_inset Formula $b=V^{n}$
+\begin_inset Formula $b=V^{t}$
 \end_inset
 
  are the actual vertices positions, 
@@ -1846,29 +1849,132 @@ reference "eq:TQLBO-Normalized_Matrix"
 
  is the enhance factor that support negative and positive values, negative
  for enhancing positive for smoothing.
+ 
 \end_layout
 
 \begin_layout Standard
-Our method was designed for use with weigth vertex groups para especificar
- el grado de afectacion sobre la solucion, los pesos varian entre 0 y 1
- con un valor de 0 no realiza ningun cambio y con valores de 1 se aplica
- el cambio total.
+At the borders of the meshes that are not closed, you can not calculate
+ the curvature, for that reason we use the scale-dependent operator proposed
+ by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Desbrun1999"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-Los pesos pueden ser aplicados sobre el modelo tosco y luego al realizan
- subdivision estos pesos son suavizados de forma que produce resultados
- con cambios suaves en las zonas de influencia donde se aplica el laplaciano,
- en la formaula xy, donde Wp es una matriz diagonal con los pesos correspondient
-es para cada vertice, ver imagen xyz.
- Los pesos sobre cada vertice produciran una solucion diferente por esa
- razon son puestos antes de obtener la solucion del sistema lineal.
- Las familias que se generan pueden cambiar substancialmente con el ponderamient
-o de puntos de control especificos.
+Our method was designed for use with weigth vertex groups to specify the
+ degree of impact on the solution, the weights vary between 
+\begin_inset Formula $0$
+\end_inset
+
+ and 
+\begin_inset Formula $1$
+\end_inset
+
+ with a value of 
+\begin_inset Formula $0$
+\end_inset
+
+ makes no changes and with values 1 applies the total change.
+ 
 \end_layout
 
 \begin_layout Standard
-El manejo de los bordes con operador dependiente de escala
+The weights modifying influence zones where the Laplacian is applied as
+ shown in the equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Lineal_System_with_wp"
+
+\end_inset
+
+.
+ The weights on each vertex will produce a different solution for that reason
+ are put before obtaining the solution of the linear system.
+ Families of shapes that are generated may change substantially with the
+ weights of specific control points.
+\end_layout
+
+\begin_layout Standard
+The model volume increases as the lambda is most negative, this can be countered
+ by a simple method of preserving volume.
+ In 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Desbrun1999"
+
+\end_inset
+
+ present a simple method to resize the mesh but have a problem the model
+ suffer large displacements with 
+\begin_inset Formula $\lambda<-1.0$
+\end_inset
+
+ or perform multiple iterations.
+ We propose the following solution: If we have 
+\begin_inset Formula $v_{i}^{t+1}$
+\end_inset
+
+ is a mesh vertex of 
+\begin_inset Formula $V^{t+1}$
+\end_inset
+
+ in the 
+\begin_inset Formula $n+1$
+\end_inset
+
+ iteration.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\overline{v}=\frac{1}{n}\underset{v_{i}\in V}{\sum}v_{i}$
+\end_inset
+
+, 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\overline{v}$
+\end_inset
+
+ is the center of the mesh, 
+\begin_inset Formula $vol_{ini}$
+\end_inset
+
+ is an initial volume, and 
+\begin_inset Formula $vol_{t+1}$
+\end_inset
+
+ is the volume at the iteration 
+\begin_inset Formula $t+1$
+\end_inset
+
+, then we have that scale factor for resize de volume is
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\beta=\left(\frac{vol_{ini}}{vol_{t+1}}\right)^{\frac{1}{3}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and the new vertices positios are:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $v_{i\, new}^{t+1}=\beta\left(v_{i}^{t+1}-\overline{v}\right)+\overline{v}$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -1876,7 +1982,7 @@ Sculpting
 \end_layout
 
 \begin_layout Standard
-En nuestro trabajo se diseño una nueva brocha que permite realizar el realce
+En nuestro trabajo se disenio una nueva brocha que permite realizar el realce
  de las curvaturas en un modelo en tiempo real.
 \end_layout
 
@@ -2089,6 +2195,18 @@ key "Loop1987"
 , but with our method can correct this problem
 \end_layout
 
+\begin_layout Standard
+Los pesos pueden ser aplicados sobre el modelo tosco y luego al realizan
+ subdivision estos pesos son suavizados de forma que produce resultados
+ con cambios suaves en las zonas de influencia donde se aplica el laplaciano,
+ en la formaula xy, donde Wp es una matriz diagonal con los pesos correspondient
+es para cada vertice, ver imagen xyz.
+ Los pesos sobre cada vertice produciran una solucion diferente por esa
+ razon son puestos antes de obtener la solucion del sistema lineal.
+ Las familias que se generan pueden cambiar substancialmente con el ponderamient
+o de puntos de control especificos.
+\end_layout
+
 \begin_layout Section
 Results
 \end_layout
@@ -2133,7 +2251,7 @@ reference "fig:camello_enhanced"
  regular y predecible e invariante frente a transformaciones isometricas
  como las animaciones de caminatas por ejemplo, pues a medida que se varia
  el lambda cambia el modelo, entre mas negativo sea mas realce en las curvaturas
- realiza, 
+ realiza.
 \end_layout
 
 \begin_layout Standard
@@ -2141,11 +2259,11 @@ reference "fig:camello_enhanced"
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename images/camello_enhanced_lambda4.pdf
+	filename images/camello_enhanced2.pdf
 	lyxscale 20
 	width 100col%
 
@@ -2164,20 +2282,17 @@ name "fig:camello_enhanced"
 
 \end_inset
 
-Top row: Curvatture enhancing with 
-\begin_inset Formula $\lambda=-400.0$
-\end_inset
-
-, 
+Top row: Original camel model in left.
+ Curvatture enhancing with 
 \begin_inset Formula $\lambda=-30.0$
 \end_inset
 
- and volume preservation, Original Model 
-\begin_inset Formula $\lambda=0.0$
+, 
+\begin_inset Formula $\lambda=-100.0$
 \end_inset
 
-, Smoothing Model 
-\begin_inset Formula $\lambda=5.0$
+, 
+\begin_inset Formula $\lambda=-400.0$
 \end_inset
 
 .
@@ -2366,7 +2481,7 @@ ivamente la solucion.
 placement t
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2459,7 +2574,7 @@ Acknowledgements
 \end_layout
 
 \begin_layout Standard
-CIM&LAB Computer Image & Medical Applications Laboratory at Universidad
+CIM&LAB Computer Imaging & Medical Applications Laboratory at Universidad
  Nacional de Colombia.
 \end_layout
 
