@@ -50,7 +50,7 @@
 \TOGcodeURL{}
 
 % Paper title.
-\title{Laplacian Subdivision Surfaces}
+\title{Laplacian Curvature Enhance}
 
 % Author and Affiliation (single author).
 %\author{Name \thanks{e-mail: name@unknown.uu}\\ Research Institute}
@@ -227,7 +227,7 @@ Laplacian subdivision surface with weigth vertex group
 
 \begin_layout Standard
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -240,7 +240,7 @@ maketitle
 
 
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The command 
@@ -1711,11 +1711,12 @@ Curvature Enhancing
 placement t
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename images/cruz_lambda2.pdf
+	filename images/spectrum.pdf
+	lyxscale 10
 	width 100text%
 
 \end_inset
@@ -1727,46 +1728,22 @@ status collapsed
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Left: Original Model, in green color model with Catmull-Clark Subdivision.
- Models with laplacian smoothing: 
-\begin_inset Formula $\lambda=60.0$
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Spectrum"
+
 \end_inset
 
-, 
-\begin_inset Formula $\lambda_{e}=12.0$
+A set of 48 successive curvature enhance shapes, from 
+\begin_inset Formula $\lambda=0.0$
 \end_inset
 
- and 
-\begin_inset Formula $\lambda=90.0$
+ in blue to 
+\begin_inset Formula $\lambda=-240.0$
 \end_inset
 
-, 
-\begin_inset Formula $\lambda_{e}=80.0$
-\end_inset
-
-.
- Models first filter with laplacian smoothing 
-\begin_inset Formula $\lambda=60.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda_{e}=12.0$
-\end_inset
-
- and before applied curvature enhancing: 
-\begin_inset Formula $\lambda=-200.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda_{e}=12.0$
-\end_inset
-
- and 
-\begin_inset Formula $\lambda=-40.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda_{e}=-100.0$
+ in red, with steps of 
+\begin_inset Formula $-5.0$
 \end_inset
 
 .
@@ -1774,6 +1751,10 @@ Left: Original Model, in green color model with Catmull-Clark Subdivision.
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Plain Layout
 
 \end_layout
 
@@ -1959,6 +1940,82 @@ Subdivision surfaces
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+placement t
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/cruz_lambda2.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Left: Original Model, in green color model with Catmull-Clark Subdivision.
+ Models with laplacian smoothing: 
+\begin_inset Formula $\lambda=60.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=12.0$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda=90.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=80.0$
+\end_inset
+
+.
+ Models first filter with laplacian smoothing 
+\begin_inset Formula $\lambda=60.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=12.0$
+\end_inset
+
+ and before applied curvature enhancing: 
+\begin_inset Formula $\lambda=-200.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=12.0$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda=-40.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=-100.0$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 Metodo para generar modelos suaves y continuos desde un bosquejo como catmull
  clark producen resultados rapidamente debido a la simplicidad de implementacion
 , el unico problema es que es dificial realizar cambios en la curvatura
@@ -2039,9 +2096,23 @@ Results
 \begin_layout Standard
 In this section we describe the results of our curvature enhanced method
  that used our extension of laplace beltrami operator for triangles and
- quads TQLBO with several example models in figures x, y, z.
- We test the curvature enhance on a PC with AMD Quad-Core Processor @ 2.40
- GHz and 8 GB RAM.
+ quads TQLBO with several example models in figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Spectrum"
+
+\end_inset
+
+,
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:camello_enhanced"
+
+\end_inset
+
+.
+ We test the curvature enhance method on a PC with AMD Quad-Core Processor
+ @ 2.40 GHz and 8 GB RAM.
 \end_layout
 
 \begin_layout Standard
@@ -2070,11 +2141,11 @@ reference "fig:camello_enhanced"
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename images/camello_enhanced_lambda3.pdf
+	filename images/camello_enhanced_lambda4.pdf
 	lyxscale 20
 	width 100col%
 
@@ -2238,7 +2309,7 @@ Pruebas generando familias de objetos, que involucran y no CatCl.
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2295,7 +2366,7 @@ ivamente la solucion.
 placement t
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2320,7 +2391,8 @@ name "fig:Animated_Camell"
 
 Our method is pose insensitive.
  The enhanced for the different poses are similar in terms of shape.
- Top row: Curvature enhancing with weigth vertex group, 
+ Top row: Original walk cycle camel model.
+ Bottom row: Curvature enhancing with weigth vertex group, 
 \begin_inset Formula $\lambda=-400$
 \end_inset
 
@@ -2329,7 +2401,7 @@ Our method is pose insensitive.
 \end_inset
 
  iterations.
- Bottom row: Original walk cycle camel model.
+ 
 \end_layout
 
 \end_inset
@@ -2387,7 +2459,8 @@ Acknowledgements
 \end_layout
 
 \begin_layout Standard
-CIM&LAB Computer Image & Medical Applications Laboratory.
+CIM&LAB Computer Image & Medical Applications Laboratory at Universidad
+ Nacional de Colombia.
 \end_layout
 
 \begin_layout Standard
@@ -2395,7 +2468,13 @@ Blender Foundation.
 \end_layout
 
 \begin_layout Standard
-Google Summer of code program.
+This work was supported in part by the Google Summer of code program at
+ 2012.
+\end_layout
+
+\begin_layout Standard
+Livingstone elephant model is provided courtesy of INRIA and ISTI by the
+ AIM@SHAPE Shape Repository.
 \end_layout
 
 \begin_layout Standard
