@@ -273,7 +273,8 @@ This method can correct traditional problems in extraordinary vertices present
 \end_layout
 
 \begin_layout Abstract
-This proposal contains NN novel features
+This proposal contains NN novel features We use negative values to enhance
+ model silhouette features
 \end_layout
 
 \begin_layout Abstract
@@ -2234,27 +2235,6 @@ reference "fig:camello_enhanced"
 \end_layout
 
 \begin_layout Standard
-Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:camello_enhanced"
-
-\end_inset
-
- show the generation of diferent version of camel with the variation of
- parameter lambda.
- In the top row you can see results of do curvature enhance over all model,
- a medida que el lambda se hace mas negativo la curvatura del modelo tiende
- a cerrarse e intersectarse en las partes concavas y a inflarse en las partes
- convexas.
- El realce de curvatura con el laplaciano normalizado tiene un comportamiento
- regular y predecible e invariante frente a transformaciones isometricas
- como las animaciones de caminatas por ejemplo, pues a medida que se varia
- el lambda cambia el modelo, entre mas negativo sea mas realce en las curvaturas
- realiza.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 placement h
 wide false
@@ -2318,40 +2298,45 @@ Top row: Original camel model in left.
 \end_layout
 
 \begin_layout Standard
-Nosotros realizamos pruebas del operador laplaciano 
+Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:TQLBO_Simple_Matrix"
+reference "fig:camello_enhanced"
 
 \end_inset
 
- y su version normalizada 
+ show the generation of diferent version of camel with the variation of
+ parameter lambda.
+ In the top row you can see results of do curvature enhance over all model,
+ a medida que el lambda se hace mas negativo la curvatura del modelo tiende
+ a cerrarse e intersectarse en las partes concavas y a inflarse en las partes
+ convexas como se observa en la imagen 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:TQLBO-Normalized_Matrix"
+reference "fig:Spectrum"
 
 \end_inset
 
-, las dos producen resultados similares si los triangulos que componen la
- malla son del mismo tama;o en promedio, pero la version normalizada es
- mucho mas estable y predecible, debido a que no es dividida por el area
- del anillo que puede producir problemas de calculo debido a erroreres de
- punto flotante como se observa en la figura 
+.
+ We use negative values to enhance model silhouette features, entre mas
+ negativo sea el lambda mas realce sufriran las siluetas features.
+ En la fila de abajo de la figura 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:(a)Monkey"
+reference "fig:camello_enhanced"
 
 \end_inset
 
- (c) bottom row en la cual la malla se deformo pues el TQLBO es suceptible
- al tamaño de los triangulo.
- El modelo se puede deformar en la version normalizada de l TQLBO con lambdas
- grandes > 400 se autointersecta, pero no produce los picos que se observan
- con el TQLBO .
+ se puede obervar el uso de vertex weigthed groups, que permite especificar
+ en que zonas del modelo desea realizar el realce, en la parte izquierda
+ se observa el realce de las patas del camello que produce un realce de
+ aspecto organico , tambien se observa que la frontera no se distorsiona
+ y es bastante suave la union de la parte realzada con el resto.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
+placement h
 wide false
 sideways false
 status collapsed
@@ -2400,80 +2385,63 @@ LBO
 \end_layout
 
 \begin_layout Standard
-Se trabajo con blender software blblbsd
-\end_layout
-
-\begin_layout Standard
-se hicieron pruebas de rendimiento asdadasd
-\end_layout
-
-\begin_layout Standard
-Pruebas de catmull clark vs nuestro metodo
-\end_layout
-
-\begin_layout Standard
-pruebas de T Q, y nuestro metodos de Ty Q
-\end_layout
-
-\begin_layout Standard
-Pruebas generando familias de objetos, que involucran y no CatCl.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename images/sculpt_brush.pdf
-	lyxscale 20
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
- Enhance curvature brush for leg into red circle.
- Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
- Enhance curvature brush for fingers in red circle.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Nuestro metodo es invariante de la pose si el realce es realizado sobre
- la misma malla, modificaciones locales producidas con metodos como pose
- interpolation or rigging animation no afectan significativamente el resultado
- como se observa en las piernas del camello en la figura 
+Nosotros realizamos pruebas del operador laplaciano con la ecuacion (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:Animated_Camell"
+reference "eq:TQLBO_Simple_Matrix"
 
 \end_inset
 
-.
- Esto se debe al proceso de difusion al cual es sometida la malla de forma
- que peque;os cambios locales son tratados globalmente sin que afecte significat
-ivamente la solucion.
- Nuestro metodo es invariante de rotacion pues unicamente depende del normal
- field of the mesh, wish is invariant under global rotations.
+) y su version normalizada ecuacion (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO-Normalized_Matrix"
+
+\end_inset
+
+), las dos producen resultados similares si los triangulos que componen
+ la malla son del mismo tama;o en promedio, pero la version normalizada
+ es mucho mas estable y predecible, debido a que no es dividida por el area
+ del anillo que puede producir problemas de calculo debido a erroreres de
+ punto flotante como se observa en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+ (c) bottom row en la cual la malla se deformo pues el TQLBO es suceptible
+ al tamaño de los triangulo.
+ El realce de curvatura con el laplaciano normalizado tiene un comportamiento
+ mas regular.
+ El modelo se puede deformar en la version normalizada del TQLBO con lambdas
+ grandes > 400 se autointersecta, pero no produce los picos que se observan
+ con el TQLBO.
+ En la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+ se observan resultads diferentes debido a que el area de los triangulos
+ en este modelo no es regular de manera que donde hay triangulos de mayor
+ area el realce es menor (figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+ (c) skull), y donde los triangulos son mas pequenios se produce un realce
+ mayor (figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+ (c) chin).
 \end_layout
 
 \begin_layout Standard
@@ -2529,8 +2497,92 @@ Our method is pose insensitive.
 
 \end_layout
 
+\begin_layout Standard
+Nuestro metodo para rea;izar el realce de las silouete features es predecible
+ e invariante frente a transformaciones isometricas como las presentes en
+ animaciones, en esta animacion se muestran algunas poses del camello realizando
+ una caminata.
+ En esta animacion las patas y el cuello son las partes que se les realiza
+ en realce como se observa en la parte izquierda abajo de la figura
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Animated_Camell"
+
+\end_inset
+
+.
+ Modificaciones locales producidas con metodos como pose interpolation or
+ rigging animation no afectan significativamente el resultado como en el
+ caso de las patas del camello cada pose muestra una flexion diferente de
+ las articulaciones de las patas del camello el realce permite mantener
+ flesh-like shapes producidas en el modelo original por el artista.
+ Esto se debe al proceso de difusion al cual es sometida la malla de forma
+ que peque;os cambios locales son tratados globalmente sin que afecte significat
+ivamente la solucion.
+ Nuestro metodo es invariante de rotacion pues unicamente depende del normal
+ field of the mesh, wish is invariant under global rotations.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/sculpt_brush.pdf
+	lyxscale 20
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
+ Enhance curvature brush for leg into red circle.
+ Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
+ Enhance curvature brush for fingers in red circle.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Implementation
+\end_layout
+
+\begin_layout Standard
+Se trabajo con blender software blblbsd
+\end_layout
+
+\begin_layout Standard
+se hicieron pruebas de rendimiento asdadasd
+\end_layout
+
+\begin_layout Standard
+Pruebas de catmull clark vs nuestro metodo
+\end_layout
+
+\begin_layout Standard
+pruebas de T Q, y nuestro metodos de Ty Q
+\end_layout
+
+\begin_layout Standard
+Pruebas generando familias de objetos, que involucran y no CatCl.
 \end_layout
 
 \begin_layout Standard
@@ -2585,11 +2637,9 @@ Blender Foundation.
 \begin_layout Standard
 This work was supported in part by the Google Summer of code program at
  2012.
-\end_layout
-
-\begin_layout Standard
-Livingstone elephant model is provided courtesy of INRIA and ISTI by the
+ Livingstone elephant model is provided courtesy of INRIA and ISTI by the
  AIM@SHAPE Shape Repository.
+ Hand model is courtesy of the FarField Technology Ltd.
 \end_layout
 
 \begin_layout Standard
