@@ -2051,11 +2051,11 @@ Subdivision surfaces
 placement t
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename images/cruz_lambda2.pdf
+	filename images/cruz_lambda4.pdf
 	width 100text%
 
 \end_inset
@@ -2335,56 +2335,6 @@ reference "fig:camello_enhanced"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename images/monkey.pdf
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:(a)Monkey"
-
-\end_inset
-
-(a) Top row: Original model scaled by 4.
- Bottom row: Original Model (b) Top and bottom row: enhancing with Normalized-TQ
-LBO 
-\begin_inset Formula $\lambda=-50$
-\end_inset
-
- (c) Top and bottom row: enhancing with TQLBO 
-\begin_inset Formula $\lambda=-50$
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 Nosotros realizamos pruebas del operador laplaciano con la ecuacion (
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2445,11 +2395,131 @@ reference "fig:(a)Monkey"
 \end_layout
 
 \begin_layout Standard
+Nuestro metodo para realizar el realce de las silouete features es predecible
+ e invariante frente a transformaciones isometricas como las presentes en
+ animaciones, en esta animacion se muestran algunas poses del camello realizando
+ una caminata.
+ En esta animacion las patas y el cuello son las partes que se les realiza
+ en realce como se observa en la parte izquierda abajo de la figura
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Animated_Camell"
+
+\end_inset
+
+.
+ Modificaciones locales producidas con metodos como pose interpolation or
+ rigging animation no afectan significativamente el resultado como en el
+ caso de las patas del camello cada pose muestra una flexion diferente de
+ las articulaciones de las patas del camello el realce permite mantener
+ flesh-like shapes producidas en el modelo original por el artista.
+ Esto se debe al proceso de difusion al cual es sometida la malla de forma
+ que peque;os cambios locales son tratados globalmente sin que afecte significat
+ivamente la solucion.
+ Nuestro metodo es invariante de rotacion pues unicamente depende del normal
+ field of the mesh, wish is invariant under global rotations.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/monkey.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:(a)Monkey"
+
+\end_inset
+
+(a) Top row: Original model scaled by 4.
+ Bottom row: Original Model (b) Top and bottom row: enhancing with Normalized-TQ
+LBO 
+\begin_inset Formula $\lambda=-50$
+\end_inset
+
+ (c) Top and bottom row: enhancing with TQLBO 
+\begin_inset Formula $\lambda=-50$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/sculpt_brush.pdf
+	lyxscale 20
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Sculpt_Brush"
+
+\end_inset
+
+Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
+ Enhance curvature brush for leg into red circle.
+ Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
+ Enhance curvature brush for fingers in red circle.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 placement t
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2498,67 +2568,40 @@ Our method is pose insensitive.
 \end_layout
 
 \begin_layout Standard
-Nuestro metodo para rea;izar el realce de las silouete features es predecible
- e invariante frente a transformaciones isometricas como las presentes en
- animaciones, en esta animacion se muestran algunas poses del camello realizando
- una caminata.
- En esta animacion las patas y el cuello son las partes que se les realiza
- en realce como se observa en la parte izquierda abajo de la figura
+En la figura 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:Animated_Camell"
+reference "fig:Sculpt_Brush"
 
 \end_inset
 
-.
- Modificaciones locales producidas con metodos como pose interpolation or
- rigging animation no afectan significativamente el resultado como en el
- caso de las patas del camello cada pose muestra una flexion diferente de
- las articulaciones de las patas del camello el realce permite mantener
- flesh-like shapes producidas en el modelo original por el artista.
- Esto se debe al proceso de difusion al cual es sometida la malla de forma
- que peque;os cambios locales son tratados globalmente sin que afecte significat
-ivamente la solucion.
- Nuestro metodo es invariante de rotacion pues unicamente depende del normal
- field of the mesh, wish is invariant under global rotations.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement h
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename images/sculpt_brush.pdf
-	lyxscale 20
-	width 100col%
+ vemos el uso del curvature enhancing de forma local en tiempo real.
+ Se uso una sola pasada de la brocha tipo stroke dot de blender como se
+ muestra en la figura con el radio azul y rojo.
+ En la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Sculpt_Brush"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
- Enhance curvature brush for leg into red circle.
- Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
- Enhance curvature brush for fingers in red circle.
-\end_layout
+ (b) se observa como en la parte de arriba la pata del camello se autointersecta
+ y se observa como dos burbujas pegadas lo mismo sucede con los dedos de
+ la mano en la parte de abajo.
+ Con el uso del realce de silouete features en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Sculpt_Brush"
 
 \end_inset
 
-
-\end_layout
-
-\end_inset
-
-
+ (c) vemos resultados mejores pues no se perdio la forma de la silueta y
+ se conservaron los detalles de los dedos y la pata.
+ Resultados similares pueden ser oobtenidos por un artista pero le tomaria
+ varios pasos y el uso de varias brocas con el realce de curvaturas solo
+ toma un paso.
+ Con esta nueva tecnica se pueden realzar facilmente los musculos en personajes
+ organicos durante el proceso de sculpting.
 \end_layout
 
 \begin_layout Subsection
