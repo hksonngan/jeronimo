@@ -200,6 +200,13 @@ Note:
 \begin_inset Caption
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Subdivision-Cups"
+
+\end_inset
+
+
 \begin_inset Note Note
 status collapsed
 
@@ -217,7 +224,9 @@ Senseless!!!
 
 \end_inset
 
-Laplacian subdivision surface with weigth vertex group
+ Family of cups generated with our method from coarse model to enhancing
+ the curvature obtained from Catmull-clark Subdivision and the use of constraint
+s over coarse model with weigth vertex group in red.
 \end_layout
 
 \end_inset
@@ -2236,15 +2245,13 @@ reference "fig:camello_enhanced"
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename images/camello_enhanced2.pdf
-	lyxscale 20
+	filename images/test_triangles_quads.pdf
 	width 100col%
 
 \end_inset
@@ -2256,39 +2263,22 @@ status collapsed
 \begin_inset Caption
 
 \begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:camello_enhanced"
-
+(a) Original Model.
+ (b) Simple subdivision.
+ (c), (d) (e) Laplacian smoothing with 
+\begin_inset Formula $\lambda=7$
 \end_inset
 
-Top row: Original camel model in left.
- Curvatture enhancing with 
-\begin_inset Formula $\lambda=-30.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda=-100.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda=-400.0$
-\end_inset
-
-.
- Bottom row: Curvature enhancing with weigth vertex group, 
-\begin_inset Formula $\lambda=-50.0$
-\end_inset
-
- and 2 iterations at legs, 
-\begin_inset Formula $\lambda=-200.0$
-\end_inset
-
- and 1 iteration in head and neck.
+ and 2 iterations: (c) for triangles, (d) for quads, (e) for triangles and
+ quads random chosen.
 \end_layout
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Plain Layout
 
 \end_layout
 
@@ -2422,7 +2412,68 @@ ivamente la solucion.
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/camello_enhanced2.pdf
+	lyxscale 20
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:camello_enhanced"
+
+\end_inset
+
+Top row: Original camel model in left.
+ Curvatture enhancing with 
+\begin_inset Formula $\lambda=-30.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda=-100.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda=-400.0$
+\end_inset
+
+.
+ Bottom row: Curvature enhancing with weigth vertex group, 
+\begin_inset Formula $\lambda=-50.0$
+\end_inset
+
+ and 2 iterations at legs, 
+\begin_inset Formula $\lambda=-200.0$
+\end_inset
+
+ and 1 iteration in head and neck.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
 wide false
 sideways false
 status collapsed
@@ -2472,10 +2523,9 @@ LBO
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2602,6 +2652,53 @@ reference "fig:Sculpt_Brush"
  toma un paso.
  Con esta nueva tecnica se pueden realzar facilmente los musculos en personajes
  organicos durante el proceso de sculpting.
+\end_layout
+
+\begin_layout Standard
+El uso de metodos de subdivision surfaces como catmull-clark con el realce
+ permite modificar la curvatura que se obtiene con el proceso de subdivision
+ como se observa en la figura 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+ en la cual se utilizo a coarse model of cup, despues se le aplico la subdivisio
+n de superficies y luego se realizo suavizado y realce laplaciano con la
+ modificacion de los parametros 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ y 
+\begin_inset Formula $\lambda_{e}$
+\end_inset
+
+ que corresponden a los lambda para anillos y para bordes respectivamente.
+ En la figura 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+ (c), (d) se observa ademas el uso weigth vertex groups sobre coars model
+ luego se le realizo subdivision de superficies con lo cual los pesos de
+ los nuevos vertices eran interpolados con estos nuevos pesos se realizo
+ el realce obteniendo las 6 copas que se encuentran a la derecha de la figura
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+ (d).
+\end_layout
+
+\begin_layout Standard
+En modelos cuyos triangulos son en promedio iguales es posible aproximar
+ el resultado obtenido con el metodo catmull-clark y el suavizado laplaciano
 \end_layout
 
 \begin_layout Subsection
