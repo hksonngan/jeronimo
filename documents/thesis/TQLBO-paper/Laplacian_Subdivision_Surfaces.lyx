@@ -2065,6 +2065,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename images/cruz_lambda4.pdf
+	lyxscale 30
 	width 100text%
 
 \end_inset
@@ -2076,6 +2077,12 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Catmull_Clark"
+
+\end_inset
+
 Left: Original Model, in green color model with Catmull-Clark Subdivision.
  Models with laplacian smoothing: 
 \begin_inset Formula $\lambda=60.0$
@@ -2239,19 +2246,20 @@ reference "fig:camello_enhanced"
 \end_inset
 
 .
- We test the curvature enhance method on a PC with AMD Quad-Core Processor
- @ 2.40 GHz and 8 GB RAM.
+ We test the curvature enhance with TQLBO method on a PC with AMD Quad-Core
+ Processor @ 2.40 GHz and 8 GB RAM.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename images/test_triangles_quads.pdf
+	lyxscale 40
 	width 100col%
 
 \end_inset
@@ -2263,6 +2271,12 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TQLBO_test"
+
+\end_inset
+
 (a) Original Model.
  (b) Simple subdivision.
  (c), (d) (e) Laplacian smoothing with 
@@ -2285,6 +2299,33 @@ status open
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TQLBO_test"
+
+\end_inset
+
+ show the los resultados al aplicar el suavizado laplaciano con el operador
+ TQLBO de la ecuacion (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+) en un modelo que se le realizo subdivision simple.
+ En la columna (c) se le aplico el suavizado laplaciano al modelo subdividido
+ compuesto por quads unicamente.
+ En la columna (d) el modelo subdividido fue convertido a triangulos y luego
+ se le aplico el suvizado laplaciano.
+ En la columna (e) el modelo subdividido se le convirtieron de forma aleatoria
+ algunos quads en triangulos y luego se le aplico el suavizado laplaciano
+ mostrando resultados similares a los compuestos unicamente por triangulos
+ o por cuadrados.
 \end_layout
 
 \begin_layout Standard
@@ -2411,6 +2452,111 @@ ivamente la solucion.
 \end_layout
 
 \begin_layout Standard
+En la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Sculpt_Brush"
+
+\end_inset
+
+ vemos el uso del curvature enhancing de forma local en tiempo real.
+ Se uso una sola pasada de la brocha tipo stroke dot de blender como se
+ muestra en la figura con el radio azul y rojo.
+ En la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Sculpt_Brush"
+
+\end_inset
+
+ (b) se observa como en la parte de arriba la pata del camello se autointersecta
+ y se observa como dos burbujas pegadas lo mismo sucede con los dedos de
+ la mano en la parte de abajo.
+ Con el uso del realce de silouete features en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Sculpt_Brush"
+
+\end_inset
+
+ (c) vemos resultados mejores pues no se perdio la forma de la silueta y
+ se conservaron los detalles de los dedos y la pata.
+ Resultados similares pueden ser oobtenidos por un artista pero le tomaria
+ varios pasos y el uso de varias brocas con el realce de curvaturas solo
+ toma un paso.
+ Con esta nueva tecnica se pueden realzar facilmente los musculos en personajes
+ organicos durante el proceso de sculpting.
+\end_layout
+
+\begin_layout Standard
+El uso de metodos de subdivision surfaces como catmull-clark con el realce
+ permite modificar la curvatura que se obtiene con el proceso de subdivision
+ como se observa en la figura 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+ en la cual se utilizo a coarse model of cup, despues se le aplico la subdivisio
+n de superficies y luego se realizo suavizado y realce laplaciano con la
+ modificacion de los parametros 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ y 
+\begin_inset Formula $\lambda_{e}$
+\end_inset
+
+ que corresponden a los lambda para anillos y para bordes respectivamente.
+ En la figura 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+ (c), (d) se observa ademas el uso weigth vertex groups sobre coars model
+ luego se le realizo subdivision de superficies con lo cual los pesos de
+ los nuevos vertices eran interpolados con estos nuevos pesos se realizo
+ el realce obteniendo las 6 copas que se encuentran a la derecha de la figura
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+ (d).
+ El suavizado laplaciano aplicado con subdivision simple puede producir
+ resultados similares a los obtenidos con Catmu en modelos cuyos triangulos
+ son en promedio iguales como se observa en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Catmull_Clark"
+
+\end_inset
+
+ el modelo en color verde y el obtenido con laplacian smoothing 
+\begin_inset Formula $\lambda=60.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=12.0$
+\end_inset
+
+, pero ademas puede modificar la curvatura obtenida luego de aplicar Catmull-Cla
+rk como se muestra en las 3 columnas de la derecha de la imagen 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Catmull_Clark"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -2481,6 +2627,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename images/monkey.pdf
+	lyxscale 12
 	width 100col%
 
 \end_inset
@@ -2617,136 +2764,60 @@ Our method is pose insensitive.
 
 \end_layout
 
-\begin_layout Standard
-En la figura 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Sculpt_Brush"
-
-\end_inset
-
- vemos el uso del curvature enhancing de forma local en tiempo real.
- Se uso una sola pasada de la brocha tipo stroke dot de blender como se
- muestra en la figura con el radio azul y rojo.
- En la figura 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Sculpt_Brush"
-
-\end_inset
-
- (b) se observa como en la parte de arriba la pata del camello se autointersecta
- y se observa como dos burbujas pegadas lo mismo sucede con los dedos de
- la mano en la parte de abajo.
- Con el uso del realce de silouete features en la figura 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Sculpt_Brush"
-
-\end_inset
-
- (c) vemos resultados mejores pues no se perdio la forma de la silueta y
- se conservaron los detalles de los dedos y la pata.
- Resultados similares pueden ser oobtenidos por un artista pero le tomaria
- varios pasos y el uso de varias brocas con el realce de curvaturas solo
- toma un paso.
- Con esta nueva tecnica se pueden realzar facilmente los musculos en personajes
- organicos durante el proceso de sculpting.
-\end_layout
-
-\begin_layout Standard
-El uso de metodos de subdivision surfaces como catmull-clark con el realce
- permite modificar la curvatura que se obtiene con el proceso de subdivision
- como se observa en la figura 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
- en la cual se utilizo a coarse model of cup, despues se le aplico la subdivisio
-n de superficies y luego se realizo suavizado y realce laplaciano con la
- modificacion de los parametros 
-\begin_inset Formula $\lambda$
-\end_inset
-
- y 
-\begin_inset Formula $\lambda_{e}$
-\end_inset
-
- que corresponden a los lambda para anillos y para bordes respectivamente.
- En la figura 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
- (c), (d) se observa ademas el uso weigth vertex groups sobre coars model
- luego se le realizo subdivision de superficies con lo cual los pesos de
- los nuevos vertices eran interpolados con estos nuevos pesos se realizo
- el realce obteniendo las 6 copas que se encuentran a la derecha de la figura
- 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
- (d).
-\end_layout
-
-\begin_layout Standard
-En modelos cuyos triangulos son en promedio iguales es posible aproximar
- el resultado obtenido con el metodo catmull-clark y el suavizado laplaciano
-\end_layout
-
 \begin_layout Subsection
 Implementation
 \end_layout
 
 \begin_layout Standard
-Se trabajo con blender software blblbsd
-\end_layout
-
-\begin_layout Standard
-se hicieron pruebas de rendimiento asdadasd
-\end_layout
-
-\begin_layout Standard
-Pruebas de catmull clark vs nuestro metodo
-\end_layout
-
-\begin_layout Standard
-pruebas de T Q, y nuestro metodos de Ty Q
-\end_layout
-
-\begin_layout Standard
-Pruebas generando familias de objetos, que involucran y no CatCl.
-\end_layout
-
-\begin_layout Standard
-We implementer our algorithm in C and C++ on the blender platform version
- 2.56
+Our method was implemented how a modifier and brush on the blender software
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blender"
 
 \end_inset
 
-, 
+ with C and C++, trabajar con blender nos permitio probar de forma interactiva
+ el metodo junto con otros como catmull clark, weigth vertex groups y el
+ sistema de sculpting implemetados en blender .
 \end_layout
 
 \begin_layout Standard
-c y c++ blender.
-\end_layout
-
-\begin_layout Subsection
-Sparse linear system
+Para mejorar el rendimiento se trabajo con la mesh struct de bajo nivel
+ de blender calculando todos los datos posible por cada triangle or quad
+ visited y sumandolos a su correspondiente indice en una lista que almacenaba
+ la suma de los laplacianos del anillo, de esta manera solo se debia recorrer
+ dos veces la lista de caras del modelo y dos veces la lista de bordes si
+ la malla no era cerrada.
+ Para la brush fue necesario crear una lista que mapeara los indices de
+ los vertices seleccionados a una lista de 1 a N donde N es el numero de
+ vertices selecccionados y tambien el numero de filas en el sistema lineal
+ a resolver, con esto se reducian drasticamente los calculos que se debian
+ realizar permitiendo trabajar con la herramienta en tiempo real.
+ En la construccion de nuestro matri laplaciana se bloquearon lo vertices
+ que tenian caras o bordes vecinos con areas o bordes valor 0 que pueden
+ provocar picos y malos resultados.
 \end_layout
 
 \begin_layout Standard
-superlu opennl 
+La matrix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+ es sparse pues el numero de vecinos por vertice que corresponde al numero
+ de datos por fila es pequeño en comparacion con el numero total de vertices
+ en la malla.
+ Para resolver el sistema lineal de la ecuacion 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Lineal_System_with_wp"
+
+\end_inset
+
+ se utilizo OpenNL wich is a a library for solving sparse linear system.
 \end_layout
 
 \begin_layout Section
@@ -2754,11 +2825,38 @@ Conclusion and future work
 \end_layout
 
 \begin_layout Standard
-optimizacion del metodo de solucion
+Nosotros presentamos una extension del operador laplace beltrami para triangulos
+ y quads que permite trabajar en ambientes de produccion sin necedidad de
+ conversion que ofrece resultados similares a los que se obtendrian al trabajar
+ unicamente con triangulos o con cuadrados.
+ Nosotros contribuimos el concepto de realce de las siluetas en una malla
+ durante el modelamiento o sculpido que permite realizar en pocos pasos
+ la modificacion de la curvatura de un modelo manteniendo su forma general.
+ 
 \end_layout
 
 \begin_layout Standard
-aplicarlo en otras areas
+Nosotros introducimos una nueva metodo de modelamiento y mostramos algunos
+ de sus posibles usos.
+ Mostramos que el metodo se comporta de forma predecible lo cual facilitara
+ los procesos de aprendizaje, ademas se demostro que el metodo trabaja bien
+ con transformaciones isometricas abriendo la posibilidad de introducirlo
+ en las etapas de animacion.
+\end_layout
+
+\begin_layout Standard
+Nosotros demostramos que esta herramienta sirve para trabjar en las primeras
+ etapas en la que se usan coarse models modificando la curvatura generada
+ por la sub de sup con cc, evitando la edicion de los vertices al tener
+ unicamente que cambiar unos pocos parametros.
+\end_layout
+
+\begin_layout Standard
+Como trabajo futuro nos gustaria analizar teoricamente la relacion entre
+ la subdivision de superficies con catmull clark y el suavizado laplaciano
+ dado que en algunos casos pueden producir resultados muy similares pero
+ la subdivision con catmull es un metodo muy rapido lo que permitiria reducir
+ los tiempos de calculo para obtener la curvatura en un modelo.
 \end_layout
 
 \begin_layout Section*
