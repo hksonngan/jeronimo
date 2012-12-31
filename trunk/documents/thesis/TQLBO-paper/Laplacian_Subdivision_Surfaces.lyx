@@ -557,83 +557,57 @@ key "Stanculescu2011"
 \end_layout
 
 \begin_layout Standard
-We present an extension of the Laplace Beltrami operator for meshes of arbitrary
- topology composed for triangles and quads representing a larger spectrum
- of mesh that works with today eliminating the need for preprocessing.
-\end_layout
-
-\begin_layout Standard
-En la seccion 
+This work is organized as follows: En la seccion 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sub:1.1-Related-work"
 
 \end_inset
 
- se muestran algunos trabajos relacionados con laplacian mesh processing,
- digital sculpting, and methods for offset polygon meshes.
- In section 
+ se muestran trabajos relacionados con laplacian mesh processing, digital
+ sculpting, and methods for offset polygon meshes; In section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Laplacian-Smooth"
 
 \end_inset
 
- describimo el background teorico del operador laplaciano para mallas de
- poligonos.
-\end_layout
-
-\begin_layout Standard
-Nuestro metodo realiza el realce de la curvatura del modelo usando nuestra
- extension del operador laplaciano que permite trabajar con mallas compuestas
- por triangulos y quad como se muestra en las seccion 
+ describimos el marco teorico del operador laplaciano para mallas de poligonos;
+ En la seccion 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "sub:Laplace-Beltrami-operator"
+reference "sec:Proposed-Method"
 
 \end_inset
 
-.
- Nuestro metodo usa el operador laplaciano para mover los vertices en la
- direecion contraria de la curvatura del modelo realizando un realce 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:Curvature-Enhancing"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-En las secciones 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:Sculpting"
-
-\end_inset
-
-, 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:Subdivision-surfaces"
-
-\end_inset
-
- describimos las apliaciones del realce de curvatura con subdivision de
- superficies y sculpting para modelamienta de mallas de poligonos.
-\end_layout
-
-\begin_layout Standard
-Por ultimo se muestran algunos resultados graficos del operador laplaciano
- para mallas de poligonos compuestas unicamente por triangles, por quads
- y por triangles and quads.
+ exponemos nuestro metodo propuesto para el realce de curvatura y algunas
+ de sus apliacaiones en subdivision de superficies y sculpting; Por ultimo
+ se muestran algunos resultados graficos del operador laplaciano para mallas
+ de poligonos compuestas unicamente por triangles, por quads y por triangles
+ and quads.
  Ademas se muestras algunos resultados de las aplicaciones del reace de
  curvatura en tecnicas como el sculpting y la subdivision.
 \end_layout
 
-\begin_layout Subsection*
-1.1 Related work
+\begin_layout Standard
+
+\series bold
+Contributions
+\series default
+ Our work present an extension of the Laplace Beltrami operator for meshes
+ of arbitrary topology composed for triangles and quads representing a larger
+ spectrum of mesh that works with today eliminating the need for preprocessing
+ and allows the preservation of the original topology.
+ With this operator we proposed a method to generate family of parameterized
+ shapes, in a robust and predictable way.
+ Our method enable to customizate of smoothnes and curvature obtaining during
+ subdivision surfaces process.
+ We proposed a new brush for enhance sillouet features of mesh in modelling
+ and sculpting.
+\end_layout
+
+\begin_layout Section
+Related work
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:1.1-Related-work"
