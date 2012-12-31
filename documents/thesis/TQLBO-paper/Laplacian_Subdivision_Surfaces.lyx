@@ -1895,63 +1895,100 @@ name "sub:Sculpting"
 \end_layout
 
 \begin_layout Standard
-En nuestro trabajo se disenio una nueva brocha que permite realizar el realce
- de las curvaturas en un modelo en tiempo real.
-\end_layout
-
-\begin_layout Standard
-Nuestro brocha trabajo bien con el metodo 
-\begin_inset Quotes eld
-\end_inset
-
-drag drot
-\begin_inset Quotes erd
-\end_inset
-
- desarrollado en el sistema de sculptin de 
+We design a new brush that allows enhancement of the curvatures of a polygon
+ mesh in real time.
+ Our brush work well with the stroke method 
+\shape slanted
+Drag Dot
+\shape default
+ developed in the sculpt mode in Blender 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blender"
 
 \end_inset
 
- el cual permite previsualizar el cambio que se produce en el modelo hasta
- que se libera el boton del mouse o la tableta, ademas permite mover el
- mouse a lo largo del modelo para ajustar el lugar exacto donde se desea
- realizar el realce de la curvatura.
+ which allows you to preview the change that occurs in the model until you
+ release the mouse button or tablet, also enable moves the mouse over the
+ model to fit exactly where you want to perform the enhancement of the curvature.
 \end_layout
 
 \begin_layout Standard
-Brochas que realizan trabajos similares como la brocha de inflacion, crean
- problemas en el modelo pues al aplicarlo se pueden producir autointersecciones
- del modelo pues este metodo solo mueve los vertices a lo largo de la normal,
- y no toma en cuenta la informacion global, nuestro metodo en cambio busca
- la mejor manera de realizar la inflacion mientras conservar las curvaturas
- que le dan la apariencia caracteristica a ese objeto.
+Brushes that perform similar work as inflate can create distortions in the
+ mesh and can also produce self-intersections of the mesh, as this brushes
+ only moves the vertices along the normal and does not take into account
+ the global information.
+ Whereas our method look for the best way to make inflation while keeping
+ the global curvature for preserving the shape and sharp features of the
+ model.
 \end_layout
 
 \begin_layout Standard
-Nuestro metodo simplifica el trabajo que se requiere para realizar el realce
- que consistiria en usar algunos brocas diferentes algunas para inflar y
- otras para suavizar y estilizar.
- con nuestra brocha este tipo de realces se pueden realizar en un solo paso.
+Our method simplifies the work required for the enhancement, which would
+ be to use some different brushes for inflating and some other to soften
+ and styling.
+ With our enhanced brush can be performed in one step.
 \end_layout
 
 \begin_layout Standard
-Para que la brocha trabaje en tiempo real es necesario que cuando se construya
- la matriz con los vertices solo sean tomados encuenta aquellos vertices
- que estan dentro del radio de afectacion definido por el usuario lo cual
- reduce drasticamente el tamaño de los vertices a procesar, el centro de
- esta esfera depende del lugar donde el usuario haga click en el canvas
- y el lugar tridimensional en el modelo donde el click se proyecta.
- Es necesario ademas realizar una cambio con los vertices que se encuentran
- en la frontera los cuales tienen vecinos que nos se encuentran dentro del
- radio de afectacion estos vertices seran marcados como de frontera y en
- ellos no se calculara el laplaciano perso estaran presentes en el sistema
- lineal de forma invariante para permitir que los vertices que tengan todos
- sus vecinos en el interior del radio de afectacion puedan calcular de forma
- correcta la curvatura, este cambio permite que los resultados sean mucho
- mas suaves en la frontera.
+For the real-time work brush is necessary that the matrix is constructed
+ with the vertices that are within the radius defined by the user involvement,
+ which dramatically reduces the size of the matrix to be processed, the
+ center of this sphere depends on the place where the user clicks on the
+ canvas and three-dimensional mesh place where the click is projected.
+ 
+\end_layout
+
+\begin_layout Standard
+Furthermore special handling is necessary with the vertices are at the boundary
+ of which have neighbors that are not within the radius of impact, these
+ vertices must be marked as boundary and not the curvature calculated for
+ them, but must be present in the matrix to allow the vertices that have
+ all their neighbors within the selection radius to calculate correctly
+ the curvature, this change allows the results to be much smoother on the
+ border.
+ The laplacian matrix for sculpt mode as a matrix equation.
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $L\left(i,j\right)=\begin{cases}
+-\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij}} & \mbox{if }\left\Vert v_{i}-u\right\Vert <r\wedge\left\Vert v_{j}-u\right\Vert <r\\
+\delta_{ij} & \mbox{otherwise}
+\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $v_{j}\in N\left(v_{i}\right)$
+\end_inset
+
+, 
+\begin_inset Formula $u$
+\end_inset
+
+ is the center of sphere the radius 
+\begin_inset Formula $r$
+\end_inset
+
+.
+ Then the matrix should remove rows and columns of vertices that are not
+ within the radius.
 \end_layout
 
 \begin_layout Subsection
