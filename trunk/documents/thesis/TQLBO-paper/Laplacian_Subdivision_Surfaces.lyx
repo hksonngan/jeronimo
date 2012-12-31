@@ -626,8 +626,10 @@ reference "sub:Subdivision-surfaces"
 
 \begin_layout Standard
 Por ultimo se muestran algunos resultados graficos del operador laplaciano
- para triangles and quads, y algunos resultados de aplicar el realce de
- curvatura en diferentes modelos de mallas de poligonos.
+ para mallas de poligonos compuestas unicamente por triangles, por quads
+ y por triangles and quads.
+ Ademas se muestras algunos resultados de las aplicaciones del reace de
+ curvatura en tecnicas como el sculpting y la subdivision.
 \end_layout
 
 \begin_layout Subsection*
