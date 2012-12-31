@@ -267,12 +267,12 @@ maketitle
 \end_layout
 
 \begin_layout Abstract
-This paper proposes a novel method for modelling poligonal mesh using curvature
+This paper proposes a novel method for modelling polygonal mesh using curvature
  enhancing.
- This method use our proposes of laplacian operator extension for triangles
+ This method use our extension of Laplace Beltrami operator for triangles
  and quads meshes to enhance global curvature in the model.
- This work show novel applications of curvature enhancing in sculpting and
- modelling with subdivison surfaces and weigth vertex groups.
+ This work present a novel applications of curvature enhancement in sculpting
+ and modelling with subdivision surfaces and weight vertex groups.
  We show a series of graphics examples that demonstrate the quality, predictabil
 ity and flexibility of our results in a real production environment with
  software blender.
@@ -599,9 +599,9 @@ Contributions
  and allows the preservation of the original topology.
  With this operator we proposed a method to generate family of parameterized
  shapes, in a robust and predictable way.
- Our method enable to customizate of smoothnes and curvature obtaining during
- subdivision surfaces process.
- We proposed a new brush for enhance sillouet features of mesh in modelling
+ Our method enable to customization of smoothness and curvature obtained
+ during subdivision surfaces process.
+ We proposed a new brush for enhance silhouette features of mesh in modeling
  and sculpting.
 \end_layout
 
