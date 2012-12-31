@@ -557,36 +557,35 @@ key "Stanculescu2011"
 \end_layout
 
 \begin_layout Standard
-This work is organized as follows: En la seccion 
+This work is organized as follows: In the section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sub:1.1-Related-work"
 
 \end_inset
 
- se muestran trabajos relacionados con laplacian mesh processing, digital
- sculpting, and methods for offset polygon meshes; In section 
+ show works related to the laplacian mesh processing, digital sculpting,
+ and offsetting methods for polygonal meshes; In the section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Laplacian-Smooth"
 
 \end_inset
 
- describimos el marco teorico del operador laplaciano para mallas de poligonos;
- En la seccion 
+ we describe the theoretical framework of the Laplacian operator for polygon
+ meshes; In the section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Proposed-Method"
 
 \end_inset
 
- exponemos nuestro metodo propuesto para el realce de curvatura y algunas
- de sus apliacaiones en subdivision de superficies y sculpting; Por ultimo
- se muestran algunos resultados graficos del operador laplaciano para mallas
- de poligonos compuestas unicamente por triangles, por quads y por triangles
- and quads.
- Ademas se muestras algunos resultados de las aplicaciones del reace de
- curvatura en tecnicas como el sculpting y la subdivision.
+ we present our proposed method for curvature enhancement and applications
+ on subdivision surfaces and sculpting; Lastly some results are shown in
+ graphic examples of Laplacian operator for polygonal meshes composed of
+ triangles and quads.
+ Also shows some results of curvature enhancement applications in sculpting,
+ subdivision and modelling methods.
 \end_layout
 
 \begin_layout Standard
