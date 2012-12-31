@@ -572,10 +572,7 @@ reference "sub:1.1-Related-work"
 
  se muestran algunos trabajos relacionados con laplacian mesh processing,
  digital sculpting, and methods for offset polygon meshes.
-\end_layout
-
-\begin_layout Standard
-In section 
+ In section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Laplacian-Smooth"
@@ -592,38 +589,45 @@ Nuestro metodo realiza el realce de la curvatura del modelo usando nuestra
  por triangulos y quad como se muestra en las seccion 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "sec:Laplacian-Smooth"
+reference "sub:Laplace-Beltrami-operator"
 
 \end_inset
 
 .
  Nuestro metodo usa el operador laplaciano para mover los vertices en la
- direecion contraria de la curvatura del modelo el un bosquejo de maya le
- aplica una subdivision cualquiera y esa subdivision la modifica a lo largo
- de su curvatura de flujo usando un operador laplaciano para triangulos
- y cuadrados
+ direecion contraria de la curvatura del modelo realizando un realce 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Curvature-Enhancing"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-Nuestro metodos propone tre cosas muy novedosas:
+En las secciones 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Sculpting"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Subdivision-surfaces"
+
+\end_inset
+
+ describimos las apliaciones del realce de curvatura con subdivision de
+ superficies y sculpting para modelamienta de mallas de poligonos.
 \end_layout
 
 \begin_layout Standard
-Operador Laplace beltrami para mallas de topologia arbitraria formadas por
- triangulos y cuadrados, para cualquier tipo de procesamiento en geometria
- diferencial
-\end_layout
-
-\begin_layout Standard
-Permite generar una familia de formas parametrizadas.
-\end_layout
-
-\begin_layout Standard
-Controlar el nivel de suavizado y curvatura al subdividir mallas de poligonos
-\end_layout
-
-\begin_layout Standard
-Enhanced brush for sculpting modelling
+Por ultimo se muestran algunos resultados graficos del operador laplaciano
+ para triangles and quads, y algunos resultados de aplicar el realce de
+ curvatura en diferentes modelos de mallas de poligonos.
 \end_layout
 
 \begin_layout Subsection*
@@ -1127,6 +1131,13 @@ reference "eq:total_cuarvature_integral"
 
 \begin_layout Section
 Proposed Method
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Proposed-Method"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1555,7 +1566,7 @@ Where
 \begin_inset Formula $n\times n$
 \end_inset
 
-, 
+ matrix, 
 \begin_inset Formula $n$
 \end_inset
 
@@ -1804,11 +1815,7 @@ Our method was designed for use with weigth vertex groups to specify the
 \end_inset
 
  makes no changes and with values 1 applies the total change.
- 
-\end_layout
-
-\begin_layout Standard
-The weights modifying influence zones where the Laplacian is applied as
+ The weights modifying influence zones where the Laplacian is applied as
  shown in the equation 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -1848,7 +1855,7 @@ key "Desbrun1999"
 \end_inset
 
  in the 
-\begin_inset Formula $n+1$
+\begin_inset Formula $t+1$
 \end_inset
 
  iteration.
