@@ -1952,20 +1952,9 @@ Furthermore special handling is necessary with the vertices are at the boundary
 
 \begin_layout Standard
 \align center
-
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
 \begin_inset Formula $L\left(i,j\right)=\begin{cases}
 -\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij}} & \mbox{if }\left\Vert v_{i}-u\right\Vert <r\wedge\left\Vert v_{j}-u\right\Vert <r\\
+0 & \mbox{if }\left\Vert v_{i}-u\right\Vert <r\wedge\left\Vert v_{j}-u\right\Vert \geq r\\
 \delta_{ij} & \mbox{otherwise}
 \end{cases}$
 \end_inset
@@ -1987,8 +1976,8 @@ Where
 \end_inset
 
 .
- Then the matrix should remove rows and columns of vertices that are not
- within the radius.
+ Then the matrix should remove rows and columns of vertices index that are
+ not within the radius.
 \end_layout
 
 \begin_layout Subsection
@@ -2086,32 +2075,6 @@ Left: Original Model, in green color model with Catmull-Clark Subdivision.
 \end_layout
 
 \begin_layout Standard
-Metodo para generar modelos suaves y continuos desde un bosquejo como catmull
- clark producen resultados rapidamente debido a la simplicidad de implementacion
-, el unico problema es que es dificial realizar cambios en la curvatura
- general del modelo.
- Si nosotro usamos catmull clark y curvatura enhancing juntos en bosqujos
- con pocos vertices podemos generar familias de formas con solo la modificacion
- de un parametro, lo que permitiria a un diseñador escoger el modelo que
- mas se adapte a sus nececidades sin nececidad que tenga que modificar cada
- uno de los vertices de control en metodos como catmull clark.
-\end_layout
-
-\begin_layout Standard
-Nuestro metodo tambien permite el uso de weigth vertex paint sobre los puntos
- de control desarrollado en 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blender"
-
-\end_inset
-
-, al realizar la subdivision estos pesos son interpolados sobre los nuevos
- vertices de manera que se puede pintar la zona en la cual se desea realzar
- la curvatura.
-\end_layout
-
-\begin_layout Standard
 The Catmull-Clark subdivision transformation is used to smooth a surface
  as the limit of sequence of subdivision steps
 \begin_inset CommandInset citation
@@ -2132,11 +2095,8 @@ key "Loop1987"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-In many subdivision surfaces methods catmull clark loop so on.
- the smoothness of the model is autmaically guarantteed
+ In many subdivision surfaces methods Catmull-Clark, Loop so on.
+ The smoothness of the model is autmaically guarantteed
 \begin_inset CommandInset citation
 LatexCommand cite
 key "DeRose1998"
@@ -2148,27 +2108,49 @@ key "DeRose1998"
 \end_layout
 
 \begin_layout Standard
-Subdivision surfaces with catmull clark is continuos except at a extraordinary
- points
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Loop1987"
-
-\end_inset
-
-, but with our method can correct this problem
+Catmull-Clark subdivision surface method generates smooth and continuous
+ models from a coarse model and produce results quickly due to the simplicity
+ of implementation, but with these methods is not easy to make changes to
+ the global curvature of the model.
+ If we use Catmull-Clark subdivision surfaces and curvature enhancement
+ for modeling from sketches with few vertices can generate families of shapes
+ with just a parameter, which would allow an artist to choose the model
+ of a similar set of options that best meets your needs without having to
+ change each one of the control vertices.
 \end_layout
 
 \begin_layout Standard
-Los pesos pueden ser aplicados sobre el modelo tosco y luego al realizan
- subdivision estos pesos son suavizados de forma que produce resultados
- con cambios suaves en las zonas de influencia donde se aplica el laplaciano,
- en la formaula xy, donde Wp es una matriz diagonal con los pesos correspondient
-es para cada vertice, ver imagen xyz.
- Los pesos sobre cada vertice produciran una solucion diferente por esa
- razon son puestos antes de obtener la solucion del sistema lineal.
- Las familias que se generan pueden cambiar substancialmente con el ponderamient
-o de puntos de control especificos.
+Our method allows the use of vertex weigth paint over the control points.
+ The weights can be applied to the coarse model, then to perform subdivision
+ weights are interpolated, producing weights with smooth changes in the
+ zones of influence, so the curvature that is obtained is much softer at
+ those areas.
+ Using vertex group weigth and subdivision surfaces is shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+.c.
+\end_layout
+
+\begin_layout Standard
+In the equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Lineal_System_with_wp"
+
+\end_inset
+
+, 
+\begin_inset Formula $W_{p}$
+\end_inset
+
+ is a diagonal matrix with weights corresponding to each vertex.
+ The weights at each vertex produce a different solution for this reason
+ the matrix is placed in the diffusion equation, as families that are generated
+ may change substantially with weighted of specific control points.
 \end_layout
 
 \begin_layout Section
@@ -2183,8 +2165,8 @@ name "sec:Results"
 \end_layout
 
 \begin_layout Standard
-In this section we describe the results of our curvature enhanced method
- that used our extension of laplace beltrami operator for triangles and
+In this section we describe the results of our curvature enhance method
+ that used our extension of Laplace Beltrami operator for triangles and
  quads TQLBO with several example models in figures 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2263,23 +2245,22 @@ reference "fig:TQLBO_test"
 
 \end_inset
 
- show the los resultados al aplicar el suavizado laplaciano con el operador
- TQLBO de la ecuacion (
+ show the results when applying Laplacian smoothing operator TQLBO of equation
+ (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:TQLBO_Simple_Matrix"
 
 \end_inset
 
-) en un modelo que se le realizo subdivision simple.
- En la columna (c) se le aplico el suavizado laplaciano al modelo subdividido
- compuesto por quads unicamente.
- En la columna (d) el modelo subdividido fue convertido a triangulos y luego
- se le aplico el suvizado laplaciano.
- En la columna (e) el modelo subdividido se le convirtieron de forma aleatoria
- algunos quads en triangulos y luego se le aplico el suavizado laplaciano
- mostrando resultados similares a los compuestos unicamente por triangulos
- o por cuadrados.
+) in a model with a simple subdivision.
+ In column (c) Laplacian smoothing was applied to the model consists of
+ only quads.
+ In column (d) the model was converted to triangles and then Laplacian smoothing
+ was applied.
+ In column (e) the model is converted randomly some quads into triangles
+ and then Laplacian smoothing was applied, showing similar results to those
+ composed only of triangles or squares.
 \end_layout
 
 \begin_layout Standard
@@ -2293,9 +2274,9 @@ reference "fig:camello_enhanced"
  show the generation of diferent version of camel with the variation of
  parameter lambda.
  In the top row you can see results of do curvature enhance over all model,
- a medida que el lambda se hace mas negativo la curvatura del modelo tiende
- a cerrarse e intersectarse en las partes concavas y a inflarse en las partes
- convexas como se observa en la imagen 
+ as the lambda becomes more negative curvature in this model makes close
+ in the concave parts and inflates on the convex parts as shown in figure
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Spectrum"
@@ -2303,20 +2284,20 @@ reference "fig:Spectrum"
 \end_inset
 
 .
- We use negative values to enhance model silhouette features, entre mas
- negativo sea el lambda mas realce sufriran las siluetas features.
- En la fila de abajo de la figura 
+ We use negative values to enhance model silhouette features, among more
+ negative the lambda, the model will be further enhanced the silhouette
+ features.
+ In the bottom row of the figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:camello_enhanced"
 
 \end_inset
 
- se puede obervar el uso de vertex weigthed groups, que permite especificar
- en que zonas del modelo desea realizar el realce, en la parte izquierda
- se observa el realce de las patas del camello que produce un realce de
- aspecto organico , tambien se observa que la frontera no se distorsiona
- y es bastante suave la union de la parte realzada con el resto.
+ can be observed using weighted vertex groups, which allows you to specify
+ which areas you want to model enhancement, on the left is the enhancement
+ of the legs of the camel produces enhancement of organic aspect, also notes
+ that the border is not distorted and smooth in the union.
 \end_layout
 
 \begin_layout Standard
