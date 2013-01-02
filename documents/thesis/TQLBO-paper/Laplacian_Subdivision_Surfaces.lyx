@@ -2264,234 +2264,6 @@ reference "eq:TQLBO_Simple_Matrix"
 \end_layout
 
 \begin_layout Standard
-Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:camello_enhanced"
-
-\end_inset
-
- show the generation of diferent version of camel with the variation of
- parameter lambda.
- In the top row you can see results of do curvature enhance over all model,
- as the lambda becomes more negative curvature in this model makes close
- in the concave parts and inflates on the convex parts as shown in figure
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Spectrum"
-
-\end_inset
-
-.
- We use negative values to enhance model silhouette features, among more
- negative the lambda, the model will be further enhanced the silhouette
- features.
- In the bottom row of the figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:camello_enhanced"
-
-\end_inset
-
- can be observed using weighted vertex groups, which allows you to specify
- which areas you want to model enhancement, on the left is the enhancement
- of the legs of the camel produces enhancement of organic aspect, also notes
- that the border is not distorted and smooth in the union.
-\end_layout
-
-\begin_layout Standard
-Nosotros realizamos pruebas del operador laplaciano con la ecuacion (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:TQLBO_Simple_Matrix"
-
-\end_inset
-
-) y su version normalizada ecuacion (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:TQLBO-Normalized_Matrix"
-
-\end_inset
-
-), las dos producen resultados similares si los triangulos que componen
- la malla son del mismo tama;o en promedio, pero la version normalizada
- es mucho mas estable y predecible, debido a que no es dividida por el area
- del anillo que puede producir problemas de calculo debido a erroreres de
- punto flotante como se observa en la figura 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:(a)Monkey"
-
-\end_inset
-
- (c) bottom row en la cual la malla se deformo pues el TQLBO es suceptible
- al tamaño de los triangulo.
- El realce de curvatura con el laplaciano normalizado tiene un comportamiento
- mas regular.
- El modelo se puede deformar en la version normalizada del TQLBO con lambdas
- grandes > 400 se autointersecta, pero no produce los picos que se observan
- con el TQLBO.
- En la figura 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:(a)Monkey"
-
-\end_inset
-
- se observan resultads diferentes debido a que el area de los triangulos
- en este modelo no es regular de manera que donde hay triangulos de mayor
- area el realce es menor (figura 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:(a)Monkey"
-
-\end_inset
-
- (c) skull), y donde los triangulos son mas pequenios se produce un realce
- mayor (figura 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:(a)Monkey"
-
-\end_inset
-
- (c) chin).
-\end_layout
-
-\begin_layout Standard
-Nuestro metodo para realizar el realce de las silouete features es predecible
- e invariante frente a transformaciones isometricas como las presentes en
- animaciones, en esta animacion se muestran algunas poses del camello realizando
- una caminata.
- En esta animacion las patas y el cuello son las partes que se les realiza
- en realce como se observa en la parte izquierda abajo de la figura
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Animated_Camell"
-
-\end_inset
-
-.
- Modificaciones locales producidas con metodos como pose interpolation or
- rigging animation no afectan significativamente el resultado como en el
- caso de las patas del camello cada pose muestra una flexion diferente de
- las articulaciones de las patas del camello el realce permite mantener
- flesh-like shapes producidas en el modelo original por el artista.
- Esto se debe al proceso de difusion al cual es sometida la malla de forma
- que peque;os cambios locales son tratados globalmente sin que afecte significat
-ivamente la solucion.
- Nuestro metodo es invariante de rotacion pues unicamente depende del normal
- field of the mesh, wish is invariant under global rotations.
-\end_layout
-
-\begin_layout Standard
-En la figura 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Sculpt_Brush"
-
-\end_inset
-
- vemos el uso del curvature enhancing de forma local en tiempo real.
- Se uso una sola pasada de la brocha tipo stroke dot de blender como se
- muestra en la figura con el radio azul y rojo.
- En la figura 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Sculpt_Brush"
-
-\end_inset
-
- (b) se observa como en la parte de arriba la pata del camello se autointersecta
- y se observa como dos burbujas pegadas lo mismo sucede con los dedos de
- la mano en la parte de abajo.
- Con el uso del realce de silouete features en la figura 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Sculpt_Brush"
-
-\end_inset
-
- (c) vemos resultados mejores pues no se perdio la forma de la silueta y
- se conservaron los detalles de los dedos y la pata.
- Resultados similares pueden ser oobtenidos por un artista pero le tomaria
- varios pasos y el uso de varias brocas con el realce de curvaturas solo
- toma un paso.
- Con esta nueva tecnica se pueden realzar facilmente los musculos en personajes
- organicos durante el proceso de sculpting.
-\end_layout
-
-\begin_layout Standard
-El uso de metodos de subdivision surfaces como catmull-clark con el realce
- permite modificar la curvatura que se obtiene con el proceso de subdivision
- como se observa en la figura 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
- en la cual se utilizo a coarse model of cup, despues se le aplico la subdivisio
-n de superficies y luego se realizo suavizado y realce laplaciano con la
- modificacion de los parametros 
-\begin_inset Formula $\lambda$
-\end_inset
-
- y 
-\begin_inset Formula $\lambda_{e}$
-\end_inset
-
- que corresponden a los lambda para anillos y para bordes respectivamente.
- En la figura 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
- (c), (d) se observa ademas el uso weigth vertex groups sobre coars model
- luego se le realizo subdivision de superficies con lo cual los pesos de
- los nuevos vertices eran interpolados con estos nuevos pesos se realizo
- el realce obteniendo las 6 copas que se encuentran a la derecha de la figura
- 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
- (d).
- El suavizado laplaciano aplicado con subdivision simple puede producir
- resultados similares a los obtenidos con Catmu en modelos cuyos triangulos
- son en promedio iguales como se observa en la figura 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Catmull_Clark"
-
-\end_inset
-
- el modelo en color verde y el obtenido con laplacian smoothing 
-\begin_inset Formula $\lambda=60.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda_{e}=12.0$
-\end_inset
-
-, pero ademas puede modificar la curvatura obtenida luego de aplicar Catmull-Cla
-rk como se muestra en las 3 columnas de la derecha de la imagen 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Catmull_Clark"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -2554,6 +2326,291 @@ Top row: Original camel model in left.
 \end_layout
 
 \begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:camello_enhanced"
+
+\end_inset
+
+ show the generation of diferent version of camel with the variation of
+ parameter lambda.
+ In the top row you can see results of do curvature enhance over all model,
+ as the lambda becomes more negative curvature in this model makes close
+ in the concave parts and inflates on the convex parts as shown in figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Spectrum"
+
+\end_inset
+
+.
+ We use negative values to enhance model silhouette features, among more
+ negative the lambda, the model will be further enhanced the silhouette
+ features.
+ In the bottom row of the figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:camello_enhanced"
+
+\end_inset
+
+ can be observed using weighted vertex groups, which allows you to specify
+ which areas you want to model enhancement, on the left is the enhancement
+ of the legs of the camel produces enhancement of organic aspect, also notes
+ that the border is not distorted and smooth in the union.
+\end_layout
+
+\begin_layout Standard
+We did tests with the Laplacian operator to equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+) and its normalized version equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO-Normalized_Matrix"
+
+\end_inset
+
+), the two produce similar results if the triangles that compose the mesh
+ are the same size on average , but the normalized version is more stable
+ and predictable because it is not divided by the area of the ring which
+ may be zero or very small and cause problems due to floating point calculation
+ errors as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+.c bottom row in which the mesh is deformed because the TQLBO is susceptible
+ to the size of the triangle.
+ The enhancement of curvature of the model with the normalized Laplacian
+ operator has a more regular behavior.
+ The model can deform in TQLBO normalized version with large lambdas> 400
+ intersects self, but produces no peaks observed with the TQLBO.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+ observed different results because the area of the triangles in this model
+ is not so regular triangles where greater area enhancement is less (figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+.c skull), and where the smaller triangles are produced greater enhancement
+ (figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+.c chin).
+\end_layout
+
+\begin_layout Standard
+Our method for enhancement of the silhouette features is predictable and
+ invariant under isometric transformations as those present in some animations
+ (see Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Animated_Camell"
+
+\end_inset
+
+) in this animation shows some poses of a camel doing a walk.
+ In this animation the legs and neck are the parts that enhancement is performed
+ as shown in the bottom left part of the figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Animated_Camell"
+
+\end_inset
+
+.
+ Local modifications produced by methods such as pose interpolation or animation
+ rigging not significantly affect the result as with camel legs in each
+ sample pose different flexion of the leg joints enhancement camel keeps
+ flesh-like shapes in the pattern produced original by the artist.
+ This is due to the diffusion process which is subjected to the mesh so
+ that small local changes are treated without significantly affecting global
+ solution.
+ Our method is invariant of rotation, since depends solely the normal field
+ of the mesh, wish is invariant under global rotations.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/sculpt_brush.pdf
+	lyxscale 20
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Sculpt_Brush"
+
+\end_inset
+
+Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
+ Enhance curvature brush for leg into red circle.
+ Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
+ Enhance curvature brush for fingers in red circle.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Sculpt_Brush"
+
+\end_inset
+
+ shows the use of curvature enhancement locally in real time.
+ One pass was used with the brush as shown in the figure with the blue and
+ red radius.
+ In the bottom of the figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Sculpt_Brush"
+
+\end_inset
+
+.b shows how the camel leg self-intersecting and looks like two bubbles stuck,
+ so do the fingers on the bottom of figure.
+ Using silhouette features enhancement in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Sculpt_Brush"
+
+\end_inset
+
+.c we see better results because not lost the shape of the silhouette and
+ kept the details of the fingers and leg.
+ Similar results can be obtained by an artist but it would take several
+ steps and the use of several brushes with curvatures enhancement only takes
+ one step.
+ With this new method can easily enhance organic features how muscles during
+ the sculpting process.
+\end_layout
+
+\begin_layout Standard
+Methods using Catmull-Clark subdivision surface and the enhancement allows
+ to modify the curvature that is obtained with the process of subdivision
+ as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+ this test used a coarse model of a cup, after the model was performed subdivisi
+on then was performed Laplacian smoothing and enhancement by modifying the
+ parameters 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ y 
+\begin_inset Formula $\lambda_{e}$
+\end_inset
+
+ corresponding to the lambda for rings and edges respectively.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+.c, 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+.d shows also the use weigth vertex groups over coars models with subdivisión
+ surfaces that allowed to generate the weights for the new interpolated
+ vertices, these new weights were used for the enhancement obtained the
+ 6 cups that are to the right of the figure 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+.d.
+\end_layout
+
+\begin_layout Standard
+Laplacian smoothing applied with simple subdivision may produce results
+ similar to obtained with Catmull-Clark whose models are on average equal
+ triangles as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Catmull_Clark"
+
+\end_inset
+
+ green model and that obtained with Laplacian smoothing 
+\begin_inset Formula $\lambda=60.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=12.0$
+\end_inset
+
+, but also can modify the curvature obtained after applying Catmull-Clark
+ as shown in the three columns to the right of the figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Catmull_Clark"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -2591,49 +2648,6 @@ LBO
 \end_inset
 
 .
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename images/sculpt_brush.pdf
-	lyxscale 20
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Sculpt_Brush"
-
-\end_inset
-
-Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
- Enhance curvature brush for leg into red circle.
- Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
- Enhance curvature brush for fingers in red circle.
 \end_layout
 
 \end_inset
@@ -2711,55 +2725,55 @@ name "sub:Implementation"
 \end_layout
 
 \begin_layout Standard
-Our method was implemented how a modifier and brush on the blender software
- 
+Our method was implemented how a modifier for modelling and brush for sculpting
+ on the Blender software 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blender"
 
 \end_inset
 
- with C and C++, trabajar con blender nos permitio probar de forma interactiva
- el metodo junto con otros como catmull clark, weigth vertex groups y el
- sistema de sculpting implemetados en blender .
+ with C and C++.
+ Working with Blender allowed us to test the method interactively with others
+ as Catmull-Clark, weigth vertex groups and sculpting system in Blender.
 \end_layout
 
 \begin_layout Standard
-Para mejorar el rendimiento se trabajo con la mesh struct de bajo nivel
- de blender calculando todos los datos posible por cada triangle or quad
- visited y sumandolos a su correspondiente indice en una lista que almacenaba
- la suma de los laplacianos del anillo, de esta manera solo se debia recorrer
- dos veces la lista de caras del modelo y dos veces la lista de bordes si
- la malla no era cerrada.
- Para la brush fue necesario crear una lista que mapeara los indices de
- los vertices seleccionados a una lista de 1 a N donde N es el numero de
- vertices selecccionados y tambien el numero de filas en el sistema lineal
- a resolver, con esto se reducian drasticamente los calculos que se debian
- realizar permitiendo trabajar con la herramienta en tiempo real.
- En la construccion de nuestro matri laplaciana se bloquearon lo vertices
- que tenian caras o bordes vecinos con areas o bordes valor 0 que pueden
- provocar picos y malos resultados.
+To improve performance, we worked with the Blender mesh struct calculating
+ all possible data each time visiting each triangle or quad and adding to
+ its corresponding index in a list that stored the sum of the Laplacian
+ weights of the ring, in this way only had to visit two times the list of
+ faces of the mesh list and the two times the list of the edges if the mesh
+ was not closed.
+ To brush sculpting mode was necessary to create a list that will map the
+ indices of the selected vertices to a list from 1 to N where N is the number
+ of vertices selected and the number of rows in the linear system to solve,
+ with this drastically reduced the calculations should make working with
+ the tool allowing real-time.
+ In the construction of our Laplacian matrix were blocked at vertices having
+ faces areas or lengths edges with value zero that can cause spikes and
+ bad results.
 \end_layout
 
 \begin_layout Standard
-La matrix 
+The matrix 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:TQLBO_Simple_Matrix"
 
 \end_inset
 
- es sparse pues el numero de vecinos por vertice que corresponde al numero
- de datos por fila es pequeño en comparacion con el numero total de vertices
- en la malla.
- Para resolver el sistema lineal de la ecuacion 
+ is sparse since the number of neighbors per vertex corresponding to the
+ number of data per row is small compared to the total number of vertices
+ in the mesh.
+ To solve the linear system equation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:Lineal_System_with_wp"
 
 \end_inset
 
- se utilizo OpenNL wich is a a library for solving sparse linear system.
+ was used OpenNL wich is a a library for solving sparse linear system.
 \end_layout
 
 \begin_layout Section
