@@ -65,7 +65,7 @@
 \pdfauthor{Alexander Pinzon, Eduardo Romero, Ton Roosendaal}
 
 % Keywords that describe your work.
-\keywords{laplacian smooth, subdivision surface}
+\keywords{laplacian smooth, curvature, sculpting, subdivision surface}
 \end_preamble
 \options annual
 \use_default_options false
@@ -225,8 +225,8 @@ Senseless!!!
 \end_inset
 
  Family of cups generated with our method from coarse model to enhancing
- the curvature obtained from Catmull-clark Subdivision and the use of constraint
-s over coarse model with weigth vertex group in red.
+ the curvature obtained from Catmull-Clark Subdivision and the use of constraint
+s over coarse model with weight vertex group in red.
 \end_layout
 
 \end_inset
@@ -405,7 +405,7 @@ The CR categories expects 4 infos that are separated by
 
 \begin_layout Standard
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -418,7 +418,7 @@ keywordlist
 
 
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The command 
@@ -485,7 +485,7 @@ key "Botsch2006"
 
 .
  Editing techniques have evolved from affine transformations to advanced
- tools like scuplting 
+ tools like sculpting 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Coquillart1990,Galyean1991,Stanculescu2011"
@@ -564,7 +564,7 @@ reference "sub:1.1-Related-work"
 
 \end_inset
 
- show works related to the laplacian mesh processing, digital sculpting,
+ show works related to the Laplacian mesh processing, digital sculpting,
  and offsetting methods for polygonal meshes; In the section 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -621,7 +621,7 @@ Many tools have been developed for modeling based on Laplacian mesh processing.
  Thanks to the kindness of the Laplacian operator these tools have in common
  the need for preservation of the geometric details of the surface for the
  different processes such as: free-form deformation, fusion, morphing and
- other aplications 
+ other applications 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sorkine2004"
@@ -630,27 +630,6 @@ key "Sorkine2004"
 
 .
  
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-han sido desarrollado muchos herramientas para el modelamiento de mallas
- con base en Laplacian processing, gracias a las bondades del operador laplacian
-o estas herramientas tienen en comun la necesidad de conservacion de los
- detalles geometricos de la superficie durante distintos procesos como por
- ejemplo, free-form deformation, fusion, morphing and other aplications
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Sorkine2004"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -678,40 +657,6 @@ key "Chen2011"
 \end_inset
 
 .
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-Metodos para realizar offset o dilatacion de mallas de poligonos basados
- en la curvatura local definida a partir del operador laplace beltrami han
- sido definidos estos metodos permiten con gran presicion obtener dilataciones
- que minimizan el error de hasdorf y pueden adjusting shape by a constant
- distance offeset, el problema de estos metodos radica en la perdida de
- detalle debido al suavizado inducido que depende directamente del tamanio
- del offset 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Zhuo2012"
-
-\end_inset
-
-.
- In volumetric approaches on computing the offset boundary that are based
- on distance field computation in point-based representation, this methods
- the topology of the offset model can be different from that the original
- geometry 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Chen2011"
-
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -724,7 +669,7 @@ key "Gal2009"
  proposes automatic features detection and shape edition with feature inter-rela
 tionship preservation.
  In analysis step they define salient surface features how ridges and valleys
- with base on first and second order curvature derivates 
+ with base on first and second order curvature derivatives 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ohtake2004"
@@ -840,13 +785,13 @@ The Laplacian Smooth techniques allows you to reduce noise on a mesh's surface
  with minimal changes on its shape.
  Computer graphics objects which have been reconstructed from real world,
  contain undesirable noise.
- A laplacian smoothing removes undesirable noise while still preserves desirable
+ A Laplacian smoothing removes undesirable noise while still preserves desirable
  geometry as well as the shape of the original model.
  
 \end_layout
 
 \begin_layout Standard
-The functional used in many laplacian smoothing approach to constrain energy
+The functional used in many Laplacian smoothing approach to constrain energy
  minimization is based on a total curvature of a surface 
 \begin_inset Formula $S$
 \end_inset
@@ -1118,16 +1063,6 @@ name "sec:Proposed-Method"
 \begin_layout Standard
 Our method allow the editing of geometric features using the curvature enhanceme
 nt and smoothing.
- 
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-simplifies the design of irregular polygon meshes, 
-\end_layout
-
-\end_inset
-
  Generating a parameterized family of shapes using a set of vertices representin
 g a coarse sketch of the desired model.
  Our approach can be mixed with traditional or uniform subdivision surfaces
@@ -1175,44 +1110,9 @@ key "Mullen2007"
 
 .
  For these reasons it is very important to develop an operator that allows
- working with this type of mesh immediately, eliminating the need to preprocess
- the mesh to convert to triangles and losing the original design made by
- users.
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-En este trabajo presentamos una extension del operador laplace beltrami
- para mallas compuestas por mesclas de triangulos y cuadrangulos.
- El uso de mallas compuestas por triangulos y cuadrangulos a ido en aumento
- en los ultimos años, debido a la flexibilidad de las herramientas de modelamien
-to 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blender"
-
-\end_inset
-
- de hoy dia .
- Hoy dia muchos artistas conectan manualmente los vertices de manera que
- faciliten su edicion en el momento de animacion para facilitar el proceso
- de interpolacion 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Mullen2007"
-
-\end_inset
-
-.
- Debido a estas razones es muy importante desarrollar un operador que permita
- trabajar con este tipo de mallas de forma rapida, eliminando la nececidad
- de preprocesar la malla para convertirla a triangulos y perdiendo el diseño
- original realizado por los usuarios.
-\end_layout
-
-\end_inset
-
-
+ working with this type of mesh immediately, eliminating the need to preprocessi
+ng the mesh to convert to triangles and losing the original design made
+ by users.
 \end_layout
 
 \begin_layout Subsection
@@ -1323,14 +1223,14 @@ name "fig:quad_xiong"
 \end_layout
 
 \begin_layout Standard
-Appling the mean average area according to 
+Applying the mean average area according to 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Xiong2011"
 
 \end_inset
 
- of all posible triangulations for each quad to 
+ of all possible triangulations for each quad to 
 \begin_inset Formula $A\left(Q_{N_{1}\left(v_{i}\right)}\right)$
 \end_inset
 
@@ -1471,7 +1371,7 @@ reference "eq:def_LBO"
 
 \end_inset
 
-), and five simples cases defined in figure 
+), and five simple cases defined in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:LBO-basic-5-TQ"
@@ -1488,7 +1388,7 @@ reference "fig:LBO-basic-5-TQ"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\triangle_{g}\left(v_{i}\right)=2\kappa\mathbf{n}=\frac{\nabla A}{A}=\underset{v_{j}\in N_{1}\left(v_{i}\right)}{\frac{1}{2A}\sum}w_{ij}\left(v_{j}-v_{i}\right)
+Acknowledgements\triangle_{g}\left(v_{i}\right)=2\kappa\mathbf{n}=\frac{\nabla A}{A}=\underset{v_{j}\in N_{1}\left(v_{i}\right)}{\frac{1}{2A}\sum}w_{ij}\left(v_{j}-v_{i}\right)
 \end{equation}
 
 \end_inset
@@ -1674,10 +1574,10 @@ A set of 48 successive curvature enhance shapes, from
 \end_layout
 
 \begin_layout Standard
-The curvature enhancing use the change produced by laplacian smoothing in
+The curvature enhancing use the change produced by Laplacian smoothing in
  the inverse direction of the curvature flow for moves the vertices in the
  portions of the mesh with most curvature.
- In this proccess we use a diffusion proccess:
+ In this equation we use a diffusion process:
 \end_layout
 
 \begin_layout Standard
@@ -1749,7 +1649,7 @@ reference "eq:TQLBO-Normalized_Matrix"
 \begin_inset Formula $W_{p}$
 \end_inset
 
- is a diagonal matrix with weigth vertex group, 
+ is a diagonal matrix with weight vertex group, 
 \begin_inset Formula $\mbox{sign}\left(x\right)$
 \end_inset
 
@@ -1776,7 +1676,7 @@ key "Desbrun1999"
 \end_layout
 
 \begin_layout Standard
-Our method was designed for use with weigth vertex groups to specify the
+Our method was designed for use with weight vertex groups to specify the
  degree of impact on the solution, the weights vary between 
 \begin_inset Formula $0$
 \end_inset
@@ -1860,7 +1760,7 @@ key "Desbrun1999"
 \begin_inset Formula $t+1$
 \end_inset
 
-, then we have that scale factor for resize de volume is
+, then we have that scale factor for resize the volume is
 \end_layout
 
 \begin_layout Standard
@@ -1872,7 +1772,7 @@ key "Desbrun1999"
 \end_layout
 
 \begin_layout Standard
-and the new vertices positios are:
+and the new vertices positions are:
 \end_layout
 
 \begin_layout Standard
@@ -1947,7 +1847,7 @@ Furthermore special handling is necessary with the vertices are at the boundary
  all their neighbors within the selection radius to calculate correctly
  the curvature, this change allows the results to be much smoother on the
  border.
- The laplacian matrix for sculpt mode as a matrix equation.
+ The Laplacian matrix for sculpt mode as a matrix equation.
 \end_layout
 
 \begin_layout Standard
@@ -2020,7 +1920,7 @@ name "fig:Catmull_Clark"
 \end_inset
 
 Left: Original Model, in green color model with Catmull-Clark Subdivision.
- Models with laplacian smoothing: 
+ Models with Laplacian smoothing: 
 \begin_inset Formula $\lambda=60.0$
 \end_inset
 
@@ -2037,7 +1937,7 @@ Left: Original Model, in green color model with Catmull-Clark Subdivision.
 \end_inset
 
 .
- Models first filter with laplacian smoothing 
+ Models first filter with Laplacian smoothing 
 \begin_inset Formula $\lambda=60.0$
 \end_inset
 
@@ -2096,7 +1996,7 @@ key "Loop1987"
 
 .
  In many subdivision surfaces methods Catmull-Clark, Loop so on.
- The smoothness of the model is autmaically guarantteed
+ The smoothness of the model is automatically guaranteed
 \begin_inset CommandInset citation
 LatexCommand cite
 key "DeRose1998"
@@ -2120,12 +2020,12 @@ Catmull-Clark subdivision surface method generates smooth and continuous
 \end_layout
 
 \begin_layout Standard
-Our method allows the use of vertex weigth paint over the control points.
+Our method allows the use of vertex weight paint over the control points.
  The weights can be applied to the coarse model, then to perform subdivision
  weights are interpolated, producing weights with smooth changes in the
  zones of influence, so the curvature that is obtained is much softer at
  those areas.
- Using vertex group weigth and subdivision surfaces is shown in figure 
+ Using vertex group weight and subdivision surfaces is shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Subdivision-Cups"
@@ -2291,7 +2191,7 @@ name "fig:camello_enhanced"
 \end_inset
 
 Top row: Original camel model in left.
- Curvatture enhancing with 
+ Curvature enhancing with 
 \begin_inset Formula $\lambda=-30.0$
 \end_inset
 
@@ -2304,7 +2204,7 @@ Top row: Original camel model in left.
 \end_inset
 
 .
- Bottom row: Curvature enhancing with weigth vertex group, 
+ Bottom row: Curvature enhancing with weight vertex group, 
 \begin_inset Formula $\lambda=-50.0$
 \end_inset
 
@@ -2333,7 +2233,7 @@ reference "fig:camello_enhanced"
 
 \end_inset
 
- show the generation of diferent version of camel with the variation of
+ show the generation of different version of camel with the variation of
  parameter lambda.
  In the top row you can see results of do curvature enhance over all model,
  as the lambda becomes more negative curvature in this model makes close
@@ -2567,7 +2467,7 @@ reference "fig:Subdivision-Cups"
 
 \end_inset
 
-.d shows also the use weigth vertex groups over coars models with subdivisión
+.d shows also the use weight vertex groups over coarse models with subdivision
  surfaces that allowed to generate the weights for the new interpolated
  vertices, these new weights were used for the enhancement obtained the
  6 cups that are to the right of the figure 
@@ -2691,7 +2591,7 @@ name "fig:Animated_Camell"
 Our method is pose insensitive.
  The enhanced for the different poses are similar in terms of shape.
  Top row: Original walk cycle camel model.
- Bottom row: Curvature enhancing with weigth vertex group, 
+ Bottom row: Curvature enhancing with weight vertex group, 
 \begin_inset Formula $\lambda=-400$
 \end_inset
 
@@ -2735,7 +2635,7 @@ key "blender"
 
  with C and C++.
  Working with Blender allowed us to test the method interactively with others
- as Catmull-Clark, weigth vertex groups and sculpting system in Blender.
+ as Catmull-Clark, weight vertex groups and sculpting system in Blender.
 \end_layout
 
 \begin_layout Standard
@@ -2746,7 +2646,7 @@ To improve performance, we worked with the Blender mesh struct calculating
  faces of the mesh list and the two times the list of the edges if the mesh
  was not closed.
  To brush sculpting mode was necessary to create a list that will map the
- indices of the selected vertices to a list from 1 to N where N is the number
+ index of the selected vertices to a list from 1 to N where N is the number
  of vertices selected and the number of rows in the linear system to solve,
  with this drastically reduced the calculations should make working with
  the tool allowing real-time.
@@ -2773,7 +2673,7 @@ reference "eq:Lineal_System_with_wp"
 
 \end_inset
 
- was used OpenNL wich is a a library for solving sparse linear system.
+ was used OpenNL which is a a library for solving sparse linear system.
 \end_layout
 
 \begin_layout Section
@@ -2818,11 +2718,11 @@ As future work we would like to analyze theoretically the relationship between
  the Catmull-Clark subdivision surfaces and Laplacian smoothing because
  in some cases can produce very similar results.
  But the subdivision surface is a fast method thereby reducing computation
- times for calculte curvature in the mesh.
+ times for calculate curvature in the mesh.
 \end_layout
 
 \begin_layout Section*
-Acknowledgements
+Acknowledgments
 \end_layout
 
 \begin_layout Standard
