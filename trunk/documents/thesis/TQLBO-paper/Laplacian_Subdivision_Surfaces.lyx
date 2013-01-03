@@ -190,7 +190,7 @@ Note:
 
 \begin_layout Teaser
 \begin_inset Graphics
-	filename images/teaser_cup.pdf
+	filename images/spectrum.pdf
 	lyxscale 10
 	width 100text%
 
@@ -202,31 +202,23 @@ Note:
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Subdivision-Cups"
+name "fig:Spectrum"
 
 \end_inset
 
-
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-You can ignore that LyX writes here 
-\begin_inset Quotes eld
+A set of 48 successive curvature enhance shapes, from 
+\begin_inset Formula $\lambda=0.0$
 \end_inset
 
-Senseless!!!
-\begin_inset Quotes erd
+ in blue to 
+\begin_inset Formula $\lambda=-240.0$
+\end_inset
+
+ in red, with steps of 
+\begin_inset Formula $-5.0$
 \end_inset
 
 .
-\end_layout
-
-\end_inset
-
- Family of cups generated with our method from coarse model to enhancing
- the curvature obtained from Catmull-Clark Subdivision and the use of constraint
-s over coarse model with weight vertex group in red.
 \end_layout
 
 \end_inset
@@ -1537,11 +1529,11 @@ name "sub:Curvature-Enhancing"
 placement t
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename images/spectrum.pdf
+	filename images/teaser_cup.pdf
 	lyxscale 10
 	width 100text%
 
@@ -1556,23 +1548,31 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Spectrum"
+name "fig:Subdivision-Cups"
 
 \end_inset
 
-A set of 48 successive curvature enhance shapes, from 
-\begin_inset Formula $\lambda=0.0$
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+You can ignore that LyX writes here 
+\begin_inset Quotes eld
 \end_inset
 
- in blue to 
-\begin_inset Formula $\lambda=-240.0$
-\end_inset
-
- in red, with steps of 
-\begin_inset Formula $-5.0$
+Senseless!!!
+\begin_inset Quotes erd
 \end_inset
 
 .
+\end_layout
+
+\end_inset
+
+ Family of cups generated with our method from coarse model to enhancing
+ the curvature obtained from Catmull-Clark Subdivision and the use of constraint
+s over coarse model with weight vertex group in red.
 \end_layout
 
 \end_inset
