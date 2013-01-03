@@ -1811,6 +1811,89 @@ name "sub:Sculpting"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+placement t
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/cruz_lambda4.pdf
+	lyxscale 30
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Catmull_Clark"
+
+\end_inset
+
+Left: Original Model, in green color model with Catmull-Clark Subdivision.
+ Models with Laplacian smoothing: 
+\begin_inset Formula $\lambda=60.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=12.0$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda=90.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=80.0$
+\end_inset
+
+.
+ Models first filter with Laplacian smoothing 
+\begin_inset Formula $\lambda=60.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=12.0$
+\end_inset
+
+ and before applied curvature enhancing: 
+\begin_inset Formula $\lambda=-200.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=12.0$
+\end_inset
+
+ and 
+\begin_inset Formula $\lambda=-40.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=-100.0$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 We design a new brush that allows enhancement of the curvatures of a polygon
  mesh in real time.
  Our brush work well with the stroke method 
@@ -1901,89 +1984,6 @@ Subdivision surfaces
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Subdivision-surfaces"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement t
-wide true
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename images/cruz_lambda4.pdf
-	lyxscale 30
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Catmull_Clark"
-
-\end_inset
-
-Left: Original Model, in green color model with Catmull-Clark Subdivision.
- Models with Laplacian smoothing: 
-\begin_inset Formula $\lambda=60.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda_{e}=12.0$
-\end_inset
-
- and 
-\begin_inset Formula $\lambda=90.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda_{e}=80.0$
-\end_inset
-
-.
- Models first filter with Laplacian smoothing 
-\begin_inset Formula $\lambda=60.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda_{e}=12.0$
-\end_inset
-
- and before applied curvature enhancing: 
-\begin_inset Formula $\lambda=-200.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda_{e}=12.0$
-\end_inset
-
- and 
-\begin_inset Formula $\lambda=-40.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda_{e}=-100.0$
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
 
 \end_inset
 
@@ -2103,6 +2103,32 @@ reference "fig:camello_enhanced"
 \end_layout
 
 \begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TQLBO_test"
+
+\end_inset
+
+ show the results when applying Laplacian smoothing operator TQLBO of equation
+ (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+) in a model with a simple subdivision.
+ In column (c) Laplacian smoothing was applied to the model consists of
+ only quads.
+ In column (d) the model was converted to triangles and then Laplacian smoothing
+ was applied.
+ In column (e) the model is converted randomly some quads into triangles
+ and then Laplacian smoothing was applied, showing similar results to those
+ composed only of triangles or squares.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
@@ -2144,39 +2170,9 @@ name "fig:TQLBO_test"
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:TQLBO_test"
-
-\end_inset
-
- show the results when applying Laplacian smoothing operator TQLBO of equation
- (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:TQLBO_Simple_Matrix"
-
-\end_inset
-
-) in a model with a simple subdivision.
- In column (c) Laplacian smoothing was applied to the model consists of
- only quads.
- In column (d) the model was converted to triangles and then Laplacian smoothing
- was applied.
- In column (e) the model is converted randomly some quads into triangles
- and then Laplacian smoothing was applied, showing similar results to those
- composed only of triangles or squares.
 \end_layout
 
 \begin_layout Standard
@@ -2214,56 +2210,6 @@ reference "fig:camello_enhanced"
  which areas you want to model enhancement, on the left is the enhancement
  of the legs of the camel produces enhancement of organic aspect, also notes
  that the border is not distorted and smooth in the union.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename images/monkey.pdf
-	lyxscale 12
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:(a)Monkey"
-
-\end_inset
-
-(a) Top row: Original model scaled by 4.
- Bottom row: Original Model (b) Top and bottom row: enhancing with Normalized-TQ
-LBO 
-\begin_inset Formula $\lambda=-50$
-\end_inset
-
- (c) Top and bottom row: enhancing with TQLBO 
-\begin_inset Formula $\lambda=-50$
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -2323,59 +2269,6 @@ reference "fig:(a)Monkey"
 \end_inset
 
 .c chin).
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement t
-wide true
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename images/camello_walk2.png
-	lyxscale 20
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Animated_Camell"
-
-\end_inset
-
-Our method is pose insensitive.
- The enhanced for the different poses are similar in terms of shape.
- Top row: Original walk cycle camel model.
- Bottom row: Curvature enhancing with weight vertex group, 
-\begin_inset Formula $\lambda=-400$
-\end_inset
-
- and 
-\begin_inset Formula $2$
-\end_inset
-
- iterations.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -2473,49 +2366,6 @@ reference "fig:Animated_Camell"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename images/sculpt_brush.pdf
-	lyxscale 20
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Sculpt_Brush"
-
-\end_inset
-
-Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
- Enhance curvature brush for leg into red circle.
- Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
- Enhance curvature brush for fingers in red circle.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2549,6 +2399,22 @@ reference "fig:Sculpt_Brush"
  one step.
  With this new method can easily enhance organic features how muscles during
  the sculpting process.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Performance-sculpt"
+
+\end_inset
+
+ we show the performance of curvature enhancement brush, in this experimet
+ we use three models with 12K, 40K and 164K this models were sculpted with
+ curvature enhance brush in eache step the brush sphere contain a variable
+ number of vertices for processing.
+ The processing time for 800 vertices in the camel paw (40k model) only
+ take 0.1 seconds, for 2600 vertices in leg and neck (model 40k) take 0.5
+ seconds, these times are good, because usually an artist sculpts a model
+ for parts, and each part is represented by an average of about 3000 vertices
+ in the models we use.
 \end_layout
 
 \begin_layout Standard
@@ -2627,6 +2493,193 @@ reference "fig:Catmull_Clark"
 
 .
  
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/sculpt_brush.pdf
+	lyxscale 20
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Sculpt_Brush"
+
+\end_inset
+
+Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
+ Enhance curvature brush for leg into red circle.
+ Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
+ Enhance curvature brush for fingers in red circle.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/verts_per_second_sculpt.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Performance-sculpt"
+
+\end_inset
+
+Performance of our dynamic curvature enhance brush in terms of vertices
+ sculpted per second.
+ Three models with 12K, 40K, 164K vertices used for sculpting in real time.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/monkey.pdf
+	lyxscale 12
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:(a)Monkey"
+
+\end_inset
+
+(a) Top row: Original model scaled by 4.
+ Bottom row: Original Model (b) Top and bottom row: enhancing with Normalized-TQ
+LBO 
+\begin_inset Formula $\lambda=-50$
+\end_inset
+
+ (c) Top and bottom row: enhancing with TQLBO 
+\begin_inset Formula $\lambda=-50$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement t
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/camello_walk2.png
+	lyxscale 20
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Animated_Camell"
+
+\end_inset
+
+Our method is pose insensitive.
+ The enhanced for the different poses are similar in terms of shape.
+ Top row: Original walk cycle camel model.
+ Bottom row: Curvature enhancing with weight vertex group, 
+\begin_inset Formula $\lambda=-400$
+\end_inset
+
+ and 
+\begin_inset Formula $2$
+\end_inset
+
+ iterations.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
