@@ -54,7 +54,7 @@
 \TOGcodeURL{}
 
 % Paper title.
-\title{Curvature Enhance With Laplacian Operator For Hybrid Quad/Triangle Meshes}
+\title{Curvature Enhance with Laplacian Operator for Hybrid Quad/Triangle Meshes}
 
 % Author and Affiliation (single author).
 %\author{Name \thanks{e-mail: name@unknown.uu}\\ Research Institute}
@@ -82,20 +82,19 @@
 
 
 
-\teaser{\includegraphics[width=1\textwidth]{images/teaser_cup} \caption{\label{fig:Subdivision-Cups} Family of cups generated with our method
-from coarse model to enhancing the curvature obtained from Catmull-Clark
-Subdivision and the use of constraints over coarse model with weight
-vertex group in red.}
+\teaser{\includegraphics[width=1\textwidth]{images/spectrum} \caption{\label{fig:Spectrum}A set of 48 successive curvature enhance shapes,
+from $\lambda=0.0$ in blue to $\lambda=-240.0$ in red, with steps
+of $-5.0$.}
 }
 
 \maketitle
 \maketitle 
 \begin{abstract}
-This paper proposes a novel method for modelling polygonal mesh using
+This paper proposes a novel method for modeling polygonal mesh using
 curvature enhancing. This method use our extension of Laplace Beltrami
-operator for triangles and quads meshes to enhance global curvature
+operator for hybrid quad/triangle meshes to enhance global curvature
 in the model. This work present a novel applications of curvature
-enhancement in sculpting and modelling with subdivision surfaces and
+enhancement in sculpting and modeling with subdivision surfaces and
 weight vertex groups. We show a series of graphics examples that demonstrate
 the quality, predictability and flexibility of our results in a real
 production environment with software blender.
@@ -107,10 +106,12 @@ production environment with software blender.
 \end{CRcatlist}
 \keywordlist
 
+\TOGlinkslist
+
+\copyrightspace
+
 
 \section{Introduction}
-
-%\copyrightspace
 
 Over the last years have been developed novel techniques of modeling
 that can generate a variety of shapes to look natural and realistic
@@ -146,7 +147,7 @@ our proposed method for curvature enhancement and applications on
 subdivision surfaces and sculpting; Lastly some results are shown
 in graphic examples of Laplacian operator for polygonal meshes composed
 of triangles and quads. Also shows some results of curvature enhancement
-applications in sculpting, subdivision and modelling methods.
+applications in sculpting, subdivision and modeling methods.
 
 \textbf{Contributions} Our work present an extension of the Laplace
 Beltrami operator for meshes of arbitrary topology composed for triangles
@@ -385,7 +386,7 @@ Then according to equation (\ref{eq:discrete_mean_curvature_normal}),
 the TQLBO (Triangle-Quad LBO) of $v_{i}$ is.
 
 \begin{equation}
-Acknowledgements\triangle_{g}\left(v_{i}\right)=2\kappa\mathbf{n}=\frac{\nabla A}{A}=\underset{v_{j}\in N_{1}\left(v_{i}\right)}{\frac{1}{2A}\sum}w_{ij}\left(v_{j}-v_{i}\right)
+\triangle_{g}\left(v_{i}\right)=2\kappa\mathbf{n}=\frac{\nabla A}{A}=\underset{v_{j}\in N_{1}\left(v_{i}\right)}{\frac{1}{2A}\sum}w_{ij}\left(v_{j}-v_{i}\right)
 \end{equation}
 
 
@@ -432,11 +433,12 @@ Where $\delta_{ij}$ being the Kronecker delta function.
 \subsection{Curvature Enhancing\label{sub:Curvature-Enhancing}}
 
 \begin{figure*}[t]
-\includegraphics[width=1\textwidth]{images/spectrum}
+\includegraphics[width=1\textwidth]{images/teaser_cup}
 
-\caption{\label{fig:Spectrum}A set of 48 successive curvature enhance shapes,
-from $\lambda=0.0$ in blue to $\lambda=-240.0$ in red, with steps
-of $-5.0$.}
+\caption{\label{fig:Subdivision-Cups} Family of cups generated with our method
+from coarse model to enhancing the curvature obtained from Catmull-Clark
+Subdivision and the use of constraints over coarse model with weight
+vertex group in red.}
 
 
 \end{figure*}
@@ -514,6 +516,18 @@ $v_{i\, new}^{t+1}=\beta\left(v_{i}^{t+1}-\overline{v}\right)+\overline{v}$
 
 \subsection{Sculpting\label{sub:Sculpting}}
 
+\begin{figure*}[t]
+\includegraphics[width=1\textwidth]{images/cruz_lambda4}
+
+\caption{\label{fig:Catmull_Clark}Left: Original Model, in green color model
+with Catmull-Clark Subdivision. Models with Laplacian smoothing: $\lambda=60.0$,
+$\lambda_{e}=12.0$ and $\lambda=90.0$, $\lambda_{e}=80.0$. Models
+first filter with Laplacian smoothing $\lambda=60.0$, $\lambda_{e}=12.0$
+and before applied curvature enhancing: $\lambda=-200.0$, $\lambda_{e}=12.0$
+and $\lambda=-40.0$, $\lambda_{e}=-100.0$.}
+\end{figure*}
+
+
 We design a new brush that allows enhancement of the curvatures of
 a polygon mesh in real time. Our brush work well with the stroke method
 \textsl{Drag Dot} developed in the sculpt mode in Blender \cite{blender}
@@ -565,18 +579,6 @@ vertices index that are not within the radius.
 
 \subsection{Subdivision surfaces\label{sub:Subdivision-surfaces}}
 
-\begin{figure*}[t]
-\includegraphics[width=1\textwidth]{images/cruz_lambda4}
-
-\caption{\label{fig:Catmull_Clark}Left: Original Model, in green color model
-with Catmull-Clark Subdivision. Models with Laplacian smoothing: $\lambda=60.0$,
-$\lambda_{e}=12.0$ and $\lambda=90.0$, $\lambda_{e}=80.0$. Models
-first filter with Laplacian smoothing $\lambda=60.0$, $\lambda_{e}=12.0$
-and before applied curvature enhancing: $\lambda=-200.0$, $\lambda_{e}=12.0$
-and $\lambda=-40.0$, $\lambda_{e}=-100.0$.}
-\end{figure*}
-
-
 The Catmull-Clark subdivision transformation is used to smooth a surface
 as the limit of sequence of subdivision steps\cite{Stam1998}. This
 method do a recursive subdivision transformation that refines the
@@ -618,18 +620,6 @@ and quads TQLBO with several example models in figures \ref{fig:Spectrum},\ref{f
 We test the curvature enhance with TQLBO method on a PC with AMD Quad-Core
 Processor @ 2.40 GHz and 8 GB RAM.
 
-\begin{figure}
-\includegraphics[width=1\columnwidth]{images/test_triangles_quads}
-
-\caption{\label{fig:TQLBO_test}(a) Original Model. (b) Simple subdivision.
-(c), (d) (e) Laplacian smoothing with $\lambda=7$ and 2 iterations:
-(c) for triangles, (d) for quads, (e) for triangles and quads random
-chosen.}
-
-
-\end{figure}
-
-
 Figure \ref{fig:TQLBO_test} show the results when applying Laplacian
 smoothing operator TQLBO of equation (\ref{eq:TQLBO_Simple_Matrix})
 in a model with a simple subdivision. In column (c) Laplacian smoothing
@@ -640,13 +630,12 @@ into triangles and then Laplacian smoothing was applied, showing similar
 results to those composed only of triangles or squares.
 
 \begin{figure}
-\includegraphics[width=1\columnwidth]{images/camello_enhanced2}
+\includegraphics[width=1\columnwidth]{images/test_triangles_quads}
 
-\caption{\label{fig:camello_enhanced}Top row: Original camel model in left.
-Curvature enhancing with $\lambda=-30.0$, $\lambda=-100.0$, $\lambda=-400.0$.
-Bottom row: Curvature enhancing with weight vertex group, $\lambda=-50.0$
-and 2 iterations at legs, $\lambda=-200.0$ and 1 iteration in head
-and neck.}
+\caption{\label{fig:TQLBO_test}(a) Original Model. (b) Simple subdivision.
+(c), (d) (e) Laplacian smoothing with $\lambda=7$ and 2 iterations:
+(c) for triangles, (d) for quads, (e) for triangles and quads random
+chosen.}
 \end{figure}
 
 
@@ -682,6 +671,17 @@ greater area enhancement is less (figure \ref{fig:(a)Monkey}.c skull),
 and where the smaller triangles are produced greater enhancement (figure
 \ref{fig:(a)Monkey}.c chin).
 
+\begin{figure}
+\includegraphics[width=1\columnwidth]{images/camello_enhanced2}
+
+\caption{\label{fig:camello_enhanced}Top row: Original camel model in left.
+Curvature enhancing with $\lambda=-30.0$, $\lambda=-100.0$, $\lambda=-400.0$.
+Bottom row: Curvature enhancing with weight vertex group, $\lambda=-50.0$
+and 2 iterations at legs, $\lambda=-200.0$ and 1 iteration in head
+and neck.}
+\end{figure}
+
+
 Our method for enhancement of the silhouette features is predictable
 and invariant under isometric transformations as those present in
 some animations (see Figure \ref{fig:Animated_Camell}) in this animation
@@ -697,16 +697,6 @@ local changes are treated without significantly affecting global solution.
 Our method is invariant of rotation, since depends solely the normal
 field of the mesh, wish is invariant under global rotations. 
 
-\begin{figure}
-\includegraphics[width=1\columnwidth]{images/sculpt_brush}
-
-\caption{\label{fig:Sculpt_Brush}Top row: (a) Leg Camel, (b) Inflate brush
-for leg into blue circle, (c) Enhance curvature brush for leg into
-red circle. Bottom row: (a) Hand, (b) Inflate brush for fingers into
-blue circle, (c) Enhance curvature brush for fingers in red circle.}
-\end{figure}
-
-
 Figure \ref{fig:Sculpt_Brush} shows the use of curvature enhancement
 locally in real time. One pass was used with the brush as shown in
 the figure with the blue and red radius. In the bottom of the figure
@@ -718,7 +708,16 @@ and kept the details of the fingers and leg. Similar results can be
 obtained by an artist but it would take several steps and the use
 of several brushes with curvatures enhancement only takes one step.
 With this new method can easily enhance organic features how muscles
-during the sculpting process.
+during the sculpting process. In figure \ref{fig:Performance-sculpt}
+we show the performance of curvature enhancement brush, in this experimet
+we use three models with 12K, 40K and 164K this models were sculpted
+with curvature enhance brush in eache step the brush sphere contain
+a variable number of vertices for processing. The processing time
+for 800 vertices in the camel paw (40k model) only take 0.1 seconds,
+for 2600 vertices in leg and neck (model 40k) take 0.5 seconds, these
+times are good, because usually an artist sculpts a model for parts,
+and each part is represented by an average of about 3000 vertices
+in the models we use.
 
 Methods using Catmull-Clark subdivision surface and the enhancement
 allows to modify the curvature that is obtained with the process of
@@ -742,6 +741,25 @@ applying Catmull-Clark as shown in the three columns to the right
 of the figure \ref{fig:Catmull_Clark}. 
 
 \begin{figure}
+\includegraphics[width=1\columnwidth]{images/sculpt_brush}
+
+\caption{\label{fig:Sculpt_Brush}Top row: (a) Leg Camel, (b) Inflate brush
+for leg into blue circle, (c) Enhance curvature brush for leg into
+red circle. Bottom row: (a) Hand, (b) Inflate brush for fingers into
+blue circle, (c) Enhance curvature brush for fingers in red circle.}
+\end{figure}
+
+
+\begin{figure}
+\includegraphics[width=1\columnwidth]{images/verts_per_second_sculpt}
+
+\caption{\label{fig:Performance-sculpt}Performance of our dynamic curvature
+enhance brush in terms of vertices sculpted per second. Three models
+with 12K, 40K, 164K vertices used for sculpting in real time.}
+\end{figure}
+
+
+\begin{figure}
 \includegraphics[width=1\columnwidth]{images/monkey}
 
 \caption{\label{fig:(a)Monkey}(a) Top row: Original model scaled by 4. Bottom
@@ -763,8 +781,8 @@ vertex group, $\lambda=-400$ and $2$ iterations. }
 
 \subsection{Implementation\label{sub:Implementation}}
 
-Our method was implemented how a modifier for modelling and brush
-for sculpting on the Blender software \cite{blender} with C and C++.
+Our method was implemented how a modifier for modeling and brush for
+sculpting on the Blender software \cite{blender} with C and C++.
 Working with Blender allowed us to test the method interactively with
 others as Catmull-Clark, weight vertex groups and sculpting system
 in Blender.
@@ -828,8 +846,8 @@ Summer of code program at 2012.
 
 Livingstone elephant model is provided courtesy of INRIA and ISTI
 by the AIM@SHAPE Shape Repository. Hand model is courtesy of the FarField
-Technology Ltd, Camel model is provided under a Creative Commons BY
-license.
+Technology Ltd. Camel model by Valera Ivanov is licensed under a Creative
+Commons Attribution 3.0 Unported License.
 
 \bibliographystyle{acmsiggraph/acmsiggraph}
 \bibliography{template}
