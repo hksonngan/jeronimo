@@ -267,12 +267,12 @@ maketitle
 \end_layout
 
 \begin_layout Abstract
-This paper proposes a novel method for modelling polygonal mesh using curvature
+This paper proposes a novel method for modeling polygonal mesh using curvature
  enhancing.
- This method use our extension of Laplace Beltrami operator for triangles
- and quads meshes to enhance global curvature in the model.
+ This method use our extension of Laplace Beltrami operator for hybrid quad/tria
+ngle meshes to enhance global curvature in the model.
  This work present a novel applications of curvature enhancement in sculpting
- and modelling with subdivision surfaces and weight vertex groups.
+ and modeling with subdivision surfaces and weight vertex groups.
  We show a series of graphics examples that demonstrate the quality, predictabil
 ity and flexibility of our results in a real production environment with
  software blender.
@@ -585,7 +585,7 @@ reference "sec:Proposed-Method"
  graphic examples of Laplacian operator for polygonal meshes composed of
  triangles and quads.
  Also shows some results of curvature enhancement applications in sculpting,
- subdivision and modelling methods.
+ subdivision and modeling methods.
 \end_layout
 
 \begin_layout Standard
@@ -1388,7 +1388,7 @@ reference "fig:LBO-basic-5-TQ"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-Acknowledgements\triangle_{g}\left(v_{i}\right)=2\kappa\mathbf{n}=\frac{\nabla A}{A}=\underset{v_{j}\in N_{1}\left(v_{i}\right)}{\frac{1}{2A}\sum}w_{ij}\left(v_{j}-v_{i}\right)
+\triangle_{g}\left(v_{i}\right)=2\kappa\mathbf{n}=\frac{\nabla A}{A}=\underset{v_{j}\in N_{1}\left(v_{i}\right)}{\frac{1}{2A}\sum}w_{ij}\left(v_{j}-v_{i}\right)
 \end{equation}
 
 \end_inset
@@ -2625,7 +2625,7 @@ name "sub:Implementation"
 \end_layout
 
 \begin_layout Standard
-Our method was implemented how a modifier for modelling and brush for sculpting
+Our method was implemented how a modifier for modeling and brush for sculpting
  on the Blender software 
 \begin_inset CommandInset citation
 LatexCommand cite
