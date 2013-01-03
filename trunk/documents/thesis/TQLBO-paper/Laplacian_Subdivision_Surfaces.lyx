@@ -50,7 +50,7 @@
 \TOGcodeURL{}
 
 % Paper title.
-\title{Curvature Enhance With Laplacian Operator For Hybrid Quad/Triangle Meshes}
+\title{Curvature Enhance with Laplacian Operator for Hybrid Quad/Triangle Meshes}
 
 % Author and Affiliation (single author).
 %\author{Name \thanks{e-mail: name@unknown.uu}\\ Research Institute}
@@ -443,17 +443,13 @@ TOGlinkslist
 
 \end_layout
 
-\begin_layout Section
-Introduction
-\end_layout
-
 \begin_layout Standard
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
-%
+
 \backslash
 copyrightspace
 \end_layout
@@ -480,6 +476,10 @@ copyrightspace
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Introduction
 \end_layout
 
 \begin_layout Standard
@@ -2180,68 +2180,6 @@ reference "eq:TQLBO_Simple_Matrix"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename images/camello_enhanced2.pdf
-	lyxscale 20
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:camello_enhanced"
-
-\end_inset
-
-Top row: Original camel model in left.
- Curvature enhancing with 
-\begin_inset Formula $\lambda=-30.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda=-100.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda=-400.0$
-\end_inset
-
-.
- Bottom row: Curvature enhancing with weight vertex group, 
-\begin_inset Formula $\lambda=-50.0$
-\end_inset
-
- and 2 iterations at legs, 
-\begin_inset Formula $\lambda=-200.0$
-\end_inset
-
- and 1 iteration in head and neck.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2276,6 +2214,56 @@ reference "fig:camello_enhanced"
  which areas you want to model enhancement, on the left is the enhancement
  of the legs of the camel produces enhancement of organic aspect, also notes
  that the border is not distorted and smooth in the union.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/monkey.pdf
+	lyxscale 12
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:(a)Monkey"
+
+\end_inset
+
+(a) Top row: Original model scaled by 4.
+ Bottom row: Original Model (b) Top and bottom row: enhancing with Normalized-TQ
+LBO 
+\begin_inset Formula $\lambda=-50$
+\end_inset
+
+ (c) Top and bottom row: enhancing with TQLBO 
+\begin_inset Formula $\lambda=-50$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2335,6 +2323,121 @@ reference "fig:(a)Monkey"
 \end_inset
 
 .c chin).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement t
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/camello_walk2.png
+	lyxscale 20
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Animated_Camell"
+
+\end_inset
+
+Our method is pose insensitive.
+ The enhanced for the different poses are similar in terms of shape.
+ Top row: Original walk cycle camel model.
+ Bottom row: Curvature enhancing with weight vertex group, 
+\begin_inset Formula $\lambda=-400$
+\end_inset
+
+ and 
+\begin_inset Formula $2$
+\end_inset
+
+ iterations.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/camello_enhanced2.pdf
+	lyxscale 20
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:camello_enhanced"
+
+\end_inset
+
+Top row: Original camel model in left.
+ Curvature enhancing with 
+\begin_inset Formula $\lambda=-30.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda=-100.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda=-400.0$
+\end_inset
+
+.
+ Bottom row: Curvature enhancing with weight vertex group, 
+\begin_inset Formula $\lambda=-50.0$
+\end_inset
+
+ and 2 iterations at legs, 
+\begin_inset Formula $\lambda=-200.0$
+\end_inset
+
+ and 1 iteration in head and neck.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2526,109 +2629,6 @@ reference "fig:Catmull_Clark"
  
 \end_layout
 
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename images/monkey.pdf
-	lyxscale 12
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:(a)Monkey"
-
-\end_inset
-
-(a) Top row: Original model scaled by 4.
- Bottom row: Original Model (b) Top and bottom row: enhancing with Normalized-TQ
-LBO 
-\begin_inset Formula $\lambda=-50$
-\end_inset
-
- (c) Top and bottom row: enhancing with TQLBO 
-\begin_inset Formula $\lambda=-50$
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement t
-wide true
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename images/camello_walk2.png
-	lyxscale 20
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Animated_Camell"
-
-\end_inset
-
-Our method is pose insensitive.
- The enhanced for the different poses are similar in terms of shape.
- Top row: Original walk cycle camel model.
- Bottom row: Curvature enhancing with weight vertex group, 
-\begin_inset Formula $\lambda=-400$
-\end_inset
-
- and 
-\begin_inset Formula $2$
-\end_inset
-
- iterations.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsection
 Implementation
 \begin_inset CommandInset label
@@ -2756,8 +2756,9 @@ This work was supported in part by the Blender Foundation, Google Summer
 \begin_layout Standard
 Livingstone elephant model is provided courtesy of INRIA and ISTI by the
  AIM@SHAPE Shape Repository.
- Hand model is courtesy of the FarField Technology Ltd, Camel model is provided
- under a Creative Commons BY license.
+ Hand model is courtesy of the FarField Technology Ltd.
+ Camel model by Valera Ivanov is licensed under a Creative Commons Attribution
+ 3.0 Unported License.
 \end_layout
 
 \begin_layout Standard
