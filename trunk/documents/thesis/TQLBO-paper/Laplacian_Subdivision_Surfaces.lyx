@@ -590,8 +590,7 @@ reference "sec:Proposed-Method"
 
  we present our proposed method for curvature enhancement and applications
  on subdivision surfaces and sculpting; Lastly some results are shown in
- graphic examples of Laplacian operator for polygonal meshes composed of
- triangles and quads.
+ graphic examples of Laplacian operator for hybrid quad/triangle meshes.
  Also shows some results of curvature enhancement applications in sculpting,
  subdivision and modeling methods.
 \end_layout
@@ -601,10 +600,10 @@ reference "sec:Proposed-Method"
 \series bold
 Contributions
 \series default
- Our work present an extension of the Laplace Beltrami operator for meshes
- of arbitrary topology composed for triangles and quads representing a larger
- spectrum of mesh that works with today eliminating the need for preprocessing
- and allows the preservation of the original topology.
+ Our work present an extension of the Laplace Beltrami operator for hybrid
+ quad/triangle meshes representing a larger spectrum of mesh that works
+ with today eliminating the need for preprocessing and allows the preservation
+ of the original topology.
  With this operator we proposed a method to generate family of parameterized
  shapes, in a robust and predictable way.
  Our method enable to customization of smoothness and curvature obtained
@@ -1124,7 +1123,7 @@ ng the mesh to convert to triangles and losing the original design made
 \end_layout
 
 \begin_layout Subsection
-Laplace Beltrami operator over triangular and quadrilateral meshes TQLBO
+Laplace Beltrami Operator for Hybrid Quad/Triangle Meshes TQLBO
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Laplace-Beltrami-operator"
@@ -1163,7 +1162,7 @@ The area of
 \begin_inset Formula $N_{1}$
 \end_inset
 
-) with shared face to vertex 
+) with shared face quad or triangle to vertex 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -1262,7 +1261,7 @@ reference "fig:quad_xiong"
 
 \begin_layout Standard
 Where 
-\begin_inset Formula $q_{1},q_{2},...,q_{i},...,q_{m}\in Q_{N_{1}\left(v_{i}\right)}$
+\begin_inset Formula $q_{1},q_{2},...,q_{j},...,q_{m}\in Q_{N_{1}\left(v_{i}\right)}$
 \end_inset
 
  and 
@@ -1349,8 +1348,8 @@ reference "eq:eq_gradient_voronoi_area"
 \end_layout
 
 \begin_layout Standard
-All triangles and quads configurations of the 1-neighborhood faces adjacent
- to 
+All triangles and quads configurations of the 1-ring neighborhood faces
+ adjacent to 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -1472,7 +1471,7 @@ reference "eq:TQLBO_wij"
 \begin_inset Formula $N\left(v_{i}\right)$
 \end_inset
 
- is the 1-ring neighbors with shared face to 
+ is the 1-ring neighborhood with shared face to 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -1749,7 +1748,11 @@ key "Desbrun1999"
 \begin_inset Formula $t+1$
 \end_inset
 
- iteration.
+ iteration, we define 
+\begin_inset Formula $\overline{v}$
+\end_inset
+
+ as:
 \end_layout
 
 \begin_layout Standard
@@ -2011,8 +2014,8 @@ key "Loop1987"
 \end_inset
 
 .
- In many subdivision surfaces methods Catmull-Clark, Loop so on.
- The smoothness of the model is automatically guaranteed
+ In many subdivision surfaces methods Catmull-Clark, Loop so on, the smoothness
+ of the model is automatically guaranteed 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "DeRose1998"
@@ -2029,10 +2032,10 @@ Catmull-Clark subdivision surface method generates smooth and continuous
  of implementation, but with these methods is not easy to make changes to
  the global curvature of the model.
  If we use Catmull-Clark subdivision surfaces and curvature enhancement
- for modeling from sketches with few vertices can generate families of shapes
- with just a parameter, which would allow an artist to choose the model
- of a similar set of options that best meets your needs without having to
- change each one of the control vertices.
+ for modeling from coarse models with few vertices can generate families
+ of shapes with just change a parameter, which would allow an artist to
+ choose the model of a similar set of options that best meets your needs
+ without having to change each one of the control vertices.
 \end_layout
 
 \begin_layout Standard
@@ -2082,18 +2085,67 @@ name "sec:Results"
 
 \begin_layout Standard
 In this section we describe the results of our curvature enhance method
- that used our extension of Laplace Beltrami operator for triangles and
- quads TQLBO with several example models in figures 
+ that used our extension of Laplace Beltrami operator for hybrid quad/triangle
+ meshes with several example models in figures 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Spectrum"
 
 \end_inset
 
-,
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Catmull_Clark"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TQLBO_test"
+
+\end_inset
+
+, 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:camello_enhanced"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Sculpt_Brush"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Performance-sculpt"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Animated_Camell"
 
 \end_inset
 
@@ -2110,7 +2162,7 @@ reference "fig:TQLBO_test"
 
 \end_inset
 
- show the results when applying Laplacian smoothing operator TQLBO of equation
+ show the results when applying Laplace Beltrami Operator TQLBO of equation
  (
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2176,6 +2228,83 @@ name "fig:TQLBO_test"
 \end_layout
 
 \begin_layout Standard
+Methods using Catmull-Clark subdivision surface and the enhancement allows
+ to modify the curvature that is obtained with the process of subdivision
+ as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+ this test used a coarse model of a cup, after the model was performed subdivisi
+on then was performed Laplacian smoothing and enhancement by modifying the
+ parameters 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ y 
+\begin_inset Formula $\lambda_{e}$
+\end_inset
+
+ corresponding to the lambda for rings and edges respectively.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+.c, 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+.d shows also the use weight vertex groups over coarse models with subdivision
+ surfaces that allowed to generate the weights for the new interpolated
+ vertices, these new weights were used for the enhancement obtained the
+ 6 cups that are to the right of the figure 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+.d.
+\end_layout
+
+\begin_layout Standard
+Laplacian smoothing applied with simple subdivision may produce results
+ similar to obtained with Catmull-Clark whose models are on average equal
+ triangles as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Catmull_Clark"
+
+\end_inset
+
+ green model and that obtained with Laplacian smoothing 
+\begin_inset Formula $\lambda=60.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=12.0$
+\end_inset
+
+, but also can modify the curvature obtained after applying Catmull-Clark
+ as shown in the three columns to the right of the figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Catmull_Clark"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
 Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2210,65 +2339,6 @@ reference "fig:camello_enhanced"
  which areas you want to model enhancement, on the left is the enhancement
  of the legs of the camel produces enhancement of organic aspect, also notes
  that the border is not distorted and smooth in the union.
-\end_layout
-
-\begin_layout Standard
-We did tests with the Laplacian operator to equation (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:TQLBO_Simple_Matrix"
-
-\end_inset
-
-) and its normalized version equation (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:TQLBO-Normalized_Matrix"
-
-\end_inset
-
-), the two produce similar results if the triangles that compose the mesh
- are the same size on average , but the normalized version is more stable
- and predictable because it is not divided by the area of the ring which
- may be zero or very small and cause problems due to floating point calculation
- errors as shown in figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:(a)Monkey"
-
-\end_inset
-
-.c bottom row in which the mesh is deformed because the TQLBO is susceptible
- to the size of the triangle.
- The enhancement of curvature of the model with the normalized Laplacian
- operator has a more regular behavior.
- The model can deform in TQLBO normalized version with large lambdas> 400
- intersects self, but produces no peaks observed with the TQLBO.
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:(a)Monkey"
-
-\end_inset
-
- observed different results because the area of the triangles in this model
- is not so regular triangles where greater area enhancement is less (figure
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:(a)Monkey"
-
-\end_inset
-
-.c skull), and where the smaller triangles are produced greater enhancement
- (figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:(a)Monkey"
-
-\end_inset
-
-.c chin).
 \end_layout
 
 \begin_layout Standard
@@ -2373,7 +2443,7 @@ reference "fig:Sculpt_Brush"
 
 \end_inset
 
- shows the use of curvature enhancement locally in real time.
+ shows the use of curvature enhancement brush for sculpting in real time.
  One pass was used with the brush as shown in the figure with the blue and
  red radius.
  In the bottom of the figure 
@@ -2407,8 +2477,8 @@ reference "fig:Performance-sculpt"
 \end_inset
 
  we show the performance of curvature enhancement brush, in this experimet
- we use three models with 12K, 40K and 164K this models were sculpted with
- curvature enhance brush in eache step the brush sphere contain a variable
+ we use three models with 12K, 40K and 164K vertices, this models were sculpted
+ with curvature enhance brush in eache step the brush sphere contain a variable
  number of vertices for processing.
  The processing time for 800 vertices in the camel paw (40k model) only
  take 0.1 seconds, for 2600 vertices in leg and neck (model 40k) take 0.5
@@ -2418,81 +2488,62 @@ reference "fig:Performance-sculpt"
 \end_layout
 
 \begin_layout Standard
-Methods using Catmull-Clark subdivision surface and the enhancement allows
- to modify the curvature that is obtained with the process of subdivision
- as shown in figure 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
- this test used a coarse model of a cup, after the model was performed subdivisi
-on then was performed Laplacian smoothing and enhancement by modifying the
- parameters 
-\begin_inset Formula $\lambda$
-\end_inset
-
- y 
-\begin_inset Formula $\lambda_{e}$
-\end_inset
-
- corresponding to the lambda for rings and edges respectively.
- In figure 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
-.c, 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
-.d shows also the use weight vertex groups over coarse models with subdivision
- surfaces that allowed to generate the weights for the new interpolated
- vertices, these new weights were used for the enhancement obtained the
- 6 cups that are to the right of the figure 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
-.d.
-\end_layout
-
-\begin_layout Standard
-Laplacian smoothing applied with simple subdivision may produce results
- similar to obtained with Catmull-Clark whose models are on average equal
- triangles as shown in figure 
+We did tests with the Laplacian operator to equation (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:Catmull_Clark"
+reference "eq:TQLBO_Simple_Matrix"
 
 \end_inset
 
- green model and that obtained with Laplacian smoothing 
-\begin_inset Formula $\lambda=60.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda_{e}=12.0$
-\end_inset
-
-, but also can modify the curvature obtained after applying Catmull-Clark
- as shown in the three columns to the right of the figure 
+) and its normalized version equation (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:Catmull_Clark"
+reference "eq:TQLBO-Normalized_Matrix"
 
 \end_inset
 
-.
+), the two produce similar results if the triangles that compose the mesh
+ are the same size on average , but the normalized version is more stable
+ and predictable because it is not divided by the area of the ring which
+ may be zero or very small and cause problems due to floating point calculation
+ errors as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+.c bottom row in which the mesh is deformed because the TQLBO is susceptible
+ to the size of the triangle.
+ The enhancement of curvature of the model with the normalized Laplacian
+ operator has a more regular behavior.
+ The model can deform in TQLBO normalized version with large lambdas> 400
+ intersects self, but produces no peaks observed with the TQLBO.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+ observed different results because the area of the triangles in this model
+ is not so regular triangles where greater area enhancement is less (figure
  
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+.c skull), and where the smaller triangles are produced greater enhancement
+ (figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+.c chin).
 \end_layout
 
 \begin_layout Standard
