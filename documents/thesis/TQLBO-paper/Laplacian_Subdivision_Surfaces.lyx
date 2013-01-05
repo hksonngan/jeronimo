@@ -56,9 +56,9 @@
 %\author{Name \thanks{e-mail: name@unknown.uu}\\ Research Institute}
 
 % Author and Affiliation (multiple authors).
-\author{paper 000X }
-%\author{Alexander Pinzon\thanks{e-mail: apinzonf@gmail.com}\\ Cimalab Research Group %
-%\and Eduardo Romero\thanks{e-mail:edromero@unal.edu.co}\\Cimalab Research Group}
+\author{Alexander Pinzon\thanks{e-mail: apinzonf@gmail.com}
+\qquad  Eduardo Romero\thanks{e-mail:edromero@unal.edu.co}
+ \\Cimalab Research Group\\National University of Colombia}
 %\and Ton Roosendaal\thanks{e-mail:ton@blender.org}\\ Blender CEO}
 
 % The ``pdfauthor'' command accepts the authors of the work,
@@ -69,7 +69,7 @@
 % Keywords that describe your work.
 \keywords{laplacian smooth, curvature, sculpting, subdivision surface}
 \end_preamble
-\options annual
+\options review
 \use_default_options false
 \maintain_unincluded_children false
 \language english
