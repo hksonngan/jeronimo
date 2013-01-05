@@ -56,13 +56,15 @@
 %\author{Name \thanks{e-mail: name@unknown.uu}\\ Research Institute}
 
 % Author and Affiliation (multiple authors).
-\author{Alexander Pinzon\thanks{e-mail: apinzonf@gmail.com}\\ Cimalab Research Group %
-\and Eduardo Romero\thanks{e-mail:edromero@unal.edu.co}\\Cimalab Research Group}
+\author{paper 000X }
+%\author{Alexander Pinzon\thanks{e-mail: apinzonf@gmail.com}\\ Cimalab Research Group %
+%\and Eduardo Romero\thanks{e-mail:edromero@unal.edu.co}\\Cimalab Research Group}
 %\and Ton Roosendaal\thanks{e-mail:ton@blender.org}\\ Blender CEO}
 
 % The ``pdfauthor'' command accepts the authors of the work,
 % comma-delimited, and adds this information to the PDF metadata.
-\pdfauthor{Alexander Pinzon, Eduardo Romero, Ton Roosendaal}
+%\pdfauthor{Alexander Pinzon, Eduardo Romero, Ton Roosendaal}
+\pdfauthor{Anonymous}
 
 % Keywords that describe your work.
 \keywords{laplacian smooth, curvature, sculpting, subdivision surface}
@@ -266,8 +268,7 @@ ngle meshes to enhance global curvature in the model.
  This work present a novel applications of curvature enhancement in sculpting
  and modeling with subdivision surfaces and weight vertex groups.
  We show a series of graphics examples that demonstrate the quality, predictabil
-ity and flexibility of our results in a real production environment with
- software blender.
+ity and flexibility of our results.
 \end_layout
 
 \begin_layout Standard
@@ -449,7 +450,7 @@ status open
 
 \begin_layout Plain Layout
 
-
+%
 \backslash
 copyrightspace
 \end_layout
@@ -1899,14 +1900,24 @@ Left: Original Model, in green color model with Catmull-Clark Subdivision.
 \begin_layout Standard
 We design a new brush that allows enhancement of the curvatures of a polygon
  mesh in real time.
- Our brush work well with the stroke method 
+ Our brush work well with the stroke method named 
 \shape slanted
 Drag Dot
 \shape default
- developed in the sculpt mode in Blender 
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+developed in the sculpt mode in Blender 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blender"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -2846,8 +2857,17 @@ Acknowledgments
 \end_layout
 
 \begin_layout Standard
-We wold like to thank Eduardo Romero and CIM&LAB Computer Imaging & Medical
- Applications Laboratory for their support of our research.
+We wold like to thank 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Eduardo Romero and CIM&LAB Computer Imaging & Medical Applications Laboratory
+\end_layout
+
+\end_inset
+
+ anonymous friends for their support of our research.
  
 \end_layout
 
