@@ -653,8 +653,8 @@ the weights for the new interpolated vertices, these new weights were
 used for the enhancement obtained the 6 cups that are to the right
 of the figure \eqref{fig:Subdivision-Cups}.d.
 
-Laplacian smoothing applied with simple subdivision may produce results
-similar to obtained with Catmull-Clark whose models are on average
+Laplacian smoothing applied with simple subdivision may produce similar
+results to those obtained with Catmull-Clark whose models are on average
 equal triangles as shown in figure \ref{fig:Catmull_Clark} green
 model and that obtained with Laplacian smoothing $\lambda=60.0$,
 $\lambda_{e}=12.0$, but also can modify the curvature obtained after
@@ -666,12 +666,12 @@ versions of a camel according to parameter lambda. In the top row
 you can see results of do curvature enhance over all model, as the
 lambda becomes larger and negative in this model it inflates the convex
 parts as shown in figure \ref{fig:Spectrum}. The larger $\lambda$
-the larger enhancements on the model features. In the bottom row of
-the figure \ref{fig:camello_enhanced} can be observed using weighted
-vertex groups, which allows you to specify which areas you want to
-model enhancement, on the left is the enhancement of the legs of the
-camel produces enhancement of organic aspect, also notes that the
-border is not distorted and smooth in the union.
+the larger enhancements on the model features. The bottom row of figure
+\ref{fig:camello_enhanced} shows the use of weighted vertex groups,
+which allows to specify which areas will be enhanced. On the left
+the enhancement of the legs of the camel is shown which produces enhancement
+of organic aspect, notice that the border is not distorted and smooth
+in the union.
 
 \begin{figure}
 \includegraphics[width=1\columnwidth]{images/camello_enhanced2}
@@ -686,32 +686,32 @@ and neck.}
 
 Our method for enhancement of the silhouette features is predictable
 and invariant under isometric transformations as those present in
-some animations (see Figure \ref{fig:Animated_Camell}) in this animation
-shows some poses of a camel doing a walk. In this animation the legs
-and neck are the parts that enhancement is performed as shown in the
-bottom left part of the figure \ref{fig:Animated_Camell}. Local modifications
-produced by methods such as pose interpolation or animation rigging
-not significantly affect the result as with camel legs in each sample
-pose different flexion of the leg joints enhancement camel keeps flesh-like
-shapes in the pattern produced original by the artist. This is due
-to the diffusion process which is subjected to the mesh so that small
-local changes are treated without significantly affecting global solution.
-Our method is invariant of rotation, this since depends solely the
-normal field of the mesh, wish is invariant under global rotations. 
+some animations (see Figure \ref{fig:Animated_Camell}). This animation
+shows some poses of a camel during a walk, enhancement is performed
+in the neck and legs as shown in the bottom left part of the figure
+\ref{fig:Animated_Camell}. Local modifications produced by pose interpolation
+or animation rigging do not significantly affect the result as with
+camel legs in each sample pose different flexion of the leg joints
+enhancement camel keeps flesh-like shapes in the pattern produced
+original by the artist. This is due to the diffusion process which
+is subjected to the mesh so that small local changes are treated without
+significantly affecting global solution. Our method is invariant of
+rotation, this since depends exclusively on the normal field of the
+mesh, wish is invariant under global rotations. 
 
 Figure \ref{fig:Sculpt_Brush} shows the use of curvature enhancement
 brush for sculpting in real time. One pass was used with the brush
-as shown in the figure with the blue and red radius. In the bottom
-of the figure \ref{fig:Sculpt_Brush}.b shows how the camel leg self-intersecting
-and looks like two bubbles stuck, so do the fingers on the bottom
-of figure. Using silhouette features enhancement in figure \ref{fig:Sculpt_Brush}.c
-we see better results because not lost the shape of the silhouette
-and kept the details of the fingers and leg. Similar results can be
-obtained by an artist but it would take several steps and the use
-of several brushes with curvatures enhancement only takes one step.
-With this new method can easily enhance organic features how muscles
-during the sculpting process. In figure \ref{fig:Performance-sculpt}
-we show the performance of curvature enhancement brush, in this experiment
+as shown in the figure with the blue and red radius. In figure \ref{fig:Sculpt_Brush}.b
+camel shows how the leg self-intersecting and looks like two bubbles
+stuck, the same happens to the fingers on the bottom of the figure.
+Using silhouette features enhancement in figure \ref{fig:Sculpt_Brush}.c
+we get better results sd the are retained shape of the silhouette
+and the details of the fingers and leg. Similar results can be obtained
+by an artist however it would take several steps and require the use
+of several brushes. With curvature enhancement it only takes one step.
+This new method can easily enhance organic features like muscles during
+the sculpting process. In figure \ref{fig:Performance-sculpt} we
+show the performance of curvature enhancement brush, in this experiment
 we use three models with 12K, 40K and 164K vertices, this models were
 sculpted with curvature enhance brush in each step the brush sphere
 contain a variable number of vertices for processing. The processing
@@ -721,23 +721,21 @@ times are good, because usually an artist sculpts a model for parts,
 and each part is represented by an average of about 3000 vertices
 in the models we use.
 
-We did tests with the Laplacian operator to equation (\ref{eq:TQLBO_Simple_Matrix})
+Tests with the Laplacian operator equation (\ref{eq:TQLBO_Simple_Matrix})
 and its normalized version equation (\ref{eq:TQLBO-Normalized_Matrix}),
-the two produce similar results if the triangles that compose the
-mesh are the same size on average , but the normalized version is
-more stable and predictable because it is not divided by the area
-of the ring which may be zero or very small and cause problems due
-to floating point calculation errors as shown in figure \ref{fig:(a)Monkey}.c
-bottom row in which the mesh is deformed because the TQLBO is susceptible
-to the size of the triangle. The enhancement of curvature of the model
-with the normalized Laplacian operator has a more regular behavior.
-The model can deform in TQLBO normalized version with large lambdas>
-400 intersects self, but produces no peaks observed with the TQLBO.
-Figure \ref{fig:(a)Monkey} observed different results because the
-area of the triangles in this model is not so regular triangles where
-greater area enhancement is less (figure \ref{fig:(a)Monkey}.c skull),
-and where the smaller triangles are produced greater enhancement (figure
-\ref{fig:(a)Monkey}.c chin).
+produce similar results if the triangles that compose the mesh are
+the same size on average. The normalized version is more stable and
+predictable because it is not divided by the area of the ring which
+may be very small and cause problems during floating point calculations
+as shown in figure \ref{fig:(a)Monkey}.c bottom row. The enhancement
+of curvature of the model with the normalized Laplacian operator has
+a more regular behavior. The model can be deformed in TQLBO normalized
+version with large lambdas ($\lambda>400$) while it intersects itself
+it produces no peaks. Figure \ref{fig:(a)Monkey} shows different
+results due to the area of the triangles in the model. Triangles with
+larger area have smaller enhancement (figure \ref{fig:(a)Monkey}.c
+skull), and smaller triangles have larger enhancements (figure \ref{fig:(a)Monkey}.c
+chin).
 
 \begin{figure}
 \includegraphics[width=1\columnwidth]{images/sculpt_brush}
@@ -780,57 +778,55 @@ vertex group, $\lambda=-400$ and $2$ iterations. }
 
 \subsection{Implementation\label{sub:Implementation}}
 
-Our method was implemented how a modifier for modeling and brush for
+Our method was implemented as a modifier for modeling and brush for
 sculpting on the Blender software \cite{blender} with C and C++.
-Working with Blender allowed us to test the method interactively with
+Working with Blender allowed us to test the method interactively against
 others as Catmull-Clark, weight vertex groups and sculpting system
 in Blender.
 
-To improve performance, we worked with the Blender mesh struct calculating
-all possible data each time visiting each triangle or quad and adding
-to its corresponding index in a list that stored the sum of the Laplacian
-weights of the ring, in this way only had to visit two times the list
-of faces of the mesh list and the two times the list of the edges
-if the mesh was not closed. To brush sculpting mode was necessary
-to create a list that will map the index of the selected vertices
-to a list from 1 to N where N is the number of vertices selected and
-the number of rows in the linear system to solve, with this drastically
-reduced the calculations should make working with the tool allowing
-real-time. In the construction of our Laplacian matrix were blocked
-at vertices having faces areas or lengths edges with value zero that
-can cause spikes and bad results.
+To improve the performance, we worked with Blender mesh struct visiting
+each triangle or quad and adding its corresponding index in a list
+that stores the sum of the Laplacian weights of the ring, in this
+way we only had to visit two times the list of faces of the mesh list
+and two times the list of the edges if the mesh was not closed. The
+brush sculpting mode required to create a list that maps the index
+of the selected vertices to a list from 1 to N where N is the number
+of vertices selected and the number of rows in the linear system to
+solve. This drastically reduced the calculations enabling real-time
+processing. In the construction of our Laplacian matrix several index
+were locked at vertices having faces areas or lengths edges with value
+zero that can cause spikes and bad results.
 
-The matrix \ref{eq:TQLBO_Simple_Matrix} is sparse since the number
-of neighbors per vertex corresponding to the number of data per row
-is small compared to the total number of vertices in the mesh. To
-solve the linear system equation \ref{eq:Lineal_System_with_wp} was
-used OpenNL which is a a library for solving sparse linear system.
+Under this conditions matrix at the equation\ref{eq:TQLBO_Simple_Matrix}
+is sparse since the number of neighbors per vertex corresponding to
+the number of data per row is small compared to the total number of
+vertices in the mesh. To solve the linear system equation \ref{eq:Lineal_System_with_wp}
+was used OpenNL which is a a library for solving sparse linear system.
 
 
 \section{Conclusion and future work\label{sec:Conclusion-and-future}}
 
-We present an extension of the Laplace Beltrami operator for triangles
-and quads that can work in production environments without conversion
-that provides results similar to those obtained by working only with
-triangles or quads. 
+This work presented an extension of the Laplace Beltrami operator
+for hybrid quad/triangle meshes that can be used in production environments
+without modification that provides results similar to those obtained
+by working only with triangles or quads. 
 
-We introduced a new way to perform enhancement silhouettes in a mesh
-for modeling or sculpted in a few steps allows the modification of
-the curvature of a model while maintaining its overall shape. We introduce
-a new method of modeling and show some of its possible uses. We show
-that the method behaves in predictable ways which facilitate the learning
-process, it also showed that the method works well with isometric
-transformations opening the possibility of introducing it on the stages
-of animation.
+We introduced a new way to perform silhouettes enhancement in a mesh
+for modeling or sculpting in a few steps which allows the modification
+of the curvature of a model while preserving its overall shape. We
+introduce a new method of modeling and show some of its possible uses.
+This method behaves in predictable ways which facilitate the learning
+process, and works well with isometric transformations opening the
+possibility of introducing it on the process of animation.
 
-We demonstrate that this tool serves to work in the early stages in
-which are used coarse models to permit modifying the curvature generated
-by the Catmull-Clark subdivision surfaces, avoiding the edition of
-the vertices to have only to change a few parameters.
+We show that this tool could work in the early stages in where coarse
+models are used, allowing to modify the curvature generated by the
+Catmull-Clark subdivision surfaces, avoiding the edition of the vertices
+with the change of a few parameters.
 
-As future work we would like to analyze theoretically the relationship
-between the Catmull-Clark subdivision surfaces and Laplacian smoothing
-because in some cases can produce very similar results. But the subdivision
+As future work we analyze theoretically the relationship between the
+Catmull-Clark subdivision surfaces and Laplacian smoothing because
+in some cases can produce very similar results. But the subdivision
 surface is a fast method thereby reducing computation times for calculate
 curvature in the mesh.
 
@@ -846,7 +842,8 @@ Summer of code program at 2012.
 Livingstone elephant model is provided courtesy of INRIA and ISTI
 by the AIM@SHAPE Shape Repository. Hand model is courtesy of the FarField
 Technology Ltd. Camel model by Valera Ivanov is licensed under a Creative
-Commons Attribution 3.0 Unported License.
+Commons Attribution 3.0 Unported License. Dinosaur model is under
+public domain, courtesy of Blender Foundation.
 
 \bibliographystyle{acmsiggraph/acmsiggraph}
 \bibliography{template}
