@@ -266,10 +266,10 @@ This paper proposes a novel method for modeling a polygonal mesh by enhancing
  This method uses an adapted extension of the Laplace Beltrami operator
  for hybrid quad/triangle meshes, to enhance the global curvature.
  Along with the method, this work also presents new applications of curvature
- enhancement in sculpting and modelling with subdivision surfaces and weight
+ enhancement in sculpting and modeling with subdivision surfaces and weight
  vertex groups.
  A series of graphics examples demonstrates the quality, predictability
- and flexibility of the results in a real production environment with software
+ and flexibility of the method in a real production environment with software
  blender.
 \end_layout
 
@@ -517,7 +517,7 @@ key "Sorkine2004,Zhou2005"
 
 \end_inset
 
-, among others.
+.
 \end_layout
 
 \begin_layout Standard
@@ -575,9 +575,9 @@ key "Stanculescu2011"
 \series bold
 Contributions
 \series default
- This work presents an extension of the Laplace Beltrami operator for for
- hybrid quad/triangle meshes representing a larger mesh spectrum from what
- has been presented so far.
+ This work presents an extension of the Laplace Beltrami operator for hybrid
+ quad/triangle meshes representing a larger mesh spectrum from what has
+ been presented so far.
  The method eliminates the need of preprocessing and allows preservation
  of the original topology.
  Likewise, along with this operator, it is proposed a method to generate
@@ -659,8 +659,8 @@ key "Zhuo2012"
 \end_inset
 
 .
- In volumetric approaches on computing the offset boundary that are based
- on distance field computation in point-based representation, when performing
+ In volumetric approaches for point-based representation the computing the
+ offset boundary that are based on distance field computation, when performing
  the offset, the topology of the model may be different from the original,
  changing the original design 
 \begin_inset CommandInset citation
@@ -681,8 +681,8 @@ key "Gal2009"
 
  proposes automatic features detection and shape edition with feature inter-rela
 tionship preservation.
- In analysis step they define salient surface features how ridges and valleys
- with base on first and second order curvature derivatives 
+ They define salient surface features like ridges and valleys with based
+ the first and second order curvature derivatives 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ohtake2004"
@@ -690,21 +690,20 @@ key "Ohtake2004"
 \end_inset
 
 , and angle-based threshold.
- In feature characterization step the curves are classified by several propertie
-s as planar or non-planar, approximated by line, circle or ellipse shapes,
- and so on.
- In edit step the user define initial change over several feature and then
- this edit is propagated over other features with base in your inter-relationshi
-ps.
+ Later the curves are classified by several properties as planar or non-planar,
+ approximated by lines, circles, ellipses and other complex shapes.
+ In then the user defines an initial change over several features and then
+ this change is propagated over other features with base in the classified
+ shapes and the inter-relationships between these.
  This method works fine with objects that have sharp edges composed of basic
- geometric shapes such as lines, circles or ellipses but this method has
- difficulties when models are smoother with organic forms and cannot find
- the features to edit and preserve.
+ geometric shapes such as lines, circles or ellipses but method has problems
+ to classify when models are smoother with organic forms because it cannot
+ find the features to edit and preserve.
 \end_layout
 
 \begin_layout Standard
-Digital sculpting is divided into two principal methods: based on polygonal
- methods and voxel grids-based methods.
+Digital sculpting can be divided into two principal approaches: based on
+ polygonal methods and voxel grid-based methods.
  Brushes for inflate operations in polygonal methods only depends on the
  normal at each vertex 
 \begin_inset CommandInset citation
@@ -713,9 +712,9 @@ key "Stanculescu2011"
 
 \end_inset
 
-, in grids-based some operations permit add or remove voxels and then have
- that processing isosurfaces from volume to produce polygonal meshes representat
-ion 
+, in grid-based sculpting some operations allow to add or remove voxels,
+ for produce polygonal meshes require processing isosurfaces from volume
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Galyean1991"
@@ -794,18 +793,17 @@ The 5 basic triangle-quad cases with common vertex
 \end_layout
 
 \begin_layout Standard
-The Laplacian Smooth techniques allows you to reduce noise on a mesh's surface
- with minimal changes on its shape.
- Computer graphics objects which have been reconstructed from real world,
+Computer graphics objects which have been reconstructed from real world,
  contain undesirable noise.
- A Laplacian smoothing removes undesirable noise while still preserves desirable
- geometry as well as the shape of the original model.
+ Laplacian Smooth techniques allow noise reduction on a mesh's surface with
+ minimal changes on its shape while still preserves desirable geometry as
+ well as the shape of the original model.
  
 \end_layout
 
 \begin_layout Standard
-The functional used in many Laplacian smoothing approach to constrain energy
- minimization is based on a total curvature of a surface 
+The functional used in many Laplacian smoothing approaches to constrain
+ energy minimization is based on a total curvature of a surface 
 \begin_inset Formula $S$
 \end_inset
 
@@ -918,7 +916,7 @@ Consider a surface
 \begin_inset Formula $S$
 \end_inset
 
- compound by a set of triangles around vertex 
+ composed by a set of triangles around vertex 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -938,7 +936,7 @@ reference "fig:voronoi_region"
 
 \end_inset
 
-, The change in area produced by move 
+, The change in the area produced by the movement of 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -1046,9 +1044,9 @@ key "Pinkall1993"
 \end_layout
 
 \begin_layout Standard
-The LBO has desirable features, one feature of the LBO is in direction of
- surface area minimization, allowing us to minimize energy using it on a
- total curvature of a surface 
+The LBO has desirable features: one feature of the LBO is in direction of
+ surface area minimization, allowing to minimize energy using it on a total
+ curvature of a surface 
 \begin_inset Formula $S$
 \end_inset
 
@@ -1074,13 +1072,12 @@ name "sec:Proposed-Method"
 \end_layout
 
 \begin_layout Standard
-Our method allow the editing of geometric features using the curvature enhanceme
-nt and smoothing.
- Generating a parameterized family of shapes using a set of vertices representin
-g a coarse sketch of the desired model.
+Our method allows the editing of geometric features using the curvature
+ enhancement and smoothing, generating a parameterized family of shapes
+ from a set of vertices which represent a coarse sketch of the desired model.
  Our approach can be mixed with traditional or uniform subdivision surfaces
- methods and is iterative and converges towards a continuous and smooth
- version of the original model.
+ methods, is iterative and converges towards a continuous and smooth version
+ of the original model.
  
 \end_layout
 
@@ -1094,17 +1091,17 @@ Unlike other methods, our method allows to use mixed arbitrary types of
 
 \begin_layout Standard
 Our method allows the use of soft constraints weighting the effect of smoothing
- at each vertex based on a normalized weight, the weights are assigned to
- the control vertices of the original mesh or.
+ at each vertex based on a normalized weight, which are assigned to the
+ control vertices of the original mesh or.
  The weights of the new vertices resulting from the subdivisions are calculated
- by interpolation, allowing to modify the behavior of the method on exact
+ by interpolation, allowing modifying the behavior of the method on specific
  regions of the original model.
 \end_layout
 
 \begin_layout Standard
-Our approach contain an extension of the Laplace Beltrami operator for meshes
- composed by triangles and quads.
- Using meshes composed by triangles and quads has been increasing in recent
+Our approach is based on an extension of the Laplace Beltrami operator for
+ meshes composed by triangles and quads.
+ Interest on meshes composed by triangles and quads has increasing in recent
  years due to the flexibility of modeling tools as Blender 3D 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1113,8 +1110,8 @@ key "blender"
 \end_inset
 
 .
- Today many artists manually connecting vertices such that its edition allows
- simplest way to perform animation processes and interpolation 
+ Today many artists manually connect vertices such that its edition allows
+ a simple way to perform animation processes and interpolation 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Mullen2007"
@@ -1354,12 +1351,12 @@ reference "eq:eq_gradient_voronoi_area"
 \end_layout
 
 \begin_layout Standard
-All triangles and quads configurations of the 1-ring neighborhood faces
+Thus triangles and quads configurations of the 1-ring neighborhood faces
  adjacent to 
 \begin_inset Formula $v_{i}$
 \end_inset
 
- can be simplified in five simple cases how show in figure 
+ can be simplified to five cases shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:LBO-basic-5-TQ"
@@ -1450,7 +1447,7 @@ Where
 \begin_inset Formula $L$
 \end_inset
 
- is the 
+ is a 
 \begin_inset Formula $n\times n$
 \end_inset
 
@@ -1534,7 +1531,7 @@ name "sub:Curvature-Enhancing"
 placement t
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1595,9 +1592,8 @@ s over coarse model with weight vertex group in red.
 \end_layout
 
 \begin_layout Standard
-The curvature enhancing use the change produced by Laplacian smoothing in
- the inverse direction of the curvature flow for moves the vertices in the
- portions of the mesh with most curvature.
+The curvature enhancing uses the inverse direction of the curvature flow
+ to move the vertices in the portions of the mesh with most curvature.
  In this equation we use a diffusion process:
 \end_layout
 
@@ -1610,7 +1606,7 @@ The curvature enhancing use the change produced by Laplacian smoothing in
 \end_layout
 
 \begin_layout Standard
-For solve the equation above we use implicit integration and a normalized
+To solve the equation above we use implicit integration and a normalized
  version of TQLBO matrix.
 \end_layout
 
@@ -1638,8 +1634,8 @@ The vertices
 \begin_inset Formula $V^{t+1}$
 \end_inset
 
-are enhance along their inverse curvature normal directions by solving this
- simple linear system: 
+are enhanced along their inverse curvature normal directions by solving
+ the linear system: 
 \begin_inset Formula $Ax=b$
 \end_inset
 
@@ -1670,11 +1666,7 @@ reference "eq:TQLBO-Normalized_Matrix"
 \begin_inset Formula $W_{p}$
 \end_inset
 
- is a diagonal matrix with weight vertex group, 
-\begin_inset Formula $\mbox{sign}\left(x\right)$
-\end_inset
-
- is the sign function, and 
+ is a diagonal matrix with weight vertex group, and 
 \begin_inset Formula $\lambda dt$
 \end_inset
 
@@ -1684,9 +1676,9 @@ reference "eq:TQLBO-Normalized_Matrix"
 \end_layout
 
 \begin_layout Standard
-At the borders of the meshes that are not closed, you can not calculate
- the curvature, for that reason we use the scale-dependent operator proposed
- by 
+The curvature cannot be calculted at the border of the meshes that are not
+ closed, for that reason we use the scale-dependent operator proposed by
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Desbrun1999"
@@ -1697,8 +1689,9 @@ key "Desbrun1999"
 \end_layout
 
 \begin_layout Standard
-Our method was designed for use with weight vertex groups to specify the
- degree of impact on the solution, the weights vary between 
+Our method was designed for use with weighted vertex groups which specify
+ the final curvature enhancement on the solution, these weights vary between
+ 
 \begin_inset Formula $0$
 \end_inset
 
@@ -1710,9 +1703,9 @@ Our method was designed for use with weight vertex groups to specify the
 \begin_inset Formula $0$
 \end_inset
 
- makes no changes and with values 1 applies the total change.
- The weights modifying influence zones where the Laplacian is applied as
- shown in the equation 
+ makes no changes and with values 1 applies a maximal change.
+ The weights modify influence zones where the Laplacian is applied as shown
+ in the equation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:Lineal_System_with_wp"
@@ -1720,15 +1713,13 @@ reference "eq:Lineal_System_with_wp"
 \end_inset
 
 .
- The weights on each vertex will produce a different solution for that reason
- are put before obtaining the solution of the linear system.
  Families of shapes that are generated may change substantially with the
  weights of specific control points.
 \end_layout
 
 \begin_layout Standard
-The model volume increases as the lambda is most negative, this can be countered
- by a simple method of preserving volume.
+The models volume increases as the lambda is larger and negative, this can
+ be go against by a simple method of volume preservation.
  In 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1736,13 +1727,13 @@ key "Desbrun1999"
 
 \end_inset
 
- present a simple method to resize the mesh but have a problem the model
- suffer large displacements with 
+ presents a simple method to resize the mesh however the model suffers large
+ displacements when 
 \begin_inset Formula $\lambda<-1.0$
 \end_inset
 
- or perform multiple iterations.
- We propose the following solution: If we have 
+ or after multiple iterations.
+ We propose the following solution: If 
 \begin_inset Formula $v_{i}^{t+1}$
 \end_inset
 
@@ -1785,7 +1776,7 @@ key "Desbrun1999"
 \begin_inset Formula $t+1$
 \end_inset
 
-, then we have that scale factor for resize the volume is
+, then we define a scale factor.
 \end_layout
 
 \begin_layout Standard
@@ -1797,7 +1788,7 @@ key "Desbrun1999"
 \end_layout
 
 \begin_layout Standard
-and the new vertices positions are:
+The new vertices positions are:
 \end_layout
 
 \begin_layout Standard
@@ -1903,9 +1894,9 @@ Left: Original Model, in green color model with Catmull-Clark Subdivision.
 \end_layout
 
 \begin_layout Standard
-We design a new brush that allows enhancement of the curvatures of a polygon
- mesh in real time.
- Our brush work well with the stroke method named 
+We designed a new brush that allows the enhancement of the curvatures of
+ a polygon mesh in real time.
+ Our brush works well with the stroke method named 
 \shape slanted
 Drag Dot
 \shape default
@@ -1926,45 +1917,44 @@ key "blender"
 
 \end_inset
 
- which allows you to preview the change that occurs in the model until you
- release the mouse button or tablet, also enable moves the mouse over the
- model to fit exactly where you want to perform the enhancement of the curvature.
+ which allows to preview the changes in the model before you release the
+ mouse button or pen tablet, also allows to move the mouse over the model
+ to fit exactly where you want to perform the enhancement of the curvature.
 \end_layout
 
 \begin_layout Standard
 Brushes that perform similar work as inflate can create distortions in the
- mesh and can also produce self-intersections of the mesh, as this brushes
- only moves the vertices along the normal and does not take into account
- the global information.
- Whereas our method look for the best way to make inflation while keeping
- the global curvature for preserving the shape and sharp features of the
- model.
+ mesh and can also produce self-intersections in the mesh, as these brushes
+ only move the vertices along the normal and do not take into account the
+ global information.
+ Whereas our method looks for the best way to make inflation while preserving
+ the global curvature retaining the several shape and sharp features of
+ the model.
 \end_layout
 
 \begin_layout Standard
 Our method simplifies the work required for the enhancement, which would
  be to use some different brushes for inflating and some other to soften
  and styling.
- With our enhanced brush can be performed in one step.
+ With our enhanced brush in one step can be performed.
 \end_layout
 
 \begin_layout Standard
-For the real-time work brush is necessary that the matrix is constructed
- with the vertices that are within the radius defined by the user involvement,
- which dramatically reduces the size of the matrix to be processed, the
- center of this sphere depends on the place where the user clicks on the
- canvas and three-dimensional mesh place where the click is projected.
+For the real-time brush it necessary that the Laplacian matrix is constructed
+ with the vertices that are within the radius  of the sphere defined by
+ the user, which reduces the size of the matrix to be processed, the center
+ of this sphere depends on the place where the user clicks on the canvas
+ and three-dimensional mesh place where the click is projected.
  
 \end_layout
 
 \begin_layout Standard
-Furthermore special handling is necessary with the vertices are at the boundary
- of which have neighbors that are not within the radius of impact, these
- vertices must be marked as boundary and not the curvature calculated for
- them, but must be present in the matrix to allow the vertices that have
- all their neighbors within the selection radius to calculate correctly
- the curvature, this change allows the results to be much smoother on the
- border.
+Furthermore special handling is required for the vertices at the boundary
+ which have neighbors that are not within the radius of the brush.
+ These vertices must be marked as boundary and the curvature will not be
+ calculated for them, but must be present in the matrix so that every vertex
+ has their neighbors within the selection, this change allows the results
+ to be much smoother on the border.
  The Laplacian matrix for sculpt mode as a matrix equation.
 \end_layout
 
@@ -1989,12 +1979,12 @@ Where
 \begin_inset Formula $u$
 \end_inset
 
- is the center of sphere the radius 
+ is the center of sphere of radius 
 \begin_inset Formula $r$
 \end_inset
 
 .
- Then the matrix should remove rows and columns of vertices index that are
+ The matrixes should remove rows and columns of vertices index that are
  not within the radius.
 \end_layout
 
@@ -2011,7 +2001,7 @@ name "sub:Subdivision-surfaces"
 
 \begin_layout Standard
 The Catmull-Clark subdivision transformation is used to smooth a surface
- as the limit of sequence of subdivision steps
+ as the limit of a sequence of subdivision steps
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Stam1998"
@@ -2019,10 +2009,8 @@ key "Stam1998"
 \end_inset
 
 .
- This method do a recursive subdivision transformation that refines the
- model into a linear interpolation that is a approximate smooth surface.
- The process of Catmull-Clark is govern by properties of B-spline curve
- from multivariate spline theory
+ This process is governed by properties of B-splines curve from multivariate
+ spline theory
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Loop1987"
@@ -2030,8 +2018,9 @@ key "Loop1987"
 \end_inset
 
 .
- In many subdivision surfaces methods Catmull-Clark, Loop so on, the smoothness
- of the model is automatically guaranteed 
+ This method does a recursive subdivision transformation that refines the
+ model into a linear interpolation that approximates a smooth surface.
+ The smoothness of the model is automatically guaranteed 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "DeRose1998"
@@ -2043,24 +2032,23 @@ key "DeRose1998"
 \end_layout
 
 \begin_layout Standard
-Catmull-Clark subdivision surface method generates smooth and continuous
+Catmull-Clark subdivision surface methods generate smooth and continuous
  models from a coarse model and produce results quickly due to the simplicity
  of implementation, but with these methods is not easy to make changes to
  the global curvature of the model.
  If we use Catmull-Clark subdivision surfaces and curvature enhancement
  for modeling from coarse models with few vertices can generate families
- of shapes with just change a parameter, which would allow an artist to
- choose the model of a similar set of options that best meets your needs
- without having to change each one of the control vertices.
+ of shapes changing a single parameter, this would allow an artist to choose
+ the model from a similar set of options that best meets his/her needs without
+ having to change each one of the control vertices.
 \end_layout
 
 \begin_layout Standard
 Our method allows the use of vertex weight paint over the control points.
- The weights can be applied to the coarse model, then to perform subdivision
- weights are interpolated, producing weights with smooth changes in the
- zones of influence, so the curvature that is obtained is much softer at
- those areas.
- Using vertex group weight and subdivision surfaces is shown in figure 
+ The weights can be applied to a coarse model, then to perform a Catmull-Clark
+ subdivision where weights are interpolated, producing weights with smooth
+ changes in the zones of influence, so the obtained curvature is much softer
+ at those areas as shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Subdivision-Cups"
@@ -2083,8 +2071,8 @@ reference "eq:Lineal_System_with_wp"
 \end_inset
 
  is a diagonal matrix with weights corresponding to each vertex.
- The weights at each vertex produce a different solution for this reason
- the matrix is placed in the diffusion equation, as families that are generated
+ Weights at each vertex produce a different solution for this reason the
+ matrix is placed in the diffusion equation, as families that are generated
  may change substantially with weighted of specific control points.
 \end_layout
 
@@ -2101,8 +2089,8 @@ name "sec:Results"
 
 \begin_layout Standard
 In this section we describe the results of our curvature enhance method
- that used our extension of Laplace Beltrami operator for hybrid quad/triangle
- meshes with several example models in figures 
+ with the extension of the Laplace Beltrami operator for hybrid quad/triangle
+ meshes with several example models (see figures 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Spectrum"
@@ -2165,7 +2153,7 @@ reference "fig:Animated_Camell"
 
 \end_inset
 
-.
+).
  We test the curvature enhance with TQLBO method on a PC with AMD Quad-Core
  Processor @ 2.40 GHz and 8 GB RAM.
 \end_layout
@@ -2192,7 +2180,7 @@ reference "eq:TQLBO_Simple_Matrix"
  In column (d) the model was converted to triangles and then Laplacian smoothing
  was applied.
  In column (e) the model is converted randomly some quads into triangles
- and then Laplacian smoothing was applied, showing similar results to those
+ and then Laplacian smoothing is applied, showing similar results to those
  composed only of triangles or squares.
 \end_layout
 
@@ -2328,12 +2316,11 @@ reference "fig:camello_enhanced"
 
 \end_inset
 
- show the generation of different version of camel with the variation of
- parameter lambda.
+ show the generation of different versions of a camel according to parameter
+ lambda.
  In the top row you can see results of do curvature enhance over all model,
- as the lambda becomes more negative curvature in this model makes close
- in the concave parts and inflates on the convex parts as shown in figure
- 
+ as the lambda becomes larger and negative in this model it inflates the
+ convex parts as shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Spectrum"
@@ -2341,9 +2328,11 @@ reference "fig:Spectrum"
 \end_inset
 
 .
- We use negative values to enhance model silhouette features, among more
- negative the lambda, the model will be further enhanced the silhouette
- features.
+ The larger 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ the larger enhancements on the model features.
  In the bottom row of the figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2446,8 +2435,8 @@ reference "fig:Animated_Camell"
  This is due to the diffusion process which is subjected to the mesh so
  that small local changes are treated without significantly affecting global
  solution.
- Our method is invariant of rotation, since depends solely the normal field
- of the mesh, wish is invariant under global rotations.
+ Our method is invariant of rotation, this since depends solely the normal
+ field of the mesh, wish is invariant under global rotations.
  
 \end_layout
 
@@ -2492,9 +2481,9 @@ reference "fig:Performance-sculpt"
 
 \end_inset
 
- we show the performance of curvature enhancement brush, in this experimet
+ we show the performance of curvature enhancement brush, in this experiment
  we use three models with 12K, 40K and 164K vertices, this models were sculpted
- with curvature enhance brush in eache step the brush sphere contain a variable
+ with curvature enhance brush in each step the brush sphere contain a variable
  number of vertices for processing.
  The processing time for 800 vertices in the camel paw (40k model) only
  take 0.1 seconds, for 2600 vertices in leg and neck (model 40k) take 0.5
