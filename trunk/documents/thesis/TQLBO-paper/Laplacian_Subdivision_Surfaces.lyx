@@ -22,7 +22,7 @@
 % command to include the online ID value assigned to your paper by the
 % submission management system. Replace '45678' with the value you were
 % assigned.
-\TOGonlineid{45678}
+\TOGonlineid{XXXXX}
 
 % If you are preparing a preprint of your accepted paper, and your paper
 % will be published in an issue of the ACM "Transactions on Graphics''
@@ -50,7 +50,7 @@
 \TOGcodeURL{}
 
 % Paper title.
-\title{Curvature Enhance with Laplacian Operator for Hybrid Quad/Triangle Meshes}
+\title{Curvature Enhance With and Adapted Laplacian Operator For Hybrid Quad/Triangle Meshes}
 
 % Author and Affiliation (single author).
 %\author{Name \thanks{e-mail: name@unknown.uu}\\ Research Institute}
@@ -261,14 +261,16 @@ maketitle
 \end_layout
 
 \begin_layout Abstract
-This paper proposes a novel method for modeling polygonal mesh using curvature
- enhancing.
- This method use our extension of Laplace Beltrami operator for hybrid quad/tria
-ngle meshes to enhance global curvature in the model.
- This work present a novel applications of curvature enhancement in sculpting
- and modeling with subdivision surfaces and weight vertex groups.
- We show a series of graphics examples that demonstrate the quality, predictabil
-ity and flexibility of our results.
+This paper proposes a novel method for modeling a polygonal mesh by enhancing
+ the object curvature.
+ This method uses an adapted extension of the Laplace Beltrami operator
+ for hybrid quad/triangle meshes, to enhance the global curvature.
+ Along with the method, this work also presents new applications of curvature
+ enhancement in sculpting and modelling with subdivision surfaces and weight
+ vertex groups.
+ A series of graphics examples demonstrates the quality, predictability
+ and flexibility of the results in a real production environment with software
+ blender.
 \end_layout
 
 \begin_layout Standard
@@ -484,8 +486,8 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-Over the last years have been developed novel techniques of modeling that
- can generate a variety of shapes to look natural and realistic 
+Over the last years several modeling techniques have been developed to generate
+ a variety of shapes that look natural and realistic
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Botsch2006"
@@ -508,7 +510,7 @@ key "Igarashi1999,Gonen2012"
 
 \end_inset
 
-, complex interpolation techniques 
+, and complex interpolation techniques 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sorkine2004,Zhou2005"
@@ -519,24 +521,25 @@ key "Sorkine2004,Zhou2005"
 \end_layout
 
 \begin_layout Standard
-Traditional methods for smooth surfaces from coarse geometry like Catmull-Clark
- have been widely developed 
+Traditional methods for smoothing surfaces from coarse geometry, like the
+ Catmull-Clark, have become widely popular 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Catmull1978,Stam1998"
 
 \end_inset
 
-, these works generalize uniform B-cubic splines knot insertion to meshes,
- some of them add control of the results with the use of creases to produce
- sharp edges 
+.
+ These works generalize the uniform B-cubic splines knot insertion to meshes,
+ some of them adding some type of control, for instance with the use of
+ creases to produce sharp edges 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "DeRose1998"
 
 \end_inset
 
-, or the modification of weights on the vertices that control locally the
+, or the modification of weights on the vertices to locally control the
  zone of influence 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -544,56 +547,27 @@ key "Biermann2000"
 
 \end_inset
 
-, instead our method performs a feature enhancement of the model allowing
- parameterize the curvature of the surface creating a family of different
- versions of the same object preserving detail and realistic natural look
- of the original model.
+.
+ Instead, the presented method performs a feature enhancement of the model
+ by parameterizing the surface curvature and thereby creating a family of
+ different versions of the same object, preserving therefore the detail
+ of the original model and a realistic appearance.
  
 \end_layout
 
 \begin_layout Standard
-Many types of brushes have been developed to sculpt meshes, brushes that
- perform inflation lose detail when inflating the vertices 
+On the other hand, many types of brushes have been developed to sculpt meshes.
+ Brushes that perform inflation end up by losing detail when inflating the
+ vertices 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Stanculescu2011"
 
 \end_inset
 
-, our method allows inflation of the mesh vertices moving in the opposite
- direction to the curvature preserving the shape and sharp features of the
- model.
-\end_layout
-
-\begin_layout Standard
-This work is organized as follows: In the section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:1.1-Related-work"
-
-\end_inset
-
- show works related to the Laplacian mesh processing, digital sculpting,
- and offsetting methods for polygonal meshes; In the section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Laplacian-Smooth"
-
-\end_inset
-
- we describe the theoretical framework of the Laplacian operator for polygon
- meshes; In the section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Proposed-Method"
-
-\end_inset
-
- we present our proposed method for curvature enhancement and applications
- on subdivision surfaces and sculpting; Lastly some results are shown in
- graphic examples of Laplacian operator for hybrid quad/triangle meshes.
- Also shows some results of curvature enhancement applications in sculpting,
- subdivision and modeling methods.
+, in contrast the presented method allows inflation of the mesh vertices
+ by moving them towards the opposite curvature direction, conserving the
+ shape and sharp features of the model.
 \end_layout
 
 \begin_layout Standard
@@ -601,16 +575,48 @@ reference "sec:Proposed-Method"
 \series bold
 Contributions
 \series default
- Our work present an extension of the Laplace Beltrami operator for hybrid
- quad/triangle meshes representing a larger spectrum of mesh that works
- with today eliminating the need for preprocessing and allows the preservation
+ This work presents an extension of the Laplace Beltrami operator for for
+ hybrid quad/triangle meshes representing a larger mesh spectrum from what
+ has been presented so far.
+ The method eliminates the need of preprocessing and allows preservation
  of the original topology.
- With this operator we proposed a method to generate family of parameterized
- shapes, in a robust and predictable way.
- Our method enable to customization of smoothness and curvature obtained
- during subdivision surfaces process.
- We proposed a new brush for enhance silhouette features of mesh in modeling
- and sculpting.
+ Likewise, along with this operator, it is proposed a method to generate
+ a family of parameterized shapes, in a robust and predictable way.
+ This method enables customization of the smoothness and curvature, obtained
+ during the subdivision surfaces process.
+ Finally, it is proposed a new brush for enhancing silhouette mesh features
+ in modeling and sculpting.
+\end_layout
+
+\begin_layout Standard
+This work is organized as follows: Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:1.1-Related-work"
+
+\end_inset
+
+ presents works related to the Laplacian mesh processing, digital sculpting,
+ and offsetting methods for polygonal meshes; In section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Laplacian-Smooth"
+
+\end_inset
+
+ , it is described the theoretical framework of the Laplacian operator for
+ polygon meshes; In section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Proposed-Method"
+
+\end_inset
+
+, it is presented the method for curvature enhancement and applications
+ of subdivision of surfaces and sculpting; finally some Laplacian operator
+ results, to hybrid quad/triangle meshes are graphically shown as well as
+ results of the curvature enhancement applications in sculpting, subdivision
+ and modeling.
 \end_layout
 
 \begin_layout Section
@@ -625,11 +631,10 @@ name "sub:1.1-Related-work"
 \end_layout
 
 \begin_layout Standard
-Many tools have been developed for modeling based on Laplacian mesh processing.
- Thanks to the kindness of the Laplacian operator these tools have in common
- the need for preservation of the geometric details of the surface for the
- different processes such as: free-form deformation, fusion, morphing and
- other applications 
+Many tools have been developed for modeling, based on Laplacian mesh processing.
+ Thanks to the advantages of the Laplacian operator, these different tools
+ preserve the surface geometric details when using them for different processes
+ such as free-form deformation, fusion, morphing and other application
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sorkine2004"
@@ -641,12 +646,12 @@ key "Sorkine2004"
 \end_layout
 
 \begin_layout Standard
-Methods for offset polygon meshes based on the curvature defined by the
- Laplace Beltrami operator have been developed.
- These methods allow adjusting shape offset by a constant distance with
- high enough precision to minimize Hausdorf error.
- The problem with these methods is the loss of detail caused by smoothing,
- which depends on the size of the offset 
+Offset polygon mesh methods, based on the curvature defined by the Laplace
+ Beltrami operator, have been developed.
+ These methods adjust the shape offset by a constant distance, with high
+ precision as to minimize the Hausdorf error.
+ Nevertheless, these methods fail to conserve enough detail because of the
+ smoothing, a crucial issue which depends on the offset size
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Zhuo2012"
@@ -655,9 +660,9 @@ key "Zhuo2012"
 
 .
  In volumetric approaches on computing the offset boundary that are based
- on distance field computation in point-based representation, this methods
- the topology of the offset model can be different from that the original
- geometry 
+ on distance field computation in point-based representation, when performing
+ the offset, the topology of the model may be different from the original,
+ changing the original design 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Chen2011"
