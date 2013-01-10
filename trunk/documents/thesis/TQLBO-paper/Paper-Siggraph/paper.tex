@@ -54,7 +54,7 @@
 \TOGcodeURL{}
 
 % Paper title.
-\title{Curvature Enhance With and Adapted Laplacian Operator For Hybrid Quad/Triangle Meshes}
+\title{Curvature Enhancement With and Adapted Laplacian Operator For Hybrid Quad/Triangle Meshes}
 
 % Author and Affiliation (single author).
 %\author{Name \thanks{e-mail: name@unknown.uu}\\ Research Institute}
@@ -92,12 +92,11 @@ of $-5.0$.}
 \maketitle
 \maketitle 
 \begin{abstract}
-This paper proposes a novel method for modeling a polygonal mesh by
-enhancing the object curvature. This method uses an adapted extension
-of the Laplace Beltrami operator for hybrid quad/triangle meshes,
-to enhance the global curvature. Along with the method, this work
-also presents new applications of curvature enhancement in sculpting
-and modeling with subdivision surfaces and weight vertex groups. A
+This paper proposes a novel modeling method for a hybrid quad/triangle mesh by
+enhancing the global object curvature. This method uses an adapted extension
+of the Laplace Beltrami operator. Along with the method, this work
+also presents new applications in sculpting
+and modeling, with subdivision of surfaces and weight vertex groups. A
 series of graphics examples demonstrates the quality, predictability
 and flexibility of the method in a real production environment with
 software blender.
@@ -120,7 +119,7 @@ Over the last years several modeling techniques have been developed
 to generate a variety of shapes that look natural and realistic\cite{Botsch2006}.
 Editing techniques have evolved from affine transformations to advanced
 tools like sculpting \cite{Coquillart1990,Galyean1991,Stanculescu2011},
-editing and creation from sketches \cite{Igarashi1999,Gonen2012},
+editing, creation from sketches \cite{Igarashi1999,Gonen2012},
 and complex interpolation techniques \cite{Sorkine2004,Zhou2005}.
 
 Traditional methods for smoothing surfaces from coarse geometry, like
@@ -128,12 +127,12 @@ the Catmull-Clark, have become widely popular \cite{Catmull1978,Stam1998}.
 These works generalize the uniform B-cubic splines knot insertion
 to meshes, some of them adding some type of control, for instance
 with the use of creases to produce sharp edges \cite{DeRose1998},
-or the modification of weights on the vertices to locally control
+or the modification of the vertex weights to locally control
 the zone of influence \cite{Biermann2000}. Instead, the presented
 method performs a feature enhancement of the model by parameterizing
-the surface curvature and thereby creating a family of different versions
-of the same object, preserving therefore the detail of the original
-model and a realistic appearance. 
+the surface curvature, creating a family of different versions
+of the same object and therefore preserving  the detail of the original
+model and a more realistic appearance. 
 
 On the other hand, many types of brushes have been developed to sculpt
 meshes. Brushes that perform inflation end up by losing detail when
@@ -143,20 +142,19 @@ the opposite curvature direction, conserving the shape and sharp features
 of the model.
 
 \textbf{Contributions} This work presents an extension of the Laplace
-Beltrami operator for hybrid quad/triangle meshes representing a larger
+Beltrami operator for hybrid quad/triangle meshes, representing a larger
 mesh spectrum from what has been presented so far. The method eliminates
 the need of preprocessing and allows preservation of the original
 topology. Likewise, along with this operator, it is proposed a method
 to generate a family of parameterized shapes, in a robust and predictable
 way. This method enables customization of the smoothness and curvature,
 obtained during the subdivision surfaces process. Finally, it is proposed
-a new brush for enhancing silhouette mesh features in modeling and
+a new brush for enhancing the silhouette mesh features in modeling and
 sculpting.
 
 This work is organized as follows: Section \ref{sub:1.1-Related-work}
 presents works related to the Laplacian mesh processing, digital sculpting,
-and offsetting methods for polygonal meshes; In section \ref{sec:Laplacian-Smooth}
-, it is described the theoretical framework of the Laplacian operator
+and offsetting methods for polygonal meshes; In section \ref{sec:Laplacian-Smooth}, it is described the theoretical framework of the Laplacian operator
 for polygon meshes; In section \ref{sec:Proposed-Method}, it is presented
 the method for curvature enhancement and applications of subdivision
 of surfaces and sculpting; finally some Laplacian operator results,
@@ -167,45 +165,39 @@ and modeling.
 
 \section{Related work\label{sub:1.1-Related-work}}
 
-Many tools have been developed for modeling, based on Laplacian mesh
+Many tools have been developed for modeling, based on the Laplacian mesh
 processing. Thanks to the advantages of the Laplacian operator, these
 different tools preserve the surface geometric details when using
 them for different processes such as free-form deformation, fusion,
 morphing and other application\cite{Sorkine2004}. 
 
-Offset polygon mesh methods, based on the curvature defined by the
+Offset methods for polygon meshing, based on the curvature defined by the
 Laplace Beltrami operator, have been developed. These methods adjust
-the shape offset by a constant distance, with high precision as to
+the shape offset by a constant distance, with enough precision as to
 minimize the Hausdorf error. Nevertheless, these methods fail to conserve
-enough detail because of the smoothing, a crucial issue which depends
-on the offset size\cite{Zhuo2012}. In volumetric approaches for point-based
-representation the computing the offset boundary that are based on
-distance field computation, when performing the offset, the topology
-of the model may be different from the original, changing the original
-design \cite{Chen2011}.
+sufficient detail because of the smoothing, a crucial issue which depends
+on the offset size\cite{Zhuo2012}. In volumetric approaches, in case of point-based
+representations, the offset boundary computation is based on the
+distance field and therefore when calculating such offset, the topology
+of the model may be different to the original  \cite{Chen2011}.
 
-\cite{Gal2009} proposes automatic features detection and shape edition
+\cite{Gal2009} proposes automatic feature detection and shape edition
 with feature inter-relationship preservation. They define salient
-surface features like ridges and valleys with based the first and
+surface features like ridges and valleys, characerized bytheir first and
 second order curvature derivatives \cite{Ohtake2004}, and angle-based
-threshold. Later the curves are classified by several properties as
+threshold.Likewise, curves have been also classified as
 planar or non-planar, approximated by lines, circles, ellipses and
-other complex shapes. In then the user defines an initial change over
-several features and then this change is propagated over other features
-with base in the classified shapes and the inter-relationships between
-these. This method works fine with objects that have sharp edges composed
-of basic geometric shapes such as lines, circles or ellipses but method
-has problems to classify when models are smoother with organic forms
-because it cannot find the features to edit and preserve.
+other complex shapes. In such case, the user defines an initial change over
+several features and this change is propagated towards other features,
+based in the classified shapes and the inter-relationships between
+them. This method works well with objects that have sharp edges, composed
+of basic geometric shapes such as lines, circles or ellipses, but the method
+is very limited at classifying when models are smooth since it cannot find the features to edit and preserve.
 
-Digital sculpting can be divided into two principal approaches: based
-on polygonal methods and voxel grid-based methods. Brushes for inflate
-operations in polygonal methods only depends on the normal at each
-vertex \cite{Stanculescu2011}, in grid-based sculpting some operations
-allow to add or remove voxels, for produce polygonal meshes require
+Digital sculpting have been traditionally approached either under a polygonal representation or a voxel grid-based method. Brushes for inflation operations only depend on the normal vertex \cite{Stanculescu2011}, in grid-based sculpting, some other operations have allowed to add or remove voxels, since producing polygonal meshes require
 processing isosurfaces from volume \cite{Galyean1991}. The problem
-whit this type of operations is the difficult to maintain surface
-details during larger scale deformation.
+whit this type of operations is the difficulty of maintaining the surface
+details during larger scale deformations.
 
 
 \section{Laplacian Smooth\label{sec:Laplacian-Smooth}}
