@@ -115,30 +115,45 @@ software blender.
 
 \section{Introduction}
 
-Over the last years several modeling techniques have been developed
-to generate a variety of shapes that look natural and realistic\cite{Botsch2006}.
+Over the last years several, modeling techniques able to generate
+a variety of realistic shapes, have been developed \cite{Botsch2006}.
 Editing techniques have evolved from affine transformations to advanced
 tools like sculpting \cite{Coquillart1990,Galyean1991,Stanculescu2011},
 editing, creation from sketches \cite{Igarashi1999,Gonen2012}, and
-complex interpolation techniques \cite{Sorkine2004,Zhou2005}.
+complex interpolation techniques \cite{Sorkine2004,Zhou2005}. Catmull-Clark
+based methods however require to interact with a minimun number of
+control points for any operation to be efficient, or in other words,
+a unicity condition is introduced by demanding a smooth surface after
+any of these shape operations. Hence, traditional modeling methods
+for subdividing surfaces from coarse geometry have become widely popular
+\cite{Catmull1978,Stam1998}. These works have generalized a uniform
+B-cubic spline knot insertion to meshes, some of them adding some
+type of control, for instance with the use of creases to produce sharp
+edges \cite{DeRose1998}, or the modification of some vertex weights
+to locally control the zone of influence \cite{Biermann2000}. Neverteless
+these methods are difficult to deal with since they require a large
+number of parameters and a very tedious customization. Instead, the
+presented method requires a single parameter that controls the global
+curvature, whereby it performs a curvature enhancement and shape exaggeration
+of the model, creating a family of different versions of the same
+object and therefore preserving the detail of the original model and
+a realistic appearance.
 
-Traditional methods for smoothing surfaces from coarse geometry, like
-the Catmull-Clark, have become widely popular \cite{Catmull1978,Stam1998}.
-These works generalize the uniform B-cubic splines knot insertion
-to meshes, some of them adding some type of control, for instance
-with the use of creases to produce sharp edges \cite{DeRose1998},
-or the modification of vertex weight to locally control the zone of
-influence \cite{Biermann2000}. Instead, the presented method performs
-a feature enhancement of the model by parameterizing the surface curvature,
-creating a family of different versions of the same object and therefore
-preserving the detail of the original model and a realistic appearance. 
+The curvature enhancement and shape exaggeration can be used in the
+sculpting proccess when inflating with a brush since current brushes
+that perform inflation end up by losing detail when moving vertices
+\cite{Stanculescu2011}, in contrast the presented method allows inflation
+of the mesh vertices by moving them towards the reverse curvature
+direction, conserving the shape and sharp features of the model.
 
-On the other hand, many types of brushes have been developed to sculpt
-meshes. Brushes that perform inflation end up by losing detail when
-inflating the vertices \cite{Stanculescu2011}, in contrast the presented
-method allows inflation of the mesh vertices by moving them towards
-the opposite curvature direction, conserving the shape and sharp features
-of the model.
+Interest on meshes composed by triangles and quads has increasing
+in recent years due to the flexibility of modeling tools as Blender
+3D \cite{blender}. Today many artists manually connect vertices such
+that its edition allows a simple way to perform animation processes
+and interpolation \cite{Mullen2007}. For these reasons it is very
+important to develop an operator that allows working with this type
+of mesh immediately, eliminating the need to preprocessing the mesh
+to convert to triangles and losing the original design made by users. 
 
 \textbf{Contributions} This work presents an extension of the Laplace
 Beltrami operator for hybrid quad/triangle meshes, representing a
@@ -293,12 +308,6 @@ model. Our approach can be mixed with traditional or uniform subdivision
 surfaces methods, is iterative and converges towards a continuous
 and smooth version of the original model. 
 
-Unlike other methods, our method allows to use mixed arbitrary types
-of mesh representation as triangles and quads, exploiting the basic
-geometrical relationships facilitating and ensuring convergence of
-the algorithm and similar shapes consistent with the original shape
-against the other methods. 
-
 Our method allows the use of soft constraints weighting the effect
 of smoothing at each vertex based on a normalized weight, which are
 assigned to the control vertices of the original mesh or. The weights
@@ -306,16 +315,11 @@ of the new vertices resulting from the subdivisions are calculated
 by interpolation, allowing modifying the behavior of the method on
 specific regions of the original model.
 
-Our approach is based on an extension of the Laplace Beltrami operator
-for meshes composed by triangles and quads. Interest on meshes composed
-by triangles and quads has increasing in recent years due to the flexibility
-of modeling tools as Blender 3D \cite{blender}. Today many artists
-manually connect vertices such that its edition allows a simple way
-to perform animation processes and interpolation \cite{Mullen2007}.
-For these reasons it is very important to develop an operator that
-allows working with this type of mesh immediately, eliminating the
-need to preprocessing the mesh to convert to triangles and losing
-the original design made by users.
+Our work presents an extension of the Laplace Beltrami operator for
+hybrid quad/triangle meshes, allows using mixed arbitrary types of
+mesh representation, exploiting the basic geometrical relationships
+facilitating and ensuring convergence of the algorithm and similar
+shapes consistent with the original shape against the other methods. 
 
 
 \subsection{Laplace Beltrami Operator for Hybrid Quad/Triangle Meshes TQLBO\label{sub:Laplace-Beltrami-operator}}
