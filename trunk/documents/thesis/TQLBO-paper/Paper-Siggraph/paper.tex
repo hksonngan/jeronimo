@@ -54,7 +54,7 @@
 \TOGcodeURL{}
 
 % Paper title.
-\title{Curvature Enhancement With and Adapted Laplacian Operator For Hybrid Quad/Triangle Meshes}
+\title{Curvature Enhanced Shape With and Adapted Laplacian Operator For Hybrid Quad/Triangle Meshes}
 
 % Author and Affiliation (single author).
 %\author{Name \thanks{e-mail: name@unknown.uu}\\ Research Institute}
@@ -84,7 +84,7 @@
 
 
 
-\teaser{\includegraphics[width=1\textwidth]{images/spectrum} \caption{\label{fig:Spectrum}A set of 48 successive curvature enhance shapes,
+\teaser{\includegraphics[width=1\textwidth]{images/spectrum} \caption{\label{fig:Spectrum}A set of 48 successive curvature enhanced shapes,
 from $\lambda=0.0$ in blue to $\lambda=-240.0$ in red, with steps
 of $-5.0$.}
 }
@@ -92,10 +92,10 @@ of $-5.0$.}
 \maketitle
 \maketitle 
 \begin{abstract}
-This paper proposes a novel modeling method for a hybrid quad/triangle
+This paper proposes a novel modeling method for modeling a hybrid quad/triangle
 mesh by enhancing the global object curvature. This method uses an
 adapted extension of the Laplace Beltrami operator. Along with the
-method, this work also presents new applications in sculpting and
+method, this work presents new applications in sculpting and
 modeling, with subdivision of surfaces and weight vertex groups. A
 series of graphics examples demonstrates the quality, predictability
 and flexibility of the method in a real production environment with
@@ -130,7 +130,7 @@ for subdividing surfaces from coarse geometry have become widely popular
 B-cubic spline knot insertion to meshes, some of them adding some
 type of control, for instance with the use of creases to produce sharp
 edges \cite{DeRose1998}, or the modification of some vertex weights
-to locally control the zone of influence \cite{Biermann2000}. Neverteless
+to locally control the zone of influence \cite{Biermann2000}. Nevertheless,
 these methods are difficult to deal with since they require a large
 number of parameters and a very tedious customization. Instead, the
 presented method requires a single parameter that controls the global
@@ -139,21 +139,8 @@ of the model, creating a family of different versions of the same
 object and therefore preserving the detail of the original model and
 a realistic appearance.
 
-The curvature enhancement and shape exaggeration can be used in the
-sculpting proccess when inflating with a brush since current brushes
-that perform inflation end up by losing detail when moving vertices
-\cite{Stanculescu2011}, in contrast the presented method allows inflation
-of the mesh vertices by moving them towards the reverse curvature
-direction, conserving the shape and sharp features of the model.
+Interest in meshes composed of triangles and quads has lately increased because of the flexibility of modeling tools such as Blender 3D \cite{blender}. Nowadays, many artists use a manual connection of a couple of vertices to perform animation processes and interpolation \cite{Mullen2007}. It is then of paramount importance to develop operators that easily interact with such meshes, eliminating the need of preprocessing the mesh to convert it to triangles. The curvature enhancement and shape exaggeration can thus be used as such operator in the sculpting process, when brush inflating a shape since current brushes end up by losing detail when moving vertices \cite{Stanculescu2011}. In contrast, the presented method inflates a mesh by moving the vertices towards the reverse curvature direction, conserving the shape and sharp features of the model.
 
-Interest on meshes composed by triangles and quads has increasing
-in recent years due to the flexibility of modeling tools as Blender
-3D \cite{blender}. Today many artists manually connect vertices such
-that its edition allows a simple way to perform animation processes
-and interpolation \cite{Mullen2007}. For these reasons it is very
-important to develop an operator that allows working with this type
-of mesh immediately, eliminating the need to preprocessing the mesh
-to convert to triangles and losing the original design made by users. 
 
 \textbf{Contributions} This work presents an extension of the Laplace
 Beltrami operator for hybrid quad/triangle meshes, representing a
