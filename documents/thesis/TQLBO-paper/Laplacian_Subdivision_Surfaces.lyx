@@ -50,7 +50,7 @@
 \TOGcodeURL{}
 
 % Paper title.
-\title{Curvature Enhancement With and Adapted Laplacian Operator For Hybrid Quad/Triangle Meshes}
+\title{Curvature Enhanced Shape With and Adapted Laplacian Operator For Hybrid Quad/Triangle Meshes}
 
 % Author and Affiliation (single author).
 %\author{Name \thanks{e-mail: name@unknown.uu}\\ Research Institute}
@@ -263,8 +263,8 @@ maketitle
 \begin_layout Abstract
 This paper proposes a novel modeling method for a hybrid quad/triangle mesh
  by enhancing the global object curvature.
- This method uses an adapted extension of the Laplace Beltrami operator.
- Along with the method, this work also presents new applications in sculpting
+ This method uses our adapted extension of the Laplace Beltrami operator.
+ Along with the method, this work presents new applications in sculpting
  and modeling, with subdivision of surfaces and weight vertex groups.
  A series of graphics examples demonstrates the quality, predictability
  and flexibility of the method in a real production environment with software
@@ -550,30 +550,15 @@ key "Biermann2000"
  Neverteless these methods are difficult to deal with since they require
  a large number of parameters and a very tedious customization.
  Instead, the presented method requires a single parameter that controls
- the global curvature, whereby it performs a curvature enhancement and shape
- exaggeration of the model, creating a family of different versions of the
- same object and therefore preserving the detail of the original model and
- a realistic appearance.
+ the global curvature, which is used to maintain realistic shapes, creating
+ a family of different versions of the same object and therefore preserving
+ the detail of the original model and a realistic appearance.
+ 
 \end_layout
 
 \begin_layout Standard
-The curvature enhancement and shape exaggeration can be used in the sculpting
- proccess when inflating with a brush since current brushes that perform
- inflation end up by losing detail when moving vertices 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Stanculescu2011"
-
-\end_inset
-
-, in contrast the presented method allows inflation of the mesh vertices
- by moving them towards the reverse curvature direction, conserving the
- shape and sharp features of the model.
-\end_layout
-
-\begin_layout Standard
-Interest on meshes composed by triangles and quads has increasing in recent
- years due to the flexibility of modeling tools as Blender 3D 
+Interest in meshes composed of triangles and quads has lately increased
+ because of the flexibility of modeling tools such as Blender 3D 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blender"
@@ -581,8 +566,8 @@ key "blender"
 \end_inset
 
 .
- Today many artists manually connect vertices such that its edition allows
- a simple way to perform animation processes and interpolation 
+ Nowadays, many artists use a manual connection of a couple of vertices
+ to perform animation processes and interpolation 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Mullen2007"
@@ -590,11 +575,22 @@ key "Mullen2007"
 \end_inset
 
 .
- For these reasons it is very important to develop an operator that allows
- working with this type of mesh immediately, eliminating the need to preprocessi
-ng the mesh to convert to triangles and losing the original design made
- by users.
- 
+ It is then of paramount importance to develop operators that easily interact
+ with such meshes, eliminating the need of preprocessing the mesh to convert
+ it to triangles.
+ The curvature enhancement and shape exaggeration can thus be used as such
+ operator in the sculpting process, when inflating a shape since current
+ brushes end up by losing detail when moving vertices 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Stanculescu2011"
+
+\end_inset
+
+.
+ In contrast, the presented method inflates a mesh by moving the vertices
+ towards the reverse curvature direction, conserving the shape and sharp
+ features of the model.
 \end_layout
 
 \begin_layout Standard
@@ -677,7 +673,7 @@ key "Sorkine2004"
 Offset methods for polygon meshing, based on the curvature defined by the
  Laplace Beltrami operator, have been developed.
  These methods adjust the shape offset by a constant distance, with enough
- precision as to minimize the Hausdorf error.
+ precision as to minimize the Hausdorff error.
  Nevertheless, these methods fail to conserve sufficient detail because
  of the smoothing, a crucial issue which depends on the offset size 
 \begin_inset CommandInset citation
@@ -701,47 +697,50 @@ key "Chen2011"
 \end_layout
 
 \begin_layout Standard
+Gal et al.
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Gal2009"
 
 \end_inset
 
- proposes automatic feature detection and shape edition with feature inter-relat
-ionship preservation.
+ propose automatic feature detection and shape edition with feature inter-relati
+onship preservation.
  They define salient surface features like ridges and valleys, characerized
- bytheir first and second order curvature derivatives 
+ by their first and second order curvature derivatives 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ohtake2004"
 
 \end_inset
 
-, and angle-based threshold.Likewise, curves have been also classified as
- planar or non-planar, approximated by lines, circles, ellipses and other
- complex shapes.
+, and angle-based threshold.
+ Likewise, curves have been also classified as planar or non-planar, approximate
+d by lines, circles, ellipses and other complex shapes.
  In such case, the user defines an initial change over several features
- and this change is propagated towards other features, based in the classified
- shapes and the inter-relationships between them.
+ which is propagated towards other features, based on the classified shapes
+ and the inter-relationships between them.
  This method works well with objects that have sharp edges, composed of
- basic geometric shapes such as lines, circles or ellipses, but the method
- is very limited at classifying when models are smooth since it cannot find
- the features to edit and preserve.
+ basic geometric shapes such as lines, circles or ellipses.
+ However, the method is very limited when models are smooth since it cannot
+ find the proper features to edit.
 \end_layout
 
 \begin_layout Standard
 Digital sculpting have been traditionally approached either under a polygonal
  representation or a voxel grid-based method.
- Brushes for inflation operations only depend on the normal vertex 
+ Brushes for inflation operations only depend on the vertex normal 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Stanculescu2011"
 
 \end_inset
 
-, in grid-based sculpting, some other operations have allowed to add or
- remove voxels, since producing polygonal meshes require processing isosurfaces
- from volume 
+.
+ In grid-based sculpting, some other operations have allowed to add or remove
+ voxels since production of polygonal meshes require a processing of isosurfaces
+ from a volume 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Galyean1991"
@@ -749,8 +748,8 @@ key "Galyean1991"
 \end_inset
 
 .
- The problem whit this type of operations is the difficulty of maintaining
- the surface details during larger scale deformations.
+ The drawback comes from the difficulty of maintaining the surface details
+ during larger scale deformations.
 \end_layout
 
 \begin_layout Section
@@ -820,17 +819,16 @@ The 5 basic triangle-quad cases with common vertex
 \end_layout
 
 \begin_layout Standard
-Computer graphics objects which have been reconstructed from real world,
- contain undesirable noise.
- Laplacian Smooth techniques allow noise reduction on a mesh's surface with
- minimal changes on its shape while still preserves desirable geometry as
- well as the shape of the original model.
+Computer objects, reconstructed from the real world, are usually noisy.
+ Laplacian Smooth techniques allow a proper noise reduction on the mesh
+ surface with minimal shape changes, while still preserving a desirable
+ geometry as well as the original shape.
  
 \end_layout
 
 \begin_layout Standard
-The functional used in many Laplacian smoothing approaches to constrain
- energy minimization is based on a total curvature of a surface 
+Many smoothing Laplacian functionals regularize the surface energy by controling
+ the total surface curvature
 \begin_inset Formula $S$
 \end_inset
 
@@ -873,7 +871,7 @@ Gradient of Voronoi Area
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -895,7 +893,7 @@ name "fig:voronoi_region"
 
 \end_inset
 
-Area of Voronoi region around 
+Area of the Voronoi region around 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -907,7 +905,7 @@ Area of Voronoi region around
 \begin_inset Formula $v_{j}$
 \end_inset
 
- 1-ring neighbors around 
+ belong to the first neighborhood around 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -943,12 +941,12 @@ Consider a surface
 \begin_inset Formula $S$
 \end_inset
 
- composed by a set of triangles around vertex 
+ composed of a set of triangles around vertex 
 \begin_inset Formula $v_{i}$
 \end_inset
 
 .
- We can define the 
+ Let us define the 
 \shape italic
 Voronoi region
 \shape default
@@ -963,11 +961,11 @@ reference "fig:voronoi_region"
 
 \end_inset
 
-, The change in the area produced by the movement of 
+, The area change produced by the movement of 
 \begin_inset Formula $v_{i}$
 \end_inset
 
- is named gradient of 
+ is called the gradient of 
 \shape italic
 Voronoi region 
 \begin_inset CommandInset citation
@@ -991,18 +989,18 @@ key "Pinkall1993,Desbrun1999,Meyer2003"
 \end_layout
 
 \begin_layout Standard
-If we normalize this gradient in equation (
+If the gradient in equation (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:eq_gradient_voronoi_area"
 
 \end_inset
 
-) by the total area in 1-ring around 
+) is normalized by the total area of the first neighborhood around 
 \begin_inset Formula $v_{i}$
 \end_inset
 
-, we have the 
+, the 
 \shape italic
 discrete mean curvature normal
 \shape default
@@ -1010,7 +1008,7 @@ discrete mean curvature normal
 \begin_inset Formula $S$
 \end_inset
 
- as shown in equation (
+ is obtained, as shown in equation (
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:discrete_mean_curvature_normal"
@@ -1040,11 +1038,11 @@ The
 \shape italic
 Laplace Beltrami operator
 \shape default
- LBO denoted 
+ LBO noted as 
 \begin_inset Formula $\triangle_{g}$
 \end_inset
 
- is used for measures mean curvature normal of the Surface 
+ is used for measuring the mean curvature normal to the Surface 
 \begin_inset Formula $S$
 \end_inset
 
@@ -1071,9 +1069,9 @@ key "Pinkall1993"
 \end_layout
 
 \begin_layout Standard
-The LBO has desirable features: one feature of the LBO is in direction of
- surface area minimization, allowing to minimize energy using it on a total
- curvature of a surface 
+The LBO has desirable properties: the LBO points out to the direction of
+ the minimal surface area, minimizing the energy of the total surface curvature
+ 
 \begin_inset Formula $S$
 \end_inset
 
@@ -1099,9 +1097,10 @@ name "sec:Proposed-Method"
 \end_layout
 
 \begin_layout Standard
-Our method allows the editing of geometric features using the curvature
- enhancement and smoothing, generating a parameterized family of shapes
- from a set of vertices which represent a coarse sketch of the desired model.
+The method allows shape magnification and exaggeration using the laplacian
+ smoothing operator in the reverse direction, generating a parameterized
+ family of shapes from a set of vertices which represent a coarse sketch
+ of the desired model.
  Our approach can be mixed with traditional or uniform subdivision surfaces
  methods, is iterative and converges towards a continuous and smooth version
  of the original model.
