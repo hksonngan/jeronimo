@@ -84,7 +84,7 @@
 
 
 
-\teaser{\includegraphics[width=1\textwidth]{images/spectrum} \caption{\label{fig:Spectrum}A set of 48 successive curvature enhanced shapes,
+\teaser{\includegraphics[width=1\textwidth]{images/spectrum} \caption{\label{fig:Spectrum}A set of 48 successive curvature enhance shapes,
 from $\lambda=0.0$ in blue to $\lambda=-240.0$ in red, with steps
 of $-5.0$.}
 }
@@ -92,14 +92,13 @@ of $-5.0$.}
 \maketitle
 \maketitle 
 \begin{abstract}
-This paper proposes a novel modeling method for constructing a hybrid quad/triangle
-mesh by enhancing the global object curvature. This method uses an
-adapted extension of the Laplace Beltrami operator, resulting in a large variety of meshes. Along with the
-method, this work presents new applications in sculpting and
-modeling, with subdivision of surfaces and weight vertex groups. A
-series of graphics examples demonstrates the quality, predictability
-and flexibility of the method in a real production environment with
-software blender.
+This paper proposes a novel modeling method for a hybrid quad/triangle
+mesh by enhancing the global object curvature. This method uses our
+adapted extension of the Laplace Beltrami operator. Along with the
+method, this work presents new applications in sculpting and modeling,
+with subdivision of surfaces and weight vertex groups. A series of
+graphics examples demonstrates the quality, predictability and flexibility
+of the method in a real production environment with software blender.
 \end{abstract}
 
 \begin{CRcatlist}
@@ -130,13 +129,27 @@ for subdividing surfaces from coarse geometry have become widely popular
 B-cubic spline knot insertion to meshes, some of them adding some
 type of control, for instance with the use of creases to produce sharp
 edges \cite{DeRose1998}, or the modification of some vertex weights
-to locally control the zone of influence \cite{Biermann2000}. Nevertheless,
+to locally control the zone of influence \cite{Biermann2000}. Neverteless
 these methods are difficult to deal with since they require a large
 number of parameters and a very tedious customization. Instead, the
 presented method requires a single parameter that controls the global
-curvature, which is used to maintain realistic shapes, creating a family of different versions of the same
-object and therefore preserving the detail of the original model and
-a realistic appearance. Interest in meshes composed of triangles and quads has lately increased because of the flexibility of modeling tools such as Blender 3D \cite{blender}. Nowadays, many artists use a manual connection of a couple of vertices to perform animation processes and interpolation \cite{Mullen2007}. It is then of paramount importance to develop operators that easily interact with such meshes, eliminating the need of preprocessing the mesh to convert it to triangles. The curvature enhancement and shape exaggeration can thus be used as such operator in the sculpting process, when inflating a shape since current brushes end up by losing detail when moving vertices \cite{Stanculescu2011}. In contrast, the presented method inflates a mesh by moving the vertices towards the reverse curvature direction, conserving the shape and sharp features of the model.
+curvature, which is used to maintain realistic shapes, creating a
+family of different versions of the same object and therefore preserving
+the detail of the original model and a realistic appearance. 
+
+Interest in meshes composed of triangles and quads has lately increased
+because of the flexibility of modeling tools such as Blender 3D \cite{blender}.
+Nowadays, many artists use a manual connection of a couple of vertices
+to perform animation processes and interpolation \cite{Mullen2007}.
+It is then of paramount importance to develop operators that easily
+interact with such meshes, eliminating the need of preprocessing the
+mesh to convert it to triangles. The curvature enhancement and shape
+exaggeration can thus be used as such operator in the sculpting process,
+when inflating a shape since current brushes end up by losing detail
+when moving vertices \cite{Stanculescu2011}. In contrast, the presented
+method inflates a mesh by moving the vertices towards the reverse
+curvature direction, conserving the shape and sharp features of the
+model.
 
 \textbf{Contributions} This work presents an extension of the Laplace
 Beltrami operator for hybrid quad/triangle meshes, representing a
@@ -180,27 +193,28 @@ computation is based on the distance field and therefore when calculating
 such offset, the topology of the model may be different to the original
 \cite{Chen2011}.
 
-Gai et al. \cite{Gal2009} propose automatic feature detection and shape edition
-with feature inter-relationship preservation. They define salient
-surface features like ridges and valleys, characerized by their first
-and second order curvature derivatives \cite{Ohtake2004}, and angle-based
-threshold. Likewise, curves have been also classified as planar or
-non-planar, approximated by lines, circles, ellipses and other complex
-shapes. In such case, the user defines an initial change over several
-features which is propagated towards other features, based
-on the classified shapes and the inter-relationships between them.
-This method works well with objects that have sharp edges, composed
+Gal et al. \cite{Gal2009} propose automatic feature detection and
+shape edition with feature inter-relationship preservation. They define
+salient surface features like ridges and valleys, characerized by
+their first and second order curvature derivatives \cite{Ohtake2004},
+and angle-based threshold. Likewise, curves have been also classified
+as planar or non-planar, approximated by lines, circles, ellipses
+and other complex shapes. In such case, the user defines an initial
+change over several features which is propagated towards other features,
+based on the classified shapes and the inter-relationships between
+them. This method works well with objects that have sharp edges, composed
 of basic geometric shapes such as lines, circles or ellipses. However,
-the method is very limited when models are smooth since
-it cannot find the proper features to edit.
+the method is very limited when models are smooth since it cannot
+find the proper features to edit.
 
 Digital sculpting have been traditionally approached either under
 a polygonal representation or a voxel grid-based method. Brushes for
 inflation operations only depend on the vertex normal \cite{Stanculescu2011}.
 In grid-based sculpting, some other operations have allowed to add
-or remove voxels since production of polygonal meshes require a processing of
-isosurfaces from a volume \cite{Galyean1991}. The drawback comes from the difficulty of maintaining the surface details
-during larger scale deformations.
+or remove voxels since production of polygonal meshes require a processing
+of isosurfaces from a volume \cite{Galyean1991}. The drawback comes
+from the difficulty of maintaining the surface details during larger
+scale deformations.
 
 
 \section{Laplacian Smooth\label{sec:Laplacian-Smooth}}
@@ -215,12 +229,13 @@ vertex $V_{i}$ and the relationship with $V_{j}$ and $V_{j}^{\prime}$.
 \end{figure*}
 
 
-Computer objects, reconstructed from the real
-world, are usually noisy. Laplacian Smooth techniques allow a proper
-noise reduction on the mesh surface with minimal shape changes,
-while still preserving a desirable geometry as well as the original shape. 
+Computer objects, reconstructed from the real world, are usually noisy.
+Laplacian Smooth techniques allow a proper noise reduction on the
+mesh surface with minimal shape changes, while still preserving a
+desirable geometry as well as the original shape. 
 
-Many smoothing Laplacian functionals regularize the surface energy by controling the total surface curvature $S$.
+Many smoothing Laplacian functionals regularize the surface energy
+by controling the total surface curvature$S$.
 
 \begin{equation}
 E\left(S\right)=\int_{S}\kappa_{1}^{2}+\kappa_{2}^{2}dS\label{eq:total_cuarvature_integral}
@@ -238,25 +253,26 @@ of the surface $S$.
 
 \caption{\label{fig:voronoi_region}Area of the Voronoi region around $v_{i}$
 in dark blue.\protect \\
- $v_{j}$ belong to the first neighborhood around $v_{i}$. $\alpha_{j}$ and $\beta_{j}$ are the
-opposite angles to the edge $\protect\overrightarrow{v_{j}-v_{i}}$. }
+ $v_{j}$ belong to the first neighborhood around $v_{i}$. $\alpha_{j}$
+and $\beta_{j}$ opposite angles to edge $\protect\overrightarrow{v_{j}-v_{i}}$. }
 \end{figure}
 
 
-Consider a surface $S$, composed of a set of triangles, around the vertex
-$v_{i}$. Let us define the \textit{Voronoi region} of $v_{i}$, as
+Consider a surface $S$ composed of a set of triangles around vertex
+$v_{i}$. Let us define the \textit{Voronoi region} of $v_{i}$ as
 show in figure \ref{fig:voronoi_region}, The area change produced
-by the movement of $v_{i}$ is called the gradient of the \textit{Voronoi region
-\cite{Pinkall1993,Desbrun1999,Meyer2003}.}
+by the movement of $v_{i}$ is called the gradient of \textit{Voronoi
+region \cite{Pinkall1993,Desbrun1999,Meyer2003}.}
 
 \begin{equation}
 \nabla A=\frac{1}{2}\underset{j}{\sum}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\left(v_{i}-v_{j}\right)\label{eq:eq_gradient_voronoi_area}
 \end{equation}
 
 
-If the gradient in equation (\ref{eq:eq_gradient_voronoi_area}) is normalized 
-by the total area of the first neighborhood around $v_{i}$, the \textit{discrete
-mean curvature normal} of a surface $S$  is obtained, as shown in equation (\ref{eq:discrete_mean_curvature_normal}).
+If the gradient in equation (\ref{eq:eq_gradient_voronoi_area}) is
+normalized by the total area of the first neighborhood around $v_{i}$,
+the \textit{discrete mean curvature normal} of a surface $S$ is obtained,
+as shown in equation (\ref{eq:discrete_mean_curvature_normal}).
 
 \begin{equation}
 2\kappa\mathbf{n}=\frac{\nabla A}{A}\label{eq:discrete_mean_curvature_normal}
@@ -266,8 +282,9 @@ mean curvature normal} of a surface $S$  is obtained, as shown in equation (\ref
 
 \subsection{Laplace Beltrami Operator}
 
-The \textit{Laplace Beltrami operator} LBO, noted as $\triangle_{g}$,
-is used for measuring the mean curvature normal to the Surface $S$ \cite{Pinkall1993}. 
+The \textit{Laplace Beltrami operator} LBO noted as $\triangle_{g}$
+is used for measuring the mean curvature normal to the Surface $S$
+\cite{Pinkall1993}. 
 
 \begin{equation}
 \triangle_{g}S=2\kappa\mathbf{n}\label{eq:def_LBO}
@@ -275,17 +292,18 @@ is used for measuring the mean curvature normal to the Surface $S$ \cite{Pinkall
 
 
 The LBO has desirable properties: the LBO points out to the direction
-of the minimal surface area, minimizing the energy of the total surface curvature $S$ at equation (\ref{eq:total_cuarvature_integral}).
+of the minimal surface area, minimizing the energy of the total surface
+curvature $S$ at equation (\ref{eq:total_cuarvature_integral}).
 
 
 \section{Proposed Method\label{sec:Proposed-Method}}
 
-The method allows edition of geometric features using the curvature
-enhancement and smoothing, generating a parameterized family of shapes
-from a set of vertices which represent a coarse sketch of the desired
-model. Our approach can be mixed with traditional or uniform subdivision
-surfaces methods, is iterative and converges towards a continuous
-and smooth version of the original model. 
+The method allows shape magnification and exaggeration using the laplacian
+smoothing operator in the reverse direction, generating a parameterized
+family of shapes from a set of vertices which represent a coarse sketch
+of the desired model. Our approach can be mixed with traditional or
+uniform subdivision surfaces methods, is iterative and converges towards
+a continuous and smooth version of the original model. 
 
 Our method allows the use of soft constraints weighting the effect
 of smoothing at each vertex based on a normalized weight, which are
