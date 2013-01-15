@@ -661,7 +661,8 @@ Many tools have been developed for modeling, based on the Laplacian mesh
  processing.
  Thanks to the advantages of the Laplacian operator, these different tools
  preserve the surface geometric details when using them for different processes
- such as free-form deformation, fusion, morphing and other application
+ such as free-form deformation, fusion, morphing and other applications
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sorkine2004"
@@ -700,8 +701,6 @@ key "Chen2011"
 \end_layout
 
 \begin_layout Standard
-Gal et al.
- 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Gal2009"
@@ -831,7 +830,7 @@ Computer objects, reconstructed from the real world, are usually noisy.
 
 \begin_layout Standard
 Many smoothing Laplacian functionals regularize the surface energy by controling
- the total surface curvature
+ the total surface curvature 
 \begin_inset Formula $S$
 \end_inset
 
@@ -1264,11 +1263,15 @@ reference "fig:quad_xiong"
 
 \end_inset
 
-, the area for each quad 
+, the area for quads 
 \begin_inset Formula $\ensuremath{A\left(Q_{v_{i}}\right)}$
 \end_inset
 
- is
+ and triangles 
+\begin_inset Formula $A\left(T_{v_{i}}\right)$
+\end_inset
+
+ is.
 \end_layout
 
 \begin_layout Standard
@@ -1801,7 +1804,7 @@ The model volume increases as the lambda is larger and negative, this can
 \end_layout
 
 \begin_layout Standard
-allows to move the new vertices to:
+allows to scale the vertices to:
 \end_layout
 
 \begin_layout Standard
@@ -1828,7 +1831,7 @@ name "sub:Sculpting"
 placement t
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1852,23 +1855,7 @@ name "fig:Catmull_Clark"
 \end_inset
 
 (a) Original Model, (b) Model with Catmull-Clark Subdivision.
- Models with Laplacian smoothing: (c) 
-\begin_inset Formula $\lambda=60.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda_{e}=12.0$
-\end_inset
-
- and (d) 
-\begin_inset Formula $\lambda=90.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda_{e}=80.0$
-\end_inset
-
-.
+ Models with Laplacian smoothing: (c) and (d).
  Models with a first Laplacian filtering 
 \begin_inset Formula $\lambda=60.0$
 \end_inset
@@ -1877,23 +1864,7 @@ name "fig:Catmull_Clark"
 \begin_inset Formula $\lambda_{e}=12.0$
 \end_inset
 
- and before applying shape enhancement: (e) 
-\begin_inset Formula $\lambda=-200.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda_{e}=12.0$
-\end_inset
-
- and (f) 
-\begin_inset Formula $\lambda=-40.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda_{e}=-100.0$
-\end_inset
-
-.
+ and before applying shape enhancement: (e) and (f).
 \end_layout
 
 \end_inset
@@ -2251,26 +2222,22 @@ reference "fig:Subdivision-Cups"
 \end_layout
 
 \begin_layout Standard
-Laplacian smoothing applied with simple subdivision may produce similar
- results to those obtained with Catmull-Clark, whose models are in average
- equal triangles.
- Figure 
+Laplacian smoothing applied with simple subdivision (see figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Catmull_Clark"
 
 \end_inset
 
-.b.
- shows Catmull-Clark subdivision , 
+.b.) may produce similar results to those obtained with Catmull-Clark (see
+ figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Catmull_Clark"
 
 \end_inset
 
-.c.
- shows Laplacian smoothing.
+.c.), whose models are in average equal triangles.
  The one obtained with the Laplacian smoothing is shown in panel (c), (d)
  and those curvature modified versions are in (e) and (f).
  As can be observed, different versions of the original sketch can be obtained
@@ -2482,8 +2449,8 @@ reference "eq:TQLBO-Normalized_Matrix"
 
 \end_inset
 
-), produce similar results if the triangles that compose the mesh are about
- the same size.
+), produce similar results if the triangles or quads that compose the mesh
+ are about the same size.
  The normalized version is more stable and predictable because it is not
  divided by the area of the ring which may be very small and causes numeric
  problems, as shown in figure 
@@ -2512,15 +2479,15 @@ reference "fig:(a)Monkey"
 
 \end_inset
 
-.c shows different results due to the triangle areas in the model.
- Triangles with larger area have smaller enhancement (figure 
+.c shows different results due to the quads areas in the model.
+ Quadss with larger area have smaller enhancement (figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:(a)Monkey"
 
 \end_inset
 
-.c skull), and smaller triangles have larger enhancements (figure 
+.c skull), and smaller quads have larger enhancements (figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:(a)Monkey"
@@ -2618,7 +2585,7 @@ Performance of our dynamic shape enhancement brush in terms of the sculpted
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -2641,9 +2608,9 @@ name "fig:(a)Monkey"
 
 \end_inset
 
-(a) Top row: Original model scaled by 4.
- Bottom row: Original Model (b) Top and bottom row: enhancing with Normalized-TQ
-LBO 
+(a) Bottom row: Original Model.
+ Top row: Original model scaled by 4.
+ (b) Top and bottom row: enhancing with Normalized-TQLBO 
 \begin_inset Formula $\lambda=-50$
 \end_inset
 
@@ -2751,7 +2718,7 @@ To improve the performance, it was worked with the Blender mesh struct,
  list, if the mesh was not closed.
  This drastically reduced calculations, enabling real-time processing.
  In the construction of the Laplacian matrix, several index were locked
- at vertices having face areas or edge lengths with null value that could
+ at vertices having face areas or edge lengths with zero value that could
  cause spikes and bad results.
 \end_layout
 
