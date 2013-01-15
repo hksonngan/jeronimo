@@ -182,7 +182,7 @@ Many tools have been developed for modeling, based on the Laplacian
 mesh processing. Thanks to the advantages of the Laplacian operator,
 these different tools preserve the surface geometric details when
 using them for different processes such as free-form deformation,
-fusion, morphing and other application\cite{Sorkine2004}. 
+fusion, morphing and other applications \cite{Sorkine2004}. 
 
 Offset methods for polygon meshing, based on the curvature defined
 by the Laplace Beltrami operator, have been developed. These methods
@@ -195,19 +195,19 @@ computation is based on the distance field and therefore when calculating
 such offset, the topology of the model may be different to the original
 \cite{Chen2011}.
 
-Gal et al. \cite{Gal2009} propose automatic feature detection and
-shape edition with feature inter-relationship preservation. They define
-salient surface features like ridges and valleys, characerized by
-their first and second order curvature derivatives \cite{Ohtake2004},
-and angle-based threshold. Likewise, curves have been also classified
-as planar or non-planar, approximated by lines, circles, ellipses
-and other complex shapes. In such case, the user defines an initial
-change over several features which is propagated towards other features,
-based on the classified shapes and the inter-relationships between
-them. This method works well with objects that have sharp edges, composed
-of basic geometric shapes such as lines, circles or ellipses. However,
-the method is very limited when models are smooth since it cannot
-find the proper features to edit.
+\cite{Gal2009} propose automatic feature detection and shape edition
+with feature inter-relationship preservation. They define salient
+surface features like ridges and valleys, characerized by their first
+and second order curvature derivatives \cite{Ohtake2004}, and angle-based
+threshold. Likewise, curves have been also classified as planar or
+non-planar, approximated by lines, circles, ellipses and other complex
+shapes. In such case, the user defines an initial change over several
+features which is propagated towards other features, based on the
+classified shapes and the inter-relationships between them. This method
+works well with objects that have sharp edges, composed of basic geometric
+shapes such as lines, circles or ellipses. However, the method is
+very limited when models are smooth since it cannot find the proper
+features to edit.
 
 Digital sculpting have been traditionally approached either under
 a polygonal representation or a voxel grid-based method. Brushes for
@@ -237,7 +237,7 @@ mesh surface with minimal shape changes, while still preserving a
 desirable geometry as well as the original shape. 
 
 Many smoothing Laplacian functionals regularize the surface energy
-by controling the total surface curvature$S$.
+by controling the total surface curvature $S$.
 
 \begin{equation}
 E\left(S\right)=\int_{S}\kappa_{1}^{2}+\kappa_{2}^{2}dS\label{eq:total_cuarvature_integral}
@@ -335,7 +335,8 @@ Triangulations of the quad with common vertex $v_{i}$ proposed by
 
 Applying the mean average area, according to \cite{Xiong2011}, from
 all possible triangulations, as show in figure \ref{fig:quad_xiong},
-the area for each quad $\ensuremath{A\left(Q_{v_{i}}\right)}$ is
+the area for quads $\ensuremath{A\left(Q_{v_{i}}\right)}$ and triangles
+$A\left(T_{v_{i}}\right)$ is.
 
 \begin{center}
 $A\left(v_{i}\right)=\frac{1}{2^{m}}\overset{m}{\underset{j=1}{\sum}}2^{m-1}A\left(q_{j}\right)+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)$
@@ -501,7 +502,7 @@ factor.
 $\beta=\left(\frac{vol_{ini}}{vol_{t+1}}\right)^{\frac{1}{3}}$
 \par\end{center}
 
-allows to move the new vertices to:
+allows to scale the vertices to:
 
 \begin{center}
 $v_{i\, new}^{t+1}=\beta\left(v_{i}^{t+1}-\overline{v}\right)+\overline{v}$
@@ -514,11 +515,9 @@ $v_{i\, new}^{t+1}=\beta\left(v_{i}^{t+1}-\overline{v}\right)+\overline{v}$
 \includegraphics[width=1\textwidth]{images/cruz_lambda4}
 
 \caption{\label{fig:Catmull_Clark}(a) Original Model, (b) Model with Catmull-Clark
-Subdivision. Models with Laplacian smoothing: (c) $\lambda=60.0$,
-$\lambda_{e}=12.0$ and (d) $\lambda=90.0$, $\lambda_{e}=80.0$.
-Models with a first Laplacian filtering $\lambda=60.0$, $\lambda_{e}=12.0$
-and before applying shape enhancement: (e) $\lambda=-200.0$, $\lambda_{e}=12.0$
-and (f) $\lambda=-40.0$, $\lambda_{e}=-100.0$.}
+Subdivision. Models with Laplacian smoothing: (c) and (d). Models
+with a first Laplacian filtering $\lambda=60.0$, $\lambda_{e}=12.0$
+and before applying shape enhancement: (e) and (f).}
 \end{figure*}
 
 
@@ -635,11 +634,10 @@ to generate the weights for the new interpolated vertices. These new
 weights were used for the enhancement obtained on the 6 cups that
 are at the right of the figure \eqref{fig:Subdivision-Cups}.d.
 
-Laplacian smoothing applied with simple subdivision may produce similar
-results to those obtained with Catmull-Clark, whose models are in
-average equal triangles. Figure \ref{fig:Catmull_Clark}.b. shows
-Catmull-Clark subdivision , \ref{fig:Catmull_Clark}.c. shows Laplacian
-smoothing. The one obtained with the Laplacian smoothing is shown
+Laplacian smoothing applied with simple subdivision (see figure \ref{fig:Catmull_Clark}.b.)
+may produce similar results to those obtained with Catmull-Clark (see
+figure \ref{fig:Catmull_Clark}.c.), whose models are in average equal
+triangles. The one obtained with the Laplacian smoothing is shown
 in panel (c), (d) and those curvature modified versions are in (e)
 and (f). As can be observed, different versions of the original sketch
 can be obtained by parameterizing a single model value, a great advantage
@@ -705,18 +703,18 @@ by an average of about 1800 vertices.
 
 Tests with the Laplacian operator (equation \ref{eq:TQLBO_Simple_Matrix})
 and its normalized version (equation \ref{eq:TQLBO-Normalized_Matrix}),
-produce similar results if the triangles that compose the mesh are
-about the same size. The normalized version is more stable and predictable
-because it is not divided by the area of the ring which may be very
-small and causes numeric problems, as shown in figure \ref{fig:(a)Monkey}.c
-bottom row. The shape enhancement of the model with the normalized
-Laplacian operator results in a more regular pattern. The model can
-be deformed with a TQLBO normalized version with large $\lambda$
-($\lambda>400$) while intersecting itself with no peaks. Figure \ref{fig:(a)Monkey}.c
-shows different results due to the triangle areas in the model. Triangles
-with larger area have smaller enhancement (figure \ref{fig:(a)Monkey}.c
-skull), and smaller triangles have larger enhancements (figure \ref{fig:(a)Monkey}.c
-chin).
+produce similar results if the triangles or quads that compose the
+mesh are about the same size. The normalized version is more stable
+and predictable because it is not divided by the area of the ring
+which may be very small and causes numeric problems, as shown in figure
+\ref{fig:(a)Monkey}.c bottom row. The shape enhancement of the model
+with the normalized Laplacian operator results in a more regular pattern.
+The model can be deformed with a TQLBO normalized version with large
+$\lambda$ ($\lambda>400$) while intersecting itself with no peaks.
+Figure \ref{fig:(a)Monkey}.c shows different results due to the quads
+areas in the model. Quadss with larger area have smaller enhancement
+(figure \ref{fig:(a)Monkey}.c skull), and smaller quads have larger
+enhancements (figure \ref{fig:(a)Monkey}.c chin).
 
 \begin{figure}
 \includegraphics[width=1\columnwidth]{images/sculpt_brush}
@@ -740,8 +738,8 @@ brush in terms of the sculpted vertices per second. Three models with
 \begin{figure}
 \includegraphics[width=1\columnwidth]{images/monkey}
 
-\caption{\label{fig:(a)Monkey}(a) Top row: Original model scaled by 4. Bottom
-row: Original Model (b) Top and bottom row: enhancing with Normalized-TQLBO
+\caption{\label{fig:(a)Monkey}(a) Bottom row: Original Model. Top row: Original
+model scaled by 4. (b) Top and bottom row: enhancing with Normalized-TQLBO
 $\lambda=-50$ (c) Top and bottom row: enhancing with TQLBO $\lambda=-50$.}
 \end{figure}
 
@@ -772,7 +770,7 @@ only two visits were required for the list of mesh faces and two times
 the edge list, if the mesh was not closed. This drastically reduced
 calculations, enabling real-time processing. In the construction of
 the Laplacian matrix, several index were locked at vertices having
-face areas or edge lengths with null value that could cause spikes
+face areas or edge lengths with zero value that could cause spikes
 and bad results.
 
 Under these conditions, the matrix at equation \ref{eq:TQLBO_Simple_Matrix}
