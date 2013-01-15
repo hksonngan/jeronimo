@@ -50,7 +50,7 @@
 \TOGcodeURL{}
 
 % Paper title.
-\title{Curvature Enhanced Shape With and Adapted Laplacian Operator For Hybrid Quad/Triangle Meshes}
+\title{Shape Enhanced With and Adapted Laplacian Operator For Hybrid Quad/Triangle Meshes}
 
 % Author and Affiliation (single author).
 %\author{Name \thanks{e-mail: name@unknown.uu}\\ Research Institute}
@@ -208,7 +208,7 @@ name "fig:Spectrum"
 
 \end_inset
 
-A set of 48 successive curvature enhance shapes, from 
+A set of 48 successive shapes enhanced, from 
 \begin_inset Formula $\lambda=0.0$
 \end_inset
 
@@ -262,13 +262,17 @@ maketitle
 
 \begin_layout Abstract
 This paper proposes a novel modeling method for a hybrid quad/triangle mesh
- by enhancing the global object curvature.
- This method uses a original extension of the Laplace Beltrami operator.
+ that allows to set a family of possible shapes by controlling a single
+ parameter, the global curvature.
+ The method uses an original extension of the Laplace Beltrami operator
+ that efficiently estimates a curvature parameter which is used to define
+ an enhanced shape after a particular operation performed in certain mesh
+ points.
  Along with the method, this work presents new applications in sculpting
  and modeling, with subdivision of surfaces and weight vertex groups.
  A series of graphics examples demonstrates the quality, predictability
  and flexibility of the method in a real production environment with software
- blender.
+ Blender.
 \end_layout
 
 \begin_layout Standard
@@ -578,9 +582,9 @@ key "Mullen2007"
  It is then of paramount importance to develop operators that easily interact
  with such meshes, eliminating the need of preprocessing the mesh to convert
  it to triangles.
- The curvature enhancement and shape exaggeration can thus be used as such
- operator in the sculpting process, when inflating a shape since current
- brushes end up by losing detail when moving vertices 
+ The shape enhancement and shape exaggeration can thus be used as such brush
+ in the sculpting process, when inflating a shape since current brushes
+ end up by losing detail when moving vertices 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Stanculescu2011"
@@ -635,11 +639,10 @@ reference "sec:Proposed-Method"
 
 \end_inset
 
-, it is presented the method for curvature enhancement and applications
- of subdivision of surfaces and sculpting; finally some Laplacian operator
- results, to hybrid quad/triangle meshes are graphically shown as well as
- results of the curvature enhancement applications in sculpting, subdivision
- and modeling.
+, it is presented the method for shape enhancement and applications of subdivisi
+on of surfaces and sculpting; finally some Laplacian operator results, to
+ hybrid quad/triangle meshes are graphically shown as well as results of
+ the shape enhancement applications in sculpting, subdivision and modeling.
 \end_layout
 
 \begin_layout Section
@@ -996,7 +999,11 @@ reference "eq:eq_gradient_voronoi_area"
 
 \end_inset
 
-) is normalized by the total area of the first neighborhood around 
+) is normalized by the total area of the 
+\begin_inset Formula $1$
+\end_inset
+
+-ring neighborhood around 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -1139,26 +1146,6 @@ Given a mesh
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-Given a mesh 
-\begin_inset Formula $M=\left(V,Q,T\right)$
-\end_inset
-
-, with vertices 
-\begin_inset Formula $V$
-\end_inset
-
-, quads 
-\begin_inset Formula $Q$
-\end_inset
-
-, triangles 
-\begin_inset Formula $T$
-\end_inset
-
-.
  The area of 
 \begin_inset Formula $1$
 \end_inset
@@ -1167,7 +1154,7 @@ Given a mesh
 \begin_inset Formula $A\left(v_{i}\right)$
 \end_inset
 
- with shared face quad 
+ corresponds to a sum of the quad faces 
 \family roman
 \series medium
 \shape up
@@ -1180,7 +1167,7 @@ Given a mesh
 \noun off
 \color none
 
-\begin_inset Formula $A\left(Q_{N_{1}\left(v_{i}\right)}\right)$
+\begin_inset Formula $A\left(Q_{v_{i}}\right)$
 \end_inset
 
 
@@ -1195,24 +1182,20 @@ Given a mesh
 \uwave default
 \noun default
 \color inherit
- or triangle 
-\begin_inset Formula $\ensuremath{A\left(T_{N_{1}\left(v_{i}\right)}\right)}$
+ and the areas of the triangular faces 
+\begin_inset Formula $\ensuremath{A\left(T_{v_{i}}\right)}$
 \end_inset
 
- to vertex 
+ adjacent to vertex 
 \begin_inset Formula $\ensuremath{v_{i}}$
 \end_inset
 
- in 
-\begin_inset Formula $M$
-\end_inset
-
- is.
+.
 \end_layout
 
 \begin_layout Standard
 \align center
-\begin_inset Formula $A\left(v_{i}\right)=A\left(Q_{N_{1}\left(v_{i}\right)}\right)+A\left(T_{N_{1}\left(v_{i}\right)}\right)$
+\begin_inset Formula $A\left(v_{i}\right)=A\left(Q_{v_{i}}\right)+A\left(T_{v_{i}}\right)$
 \end_inset
 
 .
@@ -1282,7 +1265,7 @@ reference "fig:quad_xiong"
 \end_inset
 
 , the area for each quad 
-\begin_inset Formula $\ensuremath{A\left(Q_{N_{1}\left(v_{i}\right)}\right)}$
+\begin_inset Formula $\ensuremath{A\left(Q_{v_{i}}\right)}$
 \end_inset
 
  is
@@ -1298,11 +1281,11 @@ reference "fig:quad_xiong"
 
 \begin_layout Standard
 Where 
-\begin_inset Formula $q_{1},q_{2},...,q_{j},...,q_{m}\in Q_{N_{1}\left(v_{i}\right)}$
+\begin_inset Formula $q_{1},q_{2},...,q_{j},...,q_{m}\in Q_{v_{i}}$
 \end_inset
 
  and 
-\begin_inset Formula $t_{1},t_{2},...,t_{k},...,t_{r}\in T_{N_{1}\left(v_{i}\right)}$
+\begin_inset Formula $t_{1},t_{2},...,t_{k},...,t_{r}\in T_{v_{i}}$
 \end_inset
 
 .
@@ -1331,6 +1314,8 @@ reference "eq:area_1_ring_triangles_quads"
 \end_layout
 
 \begin_layout Standard
+
+\size small
 \begin_inset Formula 
 \begin{equation}
 \nabla A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[\nabla A\left(t_{j1}^{*}\right)+\nabla A\left(t_{j2}^{*}\right)+\nabla A\left(t_{j3}^{*}\right)\right]+\overset{r}{\underset{k=1}{\sum}}\nabla A\left(t_{k}\right)\label{eq:EqGrad}
@@ -1441,6 +1426,8 @@ reference "fig:LBO-basic-5-TQ"
 \end_layout
 
 \begin_layout Standard
+
+\size small
 \begin_inset Formula 
 \begin{equation}
 w_{ij}=\begin{cases}
@@ -1550,7 +1537,7 @@ Where
 \end_layout
 
 \begin_layout Subsection
-The Curvature Enhancement
+The Shape Enhancement
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Curvature-Enhancing"
@@ -1565,7 +1552,7 @@ name "sub:Curvature-Enhancing"
 placement t
 wide true
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1606,9 +1593,9 @@ Senseless!!!
 
 \end_inset
 
- Family of cups generated with our method, from a coarse model: the curvature,
- obtained from the Catmull-Clark Subdivision, is enhanced.
- Soft constraints, over the coarse model, is drawn in red.
+ Family of cups generated with our method, from a coarse model (a), (c):
+ the shape, obtained from the Catmull-Clark Subdivision (b), (d), is enhanced.
+ Soft constraints, over the coarse model, is drawn in red and blue (c).
 \end_layout
 
 \end_inset
@@ -1626,8 +1613,8 @@ Senseless!!!
 \end_layout
 
 \begin_layout Standard
-The curvature is enhanced by using the reverse direction of the curvature
- flow, moving the vertices towards those mesh portions with larger curvature.
+The shape is enhanced by using the reverse direction of the curvature flow,
+ moving the vertices towards those mesh portions with larger curvature.
  A standard diffusion process is applied:
 \end_layout
 
@@ -1677,7 +1664,11 @@ The vertices
 \begin_inset Formula $A=I-\left|\lambda dt\right|W_{p}L$
 \end_inset
 
-, 
+,
+\begin_inset space ~
+\end_inset
+
+ 
 \begin_inset Formula $L$
 \end_inset
 
@@ -1704,18 +1695,14 @@ reference "eq:TQLBO-Normalized_Matrix"
 \begin_inset Formula $\lambda dt$
 \end_inset
 
- 
-\end_layout
-
-\begin_layout Standard
-is the enhancement factor that supports negative and positive values: negative
+ is the enhancement factor that supports negative and positive values: negative
  for enhancement and positive for smoothing.
  
 \end_layout
 
 \begin_layout Standard
 The method was devised to use with weighted vertex groups, which specify
- the final curvature enhancement of the solution, meaning 
+ the final shape enhancement of the solution, meaning 
 \begin_inset Formula $0$
 \end_inset
 
@@ -1731,6 +1718,24 @@ reference "eq:Lineal_System_with_wp"
 .
  Interestingly, the generated family of shapes may change substantially
  with the weights of specific control points.
+\end_layout
+
+\begin_layout Standard
+The curvature cannot be calculted at the boundary of the meshes that are
+ not closed, for that reason we use the scale-dependent operator proposed
+ by Desbrun et al.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Desbrun1999"
+
+\end_inset
+
+, the enhancement factor for boundary is represented by 
+\begin_inset Formula $\lambda_{e}$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1872,7 +1877,7 @@ name "fig:Catmull_Clark"
 \begin_inset Formula $\lambda_{e}=12.0$
 \end_inset
 
- and before applying curvature enhancement: (e) 
+ and before applying shape enhancement: (e) 
 \begin_inset Formula $\lambda=-200.0$
 \end_inset
 
@@ -1909,8 +1914,8 @@ A new sculpting brush is herein proposed and aims to inflate the shape,
 Drag Dot
 \shape default
 , allowing to pre-visualize the model changes before the mouse is released.
- Also, it allows to move the mouse along the model to match the curvature
- zone which is supposed to be enhanced.
+ Also, it allows to move the mouse along the model to match the shape zone
+ which is supposed to be enhanced.
 \end_layout
 
 \begin_layout Standard
@@ -2011,7 +2016,7 @@ Catmull-Clark subdivision surface methods generate smooth and continuous
  models from a coarse model and produce quick results because of the simplicity
  of implementation.
  Nevertheless, changes to the global curvature are hardly implantable.
- The Catmull-Clark subdivision surfaces together with curvature enhancement
+ The Catmull-Clark subdivision surfaces together with shape enhancement
  can easily generate families of shapes by changing a single parameter,
  allowing to handle a model with very few vertices.
  In practice, this would allow an artist to choose a model from a similar
@@ -2061,9 +2066,9 @@ name "sec:Results"
 \end_layout
 
 \begin_layout Standard
-The results of the curvature enhancement method with the extension of the
- Laplace Beltrami operator for hybrid quad/triangle meshes with several
- example models (see figures 
+The results of the shape enhancement method with the extension of the Laplace
+ Beltrami operator for hybrid quad/triangle meshes with several example
+ models (see figures 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Spectrum"
@@ -2127,8 +2132,8 @@ reference "fig:Animated_Camell"
 \end_inset
 
 ).
- The curvature enhancement was assessed with TQLBO method on a PC with AMD
- Quad-Core Processor @ 2.40 GHz and 8 GB RAM.
+ The shape enhancement was assessed with TQLBO method on a PC with AMD Quad-Core
+ Processor @ 2.40 GHz and 8 GB RAM.
 \end_layout
 
 \begin_layout Standard
@@ -2248,14 +2253,24 @@ reference "fig:Subdivision-Cups"
 \begin_layout Standard
 Laplacian smoothing applied with simple subdivision may produce similar
  results to those obtained with Catmull-Clark, whose models are in average
- equal triangles, as shown in figure 
+ equal triangles.
+ Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Catmull_Clark"
 
 \end_inset
 
-, (b) Catmull-Clark, (c) Laplacian smoothing.
+.b.
+ shows Catmull-Clark subdivision , 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Catmull_Clark"
+
+\end_inset
+
+.c.
+ shows Laplacian smoothing.
  The one obtained with the Laplacian smoothing is shown in panel (c), (d)
  and those curvature modified versions are in (e) and (f).
  As can be observed, different versions of the original sketch can be obtained
@@ -2274,7 +2289,7 @@ reference "fig:camello_enhanced"
 \end_inset
 
  parameter.
- In the top row, it is shown the curvature enhancement results, as 
+ In the top row, it is shown the shape enhancement results, as 
 \begin_inset Formula $\lambda$
 \end_inset
 
@@ -2333,7 +2348,7 @@ name "fig:camello_enhanced"
 \end_inset
 
 Top row: Original camel model in left.
- Curvature enhancement with 
+ Shape enhancement with 
 \begin_inset Formula $\lambda=-30.0$
 \end_inset
 
@@ -2346,7 +2361,7 @@ Top row: Original camel model in left.
 \end_inset
 
 .
- Bottom row: Curvature enhancement with weight vertex group, 
+ Bottom row: Shape enhancement with weight vertex group, 
 \begin_inset Formula $\lambda=-50.0$
 \end_inset
 
@@ -2408,7 +2423,7 @@ reference "fig:Sculpt_Brush"
 
 \end_inset
 
- shows the use of a curvature enhancement brush for sculpting in real time.
+ shows the use of a shape enhancement brush for sculpting in real time.
  One pass was used with the brush, as shown in the figure, with the blue
  and red radius.
  In figure 
@@ -2428,9 +2443,9 @@ reference "fig:Sculpt_Brush"
 
 \end_inset
 
-.c since the main shape is retained together with its finger and leg details.
+.c since the main shape is retained together with its finger and foot details.
  Similar results can be obtained by a user, however it would take several
- steps and require the use of several brushes, while the curvature enhancement
+ steps and require the use of several brushes, while the shape enhancement
  took a single step.
  Likewise, this new method can easily enhance organic features like muscles
  during the sculpting process.
@@ -2441,15 +2456,15 @@ reference "fig:Performance-sculpt"
 
 \end_inset
 
- the curvature enhancement brush performance is illustrated, in this experiment
+ the shape enhancement brush performance is illustrated, in this experiment
  three models with 12K, 40K and 164K vertices, were used.
- These models were sculpted with the curvature enhance brush, at each step
- the brush sphere containing a variable number of vertices for processing.
+ These models were sculpted with the shape enhance brush, at each step the
+ brush sphere containing a variable number of vertices for processing.
  The processing time for 800 vertices in the camel paw (40k model) only
  took 0.1 seconds, for 2600 vertices in the leg and neck (model 40k) took
  0.5 seconds, these times are suitable in real applications since an artist
  sculpts a model for parts, and each part is represented by an average of
- about 3000 vertices.
+ about 1800 vertices.
 \end_layout
 
 \begin_layout Standard
@@ -2479,7 +2494,7 @@ reference "fig:(a)Monkey"
 \end_inset
 
 .c bottom row.
- The curvature enhancement of the model with the normalized Laplacian operator
+ The shape enhancement of the model with the normalized Laplacian operator
  results in a more regular pattern.
  The model can be deformed with a TQLBO normalized version with large 
 \begin_inset Formula $\lambda$
@@ -2497,7 +2512,7 @@ reference "fig:(a)Monkey"
 
 \end_inset
 
- shows different results due to the triangle areas in the model.
+.c shows different results due to the triangle areas in the model.
  Triangles with larger area have smaller enhancement (figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -2543,9 +2558,9 @@ name "fig:Sculpt_Brush"
 \end_inset
 
 Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
- Enhance curvature brush for leg into red circle.
+ Enhance shape brush for leg into red circle.
  Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
- Curvature enhancement brush for fingers in red circle.
+ Shape enhancement brush for fingers in red circle.
 \end_layout
 
 \end_inset
@@ -2584,7 +2599,7 @@ name "fig:Performance-sculpt"
 
 \end_inset
 
-Performance of our dynamic curvature enhancement brush in terms of the sculpted
+Performance of our dynamic shape enhancement brush in terms of the sculpted
  vertices per second.
  Three models with 12K, 40K, 164K vertices used for sculpting in real time.
 \end_layout
@@ -2680,7 +2695,7 @@ name "fig:Animated_Camell"
 The method is pose insensitive.
  The enhancement for the different poses are similar in terms of shape.
  Top row: Original walk cycle camel model.
- Bottom row: Curvature enhancement with weight vertex group, 
+ Bottom row: Shape enhancement with weight vertex group, 
 \begin_inset Formula $\lambda=-400$
 \end_inset
 
@@ -2761,24 +2776,6 @@ reference "eq:Lineal_System_with_wp"
  was used OpenNL which is a a library for solving sparse linear system.
 \end_layout
 
-\begin_layout Standard
-The curvature cannot be calculted at the border of the meshes that are not
- closed, for that reason we use the scale-dependent operator proposed by
- 
-\end_layout
-
-\begin_layout Standard
-Desbrun et al.
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Desbrun1999"
-
-\end_inset
-
-.
-\end_layout
-
 \begin_layout Section
 Conclusion and future work
 \begin_inset CommandInset label
@@ -2805,9 +2802,9 @@ ty of introducing it on the process of animation.
 
 \begin_layout Standard
 We show that this tool may work in early modeling stages, case in which
- coarse models are used, allowing to modify the curvature generated by the
- Catmull-Clark subdivision surfaces, and thereby avoiding edition of the
- vertices with change of a single parameters.
+ coarse models are used, allowing to modify the shape generated by the Catmull-C
+lark subdivision surfaces, and thereby avoiding edition of the vertices
+ with change of a single parameters.
 \end_layout
 
 \begin_layout Standard
