@@ -144,7 +144,7 @@ Universidad Nacional de Colombia
 \end_layout
 
 \begin_layout Date
-October 16, 2012
+Enero 24, 2013
 \end_layout
 
 \begin_layout Standard
@@ -248,12 +248,22 @@ Introduction
 \end_layout
 
 \begin_layout BeginFrame
+Introduction
+\end_layout
+
+\begin_layout Standard
+This work proposes a novel modeling method for a hybrid quad/triangle mesh
+ that allows to set a family of possible shapes by controlling a single
+ parameter, the global curvature.
+\end_layout
+
+\begin_layout BeginFrame
 Laplacian smooth
 \end_layout
 
 \begin_layout Standard
-The functional used in many laplacian smoothing approach to constrain energy
- minimization is based on a total curvature of a surface 
+Many smoothing Laplacian functionals regularize the surface energy by controling
+ the total surface curvature 
 \begin_inset Formula $S$
 \end_inset
 
@@ -276,69 +286,16 @@ Gradient of Voronoi Area
 \end_layout
 
 \begin_layout Standard
-Consider a surface 
-\begin_inset Formula $S$
-\end_inset
-
- compound by a set of triangles around vertex 
-\begin_inset Formula $v_{i}$
-\end_inset
-
-.
- We can define the 
-\shape italic
-Voronoi region
-\shape default
- of 
-\begin_inset Formula $v_{i}$
-\end_inset
-
-, the change in area produced by move 
-\begin_inset Formula $v_{i}$
-\end_inset
-
- is named gradient of 
-\shape italic
-Voronoi region.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-\nabla A=\frac{1}{2}\underset{j}{\sum}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\left(v_{i}-v_{j}\right)\label{eq:eq_gradient_voronoi_area}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
 \begin_inset Float figure
+placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename E:/personal/maestria/tesis/Jeronimo/trunk/documents/thesis/TQLBO-paper/images/voronoi_region.pdf
-	scale 40
-
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset Graphics
-	filename E:/personal/maestria/tesis/Jeronimo/trunk/documents/thesis/TQLBO-paper/images/quad_xiong.pdf
-	scale 40
+	width 100col%
 
 \end_inset
 
@@ -349,16 +306,25 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Area of Voronoi region around 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:voronoi_region"
+
+\end_inset
+
+Area of the Voronoi region around 
 \begin_inset Formula $v_{i}$
 \end_inset
 
  in dark blue.
+\begin_inset Newline newline
+\end_inset
+
  
 \begin_inset Formula $v_{j}$
 \end_inset
 
- 1-ring neighbors around 
+ belong to the first neighborhood around 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -376,6 +342,7 @@ Area of Voronoi region around
 \end_inset
 
 .
+ 
 \end_layout
 
 \end_inset
@@ -383,9 +350,102 @@ Area of Voronoi region around
 
 \end_layout
 
-\begin_layout Plain Layout
+\end_inset
+
 
 \end_layout
+
+\begin_layout Standard
+Consider a surface 
+\begin_inset Formula $S$
+\end_inset
+
+ composed of a set of triangles around vertex 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+ Let us define the 
+\shape italic
+Voronoi region
+\shape default
+ of 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ as show in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:voronoi_region"
+
+\end_inset
+
+, The area change produced by the movement of 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ is called the gradient of 
+\shape italic
+Voronoi region 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pinkall1993,Desbrun1999,Meyer2003"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\nabla A=\frac{1}{2}\underset{j}{\sum}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\left(v_{i}-v_{j}\right)\label{eq:eq_gradient_voronoi_area}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If the gradient in equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:eq_gradient_voronoi_area"
+
+\end_inset
+
+) is normalized by the total area of the 
+\begin_inset Formula $1$
+\end_inset
+
+-ring neighborhood around 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, the 
+\shape italic
+discrete mean curvature normal
+\shape default
+ of a surface 
+\begin_inset Formula $S$
+\end_inset
+
+ is obtained, as shown in equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:discrete_mean_curvature_normal-1"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+2\kappa\mathbf{n}=\frac{\nabla A}{A}\label{eq:discrete_mean_curvature_normal-1}
+\end{equation}
 
 \end_inset
 
