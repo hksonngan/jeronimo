@@ -2955,6 +2955,56 @@
   timestamp = {2009.04.01}
 }
 
+@ARTICLE{Jiang2012,
+  author = {Wei Jiang and Kai Xu and Zhi-Quan Cheng and Ralph R. Martin and Gang
+	Dang},
+  title = {Curve skeleton extraction by coupled graph contraction and surface
+	clustering},
+  journal = {Graphical Models},
+  year = {2012},
+  volume = {1},
+  pages = {-},
+  number = {0},
+  note = {Skeleton Extraction},
+  abstract = {In this paper, we present a practical algorithm to extract a curve
+	skeleton of a 3D shape. The core of our algorithm comprises coupled
+	processes of graph contraction and surface clustering. Given a 3D
+	shape represented by a triangular mesh, we first construct an initial
+	skeleton graph by directly copying the connectivity and geometry
+	information from the input mesh. Graph contraction and surface clustering
+	are then performed iteratively. The former merges certain graph nodes
+	based on computation of an approximate centroidal Voronoi diagram,
+	seeded by subsampling the graph nodes from the previous iteration.
+	Meanwhile, a coupled surface clustering process serves to regularize
+	the graph contraction. Constraints are used to ensure that extremities
+	of the graph are not shortened undesirably, to ensure that skeleton
+	has the correct topological structure, and that surface clustering
+	leads to an approximately-centered skeleton of the input shape. These
+	properties lead to a stable and reliable skeleton graph construction
+	algorithm.
+	
+	Experiments demonstrate that our skeleton extraction algorithm satisfies
+	various desirable criteria. Firstly, it produces a skeleton homotopic
+	with the input (the genus of both shapes agree) which is both robust
+	(results are stable with respect to noise and remeshing of the input
+	shape) and reliable (every boundary point is visible from at least
+	one curve-skeleton location). It can also handle point cloud data
+	if we first build an initial skeleton graph based on k-nearest neighbors.
+	In addition, a secondary output of our algorithm is a skeleton-to-surface
+	mapping, which can e.g. be used directly for skinning animation.
+	Highlights (1) An algorithm for curve skeleton extraction from 3D
+	shapes based on coupled graph contraction and surface clustering.
+	(2) The algorithm meets various desirable criteria and can be extended
+	to work for incomplete point clouds.},
+  doi = {10.1016/j.gmod.2012.10.005},
+  file = {:./Jiang2012/jiang_gmod13_skel.pdf:PDF},
+  issn = {1524-0703},
+  keywords = {Curve skeleton},
+  owner = {apinzonf},
+  timestamp = {2013.01.24},
+  url = {http://www.sciencedirect.com/science/article/pii/S1524070312000732}
+}
+
 @INPROCEEDINGS{Jin2007,
   author = {Ning Jin and Mokhtarian, F.},
   title = {Image-based shape model for view-invariant human motion recognition},
@@ -5781,6 +5831,54 @@
   note = {Other},
   owner = {apinzonf},
   timestamp = {2009.10.01}
+}
+
+@ARTICLE{Tagliasacchi2012,
+  author = {Tagliasacchi, Andrea and Alhashim, Ibraheem and Olson, Matt and Zhang,
+	Hao},
+  title = {Mean Curvature Skeletons},
+  journal = {Comp. Graph. Forum},
+  year = {2012},
+  volume = {31},
+  pages = {1735--1744},
+  number = {5},
+  month = aug,
+  abstract = {Inspired by recent developments in contraction-based curve skeleton
+	extraction, we formulate the skeletonization problem via mean curvature
+	flow (MCF). While the classical application of MCF is surface fairing,
+	we take advantage of its area-minimizing characteristic to drive
+	the curvature flow towards the extreme so as to collapse the input
+	mesh geometry and obtain a skeletal structure. By analyzing the differential
+	characteristics of the flow, we reveal that MCF locally increases
+	shape anisotropy. This justifies the use of curvature motion for
+	skeleton computation, and leads to the generation of what we call
+	“mean curvature skeletons”. To obtain a stable and efficient discretization,
+	we regularize the surface mesh by performing local remeshing via
+	edge splits and collapses. Simplifying mesh connectivity throughout
+	the motion leads to more efficient computation and avoids numerical
+	instability arising from degeneracies in the triangulation. In addition,
+	the detection of collapsed geometry is facilitated by working with
+	simplified mesh connectivity and monitoring potential non-manifold
+	edge collapses. With topology simplified throughout the flow, minimal
+	post-processing is required to convert the collapsed geometry to
+	a curve. Formulating skeletonization via MCF allows us to incorporate
+	external energy terms easily, resulting in a constrained flow. We
+	define one such energy term using the Voronoi medial skeleton and
+	obtain a medially centred curve skeleton. We call the intermediate
+	results of our skeletonization motion meso-skeletons; these consist
+	of a mixture of curves and surface sheets as appropriate to the local
+	3D geometry they capture.},
+  acmid = {2346808},
+  address = {New York, NY, USA},
+  doi = {10.1111/j.1467-8659.2012.03178.x},
+  file = {:./Tagliasacchi2012/tag_sgp12.pdf:PDF},
+  issn = {0167-7055},
+  issue_date = {August 2012},
+  numpages = {10},
+  owner = {apinzonf},
+  publisher = {John Wiley \& Sons, Inc.},
+  timestamp = {2013.01.24},
+  url = {http://dx.doi.org/10.1111/j.1467-8659.2012.03178.x}
 }
 
 @ARTICLE{Tagliasacchi2009,
