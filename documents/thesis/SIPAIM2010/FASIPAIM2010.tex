@@ -1,0 +1,477 @@
+%% LyX 1.6.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english,spanish]{elsarticle2}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{placeins}
+
+\usepackage{babel}
+\addto\shorthandsspanish{\spanishdeactivate{~<>}}
+
+\begin{document}
+
+\title{Análisis Experimental de la Extracción del Esqueleto por Contracción con Suavizado Laplaciano}
+
+%\title{Análisis Experimental para la Extracción del Esqueleto por Contracción con Suavizado Laplaciano}
+
+
+\author[rvt]{Alexander Pinzón Fernández}
+\author[rvt]{Fabio Martínez Carrillo}
+
+\author[rvt]{Eduardo Romero Castro\fnref{fn2}}
+
+
+\cortext[fn2]{Autor Correspondiente: Eduardo Romero. Carrera 30 45-03, Ed. 471
+Facultad de Medicina, +57 1 3165491, \textbf{edromero@.unal.edu.co}}
+
+
+\address[rvt]{Grupo de Investigación Bioingenium, Universidad Nacional de Colombia}
+\begin{abstract}
+
+
+Este articulo presenta un análisis sistematico del método de extracción del esqueleto por medio de la contracción de un volumen con suavizado Laplaciano. El trabajo realiza una aproximación experimental al problema de la extracción del esqueleto, para encontrar el rendimiento
+del método evaluado frente a cambios isometricos, y durante la fase de simplificación. Esta evaluación utilizo el modelo tridimensional
+animado de una persona que realizaba una caminata, a este modelo se le extrajo el esqueleto y se compararon las diferencias en distintos instantes de la animación, y distintas configuraciones del proceso de simplificación. Los resultados muestran un óptimo rendimiento del método frente a las transformaciones isométricas, y múltiples problemas en la fase de simplificación de mallas.\end{abstract}
+
+\begin{keyword}
+extracción del esqueleto, suavizado laplaciano
+\end{keyword}
+\maketitle
+
+\section{Introducción}
+
+En los últimos años se ha incrementado la demanda de sistemas para la captura de movimiento basados en sensores ópticos \citet{Au2008}. Estos sistemas permiten obtener una representacion de cada una de las articulaciones de una persona que realiza movimientos. En el modelamiento de objetos articulados, la cinematica del movimiento esta dado por la posicion de las articulaciones en el tiempo, y estas posiciones a su vez dan una representacion de la interaccion entre cada uno de los componentes del sistema locomotor (las fuerzas de accion -reaccion, los comandos neuro motores, sistema osteo-musculo-esqueletico). La información recolectada mediante estos sistemas permite la realización de una análisis cuantitativo del movimiento permitiendo estimar de forma precisa datos como velocidad, aceleración, entre otras, estas medidas se utilizan en áreas como la medicina para el diagnostico de patologías asociadas a la marcha, o en el cine para la animacion de personajes, o en los deportes para analizar las posturas de un gimnasta. 
+
+En computacion grafica, el registro del movimiento de un esqueleto se realiza  dado una secuencia logica de actividades, que son: la captura de vídeo de una persona en movimiento, la reconstrucción 3D a partir de los datos de la captura, y la extracción del esqueleto del objeto tridimensional reconstruido. Uno de los puntos criticos, en este proceso es la extracción del esqueleto dado que no existe una definición formal para la representacion de esta estructura\citet{Cornea2007}. Una aproximacion tipica, consiste en considerar los ejes medios de un objeto 3, definido como el lugar donde se encuentran los centros de todas las esferas de máximo radio inscritas en el cuerpo como se observa en la figura \ref{fig:Medial-axis-and}.	
+\begin{center}
+%
+\begin{figure}[tbh]
+\begin{centering}
+\includegraphics[scale=0.3]{img/IMG4}
+\par\end{centering}
+\caption{\label{fig:Medial-axis-and}Medial axis and medial surface}
+\end{figure}
+\par\end{center}
+
+En la literatura se han descrito diversos metodos de extraccion del esqueleto  y diferentes metricas que permiten identificar los metodos apropiados dada una aplicacion especifica\citet{Attali2007}. Uno de los mejores metodos reportados en la literatura, para la extracción del esqueleto,  es el método de suavizado Laplaciano \citet{Au2008} por sus ventajas de representación homotopica y las conexiones jerárquicas entre sus partes.
+
+En este articulo se desarrolla un análisis experimental de la extracción del esqueleto usando suavizado laplaciano, que pretende ser un nuevo enfoque para el calculo de patrones cinemáticos que permitan ser usados en la clínica para identificar movimientos normales y patológicos. El articulo esta organizado como sigue: el capitulo 1 se presenta de forma general un resumen sobre trabajos relacionados en el área de la extracción del esqueleto que pueden ser tenidos en cuenta para una aplicación clínica (presición, conservación de puntos anatómicos de interes). En el capitulo 2 se hace una descripción detallada de la técnica de extracción del esqueleto por contracción con suavizado Laplaciano. En el capitulo 3 se muesran los resultados obtenidos dada un conjunto de experimentos realizados sobre el modelo. En el capitulo 4 se hace una discusion alrededor de los resultados obtenidos y su usabilidad en el area clínica. Finalmente en el capitulo 5 se describen algunas conclusiones y lineamientos para el trabajo futuro. 
+
+
+\section{Trabajo Relacionado}
+
+En computación grafica se definen los esqueletos (estructuras 1D) como versiones simplificadas de la geometría y topología de un objeto 3D que permiten reducir  la dimensionalidad  de los objetos y  capturar las relaciones dinámicas esenciales para describir la dinamica de un objeto, por ejemplo, en el análisis de marcha los movimientos normales y patologicos estan definifos por un conjunto de relaciones de sus articuaciones\citet{Svensson2002, Starck2005}. Habitualmente, la extracción del esqueleto se realiza con técnicas que reducen la dimensionalidad de un objeto, teniendo en cuenta ciertas restricciones de contracción y minimización de energía hasta encontrar un esqueleto irreducible ó encontrar sus ejes medios\citet{Au2008}. Sin embargo estas representaciones simplistas generalmente pierden informacion de posiciones anatomicas importante para una apliación clínica. Por otra parte, las  representaciones topológicas de un objeto tridimensional, permiten hacer simplificaciones mediante grafos y relaciones  dadas por un esqueleto apriori que permite minimizar el error entre el esqueleto y el grafo \citet{Aguiar2008,HernandezEsteban2002,4178157,Bradley2008}, lo cual conlleva a restricciones para la estimación de diferentes modelos. 
+
+Otras aproximaciones permiten hacer una estimación en 2D, para luego utilizar información a priori que permita estimar como fue transformado el esqueleto tridimensional real \citet{Remondino2003,AitAider2006,Cheng2006} el problema radica en utilizar modelos a priori ademas de esqueletos de entrenamiento. Finamelnte los modelos probabilísticos permiten resolver incorporar las dependencias espaciales entre los vértices en el proceso de agrupamiento, y proveer una solución globalmente óptima. En particular, basados en Campos Aleatorios de Markov Gibbs (MRF) \citet{Lavoue2008,Caillette2008,Hou2007} en estos modelos el problema radica en el uso de modelos a priori.
+
+\section{Método De Contracción Con Suavizado Laplaciano}
+ 
+ Este metodo contrae iterativamente la malla por medio del suavizado laplaciano hasta tener un volumen de cero luego se simplifica la malla por medio de un algoritmo de colapso de bordes que permite obtener un esqueleto 1D del volumen.
+Este proceso se puede observar de forma simplificada en la figura \ref{fig:Proceso-de-extraccion}. Este método busca la minimización de energía teniendo en cuenta los siguientes componentes.
+
+\begin{itemize}
+\item Un operador Lapaciano que pemite remover las frecuencias altas, es decir suavizar los detalles de la geometría 
+\item Una fuerza de atracción que usa los vértices, para mantener información clave de la geometría durante la contracción.
+\item Un fuerza de contracción que hace que la forma tridimensional pierda volumen.
+\end{itemize}
+ . 
+
+\begin{center}
+%
+\begin{figure*}[tbh]
+\begin{centering}
+\includegraphics[scale=0.3]{img/contraccion}
+\par\end{centering}
+
+\centering{}\caption{\label{fig:Proceso-de-extraccion}Proceso de extracción del esqueleto}
+
+\end{figure*}
+
+\par\end{center}
+
+A continuación se describe en detalle cada uno de los componentes que conforman este método. 
+\subsection{Suavizado de Laplace}
+
+Una nueva posición en la malla esta dada por sus vecinos como se representa a continuación: 
+
+	\[
+	x_{i}=\frac{1}{N}\sum_{j=0}^{N}x_{j}
+\]
+
+\noindent donde $N$ es el numero de vértice vecinos de $x_{i}$. Esta aproximación en general se restringe por una función de peso que pemite ponderar ciertas caracteristicas y esta definida como: 
+
+	\[x_{i}=\frac{1}{N}\sum_{j=0}^{N}w_{j}x_{j}\]
+\noindent donde existe una  función de peso $w_{j}$, para ponderar el vértice $x_{j}$. 
+
+\subsection{Extracción del Esqueleto}
+
+A partir de  una malla de polígonos $G=\left(V,E\right)$, con vértices $V$ y aristas $E$, el problema de extracción de un esqueleto $S=\left(U,B\right)$ donde $U$ ($U=\left[u_{1}^{T},u_{2}^{T},...,u_{m}^{T}\right]$) son los nodos definido por sus posiciones  y $B$ las aristas puede ser desarrollado basado un proceso de contracción de la geometría que iterativamente suaviza y colapsa la geometría de la malla en una manera restringida. Este proceso es aplicado en el espacio de objeto, directamente en la representación de la malla, sin cualquier proceso de voxelización. Con las fuerzas de contracción cuidadosamente ponderadas y las fuerzas de atracción, el proceso de contracción produce una forma mínima delgada con empalmes y las ramas correspondientes a las particiones del objeto \citet{Au2008}.
+
+
+\subsection{Contracción de la Geometría}
+
+El vértice de la posición $V'$ es suavizado y contraído a lo largo de dirección de su normal, como resultado de la solución de la ecuación
+discreta de Laplace $LV'=0$, donde $L$ es la curvatura del flujo del campo del operador de Laplace de $n\times n$, con los elementos.
+
+$L_{ij}=\left\{ \begin{array}{cc}
+w_{ij}=cot\alpha_{ij}+cot\beta_{ij} & si\left(i,j\right)\in E\\
+\sum_{\left(i,k\right)\in E}^{k}-w_{ij} & si\, i=j\\
+0 & en\, otro\, caso\end{array}\right\} $
+
+Donde $\alpha_{ij}$ y $\beta_{ij}$ son los ángulos opuestos correspondiente al borde $\left(i,j\right)$, como se observa en la figura \ref{fig:a)-El-borde}.
+
+%
+\begin{figure}[tbh]
+\includegraphics[scale=0.2]{img/alpha_Beta}
+
+\caption{\label{fig:a)-El-borde}a) El borde entre $x_{i}$, $x_{j}$. b) Los
+ángulos opuestos $\alpha_{ij}$ y $\beta_{ij}$. Imagen Tomada de
+\citet{Desbrun1999}.}
+
+\end{figure}
+
+
+Dada la ponderación cotangente, las coordenadas de Laplace $\delta=LV=\left[\delta_{1}^{T},\delta_{2}^{T},...,\delta_{n}^{T}\right]^{T}$
+aproximan hacia adentro de la normal de la curvatura del flujo. 
+
+$\delta_{i}=-4A_{i}\kappa_{i}\mathbf{n}_{i}$, donde \foreignlanguage{english}{$4A_{i},\,\kappa_{i}$}
+y $\mathbf{n_{\mathbf{i}}}$ son el área de un anillo local, con esto
+se aproximan la curvatura media local, y se aproxima la normal hacia
+afuera del vértice $i$.
+
+Entonces resolviendo $LV'=0$, significa remover el componente de la normal y contraer la geometría de la malla.
+
+Las restricciones de atracción, son fuerzas que atraen los vértices
+hacia la geometría.
+
+La solución del siguiente sistema, proporciona las nuevas posiciones
+de los vértice $V'$
+
+$\left[\begin{array}{c}
+W_{L}L\\
+W_{H}\end{array}\right]V'=\left[\begin{array}{c}
+0\\
+W_{H}V\end{array}\right]$
+
+donde $W_{H}$ son las restricciones de atracción y $W_{L}$ las restricciones
+de contracción.\\
+
+
+La solución se logra mediante mínimos cuadrados así.
+
+$\left\Vert W_{L}LV'\right\Vert ^{2}+\sum_{j}W_{H,i}\left\Vert v_{j}^{'}-v_{i}\right\Vert ^{2}$
+
+El proceso iterativo de contracción es el siguiente, donde $t$ representa
+cada iteración.
+\begin{enumerate}
+\item Resolver \foreignlanguage{english}{$\left[\begin{array}{c}
+W_{L}^{t}L^{t}\\
+W_{H}^{t}\end{array}\right]V^{t+1}=\left[\begin{array}{c}
+0\\
+W_{H}^{t}V^{t}\end{array}\right]\, para\, V^{t+1}$}
+\item Actualizar $W_{L}^{t+1}=S_{L}W_{L}^{t}$ y $W_{H,i}^{t+1}=W_{H,i}^{0}\sqrt{\frac{A_{i}^{0}}{A_{i}^{t}}}$,
+donde $A_{i}^{t}$ y $A_{i}^{0}$son los actuales y originales áreas
+de un anillo, respectivamente.
+\item Computar el nuevo operador de Laplace $L^{t+1}$ con las actuales
+posiciones de los vértice $V^{t+1}$ usando la definición de $L_{i,j}$
+\end{enumerate}
+
+\section{Experimentación}
+
+Se uso la implementación hecha en \citet{Au2008} por los autores,
+para realizar la extracción del esqueleto de un modelo tridimensional
+que fue obtenido mediante el método de recuperación de forma desde
+las siluetas realizado por \citet{Vlasic2008}, como se observa en
+la figura \ref{fig:Caracter-creado-1}. De este modelo se registro
+una caminata durante 240 cuadros.
+
+\begin{center}
+%
+\begin{figure}[tbh]
+\begin{centering}
+\includegraphics[scale=0.1]{img/vlasic2008}
+\par\end{centering}
+
+\caption{\label{fig:Caracter-creado-1}Modelo tridimensional obtenido con el
+método de \citet{Vlasic2008}.}
+
+\end{figure}
+
+\par\end{center}
+
+El modelo fue proporcionado por los autores de \citet{Vlasic2008}
+en el sitio web \textbf{http://www.mit.edu/\textasciitilde{}ibaran}.
+En este sitio web existe un repositorio de diez datasets.
+
+Cada dataset contiene:
+\begin{itemize}
+\item Los parámetros de calibración de las ocho cámaras de la escena.
+\item Ocho imágenes correspondientes al fondo de la escena sin la persona
+presente.
+\item Ocho vídeos tomados desde distintos ángulos de la persona grabada
+durante 240 cuadros.
+\item Las siluetas de la persona en cada uno de los cuadros de cada cámara.
+\item Los modelos tridimensionales de los 240 cuadros obtenidos mediante
+el método propuesto en \citet{Vlasic2008}.
+\item Un esqueleto modelo.
+\end{itemize}
+Para evaluar el proceso de simplificación se variaron el numero de
+nodos usados para describir uniones en el esqueleto, luego se analizaba
+cada nodo y se clasificaba como \textbf{Valido} si este se encontraba
+en la posición correcta respecto al esqueleto modelo, \textbf{Erróneo}
+si no se encontraba en una posición donde existiera un nodo en el
+esqueleto modelo, y por ultimo por cada nodo que no se recupero en
+el esqueleto extraído se contaba como un nodo \textbf{Faltante}, en la
+imagen \ref{fig:nodoesss} se observa cada tipo de nodo.
+
+\begin{center}
+%
+\begin{figure*}[tbh]
+\begin{centering}
+\includegraphics[scale=0.3]{img/nodos_es}
+\par\end{centering}
+
+\centering{}\caption{\label{fig:nodoesss}Descripción del tipo de nodos}
+
+\end{figure*}
+
+\par\end{center}
+ 
+Durante esta fase se utilizo el modelo tridimensional del primer cuadro de
+la animación del dataset llamado \textbf{I\_march}, a este modelo
+3D se le realizo el proceso de contracción con un numero de 13 iteraciones
+para contraer el volumen hasta un umbral cercano a cero, luego en
+el proceso de simplificación se variaron el numero de nodos a extraer
+desde 32 hasta 16 como se observa en la figura \ref{fig:Variacion-del-numero},
+en esta figura se muestran de izquierda a derecha los resultados con
+32 , 28, 24, 20, y 16 nodos . El esqueleto modelo contaba con un numero
+de 21 nodos
+
+\begin{center}
+%
+\begin{figure*}[tbh]
+\begin{centering}
+\includegraphics[scale=0.3]{img/simplificacion}
+\par\end{centering}
+
+\centering{}\caption{\label{fig:Variacion-del-numero}Variación del numero de nodos}
+
+\end{figure*}
+
+\par\end{center}
+
+Los resultados de este análisis se pueden observar en la tabla \ref{tab:Variacion-del-numero}
+donde se muestran 5 columnas que representan la siguiente información,
+en la columna \textbf{Nodos} se muestra el numero de vértices que
+se desean obtener después del proceso de simplificación, en la columna
+\textbf{Validos} se muestra el numero de nodos que están correctamente
+localizados y que representaban uniones en el esqueleto, en la columna
+\textbf{Erróneos} se muestra el numero de nodos que están ocupando
+espacios que no corresponden a uniones en la jerarquía, o que están
+sobre una linea entre dos uniones reales del esqueleto, por ultimo
+en la columna \textbf{Faltantes} se muestra el numero de nodos que
+hicieron falta para la correcta reconstrucción de un esqueleto valido
+para este modelo.
+
+\begin{center}
+%
+\begin{table}[htbp]
+\caption{\label{tab:Variacion-del-numero}Variación del numero de nodos en
+el proceso de simplificación.}
+
+
+\centering{}\begin{tabular}{|c|c|c|c|}
+\hline 
+Nodos & Validos & Erroneos & Faltantes \tabularnewline
+\hline
+\hline 
+16 & 13 & 3 & 8\tabularnewline
+\hline 
+20 & 17 & 3 & 4\tabularnewline
+\hline 
+24 & 21 & 3 & 0\tabularnewline
+\hline 
+28 & 21 & 7 & 0\tabularnewline
+\hline 
+32 & 21 & 11 & 0\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+\par\end{center}
+
+La segunda etapa del experimento consistía en la realización de extracciones
+del esqueleto en distintas momentos de la animación y observar la
+correspondencia topológica entre los esqueletos obtenidos para así
+observar como se comporta el método frente a transformaciones isométricas
+de la geometría de un cuerpo.En esta etapa se realizaron 13 iteraciones
+durante el proceso de contracción y se usaron 24 nodos en el proceso
+de simplificación. Se utilizo el mismo modelo del experimento anterior,
+se utilizaron distintas poses de este modelo tomadas cada 40 cuadros
+para un total de 6 poses, Cada pose representa una posición distinta
+de la persona durante la caminata, como se observa en la figura \ref{fig:Distintas-posiciones-del}.
+
+\begin{center}
+%
+\begin{figure*}[tbh]
+\begin{centering}
+\includegraphics[scale=0.3]{img/poses}
+\par\end{centering}
+
+\centering{}\caption{\label{fig:Distintas-posiciones-del}Distintas posiciones del mismo
+cuerpo.}
+
+\end{figure*}
+
+\par\end{center}
+
+En la tabla \ref{tab:Cambios-isometricos} se observan los resultados
+obtenidos al realizar cambios isométricas sobre la geometría del personaje
+estos cambios representan las distintas poses que tomaba la geometría
+del personaje en distintos momentos de la caminata. En la tabla \ref{tab:Cambios-isometricos}
+la columna \textbf{Cuadro} representa el momento en el tiempo en el
+cual se realizo la captura de la geometría, las demás columnas representan
+la misma información que en la tabla \ref{tab:Variacion-del-numero}.
+
+%
+\begin{table}[htbp]
+\caption{\label{tab:Cambios-isometricos}Cambios isométricas sobre la geometría.}
+
+
+\centering{}\begin{tabular}{|c|c|c|c|}
+\hline 
+Cuadro & Validos & Erroneos & Faltantes \tabularnewline
+\hline
+\hline 
+40 & 18 & 6 & 3\tabularnewline
+\hline 
+80 & 19 & 5 & 2\tabularnewline
+\hline 
+120 & 20 & 4 & 1\tabularnewline
+\hline 
+160 & 21 & 3 & 0\tabularnewline
+\hline 
+200 & 17 & 7 & 4\tabularnewline
+\hline 
+240 & 20 & 4 & 1\tabularnewline
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\section{Resultados Experimentales}
+
+El método de extracción del esqueleto por contracción con suavizado
+Laplaciano recupera de forma óptima el esqueleto de un cuerpo bajo
+transformaciones isométricas, según se observa en la tabla \ref{tab:Resultados-isometric},
+donde se recuperaron en promedio 19.71 nodos de los 21 necesarios
+para reconstruir el esqueleto en diferentes momentos del tiempo. Se
+observa también que el método posiciona mal 4.83 nodos en promedio,
+provocando que se usen mas nodos de los necesario para reconstruir
+el esqueleto. Por ultimo en esta tabla observamos que el método no
+pudo recuperar 1.86 nodos de los necesarios para la reconstrucción
+del esqueleto siendo necesario la intervención manual del usuario
+para recuperar el esqueleto en su totalidad.
+
+\begin{center}
+%
+\begin{table}[tbh]
+\begin{centering}
+\begin{tabular}{|l|r|r|r|}
+\hline 
+ & Validos & Erroneos & Faltantes\tabularnewline
+\hline
+\hline 
+Media & 19.71 & 4.83 & 1.86\tabularnewline
+\hline 
+Desviación Estándar & 1.47 & 1.47 & 1.47\tabularnewline
+\hline 
+Mínimo & 17 & 3 & 0\tabularnewline
+\hline 
+Máximo & 21 & 7 & 4\tabularnewline
+\hline
+\end{tabular}
+\par\end{centering}
+
+\centering{}\caption{\label{tab:Resultados-isometric}Resultados obtenidos al realizar
+transformaciones isométricas}
+
+\end{table}
+
+\par\end{center}
+
+Durante la fase de simplificación el método presenta un comportamiento
+claro como se puede observar en la gráfica \ref{fig:Grafico-simplificacion},
+en donde los nodos validos, luego de hacer la recuperación total de
+los 21 nodos del esqueleto no sufren perdida ni son sensibles al usar
+mas de 24 nodos (blue line). El método una vez alcanza su numero óptimo
+de nodos para realizar la recuperación, los demás nodos que se añadan
+serán puestos en localizaciones erróneas, además el método parece
+siempre tener un numero mínimo de 3 nodos recuperados erróneamente
+como se observa el la linea rojo del gráfico \ref{fig:Grafico-simplificacion}.
+La linea verde en el gráfico \ref{fig:Grafico-simplificacion} describe
+el numero de nodos que hacen falta para recuperar el modelo, se observa
+que 24 es el numero de nodos requeridos para recuperar por completo
+el esqueleto, y que el uso de mas nodos no implica perdida en la recuperación
+del esqueleto.
+
+\begin{center}
+%
+\begin{figure}[tbh]
+\begin{centering}
+\includegraphics[scale=0.4]{img/graficoSimplificacion2}
+\par\end{centering}
+
+\centering{}\caption{\label{fig:Grafico-simplificacion}Gráfico de la variación de nodos
+validos, erróneos y faltantes durante la fase de simplificación}
+
+\end{figure}
+
+\par\end{center}
+
+
+\section{Conclusiones}
+
+El método de extracción mostró ser robusto y tener baja sensibilidad
+frente a cambios isométricos de la geometría, requiere de supervisión
+únicamente en la primera fase de simplificación para obtener el numero
+óptimo de nodos, luego el método puede trabajar de forma automática
+a o largo de todos los cuadros.
+
+El método recupera de forma eficiente el esqueleto sin hacer uso de
+un modelo, eliminando la necesidad de estimar la pose minimizando
+el calculo necesario para ajustar el esqueleto encontrado con el modelo,
+y así mismo poder realizar de forma sencilla y automática el seguimiento
+del esqueleto a lo largo del vídeo,
+
+
+\section{Trabajo Futuro}
+
+Como trabajo futuro se puede mejorar la recuperación de información
+haciendo uso de la coherencia espacio temporal no presente en la técnica
+de extracción, para superar la perdida de información entre cuadros
+de vídeo.
+
+Es posible crear un método para automatizar el proceso de simplificación
+para encontrar el numero óptimo de nodos con el cual puede ser representado
+el esqueleto de forma correcta, haciendo uso de algoritmos de partición
+de mallas.
+
+
+\subsubsection*{Agradecimientos}
+
+The captured performance data were provided courtesy of the Computer
+Graphics Group of the MIT CSAIL Vision Research (Cambirdge, USA).
+
+\bibliographystyle{plain}
+\bibliography{listado_inicial}
+
+\end{document}
