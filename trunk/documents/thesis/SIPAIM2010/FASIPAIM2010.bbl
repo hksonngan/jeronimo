@@ -1,0 +1,125 @@
+\begin{thebibliography}{10}
+
+\bibitem{AitAider2006}
+O.~Ait~Aider, N.~Andreff, J.M. Lavest, and P.~Martinet.
+\newblock Simultaneous object pose and velocity computation using a single view
+  from a rolling shutter camera.
+\newblock pages II: 56--68, 2006.
+\newblock 3D Reconstruction.
+
+\bibitem{Attali2007}
+D.~Attali, J.-D. Boissonnat, and H.~Edelsbrunner.
+\newblock Stability and computation of the medial axis --- a state-of-the-art
+  report.
+\newblock {\em Mathematical Foundations of Scientific Visualization, Computer
+  Graphics, and Massive Data Exploration}, 1:--, 2007.
+\newblock Skeleton Extraction survey.
+
+\bibitem{Au2008}
+Oscar Kin-Chung Au, Chiew-Lan Tai, Hung-Kuo Chu, Daniel Cohen-Or, and Tong-Yee
+  Lee.
+\newblock Skeleton extraction by mesh contraction.
+\newblock {\em ACM Transactions on Graphics}, 27(3):10, 2008.
+\newblock Skeleton Extraction.
+
+\bibitem{Bradley2008}
+Derek Bradley, Tiberiu Popa, Alla Sheffer, Wolfgang Heidrich, and Tamy
+  Boubekeur.
+\newblock Markerless garment capture.
+\newblock {\em ACM Trans. Graphics (Proc. SIGGRAPH)}, 27(3):99, 2008.
+\newblock 3D Reconstruction.
+
+\bibitem{Caillette2008}
+Fabrice Caillette, Aphrodite Galata, and Toby Howard.
+\newblock Real-time 3-d human body tracking using learnt models of behaviour.
+\newblock {\em Comput. Vis. Image Underst.}, 109(2):112--125, 2008.
+\newblock Motion Capture.
+
+\bibitem{Cheng2006}
+Zhanglin Cheng, Xiaopeng Zhang, and Thierry Fourcaud.
+\newblock Tree skeleton extraction from a single range image.
+\newblock In {\em PMA '06: Proceedings of the 2006 International Symposium on
+  Plant Growth Modeling, Simulation, Visualization and Applications}, pages
+  274--281, Washington, DC, USA, 2006. IEEE Computer Society.
+\newblock Skeleton Extraction.
+
+\bibitem{Cornea2007}
+Nicu~D. Cornea and Patrick Min.
+\newblock Curve-skeleton properties, applications, and algorithms.
+\newblock {\em IEEE Transactions on Visualization and Computer Graphics},
+  13(3):530--548, 2007.
+\newblock Skeleton Extraction Survey Member-Silver,, Deborah.
+
+\bibitem{Aguiar2008}
+Edilson de~Aguiar, Carsten Stoll, Christian Theobalt, Naveed Ahmed, Hans-Peter
+  Seidel, and Sebastian Thrun.
+\newblock Performance capture from sparse multi-view video.
+\newblock In {\em SIGGRAPH '08: ACM SIGGRAPH 2008 papers}, pages 1--10, New
+  York, NY, USA, 2008. ACM.
+\newblock 3D Reconstruction.
+
+\bibitem{Desbrun1999}
+Mathieu Desbrun, Mark Meyer, Peter Schr\"{o}der, and Alan~H. Barr.
+\newblock Implicit fairing of irregular meshes using diffusion and curvature
+  flow.
+\newblock In {\em SIGGRAPH '99: Proceedings of the 26th annual conference on
+  Computer graphics and interactive techniques}, pages 317--324, New York, NY,
+  USA, 1999. ACM Press/Addison-Wesley Publishing Co.
+\newblock Skeleton Extraction.
+
+\bibitem{HernandezEsteban2002}
+C.~Hernandez~Esteban and F.~Schmitt.
+\newblock Multi-stereo 3d object reconstruction.
+\newblock In {\em 3D Data Processing Visualization and Transmission}, pages
+  159--166, 2002.
+\newblock 3D Reconstruction.
+
+\bibitem{Hou2007}
+Shaobo Hou, A.~Galata, F.~Caillette, N.~Thacker, and P.~Bromiley.
+\newblock Real-time body tracking using a gaussian process latent variable
+  model.
+\newblock In {\em IEEE Internat. Conf. on Computer Vision}, pages 1--8, Oct.
+  2007.
+\newblock Motion Capture.
+
+\bibitem{Lavoue2008}
+Guillaume Lavoué and Christian Wolf.
+\newblock Markov random fields for improving 3d mesh analysis and segmentation.
+\newblock In {\em Eurographics 2008 Workshop on 3D Object Retrieval}, April
+  2008.
+\newblock Skeleton Extraction.
+
+\bibitem{Remondino2003}
+Fabio Remondino and Andreas Roditakis.
+\newblock 3d reconstruction of human skeleton from single images or monocular
+  video sequences, 2003.
+\newblock 3D Reconstruction.
+
+\bibitem{Starck2005}
+J.~Starck, G.~Miller, and A.~Hilton.
+\newblock Video-based character animation.
+\newblock In {\em SCA '05: Proceedings of the 2005 ACM SIGGRAPH/Eurographics
+  symposium on Computer animation}, pages 49--58, New York, NY, USA, 2005. ACM.
+\newblock Motion Capture.
+
+\bibitem{4178157}
+Jonathan Starck and Adrian Hilton.
+\newblock Surface capture for performance-based animation.
+\newblock {\em Computer Graphics and Applications, IEEE}, 27(3):21--31,
+  May-June 2007.
+\newblock 3D reconstruction.
+
+\bibitem{Svensson2002}
+S.~Svensson, I.~Nyström, and G.~Sanniti di~Baja.
+\newblock Curve skeletonization of surface-like objects in 3d images guided by
+  voxel classification.
+\newblock {\em Pattern Recognition Letters}, 23(12):1419 -- 1426, 2002.
+\newblock Skeleton Extraction.
+
+\bibitem{Vlasic2008}
+Daniel Vlasic, Ilya Baran, Wojciech Matusik, and Jovan Popovi\'{c}.
+\newblock Articulated mesh animation from multi-view silhouettes.
+\newblock {\em ACM Trans. Graph.}, 27(3):1--9, 2008.
+\newblock 3D Reconstruction.
+
+\end{thebibliography}

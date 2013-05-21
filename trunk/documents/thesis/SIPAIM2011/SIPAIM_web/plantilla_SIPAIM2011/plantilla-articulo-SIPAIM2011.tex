@@ -1,0 +1,79 @@
+
+% Plantilla para presentación de artículos
+% VII Seminario Internacional de Procesamiento y Análisis de Imágenes Médicas
+% SIPAIM 2011
+
+% Plantilla de artículo para la clase LaTeX 'elsarticleSIPAIM',
+% basada en la clase LaTeX para artículos de Elsevier
+% 'elsarticle' Copyright 2007, 2008, 2009 Elsevier Ltd
+% y distribuída bajo la licencia LaTeX Project Public License
+
+% Opciones para los artículos de SIPAIM 2011:
+% - Tamaño de papel: carta
+% - Tamaño de fuente: 11pt
+% - Distribución del texto: una sola columna
+% IMPORTANTE: NO MODIFICAR ESTAS OPCIONES (el artículo puede ser rechazado por no cumplir con el estilo)
+\documentclass[letterpaper,11pt,onecolumn]{elsarticleSIPAIM}
+
+% Inclusión de paquetes necesarios
+% paquetes para funciones y símbolos matemáticos
+\usepackage{amsmath,amssymb}
+% paquete para el tipo de codificación del texto
+\usepackage[latin1]{inputenc}
+% paquete para la subdivisión de palabras y opciones del lenguaje, opción spanish para español
+\usepackage[spanish]{babel}
+% paquetes para inclusión de figuras y subfiguras
+\usepackage{graphicx,subfigure}
+% paquete para formato de direcciones de páginas web y correos electrónicos
+\usepackage{url}
+
+
+% inicio del documento
+\begin{document}
+
+% cabecera del documento
+% incluye: título, autores, afiliaciones, resumen y palabras clave
+\begin{frontmatter}
+  
+  % título
+  \title{Título}
+
+  % autores y afiliaciones
+  % utilizar etiquetas para relacionar cada autor a una o varias afiliaciones
+  % utilizar \corref[<etiqueta>] para indicar el autor de correspondencia
+  \author[ent1,ent2]{Autor 1\corref{cor1}}
+  \author[ent1]{Autor 2}
+  \author[ent2]{Autor 3}
+  
+  % cada afiliación debe incluír: grupo, laboratorio y/o universidad, ciudad, país
+  \address[ent1]{Afiliación 1}
+  \address[ent2]{Afiliación 2}
+  
+  % texto del autor de correspondencia, debe incluír: dirección física, teléfono y correo electrónico
+  % utilizar \url{<direccion>} para el correo electrónico
+  \cortext[cor1]{Correspondencia: Autor 1. Dirección, teléfono, \url{correo@electronico}}
+  
+  \begin{abstract}
+    % texto del resumen
+  \end{abstract}
+  
+  \begin{keyword}
+    % palabras clave, de la siguiente forma: palabra 1 \sep palabra 2 \sep palabra 3
+  \end{keyword}
+% fin de la cabecera
+\end{frontmatter}
+
+
+% cuerpo del documento
+\section{}
+\subsection{}
+
+
+% referencias
+% el estilo corresponde a: referencias numeradas
+\bibliographystyle{elsarticle-num}
+% indicar el nombre del archivo .bib (sin la extensión) que incluye las referencias del artículo
+% \bibliography{<archivo-referencias>}
+
+% fin del documento
+\end{document}
