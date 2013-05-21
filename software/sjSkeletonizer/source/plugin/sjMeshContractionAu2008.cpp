@@ -127,12 +127,15 @@ bool IterateLaplacianSmoothingSeparate::evolve(sjStateContext * ssc){
 	LinearSolver *solver;
 	SystemSolverParameters params ;
 	std::string  * mipo = new std::string("SUPERLU");
+	//std::string  * mipo = new std::string("ACE");
+	
 	params.set_arg_value("method", *mipo) ; 
 		
 	solver = new LinearSolver(n) ;
 	solver->set_system_solver(params) ;
 	solver->set_least_squares(true) ;
 	solver->set_invert_matrix(true) ;
+	solver->set_symmetric(true);
 
 	cout<<"\nIterate system: No = "<<this->m_context->iteration+1<<"|\t";
 	cout<<"Volume Ini= "<<calcVolume(STATE_MESH)<<"|\t";
