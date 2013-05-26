@@ -722,18 +722,24 @@ Keywords: laplacian smooth; curvature; sculpting; subdivision surface
 \end_layout
 
 \begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
 
-\series bold
-\size small
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
+\end_inset
 
 
-\backslash
-tableofcontents
 \end_layout
+
+\begin_layout Standard
+\begin_inset FloatList figure
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList table
 
 \end_inset
 
@@ -1076,6 +1082,60 @@ Gradient of Voronoi Area
 \end_layout
 
 \begin_layout Standard
+Consider a surface 
+\begin_inset Formula $S$
+\end_inset
+
+ composed of a set of triangles around vertex 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+ Let us define the 
+\shape slanted
+Voronoi Region
+\shape default
+ of 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ as show in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:voronoi_region"
+
+\end_inset
+
+, The area change produced by the movement of 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ is called the gradient of 
+\shape slanted
+Voronoi region
+\shape default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pinkall1993,Desbrun1999,Meyer2003"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\nabla A=\frac{1}{2}\underset{j}{\sum}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\left(v_{i}-v_{j}\right)\label{eq:eq_gradient_voronoi_area}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 placement H
 wide false
@@ -1136,6 +1196,422 @@ Area of the Voronoi region around
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If the gradient in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:eq_gradient_voronoi_area"
+
+\end_inset
+
+ is normalized by the total area of the 1-ring neighborhood around 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, the 
+\shape slanted
+discrete mean curvature normal
+\shape default
+ of a surface 
+\begin_inset Formula $S$
+\end_inset
+
+ is obtained, as shown in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:discrete_mean_curvature_normal"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+2\kappa\mathbf{n}=\frac{\nabla A}{A}\label{eq:discrete_mean_curvature_normal}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Laplace Beltrami Operator
+\end_layout
+
+\begin_layout Standard
+The 
+\shape italic
+Laplace Beltrami operator
+\shape default
+ LBO noted as 
+\begin_inset Formula $\triangle$
+\end_inset
+
+ is used for measuring the mean curvature normal to the Surface 
+\begin_inset Formula $S$
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pinkall1993"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\triangle S=2\kappa\mathbf{n}\label{eq:def_LBO}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The LBO has desirable properties: the LBO points out to the direction of
+ the minimal surface area.
+\end_layout
+
+\begin_layout Chapter
+Proposed Method
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Proposed-Method"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This method exaggerates a shape using a Laplacian smoothing operator in
+ the reverse direction, i.e., the new shape is a modified version in which
+ those areas with larger curvature are magnified.
+ The operator amounts to a generator of a set of models which conserves
+ the basic silhouette of the original shape.
+ In addition, the presented approach can be easily mixed with traditional
+ or uniform subdivision of surfaces.
+ This method is based on an original extension of the Laplace Beltrami operator
+ for hybrid quad/triangle meshes, mixing arbitrary types of meshes, exploiting
+ the basic geometrical relationships and ensuring algorithm convergence.
+\end_layout
+
+\begin_layout Section
+Laplace Beltrami Operator for Hybrid Quad/Triangle Meshes TQLBO
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Laplace-Beltrami-operator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Given a mesh 
+\begin_inset Formula $M=\left(V,Q,T\right)$
+\end_inset
+
+, with vertices 
+\begin_inset Formula $V$
+\end_inset
+
+, quads 
+\begin_inset Formula $Q$
+\end_inset
+
+, triangles 
+\begin_inset Formula $T$
+\end_inset
+
+.
+ The area of 
+\begin_inset Formula $1$
+\end_inset
+
+-ring neighborhood 
+\begin_inset Formula $A\left(v_{i}\right)$
+\end_inset
+
+ corresponds to a sum of the quad faces 
+\begin_inset Formula $A\left(Q_{v_{i}}\right)$
+\end_inset
+
+ and the areas of the triangular faces 
+\begin_inset Formula $\ensuremath{A\left(T_{v_{i}}\right)}$
+\end_inset
+
+ adjacent to vertex 
+\begin_inset Formula $\ensuremath{v_{i}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $A\left(v_{i}\right)=A\left(Q_{v_{i}}\right)+A\left(T_{v_{i}}\right)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/quad_xiong.pdf
+	lyxscale 30
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:quad_xiong"
+
+\end_inset
+
+
+\begin_inset Formula $t_{j1}^{*}\equiv\vartriangle v_{i}v_{j}v_{j}^{\prime},\, t_{j2}^{*}\equiv\vartriangle v_{i}v_{j}^{\prime}v_{j+1},\, t_{j3}^{*}\equiv\vartriangle v_{i}v_{j}v_{j+1}$
+\end_inset
+
+ Triangulations of the quad with common vertex 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ proposed by [Xiong 2011] to define Mean LBO.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Applying the mean average area, according to Xiong et.
+ al.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Xiong2011"
+
+\end_inset
+
+, from all possible triangulations, as show in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:quad_xiong"
+
+\end_inset
+
+, the area for quads 
+\begin_inset Formula $\ensuremath{A\left(Q_{v_{i}}\right)}$
+\end_inset
+
+ and triangles 
+\begin_inset Formula $A\left(T_{v_{i}}\right)$
+\end_inset
+
+ is.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $A\left(v_{i}\right)=\frac{1}{2^{m}}\overset{m}{\underset{j=1}{\sum}}2^{m-1}A\left(q_{j}\right)+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $q_{1},q_{2},...,q_{j},...,q_{m}\in Q_{v_{i}}$
+\end_inset
+
+ and 
+\begin_inset Formula $t_{1},t_{2},...,t_{k},...,t_{r}\in T_{v_{i}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[A\left(t_{j1}^{*}\right)+A\left(t_{j2}^{*}\right)+A\left(t_{j3}^{*}\right)\right]+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)\label{eq:area_1_ring_triangles_quads}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Applying the gradient operator to (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:area_1_ring_triangles_quads"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+
+\size small
+\begin_inset Formula 
+\begin{equation}
+\nabla A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[\nabla A\left(t_{j1}^{*}\right)+\nabla A\left(t_{j2}^{*}\right)+\nabla A\left(t_{j3}^{*}\right)\right]+\overset{r}{\underset{k=1}{\sum}}\nabla A\left(t_{k}\right)\label{eq:EqGrad}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+According to (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:eq_gradient_voronoi_area"
+
+\end_inset
+
+), we have.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\nabla A\left(t_{j1}^{*}\right)=\frac{\cot\theta_{j3}\left(v_{j}-v_{i}\right)+\cot\theta_{j2}\left(v_{j}^{\prime}-v_{i}\right)}{2}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\nabla A\left(t_{j2}^{*}\right)=\frac{\cot\theta_{j5}\left(v_{j}^{\prime}-v_{i}\right)+\cot\theta_{j4}\left(v_{j+1}-v_{i}\right)}{2}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\nabla A\left(t_{j3}^{*}\right)=\frac{\cot\theta_{j6}\left(v_{j}-v_{i}\right)+\cot\theta_{j1}\left(v_{j+1}-v_{i}\right)}{2}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\nabla A\left(t_{k}\right)=\frac{\cot\alpha_{k}\left(v_{k}-v_{i}\right)+\cot\beta_{k+1}\left(v_{k+1}-v_{i}\right)}{2}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Triangle and quad configurations of the 1-ring neighborhood faces, adjacent
+ to 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, can be simplified to five cases, as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:LBO-basic-5-TQ"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/beltrami.pdf
+	lyxscale 50
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:LBO-basic-5-TQ"
+
+\end_inset
+
+The 5 basic triangle-quad cases with common vertex 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+ and the relationship with 
+\begin_inset Formula $V_{j}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{j}^{\prime}$
+\end_inset
+
+.
+ (a) Two triangles [Desbrun 1999].
+ (b) (c) Two quads and one quad [Xiong 2011].
+ (d) (e) Triangles and quads (TQLBO) our contribution.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Plain Layout
 
 \end_layout
@@ -1146,42 +1622,525 @@ Area of the Voronoi region around
 \end_layout
 
 \begin_layout Standard
-Consider a surface 
-\begin_inset Formula $S$
+According to equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:discrete_mean_curvature_normal"
+
 \end_inset
 
- composed of a set of triangles around vertex 
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:def_LBO"
+
+\end_inset
+
+), and five simple cases defined in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:LBO-basic-5-TQ"
+
+\end_inset
+
+ the TQLBO (Triangle-Quad LBO) of 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ is.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\triangle_{S}\left(v_{i}\right)=2\kappa\mathbf{n}=\frac{\nabla A}{A}=\underset{v_{j}\in N_{1}\left(v_{i}\right)}{\frac{1}{2A}\sum}w_{ij}\left(v_{j}-v_{i}\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size small
+\begin_inset Formula 
+\begin{equation}
+w_{ij}=\begin{cases}
+\left(\cot\alpha_{j}+\cot\beta_{j}\right) & \mbox{case }\mathit{a.}\\
+\frac{1}{2}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}+\cot\theta_{j3}+\cot\theta_{j6}\right) & \mbox{case \ensuremath{\mathit{b}}.}\\
+\left(\cot\theta_{j2}+\cot\theta_{j5}\right) & \mbox{case \ensuremath{\mathit{c}}.}\\
+\frac{1}{2}\left(\cot\theta_{j3}+\cot\theta_{j6}\right)+\cot\beta_{j} & \mbox{case \ensuremath{\mathit{d}}.}\\
+\frac{1}{2}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}\right)+\cot\alpha_{j} & \mbox{case \ensuremath{\mathit{e}}.}
+\end{cases}\label{eq:TQLBO_wij}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We define a Laplacian operator as a matrix equation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+L\left(i,j\right)=\begin{cases}
+-\frac{1}{2A_{i}}w_{ij} & \mbox{if }j\in N\left(v_{i}\right)\\
+\frac{1}{2A_{i}}\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij} & \mbox{if }i=j\\
+0 & \mbox{otherwise}
+\end{cases}\label{eq:TQLBO_Simple_Matrix}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $L$
+\end_inset
+
+ is a 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ matrix, 
+\begin_inset Formula $n$
+\end_inset
+
+ is the number of vertices of a given mesh 
+\begin_inset Formula $M$
+\end_inset
+
+, 
+\begin_inset Formula $w_{ij}$
+\end_inset
+
+ is the TQLBO defined in equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_wij"
+
+\end_inset
+
+), 
+\begin_inset Formula $N\left(v_{i}\right)$
+\end_inset
+
+ is the 1-ring neighborhood with shared face to 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $A_{i}$
+\end_inset
+
+ is the ring area around 
 \begin_inset Formula $v_{i}$
 \end_inset
 
 .
- Let us define the 
-\shape slanted
-Voronoi Region
-\shape default
- of 
-\begin_inset Formula $v_{i}$
+\end_layout
+
+\begin_layout Standard
+Normalized version of the TQLBO as a matrix equation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+L\left(i,j\right)=\begin{cases}
+-\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij}} & \mbox{if }j\in N\left(v_{i}\right)\\
+\delta_{ij} & \mbox{otherwise}
+\end{cases}\label{eq:TQLBO-Normalized_Matrix}
+\end{equation}
+
 \end_inset
 
- as show in figure 
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $\delta_{ij}$
+\end_inset
+
+ being the Kronecker delta function.
+\end_layout
+
+\begin_layout Section
+The Shape Inflation
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Curvature-Enhancing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/teaser_cup.pdf
+	lyxscale 10
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Subdivision-Cups"
+
+\end_inset
+
+ Family of cups generated with our method, from a coarse model (a), (c):
+ the shape, obtained from the Catmull-Clark Subdivision (b), (d), is inflated.
+ Soft constraints, over the coarse model, is drawn in red and blue (c).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The shape is inflated by using the reverse direction of the curvature flow,
+ moving the vertices towards those mesh portions with larger curvature.
+ A standard diffusion process is applied:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\frac{\partial V}{\partial t}=\lambda L\left(V\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+To solve this equation, implicit integration is used as well as a normalized
+ version of TQLBO matrix.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\left(I-\left|\lambda dt\right|W_{p}L\right)V^{\prime}=V^{t}\label{eq:Lineal_System_with_wp}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $V^{t+1}=V^{t}+\mbox{sign}\left(\lambda\right)\left(V^{\prime}-V^{t}\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+The vertices 
+\begin_inset Formula $V^{t+1}$
+\end_inset
+
+ are inflated, along their reverse curvature direction, by solving the linear
+ system: 
+\begin_inset Formula $Ax=b$
+\end_inset
+
+, where 
+\begin_inset Formula $A=I-\left|\lambda dt\right|W_{p}L$
+\end_inset
+
+,
+\begin_inset space ~
+\end_inset
+
+ 
+\begin_inset Formula $L$
+\end_inset
+
+ is the Normalized TQLBO defined in the equation (
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "fig:voronoi_region"
+reference "eq:TQLBO-Normalized_Matrix"
 
 \end_inset
 
-, The area change produced by the movement of 
-\begin_inset Formula $v_{i}$
+), 
+\begin_inset Formula $x=V^{\prime}$
 \end_inset
 
- is called the gradient of 
-\shape slanted
-Voronoi region
-\shape default
+ are the smoothing vertices, 
+\begin_inset Formula $b=V^{t}$
+\end_inset
+
+ are the actual vertices positions, 
+\begin_inset Formula $W_{p}$
+\end_inset
+
+ is a diagonal matrix with vertex weights, and 
+\begin_inset Formula $\lambda dt$
+\end_inset
+
+ is the inflate factor that supports negative and positive values: negative
+ for inflation and positive for smoothing.
+\end_layout
+
+\begin_layout Standard
+The method was devised to use with weighted vertex groups, which specify
+ the final shape inflation of the solution, meaning 
+\begin_inset Formula $0$
+\end_inset
+
+ as no changes and 1 when a maximal change is applied.
+ The weights modify the influence zones, where the Laplacian is applied,
+ as shown in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Lineal_System_with_wp"
+
+\end_inset
+
+.
+ Interestingly, the generated family of shapes may change substantially
+ with the weights of specific control points.
+\end_layout
+
+\begin_layout Standard
+The curvature cannot be calculted at the boundary of the meshes that are
+ not closed, for that reason we use the scale-dependent operator proposed
+ by Desbrun et al.
  
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Pinkall1993,Desbrun1999,Meyer2003"
+key "Desbrun1999"
+
+\end_inset
+
+, the inflation factor for boundary is represented by 
+\begin_inset Formula $\lambda_{e}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The model volume increases as the lambda is larger and negative, this can
+ be counteracted with a simple volume preservation.
+ However, the mesh may suffer large displacements when 
+\begin_inset Formula $\lambda<-1.0$
+\end_inset
+
+ or after multiple iterations.
+ A simple volume conservation algorithm is: If 
+\begin_inset Formula $v_{i}^{t+1}$
+\end_inset
+
+ is a mesh vertex of 
+\begin_inset Formula $V^{t+1}$
+\end_inset
+
+ in the 
+\begin_inset Formula $t+1$
+\end_inset
+
+ iteration, we define 
+\begin_inset Formula $\overline{v}$
+\end_inset
+
+ as:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\overline{v}=\frac{1}{n}\underset{v_{i}\in V}{\sum}v_{i}$
+\end_inset
+
+, 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\overline{v}$
+\end_inset
+
+ is the mesh center, 
+\begin_inset Formula $vol_{ini}$
+\end_inset
+
+ is an initial volume, and 
+\begin_inset Formula $vol_{t+1}$
+\end_inset
+
+ is the volume at the iteration 
+\begin_inset Formula $t+1$
+\end_inset
+
+, then the scale factor.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $\beta=\left(\frac{vol_{ini}}{vol_{t+1}}\right)^{\frac{1}{3}}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+allows to scale the vertices to:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $v_{i\, new}^{t+1}=\beta\left(v_{i}^{t+1}-\overline{v}\right)+\overline{v}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+The shape inflation use a negative curvature flow that is an unstable process
+ when performing many iterations, however, our method uses less than 3 iteration
+s to get good results, and with 3 iterations or less the method behaves
+ stable.
+\end_layout
+
+\begin_layout Section
+Sculpting
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Sculpting"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A new sculpting brush is herein proposed and aims to inflate the shape,
+ magnifying the shape curvatures of a polygon mesh in real time.
+ This brush works properly with the stroke method 
+\shape slanted
+Drag Dot
+\shape default
+, allowing to pre-visualize the model changes before the mouse is released.
+ Also, it allows to move the mouse along the model to match the shape zone
+ which is supposed to be inflated.
+\end_layout
+
+\begin_layout Standard
+Brushes that perform a similar inflation can introduce mesh distortions
+ or produce mesh self-intersections, provided these brushes only move the
+ vertices along the normal without any global information.
+ In contrast, the present method searches for a proper inflation while preservin
+g the global curvature, retaining the original shape and main model features.
+ In addition, this method simplifies the work required for the inflation
+ since it needs not different brushes for inflating, softening or styling.
+ The inflated brush can make all these operation in a single step.
+ Real-time brushes require the Laplacian matrix is constructed with the
+ vertices that are within the sphere radius defined by the user, reducing
+ the matrix to be processed, the center of this sphere depending on the
+ place where the user clicks on the canvas and the three-dimensional mesh
+ placed where the click is projected.
+ Special handling is required for the boundary vertices with neighbors that
+ are not within the brush radius: these vertices are marked as boundary
+ and the curvature is not there calculated, but they must be included in
+ the matrix so that every vertex has their corresponding neighbors within
+ the selection.
+ The sculpting Laplacian matrix reads as.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Formula $L\left(i,j\right)=\begin{cases}
+-\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij}} & \mbox{if }\left\Vert v_{i}-u\right\Vert <r\wedge\left\Vert v_{j}-u\right\Vert <r\\
+0 & \mbox{if }\left\Vert v_{i}-u\right\Vert <r\wedge\left\Vert v_{j}-u\right\Vert \geq r\\
+\delta_{ij} & \mbox{otherwise}
+\end{cases}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $v_{j}\in N\left(v_{i}\right)$
+\end_inset
+
+, 
+\begin_inset Formula $u$
+\end_inset
+
+ is the sphere center of radius 
+\begin_inset Formula $r$
+\end_inset
+
+.
+ The matrices should remove rows and columns of vertices that are not within
+ the radius.
+\end_layout
+
+\begin_layout Section
+Subdivision surfaces
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Subdivision-surfaces"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Catmull-Clark subdivision transformation is used to smooth a surface,
+ as the limit of a sequence of subdivision steps 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Stam1998"
+
+\end_inset
+
+.
+ This process is governed by a B-spline curve 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Loop1987"
+
+\end_inset
+
+, performing a recursive subdivision transformation that refines the model
+ into a linear interpolation that approximates a smooth surface.
+ The model smoothness is automatically guaranteed 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "DeRose1998"
 
 \end_inset
 
@@ -1189,10 +2148,936 @@ key "Pinkall1993,Desbrun1999,Meyer2003"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Newpage clearpage
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/cruz_lambda4.pdf
+	lyxscale 10
+	width 100text%
+
 \end_inset
 
 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Catmull_Clark"
+
+\end_inset
+
+(a) Original Model, (b) Model with Catmull-Clark Subdivision.
+ Models with Laplacian smoothing: (c) and (d).
+ Models with a first Laplacian filtering 
+\begin_inset Formula $\lambda=60.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=12.0$
+\end_inset
+
+ and before applying shape inflation: (e) and (f).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Catmull-Clark subdivision surface methods generate smooth and continuous
+ models from a coarse model and produce quick results because of the simplicity
+ of implementation.
+ Nevertheless, changes to the global curvature are hardly implantable.
+ The Catmull-Clark subdivision surfaces together with shape inflation can
+ easily generate families of shapes by changing a single parameter, allowing
+ to handle a model with very few vertices.
+ In practice, this would allow an artist to choose a model from a similar
+ set of options that would meet his/her needs without having to change each
+ of the control vertices.
+ Likewise, the presented method allows the use of vertex weight paint over
+ the control points.
+ The weights can be applied to a coarse model, followed by a Catmull-Clark
+ subdivision where weights are interpolated, producing weights with smooth
+ changes in the influence zones, as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+.c.
+\end_layout
+
+\begin_layout Standard
+In equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Lineal_System_with_wp"
+
+\end_inset
+
+, 
+\begin_inset Formula $W_{p}$
+\end_inset
+
+ is a diagonal matrix with weights corresponding to each vertex.
+ Weights at each vertex produce a different solution so that the matrix
+ must be placed in the diffusion equation since families that are generated
+ may change substantially with weighted of specific control points.
+\end_layout
+
+\begin_layout Section
+Skeleton Extraction
+\end_layout
+
+\begin_layout Chapter
+Results
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Results"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The results of the shape inflation method with the extension of the Laplace
+ Beltrami operator for hybrid quad/triangle meshes with several example
+ models (see figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Spectrum"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Catmull_Clark"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TQLBO_test"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:camello_enhanced"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Sculpt_Brush"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Performance-sculpt"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Animated_Camell"
+
+\end_inset
+
+).
+ The shape inflation was assessed with TQLBO method on a PC with AMD Quad-Core
+ Processor @ 2.40 GHz and 8 GB RAM.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/spectrum.pdf
+	lyxscale 30
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Spectrum"
+
+\end_inset
+
+A set of 48 successive shapes enhanced, from 
+\begin_inset Formula $\lambda=0.0$
+\end_inset
+
+ in blue to 
+\begin_inset Formula $\lambda=-240.0$
+\end_inset
+
+ in red, with steps of 
+\begin_inset Formula $-5.0$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TQLBO_test"
+
+\end_inset
+
+ shows the results when applying the Laplace Beltrami Operator TQLBO of
+ equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+) in a model with a simple subdivision.
+ In column (c) the Laplacian smoothing was applied to a model consisting
+ of only quads.
+ In column (d) the model was converted to triangles and then the Laplacian
+ smoothing was applied.
+ In column (e) the model was randomly converted from some quads into triangles
+ and then the Laplacian smoothing is applied, showing similar results to
+ those meshes composed only of triangles or quads.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/test_triangles_quads.pdf
+	lyxscale 10
+	height 50theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TQLBO_test"
+
+\end_inset
+
+(a) Original Model.
+ (b) Simple subdivision.
+ (c), (d) (e) Laplacian smoothing with 
+\begin_inset Formula $\lambda=7$
+\end_inset
+
+ and 2 iterations: (c) for triangles, (d) for quads, (e) for triangles and
+ quads random chosen.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Methods using the Catmull-Clark subdivision surface and the inflation allows
+ to modify the curvature that is obtained with the process of subdivision,
+ as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+.
+ This test used a coarse cup model, in which the subdivision was performed,
+ followed by a Laplacian smoothing and inflation.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+.c, 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+.d shows also the use of weight vertex groups over coarse models, with subdivisio
+n surfaces that allowed to generate the weights for the new interpolated
+ vertices.
+ These new weights were used for the inflation obtained on the 6 cups that
+ are at the right of the figure 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Subdivision-Cups"
+
+\end_inset
+
+.d.
+\end_layout
+
+\begin_layout Standard
+Laplacian smoothing applied with simple subdivision (see figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Catmull_Clark"
+
+\end_inset
+
+.b.) may produce similar results to those obtained with Catmull-Clark (see
+ figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Catmull_Clark"
+
+\end_inset
+
+.c.), whose models are in average equal triangles.
+ The one obtained with the Laplacian smoothing is shown in panel (c), (d)
+ and those curvature modified versions are in (e) and (f).
+ As can be observed, different versions of the original sketch can be obtained
+ by parameterizing a single model value, a great advantage of the presented
+ method.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:camello_enhanced"
+
+\end_inset
+
+ shows the generation of different versions of a camel according to the
+ 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ parameter.
+ In the top row, it is shown the shape inflation results, as 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ becomes larger and negative, the resultant shape is observed as if the
+ model would inflate the more convex parts, as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Spectrum"
+
+\end_inset
+
+.
+ The larger the 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ parameter the larger the model feature inflations.
+ The bottom row of figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:camello_enhanced"
+
+\end_inset
+
+ shows the use of weighted vertex groups, specifying which areas will be
+ inflated.
+ On the left, the inflation of the camel legs produces an organic aspect,
+ notice that the border is not distorted and smooth.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/camello_enhanced2.pdf
+	lyxscale 10
+	height 50theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:camello_enhanced"
+
+\end_inset
+
+Top row: Original camel model in left.
+ Shape inflation with 
+\begin_inset Formula $\lambda=-30.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda=-100.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda=-400.0$
+\end_inset
+
+.
+ Bottom row: Shape inflation with weight vertex group, 
+\begin_inset Formula $\lambda=-50.0$
+\end_inset
+
+ and 2 iterations for the legs, 
+\begin_inset Formula $\lambda=-200.0$
+\end_inset
+
+ and 1 iteration for the head and neck.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The inflation of the silhouette features is predictable and invariant under
+ isometric transformations, as those classically used in some animations
+ (see Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Animated_Camell"
+
+\end_inset
+
+).
+ In this figure, the animation shows some camel poses during a walk, the
+ inflation is performed at the neck and legs, as shown in the bottom left
+ camel in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Animated_Camell"
+
+\end_inset
+
+.
+ Local modifications produced by the pose interpolation or animation rigging
+ practically do not affect the result.
+ In spite of at any pose of the camel legs there is a clear difference,
+ the inflation method allows a flesh-like shape in the original pattern
+ produced by the artist.
+ This is due to the mesh restricted diffusion process so that small local
+ changes are treated without affecting the global solution.
+ The method therefore is rotation invariant since it depends exclusively
+ on the normal mesh field, which is rotation invariant.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/camello_walk2.png
+	lyxscale 10
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Animated_Camell"
+
+\end_inset
+
+The method is pose insensitive.
+ The inflation for the different poses are similar in terms of shape.
+ Top row: Original walk cycle camel model.
+ Bottom row: Shape inflation with weight vertex group, 
+\begin_inset Formula $\lambda=-400$
+\end_inset
+
+ and 
+\begin_inset Formula $2$
+\end_inset
+
+ iterations.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Sculpt_Brush"
+
+\end_inset
+
+ shows the use of a shape inflation brush for sculpting in real time.
+ One pass was used with the brush, as shown in the figure, with the blue
+ and red radius.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Sculpt_Brush"
+
+\end_inset
+
+.b the camel foot shows the inflation intersection that looks like two bubbles,
+ a similar pattern to what is observed to the fingers on the bottom of the
+ same figure.
+ The silhouette inflation is observed in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Sculpt_Brush"
+
+\end_inset
+
+.c since the main shape is retained together with its finger and foot details.
+ Similar results can be obtained by a user, however it would take several
+ steps and require the use of several brushes, while the shape inflation
+ took a single step.
+ Likewise, this new method can easily inflate organic features like muscles
+ during the sculpting process.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Performance-sculpt"
+
+\end_inset
+
+ the shape inflation brush performance is illustrated, in this experiment
+ three models with 12K, 40K and 164K vertices, were used.
+ These models were sculpted with the shape inflate brush, at each step the
+ brush sphere containing a variable number of vertices for processing.
+ The processing time for 800 vertices in the camel paw (40k model) only
+ took 0.1 seconds, for 2600 vertices in the leg and neck (model 40k) took
+ 0.5 seconds, these times are suitable in real applications since an artist
+ sculpts a model for parts.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%, and each part is represented by an average of about 1800 vertices.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/sculpt_brush.pdf
+	lyxscale 10
+	height 40theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Sculpt_Brush"
+
+\end_inset
+
+Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
+ Inflate shape brush for leg into red circle.
+ Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
+ Shape inflation brush for fingers in red circle.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/verts_per_second_sculpt.pdf
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Performance-sculpt"
+
+\end_inset
+
+Performance of our dynamic shape inflation brush in terms of the sculpted
+ vertices per second.
+ Three models with 12K, 40K, 164K vertices used for sculpting in real time.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Tests with the Laplacian operator (equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+) and its normalized version (equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO-Normalized_Matrix"
+
+\end_inset
+
+), produce similar results if the triangles or quads that compose the mesh
+ are about the same size.
+ The normalized version is more stable and predictable because it is not
+ divided by the area of the ring which may be very small and causes numeric
+ problems, as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+.c bottom row.
+ The shape inflation of the model with the normalized Laplacian operator
+ results in a more regular pattern.
+ The model can be deformed with a TQLBO normalized version with large 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ (
+\begin_inset Formula $\lambda>400$
+\end_inset
+
+) while intersecting itself with no peaks.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+.c shows different results due to the quads areas in the model.
+ Quadss with larger area have smaller inflation (figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+.c skull), and smaller quads have larger inflations (figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:(a)Monkey"
+
+\end_inset
+
+.c chin).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/monkey.pdf
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:(a)Monkey"
+
+\end_inset
+
+(a) Bottom row: Original Model.
+ Top row: Original model scaled by 4.
+ (b) Top and bottom row: inflating with Normalized-TQLBO 
+\begin_inset Formula $\lambda=-50$
+\end_inset
+
+ (c) Top and bottom row: inflating with TQLBO 
+\begin_inset Formula $\lambda=-50$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Implementation
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Implementation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The method was implemented as a modifier for modeling and brush for sculpting,
+ on the Blender software 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blender"
+
+\end_inset
+
+ in C and C++.
+ Working with the Blender allowed to test the method interactively against
+ others, as Catmull-Clark, weight vertex groups and sculpting system in
+ Blender.
+\end_layout
+
+\begin_layout Standard
+To improve the performance, it was worked with the Blender mesh struct,
+ visiting each triangle or quad and storing its corresponding index and
+ the sum of the Laplacian weights of the ring in a list so that only two
+ visits were required for the list of mesh faces and two times the edge
+ list, if the mesh was not closed.
+ This drastically reduced calculations, enabling real-time processing.
+ In the construction of the Laplacian matrix, several index were locked
+ at vertices having face areas or edge lengths with zero value that could
+ cause spikes and bad results.
+\end_layout
+
+\begin_layout Standard
+Under these conditions, the matrix at equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+ is sparse since the number of neighbors per vertex, corresponding to the
+ number of data per row, is smaller compared to the total number of vertices
+ in the mesh.
+ To solve the linear system equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Lineal_System_with_wp"
+
+\end_inset
+
+ was used OpenNL which is a a library for solving sparse linear system.
+\end_layout
+
+\begin_layout Chapter
+Conclusion and future work
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Conclusion-and-future"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This work presented an extension of the Laplace Beltrami operator for hybrid
+ quad/triangle meshes that can be used in production environments and provides
+ results similar to those obtained by working only with triangles or quads.
+ This paper has introduced a new way to change silhouettes in a mesh for
+ modeling or sculpting in a few steps by means of the curvature model modificati
+on while preserving its overall shape.
+ In addition, a new modeling method has also been presented some possible
+ applications have been illustrated.
+ The method works properly with isometric transformations, opening the possibili
+ty of introducing it on the process of animation.
+\end_layout
+
+\begin_layout Standard
+We show that this tool may work in early modeling stages, case in which
+ coarse models are used, allowing to modify the shape generated by the Catmull-C
+lark subdivision surfaces, and thereby avoiding edition of the vertices
+ with change of a single parameters.
+\end_layout
+
+\begin_layout Standard
+Future work includes the analysis of theoretical relationships between the
+ Catmull-Clark subdivision surfaces and the Laplacian smoothing since they
+ can produce very similar results.
+ 
 \end_layout
 
 \begin_layout Standard
