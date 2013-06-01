@@ -12,11 +12,11 @@ function  [VV, F]  = skeletonizer_user( iter );
     nf = length(F);
     dv = (L*V)';
     
-    C = getConstraints(FileName, nv);
+    C = get_mesh_constraint(FileName, nv);
     [uf, vf1, vf2, ff1, ff2] = harmonic_field(V',F, C);
 
-    WL = 10* diag(abs(uf));
-    %WL = 10;
+    %WL = 10* diag(abs(uf));
+    WL = 10;
     SL = 2;
     WH = speye(nv);
 
@@ -24,6 +24,14 @@ function  [VV, F]  = skeletonizer_user( iter );
     B = [zeros(nv, 3);  WH*V];
     At_0 = compute_area_ring(F,V');
     lock = zeros(1, nv);
+    for i=1:length(C)
+        if C(i) ~= 0
+            lock(1,i) = 1;
+            A(i,:) = 0;
+            A(i,i) = 1;
+            B(i,:) = V(i,:);
+        end
+    end
     Vt_i = V;
     
     fprintf(1, '\n');
@@ -32,7 +40,14 @@ function  [VV, F]  = skeletonizer_user( iter );
         
         %[Lu_0,U_0,P_0] = lu(A);
         %Vt_i = U_0\(Lu_0\B);
-        
+        for i=1:length(C)
+            if C(i) ~= 0
+                lock(1,i) = 1;
+                A(i,:) = 0;
+                A(i,i) = 1;
+                B(i,:) = V(i,:);
+            end
+        end
         Vtemp_i = (A'*A)\(A'*B); 
         for j=1:nf
             if compute_area_face( F,Vtemp_i', j) < 0.00000000001
@@ -66,6 +81,12 @@ function  [VV, F]  = skeletonizer_user( iter );
                 B(j, :) = Vt_i( j, :);
             end
         end
+        vol = compute_volume(F,Vt_i');
+        if vol < 0.00001
+            fprintf(1, 'Volume: %f\n', vol);
+            break;
+        end
+        fprintf(1, 'Volume: %f\n', vol);
     end
     VV  = Vt_i ;
 end
@@ -94,60 +115,28 @@ function area = compute_area_vector(v1,v2,v3);
     area = norm(c) /2;
 end
 
-function C = getConstraints(name, n);
-    C = zeros(1,n);
-    if strcmp(name, 'elephant.off')
-        C(767) = -1;
-        C(960) = -1;
-        C(2720) = -1;
-        C(1716) = -1;
-        C(2266) = -1; 
-        C(1309) = -1;
-        C(2419) = -1;
-        C(1195) = -1;
-        C(1692) = -1;
-        C(1503) = -1;
-        C(1564) = -1;
-    elseif strcmp(name, 'cactus.off')
-        C(160) = -1;
-        C(176 ) = -1;
-        C(956 ) = -1;
-        C(183 ) = -1;
-        C(128 ) = -1;
-    elseif strcmp(name, 'MunConCambios.off')
-        C(1211) = -1;
-        C(136) = -1;
-        C(964) = -1;
-        C(1143) = -1;
-    elseif strcmp(name, 'Motionblender31.off')
-        C(538 ) = -1;
-        C(240 ) = -1;
-        C(287 ) = -1;
-        C(289 ) = -1;
-        C(251 ) = -1;
-        C(487 ) = -1;
-        C(487 ) = -1;
-        C(465 ) = -1;
-        C(25 ) = -1;
-    elseif strcmp(name, 'mesh_0120.off')
-        C(9645) = -5;
-        C(4356) = -1;
-        C(4317) = -1;
-        C(102) = -1;
-        C(29) = -1;
-    elseif strcmp(name, 'dino.off')
-        C(6548) = -2;
-        C(4965) = -1;
-        C(20197) = -1;
-        C(11562) = -1;
-        C(23018) = -1;
-        C(15601) = -1;
-    elseif strcmp(name, 'FE_final.off')
-        C(96460)=-1;
-        C(169340)=-1;
-        C(168357)=-1;
-    elseif strcmp(name, 'cubo.off')
-        C(5)=-10;
-        C(3)=-1;
+function vol = compute_volume(F, V);
+	vol = 0;
+    numFaces = length(F);
+	%float x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4;
+	for i = 1:numFaces
+		v1 = V(:, F(1, i));
+        v2 = V(:, F(2, i));
+        v3 = V(:, F(3, i));
+
+		x1 = v1(1);
+		y1 = v1(2);
+		z1 = v1(3);
+
+		x2 = v2(1);
+		y2 = v2(2);
+		z2 = v2(3);
+
+		x3 = v3(1);
+		y3 = v3(2);
+		z3 = v3(3);
+
+		vol = vol + (1.0 / 6.0) * (x2 * y3 * z1 + x3 * y1 * z2 - x1 * y3 * z2 - x2 * y1 * z3 + x1 * y2 * z3 - x3 * y2 * z1);
     end
+    vol = abs(vol);
 end
