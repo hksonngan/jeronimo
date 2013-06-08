@@ -1021,6 +1021,67 @@ key "Galyean1991"
 \end_layout
 
 \begin_layout Chapter
+Mathematical foundation
+\end_layout
+
+\begin_layout Standard
+Este capitulo presenta la base de estudio para entender los fundamentos
+ de la ecuacion de laplace y su uso n la geometria diferencial.
+\end_layout
+
+\begin_layout Standard
+The differential geometry describes continuos surfaces and space curves
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hahne2006"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Laplace's equation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial^{2}u}{\partial x^{2}}+\frac{\partial^{2}u}{\partial y^{2}}+\frac{\partial^{2}u}{\partial z^{2}}=0
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\nabla^{2}u=\triangle u=0
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mbox{div }\mbox{grad}u=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Dirichlet's energy
+\end_layout
+
+\begin_layout Chapter
 Laplacian Smooth
 \begin_inset CommandInset label
 LatexCommand label
@@ -3083,7 +3144,7 @@ Future work includes the analysis of theoretical relationships between the
 \begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
-bibfiles "bibliografia/listado_inicial,TQLBO-paper/template"
+bibfiles "bibliografia/listado_inicial,TQLBO-paper/template,D:/src/blender/GSoC/GSOC2013/bibliography_mesh_editing"
 options "bibtotoc,plain"
 
 \end_inset
