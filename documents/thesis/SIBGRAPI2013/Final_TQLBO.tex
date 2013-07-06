@@ -14,7 +14,7 @@
 
 
 \begin{document}
-\title{Shape Inflation With and Adapted Laplacian Operator For Hybrid Quad/Triangle Meshes}
+\title{Shape Inflation With an Adapted Laplacian Operator For Hybrid Quad/Triangle Meshes}
 
 %------------------------------------------------------------------------- 
 % change the % on next lines to produce the final camera-ready version 
@@ -76,7 +76,7 @@ Editing techniques have evolved from affine transformations to advanced
 tools like sculpting \cite{Coquillart1990,Galyean1991,Stanculescu2011},
 editing, creation from sketches \cite{Igarashi1999,Gonen2012}, and
 complex interpolation techniques \cite{Sorkine2004,Zhou2005}. Catmull-Clark
-based methods however require to interact with a minimun number of
+based methods however require to interact with a small number of
 control points for any operation to be efficient, or in other words,
 a unicity condition is introduced by demanding a smooth surface after
 any of these shape operations. Hence, traditional modeling methods
@@ -85,7 +85,7 @@ for subdividing surfaces from coarse geometry have become widely popular
 B-cubic spline knot insertion to meshes, some of them adding some
 type of control, for instance with the use of creases to produce sharp
 edges \cite{DeRose1998}, or the modification of some vertex weights
-to locally control the zone of influence \cite{Biermann2000}. Neverteless
+to locally control the zone of influence \cite{Biermann2000}. Nevertheless
 these methods are difficult to deal with since they require a large
 number of parameters and a very tedious customization. Instead, the
 presented method requires a single parameter that controls the global
@@ -115,7 +115,7 @@ Beltrami operator for hybrid quad/triangle meshes, representing a
 larger mesh spectrum from what has been presented so far. The method
 eliminates the need of preprocessing and allows preservation of the
 original topology. Likewise, along with this operator, it is proposed
-a method to generate a family of parameterized shapes, in a robust
+a method to generate a family of parametrized shapes, in a robust
 and predictable way. This method enables customization of the smoothness
 and curvature, obtained during the subdivision surfaces process. Finally,
 it is proposed a new brush for inflating the silhouette mesh features
@@ -173,20 +173,10 @@ In grid-based sculpting, some other operations have allowed to add
 or remove voxels since production of polygonal meshes require a processing
 of isosurfaces from a volume \cite{Galyean1991}. The drawback comes
 from the difficulty of maintaining the surface details during larger
-scale deformations.
+scale deformations. 
 
 %==========================================
 \section{Laplacian Smooth\label{sec:Laplacian-Smooth}}
-%
-\begin{figure*}[t]
-\includegraphics[width=1\textwidth]{figs/beltrami}
-
-\caption{\label{fig:LBO-basic-5-TQ}The 5 basic triangle-quad cases with common
-vertex $V_{i}$ and the relationship with $V_{j}$ and $V_{j}^{\prime}$.
-(a) Two triangles {[}Desbrun 1999{]}. (b) (c) Two quads and one quad
-{[}Xiong 2011{]}. (d) (e) Triangles and quads (TQLBO).}
-\end{figure*}
-
 
 Computer objects, reconstructed from the real world, are usually noisy.
 Laplacian Smooth techniques allow a proper noise reduction on the
@@ -194,11 +184,12 @@ mesh surface with minimal shape changes, while still preserving a
 desirable geometry as well as the original shape. 
 
 Many smoothing Laplacian functionals regularize the surface energy
-by controling the total surface curvature $S$.
+by controlling the total surface curvature $S$.
 
-\begin{equation}
-E\left(S\right)=\int_{S}\kappa_{1}^{2}+\kappa_{2}^{2}dS\label{eq:total_cuarvature_integral}
-\end{equation}
+\begin{center}
+$E\left(S\right)=\int_{S}\kappa_{1}^{2}+\kappa_{2}^{2}dS$
+\par\end{center}
+%\end{equation}
 
 
 Where $\kappa_{1}$ and $\kappa_{2}$ are the two principal curvatures
@@ -216,6 +207,14 @@ in dark blue.\protect \\
 and $\beta_{j}$ opposite angles to edge $\protect\overrightarrow{v_{j}-v_{i}}$. }
 \end{figure}
 
+\begin{figure*}[t]
+\includegraphics[width=1\textwidth]{figs/beltrami}
+
+\caption{\label{fig:LBO-basic-5-TQ}The 5 basic triangle-quad cases with common
+vertex $V_{i}$ and the relationship with $V_{j}$ and $V_{j}^{\prime}$.
+(a) Two triangles {[}Desbrun 1999{]}. (b) (c) Two quads and one quad
+{[}Xiong 2011{]}. (d) (e) Triangles and quads (TQLBO).}
+\end{figure*}
 
 Consider a surface $S$ composed of a set of triangles around vertex
 $v_{i}$. Let us define the \textit{Voronoi region} of $v_{i}$ as
@@ -265,8 +264,7 @@ silhouette of the original shape. In addition, the presented approach
 can be easily mixed with traditional or uniform subdivision of surfaces.
 This method is based on an original extension of the Laplace Beltrami
 operator for hybrid quad/triangle meshes, mixing arbitrary types of
-meshes, exploiting the basic geometrical relationships and ensuring
-algorithm convergence. 
+meshes, exploiting the basic geometrical relationships and ensuring good results with few algorithm iterations. 
 
 
 \subsection{Laplace Beltrami Operator for Hybrid Quad/Triangle Meshes TQLBO\label{sub:Laplace-Beltrami-operator}}
@@ -275,7 +273,7 @@ Given a mesh $M=\left(V,Q,T\right)$, with vertices $V$, quads $Q$,
 triangles $T$. The area of $1$-ring neighborhood $A\left(v_{i}\right)$
 corresponds to a sum of the quad faces $A\left(Q_{v_{i}}\right)$
 and the areas of the triangular faces $\ensuremath{A\left(T_{v_{i}}\right)}$
-adjacent to vertex $\ensuremath{v_{i}}$.
+adjacent to vertex $\ensuremath{v_{i}}$
 
 \begin{center}
 $A\left(v_{i}\right)=A\left(Q_{v_{i}}\right)+A\left(T_{v_{i}}\right)$.
@@ -293,20 +291,20 @@ Triangulations of the quad with common vertex $v_{i}$ proposed by
 Applying the mean average area, according to \cite{Xiong2011}, from
 all possible triangulations, as show in figure \ref{fig:quad_xiong},
 the area for quads $\ensuremath{A\left(Q_{v_{i}}\right)}$ and triangles
-$A\left(T_{v_{i}}\right)$ is.
+$A\left(T_{v_{i}}\right)$ is
 
 \begin{center}
-$A\left(v_{i}\right)=\frac{1}{2^{m}}\overset{m}{\underset{j=1}{\sum}}2^{m-1}A\left(q_{j}\right)+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)$
+$A\left(v_{i}\right)=\frac{1}{2^{m}}\overset{m}{\underset{j=1}{\sum}}2^{m-1}A\left(q_{j}\right)+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)$, 
 \par\end{center}
 
-Where $q_{1},q_{2},...,q_{j},...,q_{m}\in Q_{v_{i}}$ and $t_{1},t_{2},...,t_{k},...,t_{r}\in T_{v_{i}}$.
+Where $q_{1},q_{2},...,q_{j},...,q_{m}\in Q_{v_{i}}$ and $t_{1},t_{2},...,t_{k},...,t_{r}\in T_{v_{i}}$
 
 \begin{equation}
 A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[A\left(t_{j1}^{*}\right)+A\left(t_{j2}^{*}\right)+A\left(t_{j3}^{*}\right)\right]+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)\label{eq:area_1_ring_triangles_quads}
 \end{equation}
 
 
-Applying the gradient operator to (\ref{eq:area_1_ring_triangles_quads}).
+Applying the gradient operator to (\ref{eq:area_1_ring_triangles_quads})
 
 {\small 
 \begin{equation}
@@ -314,7 +312,7 @@ Applying the gradient operator to (\ref{eq:area_1_ring_triangles_quads}).
 \end{equation}
 }{\small \par}
 
-According to (\ref{eq:eq_gradient_voronoi_area}), we have.
+According to (\ref{eq:eq_gradient_voronoi_area}), we have
 
 \begin{center}
 $\nabla A\left(t_{j1}^{*}\right)=\frac{\cot\theta_{j3}\left(v_{j}-v_{i}\right)+\cot\theta_{j2}\left(v_{j}^{\prime}-v_{i}\right)}{2}$
@@ -338,7 +336,7 @@ figure \ref{fig:LBO-basic-5-TQ}.
 
 According to equation (\ref{eq:discrete_mean_curvature_normal}),
 (\ref{eq:def_LBO}), and five simple cases defined in figure \ref{fig:LBO-basic-5-TQ}
-the TQLBO (Triangle-Quad LBO) of $v_{i}$ is.
+the TQLBO (Triangle-Quad LBO) of $v_{i}$ is
 
 \begin{equation}
 \triangle_{S}\left(v_{i}\right)=2\kappa\mathbf{n}=\frac{\nabla A}{A}=\underset{v_{j}\in N_{1}\left(v_{i}\right)}{\frac{1}{2A}\sum}w_{ij}\left(v_{j}-v_{i}\right)
@@ -357,12 +355,13 @@ w_{ij}=\begin{cases}
 \end{equation}
 }{\small \par}
 
-We define a Laplacian operator as a matrix equation
+We define a TQLBO as a matrix equation
 
 \begin{equation}
 L\left(i,j\right)=\begin{cases}
 -\frac{1}{2A_{i}}w_{ij} & \mbox{if }j\in N\left(v_{i}\right)\\
-\frac{1}{2A_{i}}\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij} & \mbox{if }i=j\\
+%\frac{1}{2A_{i}}\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij} & \mbox{if }i=j\\
+\frac{1}{2A_{i}}\underset{k\in N\left(v_{i}\right)}{\sum}w_{ik} & \mbox{if }i=j\\
 0 & \mbox{otherwise}
 \end{cases}\label{eq:TQLBO_Simple_Matrix}
 \end{equation}
@@ -373,11 +372,12 @@ of a given mesh $M$, $w_{ij}$ is the TQLBO defined in equation (\ref{eq:TQLBO_wi
 $N\left(v_{i}\right)$ is the 1-ring neighborhood with shared face
 to $v_{i}$, $A_{i}$ is the ring area around $v_{i}$.
 
-Normalized version of the TQLBO as a matrix equation
+Normalized equation of the TQLBO
 
 \begin{equation}
 L\left(i,j\right)=\begin{cases}
--\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij}} & \mbox{if }j\in N\left(v_{i}\right)\\
+%-\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij}} & \mbox{if }j\in N\left(v_{i}\right)\\
+-\frac{w_{ij}}{\underset{k\in N\left(v_{i}\right)}{\sum}w_{ik}} & \mbox{if }j\in N\left(v_{i}\right)\\
 \delta_{ij} & \mbox{otherwise}
 \end{cases}\label{eq:TQLBO-Normalized_Matrix}
 \end{equation}
@@ -409,7 +409,7 @@ $\frac{\partial V}{\partial t}=\lambda L\left(V\right)$
 \par\end{center}
 
 To solve this equation, implicit integration is used as well as a
-normalized version of TQLBO matrix.
+normalized version of TQLBO matrix
 
 \begin{equation}
 \left(I-\left|\lambda dt\right|W_{p}L\right)V^{\prime}=V^{t}\label{eq:Lineal_System_with_wp}
@@ -435,7 +435,7 @@ zones, where the Laplacian is applied, as shown in equation \ref{eq:Lineal_Syste
 Interestingly, the generated family of shapes may change substantially
 with the weights of specific control points.
 
-The curvature cannot be calculted at the boundary of the meshes that
+The curvature cannot be calculated at the boundary of the meshes that
 are not closed, for that reason we use the scale-dependent operator
 proposed by Desbrun et al. \cite{Desbrun1999}, the inflation factor
 for boundary is represented by $\lambda_{e}$.
@@ -452,8 +452,8 @@ $\overline{v}=\frac{1}{n}\underset{v_{i}\in V}{\sum}v_{i}$,
 \par\end{center}
 
 $\overline{v}$ is the mesh center, $vol_{ini}$ is an initial volume,
-and $vol_{t+1}$ is the volume at the iteration $t+1$, then the scale
-factor.
+and $vol_{t+1}$ is the volume at the iteration $t+1$, $n$ is the number of vertices, then the scale
+factor
 
 \begin{center}
 $\beta=\left(\frac{vol_{ini}}{vol_{t+1}}\right)^{\frac{1}{3}}$
@@ -556,10 +556,10 @@ substantially with weighted of specific control points.
 
 The results of the shape inflation method with the extension of
 the Laplace Beltrami operator for hybrid quad/triangle meshes with
-several example models (see figures \ref{fig:Spectrum}, \ref{fig:Subdivision-Cups},
+several example models shown in figures  \ref{fig:Spectrum}, \ref{fig:Subdivision-Cups},
 \ref{fig:Catmull_Clark}, \ref{fig:TQLBO_test}, \ref{fig:camello_enhanced},
 \ref{fig:Sculpt_Brush}, \ref{fig:Performance-sculpt}, \ref{fig:(a)Monkey},
-\ref{fig:Animated_Camell}). The shape inflation was assessed with
+\ref{fig:Animated_Camell}. The shape inflation was assessed with
 TQLBO method on a PC with AMD Quad-Core Processor @ 2.40 GHz and 8
 GB RAM.
 
@@ -578,7 +578,7 @@ or quads.
 
 \caption{\label{fig:TQLBO_test}(a) Original Model. (b) Simple subdivision.
 (c), (d) (e) Laplacian smoothing with $\lambda=7$ and 2 iterations:
-(c) for triangles, (d) for quads, (e) for triangles and quads random
+(c) for quads, (d) for triangles, (e) for triangles and quads random
 chosen.}
 \end{figure}
 
@@ -594,9 +594,9 @@ to generate the weights for the new interpolated vertices. These new
 weights were used for the inflation obtained on the 6 cups that
 are at the right of the figure \eqref{fig:Subdivision-Cups}.d.
 
-Laplacian smoothing applied with simple subdivision (see figure \ref{fig:Catmull_Clark}.b.)
+Laplacian smoothing applied with simple subdivision (see figure \ref{fig:Catmull_Clark}.c.)
 may produce similar results to those obtained with Catmull-Clark (see
-figure \ref{fig:Catmull_Clark}.c.), whose models are in average equal
+figure \ref{fig:Catmull_Clark}.b.), whose models are in average equal
 triangles. The one obtained with the Laplacian smoothing is shown
 in panel (c), (d) and those curvature modified versions are in (e)
 and (f). As can be observed, different versions of the original sketch
@@ -672,16 +672,16 @@ with the normalized Laplacian operator results in a more regular pattern.
 The model can be deformed with a TQLBO normalized version with large
 $\lambda$ ($\lambda>400$) while intersecting itself with no peaks.
 Figure \ref{fig:(a)Monkey}.c shows different results due to the quads
-areas in the model. Quadss with larger area have smaller inflation
+areas in the model. Quads with larger area have smaller inflation
 (figure \ref{fig:(a)Monkey}.c skull), and smaller quads have larger
 inflations (figure \ref{fig:(a)Monkey}.c chin).
 
 \begin{figure}
 \includegraphics[width=1\columnwidth]{figs/sculpt_brush}
 
-\caption{\label{fig:Sculpt_Brush}Top row: (a) Leg Camel, (b) Inflate brush
-for leg into blue circle, (c) Inflate shape brush for leg into red
-circle. Bottom row: (a) Hand, (b) Inflate brush for fingers into blue
+\caption{\label{fig:Sculpt_Brush}Top row: (a) Leg Camel, (b) Traditional inflate brush
+for leg into blue circle, (c) Shape inflation brush for leg into red
+circle. Bottom row: (a) Hand, (b) Traditional inflate brush for fingers into blue
 circle, (c) Shape inflation brush for fingers in red circle.}
 \end{figure}
 
@@ -737,7 +737,7 @@ Under these conditions, the matrix at equation \ref{eq:TQLBO_Simple_Matrix}
 is sparse since the number of neighbors per vertex, corresponding
 to the number of data per row, is smaller compared to the total number
 of vertices in the mesh. To solve the linear system equation \ref{eq:Lineal_System_with_wp}
-was used OpenNL which is a a library for solving sparse linear system.
+was used OpenNL \cite{Buatois2007}  which is a a library for solving sparse linear system.
 
 
 \section{Conclusion and future work\label{sec:Conclusion-and-future}}
