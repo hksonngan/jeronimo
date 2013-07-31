@@ -52,12 +52,6 @@ function Vf = LaplacianEditing3D(xyz,F, static_anchors, handle_anchors, anchors_
 
         Cinv  = pinv(C);
         %Cinv = pinv(C'*C) * C';
-        if(i==0)
-            fprintf(1, 'C: \n');
-            disp(C);
-            fprintf(1, 'CINV: \n');
-            disp(Cinv);
-        end
         s = Cinv(1,:);
         h1 = Cinv(2,:);
         h2 = Cinv(3,:);
@@ -70,11 +64,6 @@ function Vf = LaplacianEditing3D(xyz,F, static_anchors, handle_anchors, anchors_
         dix = delta_i(1);
         diy = delta_i(2);
         diz = delta_i(3);
-        
-        fprintf(1, 'vector: ');
-        disp(xyz(i, :));
-        fprintf(1, 'delta: ');
-        disp(delta_i);
 
         Tdelta =   [dix*s  - diy*h3 + diz*h2
                     dix*h3 + diy*s  - diz*h1
@@ -138,11 +127,12 @@ function Vf = LaplacianEditing3D(xyz,F, static_anchors, handle_anchors, anchors_
     %xyz_col = lsqr( A_prime,rhs);
     % [Cqr,Rqr] = qr(A_prime, rhs);
     %xyz_col = Rqr\Cqr;
-    RRR = chol(A_prime'*A_prime);
-    %xyz_col = (A_prime'*A_prime)\(A_prime'*rhs);
-    xyz_col = RRR\(RRR'\(A_prime'*rhs));
+clc
+%RRR = chol(A_prime'*A_prime);
+    xyz_col = (A_prime'*A_prime)\(A_prime'*rhs);
+    %xyz_col = RRR\(RRR'\(A_prime'*rhs));
     xyz_prime_nonh = [xyz_col(1:n) xyz_col((n+1):(2*n)) xyz_col((2*n+1):(3*n))];
-    Vf = xyz_prime_nonh;
+    %Vf = xyz_prime_nonh;
     
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -197,7 +187,7 @@ function Vf = LaplacianEditing3D(xyz,F, static_anchors, handle_anchors, anchors_
     
     xyz_end = [A_prime2\rhs2(:, 1), A_prime2\rhs2(:, 2), A_prime2\rhs2(:, 3)];
     
-    %Vf = xyz_end ;
+    Vf = xyz_end ;
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
