@@ -808,7 +808,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename E:/personal/maestria/tesis/Jeronimo/trunk/documents/thesis/SIBGRAPI2013/figs/camello_enhanced2.pdf
-	height 60text%
+	height 50text%
 
 \end_inset
 
@@ -820,18 +820,28 @@ status open
 
 \begin_layout Plain Layout
 Top row: Original camel model in left.
- Shape inflation with $
-\backslash
-lambda=-30.0$, $
-\backslash
-lambda=-100.0$, $
-\backslash
-lambda=-400.0$.
- Bottom row: Shape inflation with weight vertex group, $
-\backslash
-lambda=-50.0$ and 2 iterations for the legs, $
-\backslash
-lambda=-200.0$ and 1 iteration for the head and neck.
+ Shape inflation with 
+\begin_inset Formula $\lambda=-30.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda=-100.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda=-400.0$
+\end_inset
+
+.
+ Bottom row: Shape inflation with weight vertex group, 
+\begin_inset Formula $\lambda=-50.0$
+\end_inset
+
+ and 2 iterations for the legs, 
+\begin_inset Formula $\lambda=-200.0$
+\end_inset
+
+ and 1 iteration for the head and neck.
 \end_layout
 
 \end_inset
