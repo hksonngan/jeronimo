@@ -1025,98 +1025,242 @@ Mathematical foundation
 \end_layout
 
 \begin_layout Standard
-Este capitulo presenta la base de estudio para entender los fundamentos
- de la ecuacion de laplace y su uso n la geometria diferencial.
+This chapter studies bascic mathematical foundation on differential geometry
+ to understand the differential operators and the laplace beltrami opetor.
 \end_layout
 
 \begin_layout Standard
-The differential geometry describes continuos surfaces and space curves
+The differential geometry studies curvatures and geodesics 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Hahne2006"
 
 \end_inset
 
+.
+ The differential operators show a deep relationships betwen the geoemetry
+ (curvatures, geodesics) and topology of the manifold --------and this propertie
+s are awsome applications on the last yesr abrand studies with this opertator
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rosenberg1997"
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A manifold is a topological space 
+\begin_inset Formula $M$
+\end_inset
+
+ with the follwing properties:
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $x\in M$
+\end_inset
+
+, then there is some neighborhood 
+\begin_inset Formula $N\left(x\right)$
+\end_inset
+
+ and some integer 
+\begin_inset Formula $n\geq0$
+\end_inset
+
+ such that 
+\begin_inset Formula $N(x)$
+\end_inset
+
+ is homeomorphic to 
+\begin_inset Formula $\mathbb{R}^{n}$
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Spivak1-1999"
+
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Section
-Laplace's equation
+Laplace Operator
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-\frac{\partial^{2}u}{\partial x^{2}}+\frac{\partial^{2}u}{\partial y^{2}}+\frac{\partial^{2}u}{\partial z^{2}}=0
-\end{equation}
+In computer graphics a manifold is often approximated by a discrete mesh
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ranjan2012"
 
 \end_inset
 
-
+, then is necessary to define a discrete laplacian operator that act on
+ functions defined on such meshes.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-\nabla^{2}u=\triangle u=0
-\end{equation}
-
+Consider a smooth compact manifold 
+\begin_inset Formula $M$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\mbox{div }\mbox{grad}u=0
-\]
-
+ of dimension 
+\begin_inset Formula $m$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Section
-Dirichlet's energy
-\end_layout
-
-\begin_layout Chapter
-Laplacian Smooth
-\begin_inset CommandInset label
-LatexCommand label
-name "chap:Laplacian-Smooth"
-
+ isometrically embedded in a Euclidean space 
+\begin_inset Formula $\mathbb{R}^{d}$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-Computer objects, reconstructed from the real world, are usually noisy.
- Laplacian Smooth techniques allow a proper noise reduction on the mesh
- surface with minimal shape changes, while still preserving a desirable
- geometry as well as the original shape.
+.
  
 \end_layout
 
 \begin_layout Standard
-Many smoothing Laplacian functionals regularize the surface energy by controling
- the total surface curvature 
-\begin_inset Formula $S$
+Given a twice continuously differentiable function 
+\begin_inset Formula $f\in C^{2}\left(M\right)$
+\end_inset
+
+, let 
+\begin_inset Formula $\nabla_{\mbox{M}}f$
+\end_inset
+
+ denote the gradient vector field of 
+\begin_inset Formula $f$
+\end_inset
+
+ on 
+\begin_inset Formula $M$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The Laplace-Beltrami operator 
+\begin_inset Formula $\Delta_{\mbox{M}}$
+\end_inset
+
+ of 
+\begin_inset Formula $f$
+\end_inset
+
+ is defined as the divergence of the gradient; that is 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Spivak1-1999"
+
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\frac{\partial^{2}f}{\partial x^{2}}+\frac{\partial^{2}f}{\partial y^{2}}+\frac{\partial^{2}f}{\partial z^{2}}=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\nabla_{\mbox{M}}^{2}f=\Delta_{\mbox{M}}f=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\Delta_{\mbox{M}}f=div\left(\nabla_{\mbox{M}}f\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Discrete Laplace Operator Setting
+\end_layout
+
+\begin_layout Standard
+Discrete Laplacian operators are linear operators that act on functions
+ defines on meshes.
+ These functions are specified by their values at the vertices.
+ 
+\end_layout
+
+\begin_layout Standard
+Thus, if a mesh 
+\begin_inset Formula $M$
+\end_inset
+
+ has 
+\begin_inset Formula $n$
+\end_inset
+
+ vertices, then functions on 
+\begin_inset Formula $M$
+\end_inset
+
+ will be represented by vectors with 
+\begin_inset Formula $n$
+\end_inset
+
+ components and a mesh Laplacian will be described by an 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ matrix 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ranjan2012"
+
 \end_inset
 
 .
 \end_layout
 
 \begin_layout Standard
+The Laplacian operator locally takes the difference between the value of
+ a function at a vertex and a weighted average of its values at the first-order
+ or one-ring neighbor vertices, then a Laplacian matrix
+\begin_inset Formula $L$
+\end_inset
+
+ has a local form given by
+\end_layout
+
+\begin_layout Standard
 \noindent
 \align center
-\begin_inset Formula 
-\begin{equation}
-E\left(S\right)=\int_{S}\kappa_{1}^{2}+\kappa_{2}^{2}dS\label{eq:total_cuarvature_integral}
-\end{equation}
-
+\begin_inset Formula $L\left(f\right)_{i}=b_{i}^{-1}\underset{j\in N\left(i\right)}{\sum}w_{ij}\left(f_{i}-f_{j}\right)$
 \end_inset
 
 
@@ -1124,21 +1268,39 @@ E\left(S\right)=\int_{S}\kappa_{1}^{2}+\kappa_{2}^{2}dS\label{eq:total_cuarvatur
 
 \begin_layout Standard
 Where 
-\begin_inset Formula $\kappa_{1}$
+\begin_inset Formula $w_{ij}$
 \end_inset
 
- and 
-\begin_inset Formula $\kappa_{2}$
+are the weights between the vertex 
+\begin_inset Formula $i$
 \end_inset
 
- are the two principal curvatures of the surface 
-\begin_inset Formula $S$
+ and the vertex 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ 
+\begin_inset Formula $b_{i}^{-1}$
+\end_inset
+
+are the factors depending of the boundary region over vertex 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ 
+\begin_inset Formula $N\left(i\right)$
+\end_inset
+
+ are the neighbors that share a edge with vertex 
+\begin_inset Formula $i$
 \end_inset
 
 .
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Gradient of Voronoi Area
 \end_layout
 
@@ -1313,7 +1475,7 @@ The
 Laplace Beltrami operator
 \shape default
  LBO noted as 
-\begin_inset Formula $\triangle$
+\begin_inset Formula $\Delta$
 \end_inset
 
  is used for measuring the mean curvature normal to the Surface 
@@ -1333,7 +1495,7 @@ key "Pinkall1993"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\triangle S=2\kappa\mathbf{n}\label{eq:def_LBO}
+\Delta S=2\kappa\mathbf{n}\label{eq:def_LBO}
 \end{equation}
 
 \end_inset
@@ -1344,6 +1506,67 @@ key "Pinkall1993"
 \begin_layout Standard
 The LBO has desirable properties: the LBO points out to the direction of
  the minimal surface area.
+\end_layout
+
+\begin_layout Section
+Dirichlet's energy
+\end_layout
+
+\begin_layout Chapter
+Laplacian Smooth
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Laplacian-Smooth"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Computer objects, reconstructed from the real world, are usually noisy.
+ Laplacian Smooth techniques allow a proper noise reduction on the mesh
+ surface with minimal shape changes, while still preserving a desirable
+ geometry as well as the original shape.
+ 
+\end_layout
+
+\begin_layout Standard
+Many smoothing Laplacian functionals regularize the surface energy by controling
+ the total surface curvature 
+\begin_inset Formula $S$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula 
+\begin{equation}
+E\left(S\right)=\int_{S}\kappa_{1}^{2}+\kappa_{2}^{2}dS\label{eq:total_cuarvature_integral}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $\kappa_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\kappa_{2}$
+\end_inset
+
+ are the two principal curvatures of the surface 
+\begin_inset Formula $S$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Chapter
@@ -2166,6 +2389,57 @@ Where
 .
  The matrices should remove rows and columns of vertices that are not within
  the radius.
+\end_layout
+
+\begin_layout Section
+Laplacian Deform
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Laplacian-Deform"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The mesh editing is generally done with affine transformations, some 3D
+ softwares like Blender
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blender"
+
+\end_inset
+
+ offers some tools to interpolate the transform of the vertices over connected
+ neighbors ussing simple distance functions.
+\end_layout
+
+\begin_layout Standard
+Esta tesis adapto el metodo propuesto por osikine para deformaciones de
+ malla elminando el uso de vertices estaticos y su uso sobre mallas hibridas
+ compuestas por triangulosy cuadranglos con el operador TQLBO propuesto.
+\end_layout
+
+\begin_layout Standard
+The This project proposes to implement a method for mesh editing based on
+ sketching lines defines by user and preserving the geometric details of
+ the surface.
+\end_layout
+
+\begin_layout Standard
+This method captures the geometric details using a differential coordinates
+ representations.
+ The differential coordinates captures the local geometric information (curvatur
+e and direction) of the vertex based on its neighbors.
+ This method allows you to retrieve the best possible original model after
+ changing the positions of some vertices using the differential coordinates
+ of the original model.
+\end_layout
+
+\begin_layout Standard
+This method also allows the user to define the desired transformation using
+ sketch lines in the screen.
 \end_layout
 
 \begin_layout Section
