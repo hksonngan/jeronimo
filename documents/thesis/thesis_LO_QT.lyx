@@ -79,7 +79,7 @@ Trans-port-vor-gan-ge}
 %\pagenumbering{arabic}
 %}
 \end_preamble
-\options 12pt,english,fleqn,openany,letterpaper,pagesize
+\options 12pt,english,openany,letterpaper,pagesize
 \use_default_options true
 \begin_modules
 theorems-ams
@@ -255,7 +255,7 @@ Bogotá, Colombia
 \end_layout
 
 \begin_layout Standard
-2013
+2014
 \end_layout
 
 \begin_layout Standard
@@ -416,7 +416,7 @@ Bogotá, Colombia
 \begin_inset Newline newline
 \end_inset
 
-2013
+2014
 \end_layout
 
 \begin_layout Standard
@@ -1166,7 +1166,7 @@ key "Spivak1-1999"
 
 \begin_layout Standard
 \noindent
-\align center
+\align left
 \begin_inset Formula $\frac{\partial^{2}f}{\partial x^{2}}+\frac{\partial^{2}f}{\partial y^{2}}+\frac{\partial^{2}f}{\partial z^{2}}=0$
 \end_inset
 
@@ -1175,7 +1175,7 @@ key "Spivak1-1999"
 
 \begin_layout Standard
 \noindent
-\align center
+\align left
 
 \family roman
 \series medium
@@ -1195,6 +1195,8 @@ key "Spivak1-1999"
 \end_layout
 
 \begin_layout Standard
+\noindent
+\align left
 \begin_inset Formula 
 \begin{equation}
 \Delta_{\mbox{M}}f=div\left(\nabla_{\mbox{M}}f\right)
@@ -1250,7 +1252,7 @@ key "Ranjan2012"
 \begin_layout Standard
 The Laplacian operator locally takes the difference between the value of
  a function at a vertex and a weighted average of its values at the first-order
- or one-ring neighbor vertices, then a Laplacian matrix
+ or one-ring neighbor vertices, then a Laplacian matrix 
 \begin_inset Formula $L$
 \end_inset
 
@@ -1259,7 +1261,7 @@ The Laplacian operator locally takes the difference between the value of
 
 \begin_layout Standard
 \noindent
-\align center
+\align left
 \begin_inset Formula $L\left(f\right)_{i}=b_{i}^{-1}\underset{j\in N\left(i\right)}{\sum}w_{ij}\left(f_{i}-f_{j}\right)$
 \end_inset
 
@@ -1284,7 +1286,7 @@ are the weights between the vertex
 \begin_inset Formula $b_{i}^{-1}$
 \end_inset
 
-are the factors depending of the boundary region over vertex 
+ are the factors depending of the boundary region over vertex 
 \begin_inset Formula $i$
 \end_inset
 
@@ -1348,10 +1350,12 @@ key "Pinkall1993,Desbrun1999,Meyer2003"
 \end_layout
 
 \begin_layout Standard
+\noindent
+\align left
 \begin_inset Formula 
-\begin{equation}
-\nabla A=\frac{1}{2}\underset{j}{\sum}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\left(v_{i}-v_{j}\right)\label{eq:eq_gradient_voronoi_area}
-\end{equation}
+\begin{align}
+\nabla A & =\frac{1}{2}\underset{j}{\sum}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\left(v_{i}-v_{j}\right)\label{eq:eq_gradient_voronoi_area}
+\end{align}
 
 \end_inset
 
@@ -1455,6 +1459,8 @@ reference "eq:discrete_mean_curvature_normal"
 \end_layout
 
 \begin_layout Standard
+\noindent
+\align left
 \begin_inset Formula 
 \begin{equation}
 2\kappa\mathbf{n}=\frac{\nabla A}{A}\label{eq:discrete_mean_curvature_normal}
@@ -1493,59 +1499,11 @@ key "Pinkall1993"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-\Delta S=2\kappa\mathbf{n}\label{eq:def_LBO}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The LBO has desirable properties: the LBO points out to the direction of
- the minimal surface area.
-\end_layout
-
-\begin_layout Section
-Dirichlet's energy
-\end_layout
-
-\begin_layout Chapter
-Laplacian Smooth
-\begin_inset CommandInset label
-LatexCommand label
-name "chap:Laplacian-Smooth"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Computer objects, reconstructed from the real world, are usually noisy.
- Laplacian Smooth techniques allow a proper noise reduction on the mesh
- surface with minimal shape changes, while still preserving a desirable
- geometry as well as the original shape.
- 
-\end_layout
-
-\begin_layout Standard
-Many smoothing Laplacian functionals regularize the surface energy by controling
- the total surface curvature 
-\begin_inset Formula $S$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
 \noindent
-\align center
+\align left
 \begin_inset Formula 
 \begin{equation}
-E\left(S\right)=\int_{S}\kappa_{1}^{2}+\kappa_{2}^{2}dS\label{eq:total_cuarvature_integral}
+\Delta_{\mbox{S}}=2\kappa\mathbf{n}\label{eq:def_LBO}
 \end{equation}
 
 \end_inset
@@ -1553,24 +1511,8 @@ E\left(S\right)=\int_{S}\kappa_{1}^{2}+\kappa_{2}^{2}dS\label{eq:total_cuarvatur
 
 \end_layout
 
-\begin_layout Standard
-Where 
-\begin_inset Formula $\kappa_{1}$
-\end_inset
-
- and 
-\begin_inset Formula $\kappa_{2}$
-\end_inset
-
- are the two principal curvatures of the surface 
-\begin_inset Formula $S$
-\end_inset
-
-.
-\end_layout
-
 \begin_layout Chapter
-Proposed Method
+Proposed Laplacian Operator
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Proposed-Method"
@@ -1581,20 +1523,20 @@ name "sec:Proposed-Method"
 \end_layout
 
 \begin_layout Standard
-This method exaggerates a shape using a Laplacian smoothing operator in
- the reverse direction, i.e., the new shape is a modified version in which
- those areas with larger curvature are magnified.
- The operator amounts to a generator of a set of models which conserves
- the basic silhouette of the original shape.
- In addition, the presented approach can be easily mixed with traditional
- or uniform subdivision of surfaces.
- This method is based on an original extension of the Laplace Beltrami operator
+This thesis propose an original extension of the Laplace Beltrami operator
  for hybrid quad/triangle meshes, mixing arbitrary types of meshes, exploiting
  the basic geometrical relationships and ensuring algorithm convergence.
 \end_layout
 
+\begin_layout Standard
+With the use of the proposed Laplacian Operator this work show succesful
+ uses in: Smoothing, Enhancing, Smooth Subdivision, Deformation, Sculpting,
+ and Skeletonization.
+ 
+\end_layout
+
 \begin_layout Section
-Laplace Beltrami Operator for Hybrid Quad/Triangle Meshes TQLBO
+Proposed Laplace Beltrami Operator for Hybrid Quad/Triangle Meshes TQLBO
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Laplace-Beltrami-operator"
@@ -1630,12 +1572,12 @@ Given a mesh
 \begin_inset Formula $A\left(v_{i}\right)$
 \end_inset
 
- corresponds to a sum of the quad faces 
-\begin_inset Formula $A\left(Q_{v_{i}}\right)$
+ corresponds to a sum of the areas of the quad faces 
+\begin_inset Formula $A\left(Q_{i}\right)$
 \end_inset
 
  and the areas of the triangular faces 
-\begin_inset Formula $\ensuremath{A\left(T_{v_{i}}\right)}$
+\begin_inset Formula $\ensuremath{A\left(T_{i}\right)}$
 \end_inset
 
  adjacent to vertex 
@@ -1646,11 +1588,11 @@ Given a mesh
 \end_layout
 
 \begin_layout Standard
-\align center
-\begin_inset Formula $A\left(v_{i}\right)=A\left(Q_{v_{i}}\right)+A\left(T_{v_{i}}\right)$
+\noindent
+\align left
+\begin_inset Formula $A\left(v_{i}\right)=A\left(Q_{i}\right)+A\left(T_{i}\right)$
 \end_inset
 
-.
  
 \end_layout
 
@@ -1659,7 +1601,7 @@ Given a mesh
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1721,18 +1663,19 @@ reference "fig:quad_xiong"
 \end_inset
 
 , the area for quads 
-\begin_inset Formula $\ensuremath{A\left(Q_{v_{i}}\right)}$
+\begin_inset Formula $\ensuremath{A\left(Q_{i}\right)}$
 \end_inset
 
  and triangles 
-\begin_inset Formula $A\left(T_{v_{i}}\right)$
+\begin_inset Formula $A\left(T_{i}\right)$
 \end_inset
 
  is.
 \end_layout
 
 \begin_layout Standard
-\align center
+\noindent
+\align left
 \begin_inset Formula $A\left(v_{i}\right)=\frac{1}{2^{m}}\overset{m}{\underset{j=1}{\sum}}2^{m-1}A\left(q_{j}\right)+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)$
 \end_inset
 
@@ -1741,17 +1684,42 @@ reference "fig:quad_xiong"
 
 \begin_layout Standard
 Where 
-\begin_inset Formula $q_{1},q_{2},...,q_{j},...,q_{m}\in Q_{v_{i}}$
+\begin_inset Formula $q_{1},q_{2},...,q_{j},...,q_{m}\in Q_{i}$
 \end_inset
 
- and 
-\begin_inset Formula $t_{1},t_{2},...,t_{k},...,t_{r}\in T_{v_{i}}$
+ are quads adjacent to 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, and 
+\begin_inset Formula $t_{1},t_{2},...,t_{k},...,t_{r}\in T_{i}$
+\end_inset
+
+ are triangles adjacent to 
+\begin_inset Formula $v_{i}$
 \end_inset
 
 .
 \end_layout
 
 \begin_layout Standard
+Applying triangulations of the quad with common vertex 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ proposed by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Xiong2011"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align left
 \begin_inset Formula 
 \begin{equation}
 A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[A\left(t_{j1}^{*}\right)+A\left(t_{j2}^{*}\right)+A\left(t_{j3}^{*}\right)\right]+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)\label{eq:area_1_ring_triangles_quads}
@@ -1774,6 +1742,8 @@ reference "eq:area_1_ring_triangles_quads"
 \end_layout
 
 \begin_layout Standard
+\noindent
+\align left
 
 \size small
 \begin_inset Formula 
@@ -1798,7 +1768,8 @@ reference "eq:eq_gradient_voronoi_area"
 \end_layout
 
 \begin_layout Standard
-\align center
+\noindent
+\align left
 \begin_inset Formula $\nabla A\left(t_{j1}^{*}\right)=\frac{\cot\theta_{j3}\left(v_{j}-v_{i}\right)+\cot\theta_{j2}\left(v_{j}^{\prime}-v_{i}\right)}{2}$
 \end_inset
 
@@ -1806,7 +1777,8 @@ reference "eq:eq_gradient_voronoi_area"
 \end_layout
 
 \begin_layout Standard
-\align center
+\noindent
+\align left
 \begin_inset Formula $\nabla A\left(t_{j2}^{*}\right)=\frac{\cot\theta_{j5}\left(v_{j}^{\prime}-v_{i}\right)+\cot\theta_{j4}\left(v_{j+1}-v_{i}\right)}{2}$
 \end_inset
 
@@ -1814,7 +1786,8 @@ reference "eq:eq_gradient_voronoi_area"
 \end_layout
 
 \begin_layout Standard
-\align center
+\noindent
+\align left
 \begin_inset Formula $\nabla A\left(t_{j3}^{*}\right)=\frac{\cot\theta_{j6}\left(v_{j}-v_{i}\right)+\cot\theta_{j1}\left(v_{j+1}-v_{i}\right)}{2}$
 \end_inset
 
@@ -1822,7 +1795,8 @@ reference "eq:eq_gradient_voronoi_area"
 \end_layout
 
 \begin_layout Standard
-\align center
+\noindent
+\align left
 \begin_inset Formula $\nabla A\left(t_{k}\right)=\frac{\cot\alpha_{k}\left(v_{k}-v_{i}\right)+\cot\beta_{k+1}\left(v_{k+1}-v_{i}\right)}{2}$
 \end_inset
 
@@ -1850,7 +1824,7 @@ reference "fig:LBO-basic-5-TQ"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1935,6 +1909,8 @@ reference "fig:LBO-basic-5-TQ"
 \end_layout
 
 \begin_layout Standard
+\noindent
+\align left
 \begin_inset Formula 
 \begin{equation}
 \triangle_{S}\left(v_{i}\right)=2\kappa\mathbf{n}=\frac{\nabla A}{A}=\underset{v_{j}\in N_{1}\left(v_{i}\right)}{\frac{1}{2A}\sum}w_{ij}\left(v_{j}-v_{i}\right)
@@ -1946,6 +1922,8 @@ reference "fig:LBO-basic-5-TQ"
 \end_layout
 
 \begin_layout Standard
+\noindent
+\align left
 
 \size small
 \begin_inset Formula 
@@ -1969,6 +1947,8 @@ We define a Laplacian operator as a matrix equation
 \end_layout
 
 \begin_layout Standard
+\noindent
+\align left
 \begin_inset Formula 
 \begin{equation}
 L\left(i,j\right)=\begin{cases}
@@ -2035,6 +2015,8 @@ Normalized version of the TQLBO as a matrix equation
 \end_layout
 
 \begin_layout Standard
+\noindent
+\align left
 \begin_inset Formula 
 \begin{equation}
 L\left(i,j\right)=\begin{cases}
@@ -2054,6 +2036,70 @@ Where
 \end_inset
 
  being the Kronecker delta function.
+\end_layout
+
+\begin_layout Section
+Laplacian Smooth
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Laplacian-Smooth"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Computer objects, reconstructed from the real world, are usually noisy.
+ One common way to attenueate noise in a mesh is through a diffusion process
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Desbrun1999"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align left
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial V}{\partial t}=\lambda L\left(V\right)\label{eq:diffusion_process}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:diffusion_process"
+
+\end_inset
+
+ can be linearly approximated using implicit integration with a Laplacian
+ Operator version of TQLBO.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align left
+\begin_inset Formula $\left(I-\lambda\partial tL\right)V^{n+1}=V^{n}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Laplacian Smooth techniques over a diffusion process allow a proper noise
+ reduction on the mesh surface with minimal shape changes, while still preservin
+g a desirable geometry as well as the original shape.
 \end_layout
 
 \begin_layout Section
@@ -2111,13 +2157,25 @@ name "fig:Subdivision-Cups"
 \end_layout
 
 \begin_layout Standard
+This method exaggerates a shape using a Laplacian smoothing operator in
+ the reverse direction, i.e., the new shape is a modified version in which
+ those areas with larger curvature are magnified.
+ The operator amounts to a generator of a set of models which conserves
+ the basic silhouette of the original shape.
+ In addition, the presented approach can be easily mixed with traditional
+ or uniform subdivision of surfaces.
+ 
+\end_layout
+
+\begin_layout Standard
 The shape is inflated by using the reverse direction of the curvature flow,
  moving the vertices towards those mesh portions with larger curvature.
  A standard diffusion process is applied:
 \end_layout
 
 \begin_layout Standard
-\align center
+\noindent
+\align left
 \begin_inset Formula $\frac{\partial V}{\partial t}=\lambda L\left(V\right)$
 \end_inset
 
@@ -2130,6 +2188,8 @@ To solve this equation, implicit integration is used as well as a normalized
 \end_layout
 
 \begin_layout Standard
+\noindent
+\align left
 \begin_inset Formula 
 \begin{equation}
 \left(I-\left|\lambda dt\right|W_{p}L\right)V^{\prime}=V^{t}\label{eq:Lineal_System_with_wp}
@@ -2141,7 +2201,8 @@ To solve this equation, implicit integration is used as well as a normalized
 \end_layout
 
 \begin_layout Standard
-\align center
+\noindent
+\align left
 \begin_inset Formula $V^{t+1}=V^{t}+\mbox{sign}\left(\lambda\right)\left(V^{\prime}-V^{t}\right)$
 \end_inset
 
@@ -2263,7 +2324,8 @@ The model volume increases as the lambda is larger and negative, this can
 \end_layout
 
 \begin_layout Standard
-\align center
+\noindent
+\align left
 \begin_inset Formula $\overline{v}=\frac{1}{n}\underset{v_{i}\in V}{\sum}v_{i}$
 \end_inset
 
@@ -2290,7 +2352,8 @@ The model volume increases as the lambda is larger and negative, this can
 \end_layout
 
 \begin_layout Standard
-\align center
+\noindent
+\align left
 \begin_inset Formula $\beta=\left(\frac{vol_{ini}}{vol_{t+1}}\right)^{\frac{1}{3}}$
 \end_inset
 
@@ -2302,7 +2365,8 @@ allows to scale the vertices to:
 \end_layout
 
 \begin_layout Standard
-\align center
+\noindent
+\align left
 \begin_inset Formula $v_{i\, new}^{t+1}=\beta\left(v_{i}^{t+1}-\overline{v}\right)+\overline{v}$
 \end_inset
 
@@ -2362,7 +2426,8 @@ g the global curvature, retaining the original shape and main model features.
 \end_layout
 
 \begin_layout Standard
-\align center
+\noindent
+\align left
 \begin_inset Formula $L\left(i,j\right)=\begin{cases}
 -\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij}} & \mbox{if }\left\Vert v_{i}-u\right\Vert <r\wedge\left\Vert v_{j}-u\right\Vert <r\\
 0 & \mbox{if }\left\Vert v_{i}-u\right\Vert <r\wedge\left\Vert v_{j}-u\right\Vert \geq r\\
@@ -2664,7 +2729,7 @@ reference "fig:Animated_Camell"
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
+placement t
 wide false
 sideways false
 status collapsed
@@ -2743,7 +2808,6 @@ reference "eq:TQLBO_Simple_Matrix"
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -2900,7 +2964,6 @@ reference "fig:camello_enhanced"
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -2997,7 +3060,6 @@ reference "fig:Animated_Camell"
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
@@ -3117,10 +3179,9 @@ status open
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -3163,12 +3224,13 @@ Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
 
 \begin_layout Standard
 \begin_inset Float figure
-placement H
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename resources/figs/verts_per_second_sculpt.pdf
 	lyxscale 10
