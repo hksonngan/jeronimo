@@ -251,6 +251,12 @@ Facultad de Ingenieria, Departamento de Sistemas e Industrial
 \end_layout
 
 \begin_layout Standard
+
+\size small
+Grupo de Investigación CIM@LAB
+\end_layout
+
+\begin_layout Standard
 Bogotá, Colombia
 \end_layout
 
@@ -386,10 +392,6 @@ Research Area:
 \end_inset
 
 Computer Graphics
-\begin_inset Newline newline
-\end_inset
-
-CIMALAB Research Group
 \end_layout
 
 \begin_layout Standard
@@ -409,6 +411,10 @@ Universidad Nacional de Colombia
 \end_inset
 
 Facultad de Ingenieria, Departamento de Sistemas e Industrial
+\begin_inset Newline newline
+\end_inset
+
+Grupo de Investigación CIM@LAB
 \begin_inset Newline newline
 \end_inset
 
@@ -578,20 +584,45 @@ numberline{}Acknowledgement}
 \end_layout
 
 \begin_layout Standard
-I wold like to thank my advisor professor Eduardo Romero for his support
- in this thesis.
+\begin_inset VSpace 2cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I wold like to thank my advisor professor Eduardo Romero and CIM&LAB research
+ group for his support in this thesis.
  
+\end_layout
+
+\begin_layout Standard
+
+\size small
+\begin_inset VSpace 1cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I would like to thank all the workers in Colombia who fund the public education
+ with their work.
+\end_layout
+
+\begin_layout Standard
+
+\size small
+\begin_inset VSpace 1cm
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 This work was supported in part by the Blender Foundation, Google Summer
  of code program at 2012 - 2013.
  
-\end_layout
-
-\begin_layout Standard
-I would like to thank all the workers in Colombia who fund the public education
- with their work.
 \end_layout
 
 \begin_layout Standard
@@ -627,73 +658,39 @@ numberline{}Abstract}
 \end_layout
 
 \begin_layout Standard
-En las dos últimas décadas los métodos de modelado tridimensional han ido
- evolucionando y desarrollándose rápidamente, en parte gracias al uso de
- operadores vectoriales de geometría diferencial.
- El operador Laplaciano ha sido uno de los más ampliamente estudiado y usado
- gracias a las propiedades exhibidas por sus vectores propios en novedosas
- aplicaciones como: reducción de ruido, realce, remallado, mapeo UV, posado,
- esqueletonización, entre otras.
- Este operador diferencial es definido en un dominio continuo y suave llamado
- variedad, las variedades son a menudo aproximadas por mallas discretas
- de polígonos compuestas por triángulos y cuadrángulos que a su vez representan
- objetos tridimensionales del mundo real.
- En estas mallas se calcula la estructura espectral con el uso de algún
- operador Laplaciano discreto, la versión discreta del operador Laplaciano
- propuesta por Pinkall en el 93 trabaja únicamente con mallas compuestas
- por triángulos, y la de Xiong en el 2011 trabaja exclusivamente con cuadrángulo
-s.
- Esta tesis propone una extensión original del Operador Laplaciano que permite
- trabajar con mallas híbridas compuestas por triángulos y cuadrángulos.
+In the last two decades three-dimensional modeling methods have been evolving
+ and developing rapidly, thanks in part to the use of vector operators of
+ differential geometry.
+ The Laplacian operator has been one of the most widely studied and used
+ thanks to the properties exhibited by their eigenvectors in novel applications
+ such as noise reduction, enhancement, remeshing, UV mapping, posed, skeletoniza
+tion, among other.
+ The differential operator is defined in a continuous and smooth domain
+ named manifold, manifolds are often approximated by discrete polygon meshes
+ composed by triangles and quadrangles which represent the real world three-dime
+nsional objects.
+ In these meshes spectral structure is calculated using a discrete Laplacian
+ operator, the discrete version of the Laplacian operator given by Pinkall
+ in 1993 works only with meshes of triangles, and Xiong in 2011 working
+ exclusively with quads.
+ This thesis proposes an original extension of the Laplacian operator that
+ allows to work with hybrid meshes composed by triangles and quadrangles.
 \end_layout
 
 \begin_layout Standard
-Junto con el operador, este trabajo presenta nuevas aplicaciones en esculpido
- y modelamiento con base en el realce, aplicaciones en subdivisión de superficie
-s con el uso de suavizado, posado de mallas con el uso de coordenadas diferencia
-les, esqueletonización con el uso de suavizado interactivo.
- Esta serie de aplicaciones demuestra la calidad, predictibilidad y flexibilidad
- del operador propuesto.
+Along with the operator, this work presents new sculpting and modeling applicati
+ons with base on the enhancement, applications on subdivision surfaces using
+ smoothing, mesh posing using differential coordinates and skeletonization
+ using iterative contraction.
+ This series of applications demonstrates the quality, predictability and
+ flexibility of the proposed operator.
 \end_layout
 
 \begin_layout Standard
-Nuestro Operador fue usado de forma exitosa en ambientes reales de producción
- dentro del software Blender, y actualmente son herramientas disponibles
- como programas de código abierto.
-\end_layout
-
-\begin_layout Standard
-------------------------
-\end_layout
-
-\begin_layout Standard
-Along with the method, this work presents new applications in sculpting
- and modeling with the use of enhancing, with subdivision of surfaces and
- weight vertex groups with smoothing.
- Posing with the use of Differential coordianate, Skelenotization with the
- use of iterative smoothin, this series of applications demonstrates the
- quality, predictability and flexibility of the proposed opertator.
-\end_layout
-
-\begin_layout Standard
-Our operator was used in a real production environment inside the software
- Blender, and actually are tools availables as open source software.
-\end_layout
-
-\begin_layout Standard
-Esta tesis propone un nuevo método de modelado para una malla híbrida quad
- / triángulo que permite establecer una familia de posibles formas de control
- de un solo parámetro, la curvatura global.
- El método utiliza una extensión original del operador de Laplace Beltrami
- que estima de manera eficiente un parámetro de curvatura que se utiliza
- para definir una forma inflada después de una operación en particular realizado
- en ciertos puntos de la malla.
- Junto con el método, este trabajo presenta nuevas aplicaciones en la escultura
- y el modelado, con la subdivisión de superficies y grupos de vértices de
- peso.
- Una serie de ejemplos gráficos demuestra la calidad, la previsibilidad
- y la flexibilidad del método en un entorno de producción real con Blender
- software.
+The proposed operator was successfully used in real production environments
+ within software Blender how new tools.
+ Currently these tools are available as open source software.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -717,7 +714,7 @@ En las dos últimas décadas los métodos de modelado tridimensional han ido
  objetos tridimensionales del mundo real.
  En estas mallas se calcula la estructura espectral con el uso de algún
  operador Laplaciano discreto, la versión discreta del operador Laplaciano
- propuesta por Pinkall en el 93 trabaja únicamente con mallas compuestas
+ propuesta por Pinkall en el 1993 trabaja únicamente con mallas compuestas
  por triángulos, y la de Xiong en el 2011 trabaja exclusivamente con cuadrángulo
 s.
  Esta tesis propone una extensión original del Operador Laplaciano que permite
@@ -728,15 +725,16 @@ s.
 Junto con el operador, este trabajo presenta nuevas aplicaciones en esculpido
  y modelamiento con base en el realce, aplicaciones en subdivisión de superficie
 s con el uso de suavizado, posado de mallas con el uso de coordenadas diferencia
-les, esqueletonización con el uso de suavizado interactivo.
+les y esqueletonización usando contracción iterativa.
  Esta serie de aplicaciones demuestra la calidad, predictibilidad y flexibilidad
  del operador propuesto.
 \end_layout
 
 \begin_layout Standard
-Nuestro Operador fue usado de forma exitosa en ambientes reales de producción
- dentro del software Blender, y actualmente son herramientas disponibles
- como programas de código abierto.
+El operador propuesto fue usado de forma exitosa en ambientes reales de
+ producción dentro del software Blender como nuevas herramientas.
+ Actualmente estas herramientas están disponibles como programas de código
+ abierto.
 \end_layout
 
 \begin_layout Standard
@@ -752,7 +750,7 @@ Nuestro Operador fue usado de forma exitosa en ambientes reales de producción
 
 \series bold
 \size small
-Keywords: laplacian smooth; curvature; sculpting; subdivision surface
+Keywords: laplacian operator; smooth; enhance; sculpting; subdivision surface
 \end_layout
 
 \begin_layout Standard
@@ -801,8 +799,61 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-Over the last years several, modeling techniques able to generate a variety
- of realistic shapes, have been developed 
+The discrete versions of Laplace Beltrami Operator have been used in the
+ last years for the develop of new geometric modelling tools.
+ In the work of Pinkall 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pinkall1993"
+
+\end_inset
+
+ was introduced the cotangent version of Laplace operator, that allow to
+ find the minimal surface when compute a discete harmonic map with the laplacian
+ operator, this version has been widely studied and applied in various problems
+ of computer geometric modeling.
+ The manifolds that are continuous domains homeomorphic to 
+\begin_inset Formula $\mathbb{R}^{n}$
+\end_inset
+
+ are represented in computers by polygon meshes.
+ These polygons are generally composed of triangles and quadrangles, while
+ work with laplacian operator in this hybrid composition are not a mathematical
+ challenge, most research uses only meshes composed by triangles 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pinkall1993,Desbrun1999,Meyer2003,Sorkine2004,Au2008,Belkin2008,Hahne2006"
+
+\end_inset
+
+, in other recent studies 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Liu2008,Xiong2011"
+
+\end_inset
+
+ the Laplacian operator is working exclusively with quadrangles.
+ But in the artistic scope topology and the way the edges are distributed,
+ the triangle and quadrangles, directly affects the processes of animation,
+ interpolation, textured, as discussed by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Mullen2007"
+
+\end_inset
+
+ who use a manual connection of a couple of vertices to perform animation
+ processes and interpolation.
+ It is then of paramount importance to develop operators that easily interact
+ with such meshes, eliminating the need of preprocessing the mesh to convert
+ it to triangles.
+ 
+\end_layout
+
+\begin_layout Standard
+Modeling techniques able to generate a variety of realistic shapes, have
+ been developed 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Botsch2006"
@@ -866,7 +917,7 @@ key "Biermann2000"
 .
  Neverteless these methods are difficult to deal with since they require
  a large number of parameters and a very tedious customization.
- Instead, the presented method requires a single parameter that controls
+ Instead, the presented applications requires a single parameter that controls
  the global curvature, which is used to maintain realistic shapes, creating
  a family of different versions of the same object and therefore preserving
  the detail of the original model and a realistic appearance.
@@ -874,28 +925,7 @@ key "Biermann2000"
 \end_layout
 
 \begin_layout Standard
-Interest in meshes composed of triangles and quads has lately increased
- because of the flexibility of modeling tools such as Blender 3D 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "blender"
-
-\end_inset
-
-.
- Nowadays, many artists use a manual connection of a couple of vertices
- to perform animation processes and interpolation 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Mullen2007"
-
-\end_inset
-
-.
- It is then of paramount importance to develop operators that easily interact
- with such meshes, eliminating the need of preprocessing the mesh to convert
- it to triangles.
- The shape inflation and shape exaggeration can thus be used as such brush
+The shape inflation and shape exaggeration can thus be used as such brush
  in the sculpting process, when inflating a shape since current brushes
  end up by losing detail when moving vertices 
 \begin_inset CommandInset citation
@@ -905,9 +935,9 @@ key "Stanculescu2011"
 \end_inset
 
 .
- In contrast, the presented method inflates a mesh by moving the vertices
- towards the reverse curvature direction, conserving the shape and sharp
- features of the model.
+ In contrast, the presented enhance method inflates a mesh by moving the
+ vertices towards the reverse curvature direction, conserving the shape
+ and sharp features of the model.
 \end_layout
 
 \begin_layout Paragraph
@@ -954,6 +984,24 @@ name "sub:1.1-Related-work"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The most used discretization of laplace beltrami operator was proposed by
+ Pinkall in 1993
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pinkall1993"
+
+\end_inset
+
+.
+ In this work the discretize laplacian operator was useed to find the minimal
+ surface based on minimization energy strategy using the dirclet formula.
+\end_layout
+
+\begin_layout Standard
+formula de energia de dirchlet.
 \end_layout
 
 \begin_layout Standard
@@ -1631,7 +1679,7 @@ Given a mesh
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1852,7 +1900,7 @@ reference "fig:LBO-basic-5-TQ"
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1952,6 +2000,7 @@ reference "fig:LBO-basic-5-TQ"
 \noindent
 
 \size small
+where
 \begin_inset Formula 
 \begin{equation}
 w_{ij}=\begin{cases}
