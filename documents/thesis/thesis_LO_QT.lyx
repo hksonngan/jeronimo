@@ -800,7 +800,7 @@ Introduction
 
 \begin_layout Standard
 The discrete versions of Laplace Beltrami Operator have been used in the
- last years for the develop of new geometric modelling tools.
+ last years for the develop of new geometric modeling tools.
  In the work of Pinkall 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -809,7 +809,7 @@ key "Pinkall1993"
 \end_inset
 
  was introduced the cotangent version of Laplace operator, that allow to
- find the minimal surface when compute a discete harmonic map with the laplacian
+ find the minimal surface when compute a discete harmonic map with the Laplacian
  operator, this version has been widely studied and applied in various problems
  of computer geometric modeling.
  The manifolds that are continuous domains homeomorphic to 
@@ -836,7 +836,8 @@ key "Liu2008,Xiong2011"
  the Laplacian operator is working exclusively with quadrangles.
  But in the artistic scope topology and the way the edges are distributed,
  the triangle and quadrangles, directly affects the processes of animation,
- interpolation, textured, as discussed by 
+ interpolation, textured, etc.
+ As discussed by 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Mullen2007"
@@ -847,7 +848,7 @@ key "Mullen2007"
  processes and interpolation.
  It is then of paramount importance to develop operators that easily interact
  with such meshes, eliminating the need of preprocessing the mesh to convert
- it to triangles.
+ it to triangles and change the original topology.
  
 \end_layout
 
@@ -945,7 +946,7 @@ Contributions
 \end_layout
 
 \begin_layout Standard
-This work presents an extension of the Laplace Beltrami operator for hybrid
+This work presents an extension of the Laplace Beltrami Operator for hybrid
  quad/triangle meshes, representing a larger mesh spectrum from what has
  been presented so far.
  The method eliminates the need of preprocessing and allows preservation
@@ -959,20 +960,36 @@ This work presents an extension of the Laplace Beltrami operator for hybrid
 \end_layout
 
 \begin_layout Standard
-This work is organized as follows: Section 
-\backslash
-ref{sub:1.1-Related-work} presents works related to the Laplacian mesh processing
-, digital sculpting, and offsetting methods for polygonal meshes; In section
- 
-\backslash
-ref{sec:Laplacian-Smooth} , it is described the theoretical framework of
- the Laplacian operator for polygon meshes; In section 
-\backslash
-ref{sec:Proposed-Method}, it is presented the method for shape inflation
- and applications of subdivision of surfaces and sculpting; finally some
- Laplacian operator results, to hybrid quad/triangle meshes are graphically
- shown as well as results of the shape inflation applications in sculpting,
- subdivision and modeling.
+This work is organized as follows: Chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:1.1-Related-work"
+
+\end_inset
+
+ presents works related to the Laplacian operator, applications in digital
+ sculpting, deformation, and offsetting methods for polygonal meshes; In
+ chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:Mathematical-foundation"
+
+\end_inset
+
+, it is described the theoretical framework of the Laplacian operator for
+ polygon meshes; In chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Proposed-Method"
+
+\end_inset
+
+, it is presented the extension of the Laplacian Operator for hybrid meshes
+ and applications of shape inflation ,subdivision of surfaces , deformation,
+ skelenotization and sculpting; finally some Laplacian Operator results,
+ to hybrid quad/triangle meshes are graphically shown as well as results
+ of the shape inflation applications in sculpting, subdivision, deformation,
+ skelenotization and modeling.
 \end_layout
 
 \begin_layout Chapter
@@ -987,24 +1004,6 @@ name "sub:1.1-Related-work"
 \end_layout
 
 \begin_layout Standard
-The most used discretization of laplace beltrami operator was proposed by
- Pinkall in 1993
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Pinkall1993"
-
-\end_inset
-
-.
- In this work the discretize laplacian operator was useed to find the minimal
- surface based on minimization energy strategy using the dirclet formula.
-\end_layout
-
-\begin_layout Standard
-formula de energia de dirchlet.
-\end_layout
-
-\begin_layout Standard
 Many tools have been developed for modeling, based on the Laplacian mesh
  processing.
  Thanks to the advantages of the Laplacian operator, these different tools
@@ -1013,12 +1012,161 @@ Many tools have been developed for modeling, based on the Laplacian mesh
  
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Sorkine2004"
+key "Ranjan2012"
 
 \end_inset
 
 .
  
+\end_layout
+
+\begin_layout Standard
+The most used discretization of Laplace Beltrami operator was proposed by
+ Pinkall et.
+ al.
+ in 1993 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pinkall1993"
+
+\end_inset
+
+.
+ In this work the discretize laplacian operator was used to find the minimal
+ surface based on minimization energy strategy using the Dirichlet's energy
+ of the function 
+\begin_inset Formula $u$
+\end_inset
+
+ over a manifold represented by triangulated mesh 
+\begin_inset Formula $\Omega$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $E_{D}\left(u\right)=\frac{1}{2}\int_{\Omega}\bigl|\nabla u\bigr|^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the work of Desbrun et.
+ al.
+ in 1999 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Desbrun1999"
+
+\end_inset
+
+ a curvature normal (
+\begin_inset Formula $\bar{\kappa}\mathbf{n}$
+\end_inset
+
+) calculation based on cotangen Laplace operator version is proposed
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $-\bar{\kappa}\mathbf{n}=\frac{1}{A}\sum_{j\in N_{1}\left(i\right)}\left(\cot\alpha_{j}+\cot\beta_{j}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $A$
+\end_inset
+
+ is the area surrounding vertex 
+\begin_inset Formula $i$
+\end_inset
+
+, 
+\begin_inset Formula $N_{1}$
+\end_inset
+
+is the 1-ring neighboorhood, 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ are the opposite angles to edge between vertex 
+\begin_inset Formula $i$
+\end_inset
+
+ and vertex 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ This laplacian operator 
+\begin_inset Formula $L$
+\end_inset
+
+ was used for reduce the noise in a mesh 
+\begin_inset Formula $\Omega$
+\end_inset
+
+ over a difussion process.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\frac{\partial\Omega}{\partial t}=\lambda L\left(\Omega\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the work of Sorkine 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sorkine2006"
+
+\end_inset
+
+ the laplacian operator was used to repose a meshe while preserving geometry
+ details of the surface.
+ The details was stored in differential coordinates 
+\begin_inset Formula $\delta_{i}$
+\end_inset
+
+ for every vertex 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\delta_{i}=\sum_{j\in N_{1}\left(i\right)}\frac{1}{2}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\left(v_{i}-v_{j}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The differential coordinates represents the difference between the absolut
+ coordinate of 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+and the center of mass of its immediate neighboors.
 \end_layout
 
 \begin_layout Standard
@@ -1102,8 +1250,41 @@ key "Galyean1991"
  during larger scale deformations.
 \end_layout
 
+\begin_layout Standard
+Skeleton extraction methods permits simplify the dimension of the object
+ preserving the topological structure 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cornea2007"
+
+\end_inset
+
+, Au et.
+ al.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+ present a skeleton extraction method based on iterative smooothing-contraction,
+ in this method the several constraints are used to waranty that the process
+ converge to skeleton formed by branchs and joins, the constraints based
+ on laplacian operator, the low frequencies of the mesh are preserving with
+ the use of attractor to original mesh, while the iterative smoothin process
+ remove high frecuencies.
+\end_layout
+
 \begin_layout Chapter
 Mathematical foundation
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:Mathematical-foundation"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1447,7 +1628,7 @@ key "Pinkall1993,Desbrun1999,Meyer2003"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1679,7 +1860,7 @@ Given a mesh
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
