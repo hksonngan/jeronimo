@@ -1006,10 +1006,9 @@ name "sub:1.1-Related-work"
 \begin_layout Standard
 Many tools have been developed for modeling, based on the Laplacian mesh
  processing.
- Thanks to the advantages of the Laplacian operator, these different tools
- preserve the surface geometric details when using them for different processes
- such as free-form deformation, fusion, morphing and other applications
- 
+ These different tools preserve the surface geometric details when using
+ laplacian operators for different processes such as smoothing, enhancing,
+ free-form deformation, fusion, morphing and other applications 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ranjan2012"
@@ -1021,14 +1020,77 @@ key "Ranjan2012"
 \end_layout
 
 \begin_layout Standard
-The most used discretization of Laplace Beltrami operator was proposed by
- Pinkall et.
- al.
- in 1993 
+The most used discretization of Laplace Beltrami operator 
+\begin_inset Formula $\Delta_{\mbox{\Omega}}$
+\end_inset
+
+ over a triangulated mesh 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Omega$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ was proposed by Pinkall 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Pinkall1993"
 
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\Delta_{\mbox{\Omega}}\left(u\right)=\frac{1}{2}\sum_{j\in N_{1}\left(i\right)}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\left(x_{i}-x_{j}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $N_{1}$
+\end_inset
+
+is the 1-ring neighboorhood, 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ are the opposite angles to edge between vertex 
+\begin_inset Formula $i$
+\end_inset
+
+ and vertex 
+\begin_inset Formula $j$
 \end_inset
 
 .
@@ -1055,26 +1117,48 @@ key "Pinkall1993"
 \end_layout
 
 \begin_layout Standard
-In the work of Desbrun et.
- al.
- in 1999 
+Then Taubin works 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Taubin1995"
+
+\end_inset
+
+ for first time treat the problem of noise reduction in digital poligonal
+ meshes from signal proccessing point of view.
+ Taubin extends Fourier analysis to signals defined on polygonal meshes,
+ Taubin observe that Fourier transform is a decomposition of the signal
+ into an eigenvectors of the Laplacian operator, and reconstruct the signal
+ with a linear combination of these eigenvectors.
+ Desbrun works 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Desbrun1999"
 
 \end_inset
 
- a curvature normal (
+ consider the same approach of Taubin, but Desbrun use a curvature normal
+ (
 \begin_inset Formula $\bar{\kappa}\mathbf{n}$
 \end_inset
 
-) calculation based on cotangen Laplace operator version is proposed
+) based on cotangen Laplace operator version for noise reduction over a
+ difussion process.
 \end_layout
 
 \begin_layout Standard
 \noindent
 \align center
-\begin_inset Formula $-\bar{\kappa}\mathbf{n}=\frac{1}{A}\sum_{j\in N_{1}\left(i\right)}\left(\cot\alpha_{j}+\cot\beta_{j}\right)$
+\begin_inset Formula $\frac{\partial x_{i}}{\partial t}=-\bar{\kappa_{i}}\mathbf{n_{i}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $-\bar{\kappa_{i}}\mathbf{n_{i}}=\frac{1}{A}\sum_{j\in N_{1}\left(i\right)}\left(\cot\alpha_{j}+\cot\beta_{j}\right)$
 \end_inset
 
 
@@ -1089,45 +1173,16 @@ Where
 \begin_inset Formula $i$
 \end_inset
 
-, 
-\begin_inset Formula $N_{1}$
-\end_inset
-
-is the 1-ring neighboorhood, 
-\begin_inset Formula $\alpha$
-\end_inset
-
- and 
-\begin_inset Formula $\beta$
-\end_inset
-
- are the opposite angles to edge between vertex 
-\begin_inset Formula $i$
-\end_inset
-
- and vertex 
-\begin_inset Formula $j$
-\end_inset
-
 .
  This laplacian operator 
 \begin_inset Formula $L$
 \end_inset
 
  was used for reduce the noise in a mesh 
-\begin_inset Formula $\Omega$
+\begin_inset Formula $X$
 \end_inset
 
  over a difussion process.
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $\frac{\partial\Omega}{\partial t}=\lambda L\left(\Omega\right)$
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -1138,7 +1193,7 @@ key "Sorkine2006"
 
 \end_inset
 
- the laplacian operator was used to repose a meshe while preserving geometry
+ the laplacian operator was used to repose a meshes while preserving geometry
  details of the surface.
  The details was stored in differential coordinates 
 \begin_inset Formula $\delta_{i}$
@@ -1274,6 +1329,22 @@ key "Au2008"
  on laplacian operator, the low frequencies of the mesh are preserving with
  the use of attractor to original mesh, while the iterative smoothin process
  remove high frecuencies.
+\end_layout
+
+\begin_layout Standard
+Many tools have been developed for modeling, based on the Laplacian mesh
+ processing.
+ These different tools preserve the surface geometric details when using
+ laplacian operators for different processes such as smoothing, enhancing,
+ free-form deformation, fusion, morphing and other applications 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ranjan2012"
+
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Chapter
