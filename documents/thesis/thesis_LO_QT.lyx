@@ -1144,6 +1144,23 @@ key "Desbrun1999"
 
 ) based on cotangen Laplace operator version for noise reduction over a
  difussion process.
+ This it's the most important and popular Laplace Beltrami opertator discretizat
+ion 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Liu2008"
+
+\end_inset
+
+, many works for mesh smoothing and fairing have been developed based on
+ this LBO discretization 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Desbrun2000,Meyer2003,Schneider2001,Nealen2006"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1183,6 +1200,32 @@ Where
 \end_inset
 
  over a difussion process.
+\end_layout
+
+\begin_layout Standard
+The convergence of the Laplace Beltrami operator has been very important
+ in fields how numerical analysis, given that implications in the simulation
+ process and geometric partial differentials equations.
+ In the works of 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Xu2004"
+
+\end_inset
+
+ is established the convergence of several discrete Laplace Beltrami operators
+ over triangulated meshes with numerical results that support the theoretical
+ analysis.
+ Over quadrilateral meshes Liu 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Liu2008"
+
+\end_inset
+
+ presents a discrete Laplace Beltrami Operator based on a bilinear interpolation
+ and its convergence over this type of meshes composed only by quads.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -1306,7 +1349,20 @@ key "Galyean1991"
 \end_layout
 
 \begin_layout Standard
-Skeleton extraction methods permits simplify the dimension of the object
+In the literature, several studies have described the skeleton extraction
+ systems and different metrics that identify appropriate methods given an
+ application specific 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Attali2007"
+
+\end_inset
+
+.
+ One of the best methods reported in the literature for the extraction of
+ the skeleton is the Laplacian smoothing method for its advantages of homotopy
+ representation and hierarchical connections between parts.
+ The Skeleton extraction methods permits simplify the dimension of the object
  preserving the topological structure 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2364,7 +2420,7 @@ Where
 \end_layout
 
 \begin_layout Section
-Laplacian Smooth
+Mesh Smoothing
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Laplacian-Smooth"
@@ -2376,15 +2432,24 @@ name "sub:Laplacian-Smooth"
 
 \begin_layout Standard
 Computer objects, reconstructed from the real world, are usually noisy.
- One common way to attenueate noise in a mesh is through a diffusion process
- 
+ A common way to attenueate noise in a polygonal mesh is through a diffusion
+ process 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Desbrun1999"
+key "Taubin1995,Desbrun1999"
 
 \end_inset
 
 .
+ Laplacian smooth techniques over a diffusion process allow a proper noise
+ reduction on the mesh surface with minimal shape changes, while still preservin
+g a desirable geometry as well as the original shape.
+ The simple idea is that the vertices are moved in the direction of the
+ Laplacian when we use the contangent version the vertices are moved in
+ the direction of the curvature flow.
+ The complexity of Laplacian smoothing can be linear in time and space with
+ a fast convergence and the diffussion proccess can attenuate noise with
+ only one iteration due the sparseness of the laplacian operator.
 \end_layout
 
 \begin_layout Standard
@@ -2400,7 +2465,31 @@ key "Desbrun1999"
 \end_layout
 
 \begin_layout Standard
-This equation 
+Where L is the Laplacian matrix defined in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO-Normalized_Matrix"
+
+\end_inset
+
+ for meshes with regular sampling, and equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+ for meshes composed by triangles or quads with differents size or irregular
+ sampling.
+ 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ is a scalar that control the diffussion proccess, and smoothing factor.
+\end_layout
+
+\begin_layout Standard
+The equation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:diffusion_process"
@@ -2408,7 +2497,8 @@ reference "eq:diffusion_process"
 \end_inset
 
  can be linearly approximated using implicit integration with a Laplacian
- Operator version of TQLBO.
+ Operator version of TQLBO, the use of implicit integration permit the system
+ to be more stability.
 \end_layout
 
 \begin_layout Standard
@@ -2418,12 +2508,6 @@ reference "eq:diffusion_process"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-Laplacian Smooth techniques over a diffusion process allow a proper noise
- reduction on the mesh surface with minimal shape changes, while still preservin
-g a desirable geometry as well as the original shape.
 \end_layout
 
 \begin_layout Section
@@ -2966,6 +3050,104 @@ reference "eq:Lineal_System_with_wp"
 
 \begin_layout Section
 Skeleton Extraction
+\end_layout
+
+\begin_layout Standard
+Skelton extraction reduces the dimensionality and represents a three-dimensional
+ object as a uni-dimensional structure 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cornea2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The skeleton extraction use the natural shrink produced by the laplacian
+ smoothing 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Meyer2003"
+
+\end_inset
+
+, to contratc iteratively the mesh until the volume inside the surface is
+ near to zero.
+ The method strech the shrink mesh to warranty that object preservers the
+ best at posibble the original topology with the use of attraction constraint
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The laplacian smooth proccess move the vertices in the direction of the
+ Laplacian, if cotangent laplacian operator is used, the vertices move in
+ the direction of minimal surface 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pinkall1993"
+
+\end_inset
+
+ following the curvature flow of the mesh surface.
+\end_layout
+
+\begin_layout Standard
+In the work of Au 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+ is proposed the next system of equation to iteratively contratc the mesh
+ until a skeleton.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\left[\begin{array}{c}
+W_{L}L\\
+W_{H}
+\end{array}\right]X_{t+1}=\left[\begin{array}{c}
+0\\
+W_{H}X_{t}
+\end{array}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $L$
+\end_inset
+
+ is the Laplacian matrix describe in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+, 
+\begin_inset Formula $W_{L}$
+\end_inset
+
+ is the factor for smoothing, 
+\begin_inset Formula $W_{H}$
+\end_inset
+
+ is the factor for attraction constraint.
 \end_layout
 
 \begin_layout Chapter
@@ -3803,7 +3985,7 @@ Future work includes the analysis of theoretical relationships between the
 \begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
-bibfiles "bibliografia/listado_inicial,TQLBO-paper/template,D:/src/blender/GSoC/GSOC2013/bibliography_mesh_editing"
+bibfiles "bibliografia/listado_inicial,TQLBO-paper/template,D:/src/blender/GSoC/GSOC2013/bibliography_mesh_editing,SIBGRAPI2013/template"
 options "bibtotoc,plain"
 
 \end_inset
