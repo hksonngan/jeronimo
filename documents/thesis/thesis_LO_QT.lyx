@@ -1387,22 +1387,6 @@ key "Au2008"
  remove high frecuencies.
 \end_layout
 
-\begin_layout Standard
-Many tools have been developed for modeling, based on the Laplacian mesh
- processing.
- These different tools preserve the surface geometric details when using
- laplacian operators for different processes such as smoothing, enhancing,
- free-form deformation, fusion, morphing and other applications 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Ranjan2012"
-
-\end_inset
-
-.
- 
-\end_layout
-
 \begin_layout Chapter
 Mathematical foundation
 \begin_inset CommandInset label
@@ -1415,8 +1399,8 @@ name "chap:Mathematical-foundation"
 \end_layout
 
 \begin_layout Standard
-This chapter studies bascic mathematical foundation on differential geometry
- to understand the differential operators and the laplace beltrami opetor.
+This chapter studies basic mathematical foundation on differential geometry
+ to understand the differential operators and the Laplace beltrami operator.
 \end_layout
 
 \begin_layout Standard
@@ -1429,15 +1413,20 @@ key "Hahne2006"
 
 .
  The differential operators show a deep relationships betwen the geoemetry
- (curvatures, geodesics) and topology of the manifold --------and this propertie
-s are awsome applications on the last yesr abrand studies with this opertator
+ (curvatures, geodesics) and topology of the manifold.
+ This differential operators are very used in applications on computer geometric
+ modelling over the last years 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Rosenberg1997"
+key "Rosenberg1997,Alexa2011"
 
 \end_inset
 
+.
+\end_layout
 
+\begin_layout Section
+Manifolds
 \end_layout
 
 \begin_layout Standard
@@ -1445,7 +1434,7 @@ A manifold is a topological space
 \begin_inset Formula $M$
 \end_inset
 
- with the follwing properties:
+ with the following properties:
 \end_layout
 
 \begin_layout Standard
@@ -1478,6 +1467,33 @@ key "Spivak1-1999"
 
 .
  
+\end_layout
+
+\begin_layout Standard
+This work is related to manifolds that represent a surface in an three-dimension
+al Eucliddean Space.
+ This manifolds are homeomorphic to 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathbb{R}^{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The manifols are represented by polygonal meshes with points connected by
+ triangles and quads.
 \end_layout
 
 \begin_layout Section
@@ -2875,8 +2891,11 @@ name "sub:Laplacian-Deform"
 \end_layout
 
 \begin_layout Standard
-The mesh editing is generally done with affine transformations, some 3D
- softwares like Blender
+The mesh editing is generally done with affine transformations, 
+\end_layout
+
+\begin_layout Standard
+some 3D softwares like Blender
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blender"
@@ -3074,8 +3093,15 @@ key "Meyer2003"
 \end_inset
 
 , to contratc iteratively the mesh until the volume inside the surface is
- near to zero.
- The method strech the shrink mesh to warranty that object preservers the
+ near to zero (see figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:MeshContracted"
+
+\end_inset
+
+).
+ The method stretch the shrink mesh to warranty that object preservers the
  best at posibble the original topology with the use of attraction constraint
  
 \begin_inset CommandInset citation
@@ -3085,6 +3111,47 @@ key "Au2008"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/contraccion.png
+	lyxscale 10
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:MeshContracted"
+
+\end_inset
+
+From left to right iterative mesh contraction.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3113,15 +3180,17 @@ key "Au2008"
 \end_layout
 
 \begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $\left[\begin{array}{c}
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{c}
 W_{L}L\\
 W_{H}
 \end{array}\right]X_{t+1}=\left[\begin{array}{c}
 0\\
 W_{H}X_{t}
-\end{array}\right]$
+\end{array}\right]\label{eq:SkeletonExtraction}
+\end{equation}
+
 \end_inset
 
 
@@ -3148,6 +3217,363 @@ reference "eq:TQLBO_Simple_Matrix"
 \end_inset
 
  is the factor for attraction constraint.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $W_{L}$
+\end_inset
+
+ and 
+\begin_inset Formula $W_{H}$
+\end_inset
+
+ are changing in every iteration.
+ The contraction and smoothing constraint 
+\begin_inset Formula $W_{L}^{t+1}=S_{L}W_{L}^{t}$
+\end_inset
+
+ with 
+\begin_inset Formula $S_{L}=2.0$
+\end_inset
+
+.
+ The attraction constraint 
+\begin_inset Formula $W_{H,i}^{t+1}=W_{H,i}^{0}\sqrt{\frac{A_{i}^{0}}{A_{i}^{t}}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $A_{i}^{t}$
+\end_inset
+
+ y 
+\begin_inset Formula $A_{i}^{0}$
+\end_inset
+
+ are the current area and initial aerea of the ring surrounding 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In this thesis an additional constraint is proposed which seeks the vertices
+ and the skeleton does not shrink, to eliminate the need to adjust the final
+ skeleton taking each skeleton node and move to the center of your local
+ mesh region.
+\end_layout
+
+\begin_layout Standard
+The basic idea is move the vertices along of the normal line estimated on
+ every vertex based on the avergage of the faces normals.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/LineConstraintSkeleton.pdf
+	lyxscale 10
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:LineConstraint"
+
+\end_inset
+
+Left: The vertex 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ move along line constraint.
+ Right: the distance of vertex 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ to plane 1 and plane 2 when change the position in every iteration.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This line can be see as intersection of two planes (see figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:LineConstraint"
+
+\end_inset
+
+) created with the information of the vertex 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+, the normal 
+\begin_inset Formula $\overrightarrow{\mathbf{n}_{i}}$
+\end_inset
+
+ and neighboors 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ of 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The equation of the plane.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $a\mathbf{x}+b_{0}\mathbf{y}+c_{0}\mathbf{z}+d_{0}=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There is varios methods to build a equation of the plane based on three
+ non-collinear points, we choose this three points based on vertex 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+, the normal 
+\begin_inset Formula $\overrightarrow{\mathbf{n}_{i}}$
+\end_inset
+
+ and neighboors 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ of 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $P_{1}=x_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $P_{2}=x_{j}$
+\end_inset
+
+ when 
+\begin_inset Formula $x_{j}\in Neighboors\left(x_{i}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $P_{3}=P_{1}-\overrightarrow{\mathbf{n}_{i}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To build a equation plane only need to solve the next systems of equations
+ for variables 
+\begin_inset Formula $a,b,c$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\begin{array}{c}
+ax_{1}+by_{1}+cz_{1}+d=0\\
+ax_{2}+by_{2}+cz_{2}+d=0\\
+ax_{3}+by_{3}+cz_{3}+d=0
+\end{array}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The distance of point 
+\begin_inset Formula $P_{0}=\{x_{0},y_{0},z_{0}\}$
+\end_inset
+
+ to a plane 
+\begin_inset Formula $\Pi=a\mathbf{x}+b_{0}\mathbf{y}+c_{0}\mathbf{z}+d_{0}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\left|\Pi-P_{0}\right|=\frac{\left|ax_{0}+by_{0}+cz_{0}+d\right|}{\sqrt{a^{2}+b^{2}+c^{2}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the equation above, every point 
+\begin_inset Formula $P_{0}=\{x_{0},y_{0},z_{0}\}$
+\end_inset
+
+ that belong to plane made the equation zero.
+ If the point 
+\begin_inset Formula $P_{0}$
+\end_inset
+
+ is not in the plane the value of the equation of the plane change, and
+ the absolute value is increased if 
+\begin_inset Formula $P_{0}$
+\end_inset
+
+ is more distant of the plane.
+ Let us use this simple relation to build a valid constraint that can be
+ put in the form of linear equation 
+\begin_inset Formula $Ax=B$
+\end_inset
+
+.
+ Where 
+\begin_inset Formula $A$
+\end_inset
+
+ is the matrix with values 
+\begin_inset Formula $\begin{vmatrix}a & b & c\end{vmatrix}$
+\end_inset
+
+ the 
+\begin_inset Formula $x$
+\end_inset
+
+ value correspond to every vertex in mesh 
+\begin_inset Formula $\{x_{0},y_{0},z_{0}\}$
+\end_inset
+
+ and 
+\begin_inset Formula $B$
+\end_inset
+
+ correspond to 
+\begin_inset Formula $d$
+\end_inset
+
+ value of the plane equation.
+ How the linear system presented in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:SkeletonExtraction"
+
+\end_inset
+
+ don't has a unique solution, the system is solve in the least-squares sense.
+ With the new constraint the system then try to minimize the distance betwen
+ the new vertex positions and the two planes.
+ 
+\end_layout
+
+\begin_layout Standard
+The new system of equations proposed
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\left[\begin{array}{c}
+W_{L}L\\
+W_{H}\\
+W_{D}\Pi_{1}\\
+W_{D}\Pi_{2}
+\end{array}\right]X_{t+1}=\left[\begin{array}{c}
+0\\
+W_{H}X_{t}\\
+-D_{1}\\
+-D_{2}
+\end{array}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $W_{D}$
+\end_inset
+
+ is the weigth to new constraints, that forced the vertices to move along
+ of the normal line of every vertex.
+ 
+\begin_inset Formula $\Pi_{1}$
+\end_inset
+
+ and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Pi_{2}$
+\end_inset
+
+ are matrix that contains 
+\begin_inset Formula $a,b,c$
+\end_inset
+
+ values of the equation of the plane for every vertex.
+ 
+\begin_inset Formula $D_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $D_{2}$
+\end_inset
+
+ are the vector with 
+\begin_inset Formula $d$
+\end_inset
+
+ values of the equations of the planes for every vertex.
 \end_layout
 
 \begin_layout Chapter
