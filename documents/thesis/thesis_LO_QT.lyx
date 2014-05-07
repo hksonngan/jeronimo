@@ -2891,46 +2891,217 @@ name "sub:Laplacian-Deform"
 \end_layout
 
 \begin_layout Standard
-The mesh editing is generally done with affine transformations, 
+The Laplacian deform allows to pose a mesh while preserving geometric details
+ of the surface.
+ This method allows to defines a set of anchor vertices, and then moves
+ some of them around.
+ The system keeps the rest of the anchor vertices in fixed positions, and
+ calculates the best possible locations of all the remaining vertices to
+ preserve the original geometric details.
 \end_layout
 
 \begin_layout Standard
-some 3D softwares like Blender
+This thesis adapt the method proposed by Sorkine 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "blender"
+key "Sorkine2004"
 
 \end_inset
 
- offers some tools to interpolate the transform of the vertices over connected
- neighbors ussing simple distance functions.
-\end_layout
-
-\begin_layout Standard
-Esta tesis adapto el metodo propuesto por osikine para deformaciones de
- malla elminando el uso de vertices estaticos y su uso sobre mallas hibridas
- compuestas por triangulosy cuadranglos con el operador TQLBO propuesto.
-\end_layout
-
-\begin_layout Standard
-The This project proposes to implement a method for mesh editing based on
- sketching lines defines by user and preserving the geometric details of
- the surface.
+ for mesh deformations, delete the use of static vertices and allow application
+ of this system in hybrid meshes composes by triangles and quads with the
+ TQLBO proposed.
 \end_layout
 
 \begin_layout Standard
 This method captures the geometric details using a differential coordinates
  representations.
  The differential coordinates captures the local geometric information (curvatur
-e and direction) of the vertex based on its neighbors.
- This method allows you to retrieve the best possible original model after
- changing the positions of some vertices using the differential coordinates
- of the original model.
+e and direction) of the vertex based on its neighbors how show in figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:DifferentialCoor"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-This method also allows the user to define the desired transformation using
- sketch lines in the screen.
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/DifferentialCoordinates.pdf
+	width 70col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:DifferentialCoor"
+
+\end_inset
+
+ Difference between 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ and the center of mass of its neighboors 
+\begin_inset Formula $v_{1},...,v$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\delta_{i}=\overset{m}{\underset{j=1}{\sum}}w_{ij}\left(v_{i}-v_{j}\right)\label{eq:DifferentialCoordinate}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $\delta_{i}$
+\end_inset
+
+ is the differential coordinate for vertex 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+ The 
+\begin_inset Formula $v_{j}$
+\end_inset
+
+ are the inmediate neighoors of 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, and 
+\begin_inset Formula $w_{ij}$
+\end_inset
+
+ is the weigth betwen vertex 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $v_{j}$
+\end_inset
+
+ defined in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_wij"
+
+\end_inset
+
+ that is TQLBO.
+\end_layout
+
+\begin_layout Standard
+Then the linear systems for find the new pose of a mesh is.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{bmatrix}w_{l}L\\
+W_{c}
+\end{bmatrix}X=\begin{bmatrix}\delta\\
+W_{c}C
+\end{bmatrix}\label{eq:LaplacianDefomSystem}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $w_{l}$
+\end_inset
+
+ is the weigth for Laplacian Matrix 
+\begin_inset Formula $L$
+\end_inset
+
+, the Laplacian matrix 
+\begin_inset Formula $L$
+\end_inset
+
+ was defined in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+ .
+ 
+\begin_inset Formula $Wc$
+\end_inset
+
+ is a matrix that containts ones int the indexes of anchors vertices.
+ 
+\begin_inset Formula $C$
+\end_inset
+
+ is a vector with coordinates of anchors vertices after several transformatios.
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\delta$
+\end_inset
+
+ are the differential coordinates defined in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:DifferentialCoordinate"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
@@ -3123,7 +3294,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename resources/figs/contraccion.png
-	lyxscale 10
+	lyxscale 30
 	width 100text%
 
 \end_inset
@@ -3404,8 +3575,11 @@ There is varios methods to build a equation of the plane based on three
 \end_layout
 
 \begin_layout Standard
-To build a equation plane only need to solve the next systems of equations
- for variables 
+To build a equation plane only need three non-collinear points 
+\begin_inset Formula $\left\{ P_{1},P_{2},P_{3}\right\} $
+\end_inset
+
+ and solve the next systems of equations for variables 
 \begin_inset Formula $a,b,c$
 \end_inset
 
@@ -3500,7 +3674,7 @@ reference "eq:SkeletonExtraction"
 
 \end_inset
 
- don't has a unique solution, the system is solve in the least-squares sense.
+ don't has a unique solution, the system solve it in the least-squares sense.
  With the new constraint the system then try to minimize the distance betwen
  the new vertex positions and the two planes.
  
@@ -3660,85 +3834,7 @@ reference "fig:Animated_Camell"
 
 \begin_layout Standard
 \begin_inset Float figure
-placement t
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename resources/figs/spectrum.pdf
-	lyxscale 30
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Spectrum"
-
-\end_inset
-
-A set of 48 successive shapes enhanced, from 
-\begin_inset Formula $\lambda=0.0$
-\end_inset
-
- in blue to 
-\begin_inset Formula $\lambda=-240.0$
-\end_inset
-
- in red, with steps of 
-\begin_inset Formula $-5.0$
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:TQLBO_test"
-
-\end_inset
-
- shows the results when applying the Laplace Beltrami Operator TQLBO of
- equation (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:TQLBO_Simple_Matrix"
-
-\end_inset
-
-) in a model with a simple subdivision.
- In column (c) the Laplacian smoothing was applied to a model consisting
- of only quads.
- In column (d) the model was converted to triangles and then the Laplacian
- smoothing was applied.
- In column (e) the model was randomly converted from some quads into triangles
- and then the Laplacian smoothing is applied, showing similar results to
- those meshes composed only of triangles or quads.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
@@ -3787,6 +3883,32 @@ name "fig:TQLBO_test"
 \end_layout
 
 \begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TQLBO_test"
+
+\end_inset
+
+ shows the results when applying the Laplace Beltrami Operator TQLBO of
+ equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+) in a model with a simple subdivision.
+ In column (c) the Laplacian smoothing was applied to a model consisting
+ of only quads.
+ In column (d) the model was converted to triangles and then the Laplacian
+ smoothing was applied.
+ In column (e) the model was randomly converted from some quads into triangles
+ and then the Laplacian smoothing is applied, showing similar results to
+ those meshes composed only of triangles or quads.
+\end_layout
+
+\begin_layout Standard
 Methods using the Catmull-Clark subdivision surface and the inflation allows
  to modify the curvature that is obtained with the process of subdivision,
  as shown in figure 
@@ -3825,6 +3947,71 @@ reference "fig:Subdivision-Cups"
 \end_inset
 
 .d.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/camello_enhanced2.pdf
+	lyxscale 10
+	height 50theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:camello_enhanced"
+
+\end_inset
+
+Top row: Original camel model in left.
+ Shape inflation with 
+\begin_inset Formula $\lambda=-30.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda=-100.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda=-400.0$
+\end_inset
+
+.
+ Bottom row: Shape inflation with weight vertex group, 
+\begin_inset Formula $\lambda=-50.0$
+\end_inset
+
+ and 2 iterations for the legs, 
+\begin_inset Formula $\lambda=-200.0$
+\end_inset
+
+ and 1 iteration for the head and neck.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3895,17 +4082,16 @@ reference "fig:camello_enhanced"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
-\noindent
-\align center
 \begin_inset Graphics
-	filename resources/figs/camello_enhanced2.pdf
-	lyxscale 10
-	height 50theight%
+	filename resources/figs/spectrum.pdf
+	lyxscale 30
+	width 100text%
 
 \end_inset
 
@@ -3918,33 +4104,76 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:camello_enhanced"
+name "fig:Spectrum"
 
 \end_inset
 
-Top row: Original camel model in left.
- Shape inflation with 
-\begin_inset Formula $\lambda=-30.0$
+A set of 48 successive shapes enhanced, from 
+\begin_inset Formula $\lambda=0.0$
 \end_inset
 
-, 
-\begin_inset Formula $\lambda=-100.0$
+ in blue to 
+\begin_inset Formula $\lambda=-240.0$
 \end_inset
 
-, 
-\begin_inset Formula $\lambda=-400.0$
+ in red, with steps of 
+\begin_inset Formula $-5.0$
 \end_inset
 
 .
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/camello_walk2.png
+	lyxscale 10
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Animated_Camell"
+
+\end_inset
+
+The method is pose insensitive.
+ The inflation for the different poses are similar in terms of shape.
+ Top row: Original walk cycle camel model.
  Bottom row: Shape inflation with weight vertex group, 
-\begin_inset Formula $\lambda=-50.0$
+\begin_inset Formula $\lambda=-400$
 \end_inset
 
- and 2 iterations for the legs, 
-\begin_inset Formula $\lambda=-200.0$
+ and 
+\begin_inset Formula $2$
 \end_inset
 
- and 1 iteration for the head and neck.
+ iterations.
+ 
 \end_layout
 
 \end_inset
@@ -3991,15 +4220,18 @@ reference "fig:Animated_Camell"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
-	filename resources/figs/camello_walk2.png
+	filename resources/figs/sculpt_brush.pdf
 	lyxscale 10
-	width 100text%
+	height 30theight%
 
 \end_inset
 
@@ -4012,23 +4244,59 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Animated_Camell"
+name "fig:Sculpt_Brush"
 
 \end_inset
 
-The method is pose insensitive.
- The inflation for the different poses are similar in terms of shape.
- Top row: Original walk cycle camel model.
- Bottom row: Shape inflation with weight vertex group, 
-\begin_inset Formula $\lambda=-400$
+Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
+ Inflate shape brush for leg into red circle.
+ Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
+ Shape inflation brush for fingers in red circle.
+\end_layout
+
 \end_inset
 
- and 
-\begin_inset Formula $2$
+
+\end_layout
+
 \end_inset
 
- iterations.
- 
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/verts_per_second_sculpt.pdf
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Performance-sculpt"
+
+\end_inset
+
+Performance of our dynamic shape inflation brush in terms of the sculpted
+ vertices per second.
+ Three models with 12K, 40K, 164K vertices used for sculpting in real time.
 \end_layout
 
 \end_inset
@@ -4091,12 +4359,777 @@ reference "fig:Performance-sculpt"
  0.5 seconds, these times are suitable in real applications since an artist
  sculpts a model for parts.
  
-\begin_inset ERT
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/Armadillo.pdf
+	lyxscale 10
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Armadillo"
+
+\end_inset
+
+Anchor vertices in blue color.
+ (a) Original Model, (b,c,d) new poses change only anchor vertices, system
+ find positions for vertices in yellow color.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Armadillo"
+
+\end_inset
+
+ shows the Laplacian Deform applied in a model with 173K vertices, only
+ anchor vertices was used and are represented in blue color, when the user
+ apply several transformation (location, rotation, scale) over this anchors
+ vertices, the system find a solution and estimate the position of the vetices
+ in yellow color.
+ This method work in real time, to achieve this the matrix 
+\begin_inset Formula $\begin{bmatrix}w_{l}L\\
+W_{c}
+\end{bmatrix}$
+\end_inset
+
+ in the equation 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:LaplacianDefomSystem"
+
+\end_inset
+
+ is decomposed in matrix 
+\begin_inset Formula $LU$
+\end_inset
+
+ with LU factorization only one time when the system init.
+ Once the matrix is factorized the system can solve the unknowns in a fast
+ way in term of miliseconds.
+ For get better results the method permits solve several times the system
+ of equations, and not need factorize matriz LU could be that at every iteration
+, only the differential coordinates are adjust since the differential coordinate
+s can be rotated at every iteration and get bettter results.
+ In the figure only four iterations were used, but the system find good
+ solutions with only one iteration when the angle of rotations are less
+ that 
+\begin_inset Formula $\pi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="10">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
 
-%, and each part is represented by an average of about 1800 vertices.
+\begin_layout Plain Layout
+Model
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Vertices
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CG
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+BICGSTAB
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GMRES
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+SUPERLU
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TAUCS_LLT
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TAUCS_LU
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TAUCS_LDLT
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CHOLMOD
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Cross
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+24
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+King
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+538
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+YModel
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4770
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Man
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10002
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Neptune
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+28052
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Armadillo
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+34594
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+asdasd
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -4109,92 +5142,16 @@ status open
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename resources/figs/sculpt_brush.pdf
-	lyxscale 10
-	height 40theight%
+LU factorization is a numerical method that works with large, sparse, nonsymmetr
+ic systems of linear equations 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Levy2005"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Sculpt_Brush"
-
-\end_inset
-
-Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
- Inflate shape brush for leg into red circle.
- Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
- Shape inflation brush for fingers in red circle.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename resources/figs/verts_per_second_sculpt.pdf
-	lyxscale 10
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Performance-sculpt"
-
-\end_inset
-
-Performance of our dynamic shape inflation brush in terms of the sculpted
- vertices per second.
- Three models with 12K, 40K, 164K vertices used for sculpting in real time.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+.
+ 
 \end_layout
 
 \begin_layout Standard
