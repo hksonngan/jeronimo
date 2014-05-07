@@ -3687,9 +3687,9 @@ The new system of equations proposed
 \end_layout
 
 \begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $\left[\begin{array}{c}
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{c}
 W_{L}L\\
 W_{H}\\
 W_{D}\Pi_{1}\\
@@ -3699,7 +3699,9 @@ W_{D}\Pi_{2}
 W_{H}X_{t}\\
 -D_{1}\\
 -D_{2}
-\end{array}\right]$
+\end{array}\right]\label{eq:SkeletonExtractionDistance}
+\end{equation}
+
 \end_inset
 
 
@@ -3764,9 +3766,8 @@ name "sec:Results"
 \end_layout
 
 \begin_layout Standard
-The results of the shape inflation method with the extension of the Laplace
- Beltrami operator for hybrid quad/triangle meshes with several example
- models (see figures 
+This chapter show the results of the Laplace Beltrami operator for hybrid
+ quad/triangle meshes with several example models (see figures 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Spectrum"
@@ -3830,8 +3831,88 @@ reference "fig:Animated_Camell"
 \end_inset
 
 ).
- The shape inflation was assessed with TQLBO method on a PC with AMD Quad-Core
- Processor @ 2.40 GHz and 8 GB RAM.
+ It first show a comparisson of the Laplacian Operator in meshes composed
+ by triangles, by quads and hybrid meshes composed by triangles/quads.
+ Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Customizing-Curvature-by"
+
+\end_inset
+
+ show the use of TQLBO in applications of Shape Inflation and Subdivision
+ Surfaces on normal meshes and meshes change with isometric transformations.
+ It Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Shape-Inflation-Brush"
+
+\end_inset
+
+ show a novel shape inflation brush for sculpting systems that works in
+ real time.
+ It Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Posing-Meshes-with"
+
+\end_inset
+
+ show mesh deformations and posing applications using differential coordinates
+ defined with the TQLBO.
+ It Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Laplace-Operator-and"
+
+\end_inset
+
+ discusses the differences betwen common version and normalized version
+ of the TQLBO.
+ It Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Performance-Testing-of"
+
+\end_inset
+
+ describe a performance comparison of differents numericals solvers used
+ to solve a Laplacian linear equation system.
+ Finally discusses some especific technical aspect about the implementation
+ of the TQLBO on several computer systems at Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Conclusion-and-future"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:TQLBO_test"
+
+\end_inset
+
+ shows the results when applying the Laplace Beltrami Operator TQLBO of
+ equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+) in a model with a simple subdivision.
+ In column (c) the Laplacian smoothing was applied to a model consisting
+ of only quads.
+ In column (d) the model was converted to triangles and then the Laplacian
+ smoothing was applied.
+ In column (e) the model was randomly converted from some quads into triangles
+ and then the Laplacian smoothing is applied, showing similar results to
+ those meshes composed only of triangles or quads.
 \end_layout
 
 \begin_layout Standard
@@ -3884,34 +3965,15 @@ name "fig:TQLBO_test"
 
 \end_layout
 
-\begin_layout Standard
-Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:TQLBO_test"
-
-\end_inset
-
- shows the results when applying the Laplace Beltrami Operator TQLBO of
- equation (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:TQLBO_Simple_Matrix"
-
-\end_inset
-
-) in a model with a simple subdivision.
- In column (c) the Laplacian smoothing was applied to a model consisting
- of only quads.
- In column (d) the model was converted to triangles and then the Laplacian
- smoothing was applied.
- In column (e) the model was randomly converted from some quads into triangles
- and then the Laplacian smoothing is applied, showing similar results to
- those meshes composed only of triangles or quads.
-\end_layout
-
 \begin_layout Section
 Customizing Curvature by Shape Inflation.
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Customizing-Curvature-by"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3965,6 +4027,11 @@ A set of 48 successive shapes enhanced, from
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The shape inflation was assessed with TQLBO method on a PC with AMD Quad-Core
+ Processor @ 2.40 GHz and 8 GB RAM.
 \end_layout
 
 \begin_layout Standard
@@ -4226,6 +4293,13 @@ The method is pose insensitive.
 
 \begin_layout Section
 Shape Inflation Brush in Real Time
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Shape-Inflation-Brush"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4373,6 +4447,13 @@ Performance of our dynamic shape inflation brush in terms of the sculpted
 
 \begin_layout Section
 Posing Meshes with Laplacian Deform
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Posing-Meshes-with"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4467,7 +4548,14 @@ s can be rotated at every iteration and get bettter results.
 \end_layout
 
 \begin_layout Section
-Laplace Operator and Normalized Version
+Laplace Operator and Normalized Version 
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Laplace-Operator-and"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4585,7 +4673,72 @@ name "fig:(a)Monkey"
 \end_layout
 
 \begin_layout Section
-Performance Testing of Solvers
+Skeletonizer
+\end_layout
+
+\begin_layout Standard
+Skeletonizer is a product of software that permits the proccessing, visualizatio
+n and extraction of the skeleton from polygonal meshes.
+ The software was designed with base in a plugin system and pipe-filters
+ paradigm.
+ This software implement the method for skeleton extraction describe in
+ equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:SkeletonExtractionDistance"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The software is called sjSkeletonizer and use the following computer libraries.
+\end_layout
+
+\begin_layout Description
+CGAL Computational Geometry Algorithms Library 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cgal"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+Graphite is a research platform for computer graphics, 3D modeling and numerical
+ geometry 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "graphite"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+QT is a cross-platform application and UI framework 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "qt"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Performance Testing of Solvers 
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Performance-Testing-of"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -5384,7 +5537,7 @@ asdas
 Implementation
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Implementation"
+name "sec:Implementation"
 
 \end_inset
 
