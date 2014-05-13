@@ -519,15 +519,11 @@ A mis padres
 \end_layout
 
 \begin_layout Plain Layout
-
-\size small
-Inteligente es aquella persona que sabe ser feliz.
+Beatriz Fernandez Vargas
 \end_layout
 
 \begin_layout Plain Layout
-
-\size small
-Alexander Pinzón Fernández
+Campo Elias Pinzon Rojas
 \end_layout
 
 \end_inset
@@ -2544,7 +2540,7 @@ name "sub:Curvature-Enhancing"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -4693,7 +4689,8 @@ reference "eq:SkeletonExtractionDistance"
 \end_layout
 
 \begin_layout Standard
-The software is called sjSkeletonizer and use the following computer libraries.
+The software is called sjSkeletonizer and use the following computacional
+ frameworks and libraries.
 \end_layout
 
 \begin_layout Description
@@ -4728,6 +4725,50 @@ key "qt"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/poses.png
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Skeleton-extraction-poses"
+
+\end_inset
+
+ Model with different poses and skeleton obtained with our skeleton extraction
+ software.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
