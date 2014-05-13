@@ -1,0 +1,3041 @@
+#LyX 1.6.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass scrreprt
+\use_default_options true
+\begin_modules
+theorems-ams
+\end_modules
+\language spanish
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize a4paper
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Extracción y Seguimiento del Esqueleto de un Cuerpo a Partir de Múltiples
+ Vistas
+\end_layout
+
+\begin_layout Author
+Universidad Nacional de Colombia
+\begin_inset Newline newline
+\end_inset
+
+Facultad de Ingeniería
+\noun on
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Alexander Pinzón Fernández
+\noun default
+
+\begin_inset Newline newline
+\end_inset
+
+Maestría en Ingeniería de Sistemas y Computación
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Director:
+\begin_inset Newline newline
+\end_inset
+
+Eduardo Romero Castro, Ph.D.
+\begin_inset Newline newline
+\end_inset
+
+Profesor Asociado, Dep.
+ de Imágenes Diagnósticas
+\begin_inset Newline newline
+\end_inset
+
+Facultad de Medicina
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Grupo de Investigación Bioingenium
+\begin_inset Newline newline
+\end_inset
+
+Bogotá D.C.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList figure
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FloatList table
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+El estudio y registro del movimiento de un cuerpo con extremidades articuladas,
+ como una persona o un animal, ha sido de interés en varias aéreas del conocimie
+nto.
+ Por ejemplo, la anatomía humana y animal, la ingeniería y las artes.
+ El registro de movimiento ha sido usado para resolver distintos tipos de
+ problemas, por ejemplo: en el diagnostico de patologías asociadas a la
+ marcha en seres humanos, la captura del movimiento de un actor para dar
+ vida a un personaje animado, o el análisis ergonómico para el diseño de
+ productos y herramientas.
+ 
+\end_layout
+
+\begin_layout Abstract
+El seguimiento de movimiento se realiza convencionalmente con costosos sistemas
+ ópticos de captura que varían entre los 150 y 400 millones de pesos aproximadam
+ente 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Estos datos fueron recopilados durante mayo del año 2009 de cotizaciones
+ realizadas a empresas de Suecia, Estados unidos y Italia
+\end_layout
+
+\end_inset
+
+.
+ Este seguimiento del movimiento presenta inconvenientes como el uso de
+ marcadores en forma de trajes y dispositivos pegados al cuerpo y sus extremidad
+es, que alteran la naturalidad de los movimientos.
+ Además, se necesita de expertos para posicionar los marcadores, pues los
+ marcadores deben estar localizados en puntos antropométricos específicos.
+ Otro inconveniente de estos sistemas estereoscópicos que realizan una reconstru
+cción tridimensional desde múltiples puntos de vista es que manejan grandes
+ volúmenes de datos correspondientes a la geometría del cuerpo, con lo cual
+ se requiere maquinas de alto rendimiento.
+ 
+\end_layout
+
+\begin_layout Abstract
+En este sistema se propone eliminar el uso de marcadores sujetos al cuerpo
+ junto con el uso de cámaras de bajo costo.
+ Los datos de este sistema calibrado de cámaras, son usados para segmentar
+ las siluetas mediante el método Sigma-Delta, con los cuales se realiza
+ una reconstrucción estereoscópica 3D del cuerpo.
+ una vez reconstruido se realiza una extracción del esqueleto mediante la
+ contracción suavizada del volumen por medio de cálculos vectoriales con
+ el operador de Laplace-Beltrami.
+ Por último para validar nuestros resultados, se compara el método contra
+ otros desarrollados, midiendo su eficacia en características como la homotopía
+ con respecto al cuerpo original, la invariancia bajo transformaciones isométric
+as, y lo centrado con respecto a la superficie media.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+selectlanguage{english}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+
+\lang english
+The study and record of the movement of a body with extremities articulated,
+ such as a person or an animal, it has been of interest in several areas
+ of knowledge.
+ For instance, the human anatomy and animal, engineering and arts.
+ The record of movement has been used to resolve several types of problems,
+ for instance: In the I diagnose of correlated pathologies the march in
+ human beings, the capture of the movement of an actor to give an animate
+ character life, or the ergonomic analysis for the design of products and
+ tools.
+ 
+\end_layout
+
+\begin_layout Abstract
+
+\lang english
+The tracking of movement is done conventionally with costly optic systems
+ of capture that they vary between the 55.000 and 220.000 us dollars approximately
+ 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\lang english
+These data were collected during May of the year 2009 of quotations accomplished
+ to Swedish, united States and Italy companies.
+\end_layout
+
+\end_inset
+
+.
+ This tracking of the movement presents inconveniences like the use of markers
+ in the form of suits and attached devices to the body and its extremities,
+ that they alter the spontaneity of the movements.
+ Also, it is needed of experts to position markers, because markers must
+ be located at anthropometric specific points.
+ Another inconvenience of these stereoscopic systems that accomplish a three-dim
+ensional reconstruction from multiple points of view is the fact that the
+ big volumes of correspondent data drive the geometry of the body, with
+ which requires high-performance machines itself.
+ 
+\end_layout
+
+\begin_layout Abstract
+
+\lang english
+It is proposed eliminating the use of fastened markers to the body along
+ with the use of low-cost cameras in this system.
+ The data of this system calibration of cameras, Sigma Delta, the one with
+ which a stereoscopic reconstruction the one is accomplished are used to
+ segment the silhouettes by means of the method 3D of the body once reconstructe
+d accomplishes an extraction of the skeleton by means of the contraction
+ softened of the volume by means of vectorial calculations with Laplace
+ Beltrami's operator itself.
+ Finally to validate our results, the method against developed others is
+ compared, measuring his efficacy in characteristics like the homotopy regarding
+ the original body, the low invariance isometric transformations, and what's
+ centered regarding the half a surface.
+\end_layout
+
+\begin_layout Chapter
+Introducción
+\end_layout
+
+\begin_layout Standard
+El estudio del movimiento de los objetos a cautivado al hombre desde la
+ antigüedad, algunas veces con la intención de reproducirlo en robots y
+ animales mecánicos, como el ave mecánica del griego Arquitas del siglo
+ IV antes de cristo 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Taddei2007"
+
+\end_inset
+
+, o en el caso de Leonardo Da vinci quien diseño un robot humanoide que
+ realizaba movimientos como sentarse, alzar los brazos, mover la cabeza
+ y mover la mandíbula basado en sus conocimientos de anatomatica 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Taddei2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Una definición formal para estudiar el movimiento de los objetos se encuentra
+ mediante el registro de movimiento el cual se refiere a la medición realizada
+ por un observador de la posición con respecto al tiempo de una partícula
+ en un sistema de referencia.
+\end_layout
+
+\begin_layout Standard
+El registro del movimiento del cuerpo humano se ha especializado a lo largo
+ de los años con la llegada de nuevas tecnologías que ayudan a realizarlo
+ de forma mas precisa como en el caso de los sensores inerciales y los rotoscopi
+os, otra de las tecnologías para registrar el movimiento del cuerpo humano
+ son los sistemas ópticos en los cuales se usan una o mas cámaras para grabar
+ a un actor, para posteriormente mediante procesamiento fotogametrico encontrar
+ las posiciones exactas del cuerpo y sus partes a lo largo del vídeo
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Campos2006"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+En el registro del movimiento de un cuerpo humano generalmente se usa un
+ esqueleto modelo que representa cada una de las extremidades y sus articulacion
+es dado que el esqueleto es una representación sintetizada del cuerpo.
+ Encontrar el correspondiente esqueleto de un cuerpo humano, animal o de
+ algún objeto, en general es estudiado dentro del área de la computación
+ gráfica denominada extracción del esqueleto
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cornea2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Aproximaciones Clave
+\end_layout
+
+\begin_layout Standard
+El registro de movimiento del cuerpo humano se realiza tradicionalmente
+ hoy día con sistemas ópticos que usan marcadores y hacen uso de un esqueleto
+ modelo conocido a priori.
+\end_layout
+
+\begin_layout Subsection
+Sistemas Ópticos
+\end_layout
+
+\begin_layout Standard
+Los sistemas ópticos para el registro de movimiento tiene dos enfoques important
+es uno con el uso de marcas, y otro sin ellas.
+ En el registro con el uso de leds o reflectores como marcadores se hace
+ un filtrado de la imagen para localizar estos puntos, con estos puntos
+ segmentados y localizados en las imágenes se procede a realizar una estimación
+ tridimensional de cada punto, con lo que se registra el movimiento de cada
+ parte del cuerpo en el cual habian marcadores presentes 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Thormahlen2008"
+
+\end_inset
+
+.
+ En el registro sin el uso de marcadores se realiza primero una reconstrucción
+ tridimensional del cuerpo mediante el uso de las siluetas y puntos característi
+cos encontrados en los vídeos mediante procesamiento de imágenes, con el
+ cuerpo reconstruido se realiza una estimación de la pose de un esqueleto
+ modelo, la pose del esqueleto es el registro del movimiento como tal de
+ actor que se observo 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Zou2009"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Extracción del Esqueleto
+\end_layout
+
+\begin_layout Standard
+La extracción del esqueleto se realiza convencionalmente con técnicas en
+ las cuales hay una reducción iterativa del la forma tridimensional con
+ ciertas restricciones de contracción y minimización de energía, hasta encontrar
+ un esqueleto irreducible 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+.
+ Otros métodos utilizan distintas representaciones topológicas de un objeto
+ tridimensional mediante grafos, luego realizan una simplificación de este
+ grafo, y por ultimo utilizan un esqueleto modelo el cual transforman para
+ minimizar el error entre el esqueleto y el grafo dado por medio de alguna
+ métrica basada en heurísticas 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Aguiar2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Organización del Documento
+\end_layout
+
+\begin_layout Standard
+Este documento esta organizado la siguiente forma.
+ En el capitulo 2 se proporciona un estado del arte sobre los sistemas ópticos
+ de captura de movimiento y la extracción del esqueleto.
+ En el capitulo 3 se habla de la captura de los vídeos desde varias cámaras
+ a un mismo actor, tomando en cuenta puntos como la calibración, la sincronizaci
+ón, la iluminación, y la ubicación de las cámaras.
+ En el capitulo 4 mostraremos la extracción de la silueta del actor desde
+ los vídeos mediante la implementación del método 
+\begin_inset Formula $\Sigma-\Delta$
+\end_inset
+
+ para sustracción del fondo.
+ En el capitulo 5 se hablara sobre los puntos característicos en una imagen,
+ de como estos puntos son invariantes a través del tiempo y como se les
+ puede hacer seguimiento a lo largo de un vídeo.
+ En el capitulo 6 se mostrara como usando las siluetas y los puntos característi
+cos se realiza una estimación del cuerpo tridimensional del actor.
+ En el capitulo 7 se desarrollara un método para extraer el esqueleto de
+ una representación tridimensional del actor, usando métodos de contracción
+ suavizada del volumen, además se compara este método con otras técnicas
+ de extracción del esqueleto.
+ En el capitulo 8 se mostrara una estrategia para realizar la estimación
+ de pose del esqueleto encontrado a lo largo del vídeo y también se compara
+ con otros métodos de estimación de pose basados en modelos.
+ En el capitulo 9 se describirá el programa de computadora desarrollado
+ para el sistema de visualización, en este sistema es posible ver el esqueleto
+ sobrepuesto en cada uno de los vídeos capturados.
+ Por ultimo se hablara de los resultados obtenidos sobre la extracción y
+ seguimiento del esqueleto y se hablara sobre el trabajo futuro que deja
+ esta tesis, 
+\end_layout
+
+\begin_layout Chapter
+Trabajo Relacionado
+\end_layout
+
+\begin_layout Standard
+La dinámica del cuerpo es un área importante de investigación dedicada a
+ entender su comportamiento físico y dinámico en un ambiente complejo que
+ puede servir para aplicaciones biométricas.
+ Nuestro interes en particular es entender e interpretar el comportamiento
+ humano en ambientes complejos.
+ 
+\end_layout
+
+\begin_layout Standard
+En cierto número de aplicaciones es importante identificar las acciones
+ de ciertas partes del cuerpo, por ejemplo la gesticulacion de mano, análisis
+ de la marcha, y análisis de la expresión facial 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "KryPhd05"
+
+\end_inset
+
+.
+ Finalmente, el modelado de comportamiento humano puede servir para un gran
+ número de aplicaciones como generar gráficos computarizados o la animación,
+ entender comportamientos normales y patológicos, y el análisis de datos
+ para aplicaciones médicas 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Wang2003"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Los esqueletos son estructuras 1D que representan una versión simplificada
+ de la geometría y topología de un objeto 3D.
+ Mientras la representación 3D es invaluable, muchas aplicaciones requieren
+ representaciones alternativas como un esqueleto de estos modelos 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cornea2007"
+
+\end_inset
+
+.
+ Los esqueletos reducen la dimensionalidad de objetos digitales pero en
+ el mismo tiempo un camino para capturar las relaciones dinámicas esenciales
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Svensson2002"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+La extracción y seguimiento del esqueleto se logra mediante la utilización
+ de un conjunto de actividades organizadas dentro de un proceso.
+ Estas actividades son: la adquisición de datos desde un objeto real, la
+ reconstrucción 3D a partir de los datos de la captura, la extracción del
+ esqueleto del objeto tridimensional reconstruido, y el seguimiento del
+ esqueleto tomado como un proceso iterativo de captura con un esqueleto
+ invariante topológicamente en el tiempo.
+\end_layout
+
+\begin_layout Section
+Adquisición de Datos
+\end_layout
+
+\begin_layout Standard
+Existen diferentes enfoques en la adquisición de la información espacial
+ de objetos reales, algunos basados en el procesamiento de imágenes, otros
+ basados en sensores (mecánicos, electromagnéticos, e inerciales entre otros),
+ y otros como el escáner de laser, la tomografía, el ultrasonido, etc 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cheung2003"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Los métodos de adquisición basados en el procesamiento de señales utilizan
+ las secuencias de imágenes producidas por una o varias cámaras.
+ Cuando se utilizan varias cámaras se explota la coherencia espacial dada
+ por la visión estereoscópica, mediante el uso de puntos característicos
+ como marcadores (luminosos, reflectivos, o detectados mediante filtros),
+ y las siluetas de los objetos obtenidos mediante la segmentación de las
+ imágenes 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lin2008"
+
+\end_inset
+
+.
+ Cuando se utiliza una única imagen se hace uso de modelos a priori y además
+ se añaden restricciones en las búsquedas de soluciones, estos modelos pueden
+ basarse en aproximaciones probabilísticas o aprendizaje de máquina.
+\end_layout
+
+\begin_layout Section
+Segmentacion de Imagenes
+\end_layout
+
+\begin_layout Standard
+La segmentación de imágenes son un conjunto de métodos para dividir una
+ imagen en regiones, dadas ciertas características.
+ La segmentación puede ser automática es decir sin interacción del usuario,
+ o semiautomáticas que requieren la supervisión manual 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Jin2007"
+
+\end_inset
+
+.
+ A continuación mostraremos algunos de los métodos de segmentación más usados:
+\end_layout
+
+\begin_layout Itemize
+Métodos de segmentación de contorno activos 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Flagg2009"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+Método Snake con uso de filtros de gradiente de dirección.
+ 
+\end_layout
+
+\begin_layout Itemize
+Métodos que utilizan la coherencia espacio temporal de formas limitantes
+ especialmente cajas y elipses 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Landabaso2008"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+Métodos probabilísticos con redes bayesianas para modelar la interacción
+ de campos 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ma2003"
+
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Section
+Reconstruccion Tridimensional
+\end_layout
+
+\begin_layout Standard
+La reconstrucción tridimensional, son un conjunto de técnicas mediante las
+ cuales objetos reales, son representados mediante estructuras de datos
+ o funciones, haciendo énfasis en características como volumen y forma.
+ Existe actualmente una gran cantidad de técnicas de reconstrucción y métodos
+ de mallado 3D, dado un conjunto de puntos 3D no conectados 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Aguiar2005"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Reconstrucción Basada en Imágenes 
+\end_layout
+
+\begin_layout Standard
+La reconstrucción basada en imágenes, tiene dos enfoques importantes uno
+ con el uso de marcas, y otro sin ellas, además hay que tomar en cuenta
+ los parámetros intrínsecos (distancia focal, distorsión, etc.) y extrínsecos
+ (posición, orientación, etc.) de la cámara 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Campos2006a"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+En la reconstrucción con el uso de marcas se hace un filtrado de la imagen
+ para localizar estos marcadores los cuales son en general puntos de algún
+ color poco presente en la escena como el blanco, un rojo o verde intenso,
+ también se usan marcadores que emiten luz como pequeños bombillos, o el
+ uso de imágenes en blanco y negro que tienen un patrón dado reconocible.
+ Con estos puntos segmentados y localizados en las imágenes se procede a
+ realizar la solución de las ecuaciones de las transformaciones lineales
+ correspondientes basadas en un sistema estéreo con un modelo de cámara
+ pinhole 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Thormahlen2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Extracción del Esqueleto
+\end_layout
+
+\begin_layout Standard
+Los esqueletos son estructuras 1D que representan una versión simplificada
+ de la geometría y topología de un objeto 3D.
+ Mientras la representación 3D es invaluable, muchas aplicaciones requieren
+ representaciones alternativas como un esqueleto de estos modelos 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cornea2007"
+
+\end_inset
+
+.
+ Los esqueletos reducen la dimensionalidad de objetos digitales pero al
+ mismo tiempo un camino para capturar las relaciones dinámicas esenciales
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Svensson2002"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+La extracción del esqueleto se realiza convencionalmente con técnicas en
+ las cuales hay una reducción iterativa del la forma tridimensional con
+ ciertas restricciones de contracción y minimización de energía, hasta encontrar
+ un esqueleto irreducible 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+.
+ Otros métodos utilizan distintas representaciones topológicas de un objeto
+ tridimensional mediante grafos, luego realizan una simplificación de este
+ grafo, y por ultimo utilizan un esqueleto modelo el cual transforman para
+ minimizar el error entre el esqueleto y el grafo dado por medio de alguna
+ métrica basada en heurísticas 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Aguiar2008,HernandezEsteban2002,4178157,Bradley2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Algunos métodos realizan estimaciones del esqueleto en 2D, y luego utilizan
+ información a priori para estimar como fue transformado el esqueleto tridimensi
+onal real 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Remondino2003,AitAider2006,Cheng2006"
+
+\end_inset
+
+, otros enfoques realizan una reducción iterativa del volumen del cuerpo
+ usando restricciones de contracción y minimización de energía, hasta encontrar
+ un esqueleto irreducible 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008,Wang2008"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Otros métodos usan modelos probabilísticos para resolver ambas cosas: Incorporar
+ las dependencias espaciales entre los vértices en el proceso de agrupamiento,
+ y proveer una solución globalmente óptima.
+ En particular, basados en Campos Aleatorios de Markov Gibbs (MRF) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lavoue2008,Caillette2008,Hou2007"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Para seleccionar un método de extracción es necesario describir las propiedades
+ deseadas del esqueleto, según se requiera por las distintas aplicaciones,
+ y un estudio de cómo los métodos existentes satisfacen estas propiedades
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Starck2005"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Variedades
+\end_layout
+
+\begin_layout Definition
+Una 
+\series bold
+variedad
+\series default
+ es un espacio metrico 
+\begin_inset Formula $M$
+\end_inset
+
+ con las siguientes propiedades 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Spivak1-1999"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Definition
+Si 
+\begin_inset Formula $x\in M$
+\end_inset
+
+, entonces tiene algunos vecinos 
+\begin_inset Formula $U$
+\end_inset
+
+ de 
+\begin_inset Formula $x$
+\end_inset
+
+ y algun entero 
+\begin_inset Formula $n\geq0$
+\end_inset
+
+ tal que 
+\begin_inset Formula $U$
+\end_inset
+
+ es homeomorfico a 
+\begin_inset Formula $\mathbb{R}^{n}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+-
+\end_layout
+
+\begin_layout Definition
+Una colección de subconjuntos 
+\begin_inset Formula $A$
+\end_inset
+
+ de un conjunto 
+\begin_inset Formula $X$
+\end_inset
+
+ es un 
+\series bold
+recubrimiento de
+\series default
+ 
+\begin_inset Formula $X$
+\end_inset
+
+, o una 
+\series bold
+cubierta de
+\series default
+ 
+\begin_inset Formula $X$
+\end_inset
+
+, si la unión de los elementos de la colección 
+\begin_inset Formula $A$
+\end_inset
+
+ es igual a 
+\begin_inset Formula $X$
+\end_inset
+
+.
+ Además, si los subconjuntos de 
+\begin_inset Formula $X$
+\end_inset
+
+ de dicha colección 
+\begin_inset Formula $A$
+\end_inset
+
+ satisfacen el ser disjuntos por pares, 
+\begin_inset Formula $A$
+\end_inset
+
+ es llamada partición de 
+\begin_inset Formula $X$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Definition
+Si el conjunto 
+\begin_inset Formula $X$
+\end_inset
+
+ tiene estructura de espacio topológico, el recubrimiento 
+\begin_inset Formula $A$
+\end_inset
+
+ es llamado recubrimiento abierto, o indistintamente cubierta abierta, si
+ cada elemento de 
+\begin_inset Formula $A$
+\end_inset
+
+ es un conjunto abierto en 
+\begin_inset Formula $X$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+-
+\end_layout
+
+\begin_layout Definition
+Sea X un conjunto.
+ Se dice que 
+\begin_inset Formula $d:X\times X\rightarrow\mathbb{R}$
+\end_inset
+
+ define una 
+\series bold
+metrica 
+\series default
+en 
+\begin_inset Formula $X$
+\end_inset
+
+ si se cumplen las propiedades
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $d\left(x,y\right)\geq0$
+\end_inset
+
+ con igualdad si y solo si 
+\begin_inset Formula $x=y$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $d\left(x,y\right)=d\left(y,x\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $d\left(x,z\right)\leq d\left(x,y\right)+d\left(y,z\right)$
+\end_inset
+
+ desigualdad triangular
+\end_layout
+
+\begin_layout Standard
+-
+\end_layout
+
+\begin_layout Definition
+Dado un conjunto X, se dice que T es una topologia definida sobre X si T
+ es una colección de subconjuntos de X tales que
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\textrm{Ø},X\in T$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $U_{\alpha}\in T\Longrightarrow\underset{\alpha}{\bigcup}U_{\alpha}\in T$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $U_{1},U_{2},...U_{n}\in T\Longrightarrow\underset{i=1}{\overset{n}{\bigcap}}U_{i}\in T$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+-
+\end_layout
+
+\begin_layout Definition
+Sean 
+\begin_inset Formula $X$
+\end_inset
+
+ e 
+\begin_inset Formula $Y$
+\end_inset
+
+ espacios topologicos y 
+\begin_inset Formula $f:X\rightarrow Y$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Definition
+Se dice que 
+\begin_inset Formula $f$
+\end_inset
+
+ es un 
+\series bold
+homeomorfismo
+\series default
+ y que 
+\begin_inset Formula $X$
+\end_inset
+
+ e 
+\begin_inset Formula $Y$
+\end_inset
+
+ son 
+\series bold
+homeomorfos
+\series default
+ si 
+\begin_inset Formula $f$
+\end_inset
+
+ es biyectiva y tanto 
+\begin_inset Formula $f$
+\end_inset
+
+ como 
+\begin_inset Formula $f^{-1}$
+\end_inset
+
+ son continuas.
+\end_layout
+
+\begin_layout Standard
+-
+\end_layout
+
+\begin_layout Definition
+Una 
+\emph on
+Variedad (Manifold) topológica
+\emph default
+ de dimensión 
+\begin_inset Formula $n$
+\end_inset
+
+ es un espacio topológico de Hausdorff en el que todo punto tiene una vecindad
+ abierta homeomorfa a una bola abierta en 
+\begin_inset Formula $\mathbb{R}^{n}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Chapter
+Extracción del Esqueleto
+\end_layout
+
+\begin_layout Section
+Método De Contracción Con Suavizado Laplaciano
+\end_layout
+
+\begin_layout Standard
+La contracción es tomada como un problema de minimización de energía, con
+ los siguientes términos.
+ 
+\end_layout
+
+\begin_layout Itemize
+Operador Lapaciano para remover las frecuencias altas, es decir suavizar
+ los detalles de la geometría 
+\end_layout
+
+\begin_layout Itemize
+Una fuerza de atracción que usa los vértices, para mantener información
+ clave de la geometría durante la contracción.
+\end_layout
+
+\begin_layout Itemize
+Un fuerza de contracción que hace que la forma tridimensional pierda volumen.
+\end_layout
+
+\begin_layout Standard
+Una vez la malla tiene un volumen de cero, se pasa por un proceso de colapso
+ de bordes, para obtener el esqueleto.
+ El proceso de colapso de bordes tiene restricciones para mantener una coherente
+ representación de la malla, este proceso es conocido como de simplificación,
+ Este proceso se puede observar de forma simplificada en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Proceso-de-extraccion"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename papers/img/contraccion.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Proceso-de-extraccion"
+
+\end_inset
+
+Proceso de extracción del esqueleto
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Suavizado de Laplace
+\end_layout
+
+\begin_layout Standard
+Para cada vértice en la malla, una nueva posición estará dada en base de
+ la de sus vecinos
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $x_{i}=\frac{1}{N}\sum_{j=0}^{N}x_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Donde N es el numero de vértice vecinos de 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Esta aproximación en general se restringe por una función de peso para ponderar
+ alguna característica deseada.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $x_{i}=\frac{1}{N}\sum_{j=0}^{N}w_{j}x_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+En este caso se añade una función de peso 
+\begin_inset Formula $w_{j}$
+\end_inset
+
+, para ponderar el vértice 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+.
+ Por ejemplo la distancia al vértice 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+Extracción del Esqueleto
+\end_layout
+
+\begin_layout Standard
+Dada una malla de polígonos 
+\begin_inset Formula $G=\left(V,E\right)$
+\end_inset
+
+, con vértices 
+\begin_inset Formula $V$
+\end_inset
+
+ y aristas 
+\begin_inset Formula $E$
+\end_inset
+
+, donde 
+\begin_inset Formula $V=\left[v_{1}^{T},v_{2}^{T},...,v_{n}^{T}\right]$
+\end_inset
+
+ son la posición de los vértices.
+ Entonces el problema de extraer un esqueleto 
+\begin_inset Formula $S=\left(U,B\right)$
+\end_inset
+
+ siendo 
+\begin_inset Formula $U$
+\end_inset
+
+ los nodos y 
+\begin_inset Formula $B$
+\end_inset
+
+ las aristas, donde 
+\begin_inset Formula $U=\left[u_{1}^{T},u_{2}^{T},...,u_{m}^{T}\right]$
+\end_inset
+
+ las posiciones de los nodos.
+ Este método de extracción se basa en un proceso de contracción de la geometría
+ que iterativamente suaviza y colapsa la geometría de la malla en una manera
+ restringida.
+ Este proceso es aplicado en el espacio de objeto, directamente en la representa
+ción de la malla, sin cualquier proceso de voxelización.
+ Con las fuerzas de contracción cuidadosamente ponderadas y las fuerzas
+ de atracción, el proceso de contracción produce una forma mínima delgada
+ con empalmes y las ramas correspondientes a las particiones del objeto
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Contracción de la Geometría
+\end_layout
+
+\begin_layout Standard
+El vértice de la posición 
+\begin_inset Formula $V'$
+\end_inset
+
+ es suavizado y contraído a lo largo de dirección de su normal, como resultado
+ de la solución de la ecuación discreta de Laplace 
+\begin_inset Formula $LV'=0$
+\end_inset
+
+, donde 
+\begin_inset Formula $L$
+\end_inset
+
+ es la curvatura del flujo del campo del operador de Laplace de 
+\begin_inset Formula $n\times n$
+\end_inset
+
+, con los elementos.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $L_{ij}=\left\{ \begin{array}{cc}
+w_{ij}=cot\alpha_{ij}+cot\beta_{ij} & si\left(i,j\right)\in E\\
+\sum_{\left(i,k\right)\in E}^{k}-w_{ij} & si\, i=j\\
+0 & en\, otro\, caso\end{array}\right\} $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Donde 
+\begin_inset Formula $\alpha_{ij}$
+\end_inset
+
+ y 
+\begin_inset Formula $\beta_{ij}$
+\end_inset
+
+ son los ángulos opuestos correspondiente al borde 
+\begin_inset Formula $\left(i,j\right)$
+\end_inset
+
+, como se observa en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:a)-El-borde"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename papers/img/alpha_Beta.png
+	lyxscale 30
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:a)-El-borde"
+
+\end_inset
+
+a) El borde entre 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+.
+ b) Los ángulos opuestos 
+\begin_inset Formula $\alpha_{ij}$
+\end_inset
+
+ y 
+\begin_inset Formula $\beta_{ij}$
+\end_inset
+
+.
+ Imagen Tomada de 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Desbrun1999"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dada la ponderación cotangente, las coordenadas de Laplace 
+\begin_inset Formula $\delta=LV=\left[\delta_{1}^{T},\delta_{2}^{T},...,\delta_{n}^{T}\right]^{T}$
+\end_inset
+
+ aproximan hacia adentro de la normal de la curvatura del flujo.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\delta_{i}=-4A_{i}\kappa_{i}\mathbf{n}_{i}$
+\end_inset
+
+, donde 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+\lang english
+
+\begin_inset Formula $4A_{i},\,\kappa_{i}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+\lang spanish
+ y 
+\begin_inset Formula $\mathbf{n_{\mathbf{i}}}$
+\end_inset
+
+ son el área de un anillo local, con esto se aproximan la curvatura media
+ local, y se aproxima la normal hacia afuera del vértice 
+\begin_inset Formula $i$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Entonces resolviendo 
+\begin_inset Formula $LV'=0$
+\end_inset
+
+, significa remover el componente de la normal y contraer la geometría de
+ la malla.
+\end_layout
+
+\begin_layout Standard
+Las restricciones de atracción, son fuerzas que atraen los vértices hacia
+ la geometría.
+\end_layout
+
+\begin_layout Standard
+La solución del siguiente sistema, proporciona las nuevas posiciones de
+ los vértice 
+\begin_inset Formula $V'$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left[\begin{array}{c}
+W_{L}L\\
+W_{H}\end{array}\right]V'=\left[\begin{array}{c}
+0\\
+W_{H}V\end{array}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+donde 
+\begin_inset Formula $W_{H}$
+\end_inset
+
+ son las restricciones de atracción y 
+\begin_inset Formula $W_{L}$
+\end_inset
+
+ las restricciones de contracción.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La solución se logra mediante mínimos cuadrados así.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left\Vert W_{L}LV'\right\Vert ^{2}+\sum_{j}W_{H,i}\left\Vert v_{j}^{'}-v_{i}\right\Vert ^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El proceso iterativo de contracción es el siguiente, donde 
+\begin_inset Formula $t$
+\end_inset
+
+ representa cada iteración.
+\end_layout
+
+\begin_layout Enumerate
+Resolver 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+\lang english
+
+\begin_inset Formula $\left[\begin{array}{c}
+W_{L}^{t}L^{t}\\
+W_{H}^{t}\end{array}\right]V^{t+1}=\left[\begin{array}{c}
+0\\
+W_{H}^{t}V^{t}\end{array}\right]\, para\, V^{t+1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Actualizar 
+\begin_inset Formula $W_{L}^{t+1}=S_{L}W_{L}^{t}$
+\end_inset
+
+ y 
+\begin_inset Formula $W_{H,i}^{t+1}=W_{H,i}^{0}\sqrt{\frac{A_{i}^{0}}{A_{i}^{t}}}$
+\end_inset
+
+, donde 
+\begin_inset Formula $A_{i}^{t}$
+\end_inset
+
+ y 
+\begin_inset Formula $A_{i}^{0}$
+\end_inset
+
+son los actuales y originales áreas de un anillo, respectivamente.
+\end_layout
+
+\begin_layout Enumerate
+Computar el nuevo operador de Laplace 
+\begin_inset Formula $L^{t+1}$
+\end_inset
+
+ con las actuales posiciones de los vértice 
+\begin_inset Formula $V^{t+1}$
+\end_inset
+
+ usando la definición de 
+\begin_inset Formula $L_{i,j}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Comparación Experimental
+\end_layout
+
+\begin_layout Standard
+Se uso la implementación hecha en 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+ por los autores, para realizar la extracción del esqueleto de un modelo
+ tridimensional que fue obtenido mediante el método de recuperación de forma
+ desde las siluetas realizado por 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Vlasic2008"
+
+\end_inset
+
+, como se observa en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Caracter-creado-1"
+
+\end_inset
+
+.
+ De este modelo se registro una caminata durante 240 cuadros.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename papers/img/vlasic2008.png
+	lyxscale 10
+	scale 12
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Caracter-creado-1"
+
+\end_inset
+
+Modelo tridimensional obtenido con el método de 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Vlasic2008"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El modelo fue proporcionado por los autores de 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Vlasic2008"
+
+\end_inset
+
+ en el sitio web 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.mit.edu/~ibaran"
+
+\end_inset
+
+.
+ En este sitio web existe un repositorio de diez datasets.
+ 
+\end_layout
+
+\begin_layout Standard
+Cada dataset contiene:
+\end_layout
+
+\begin_layout Itemize
+Los parámetros de calibración de las ocho cámaras de la escena.
+\end_layout
+
+\begin_layout Itemize
+Ocho imágenes correspondientes al fondo de la escena sin la persona presente.
+\end_layout
+
+\begin_layout Itemize
+Ocho vídeos tomados desde distintos ángulos de la persona grabada durante
+ 240 cuadros.
+\end_layout
+
+\begin_layout Itemize
+Las siluetas de la persona en cada uno de los cuadros de cada cámara.
+\end_layout
+
+\begin_layout Itemize
+Los modelos tridimensionales de los 240 cuadros obtenidos mediante el método
+ propuesto en 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Vlasic2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Un esqueleto modelo.
+\end_layout
+
+\begin_layout Standard
+Para evaluar el proceso de simplificación se variaron el numero de nodos
+ usados para describir uniones en el esqueleto, luego se analizaba cada
+ nodo y se clasificaba como 
+\series bold
+Valido
+\series default
+ si este se encontraba en la posición correcta respecto al esqueleto modelo,
+ 
+\series bold
+Erróneo
+\series default
+ si no se encontraba en una posición donde existiera un nodo en el esqueleto
+ modelo, y por ultimo por cada nodo que no se recupero en el esqueleto extraído
+ se contaba como un nodo 
+\series bold
+Faltante
+\series default
+.
+ Durante esta fase se utilizo el modelo tridimensional del primer cuadro
+ de la animación del dataset llamado 
+\series bold
+I_march
+\series default
+, a este modelo 3D se le realizo el proceso de contracción con un numero
+ de 13 iteraciones para contraer el volumen hasta un umbral cercano a cero,
+ luego en el proceso de simplificación se variaron el numero de nodos a
+ extraer desde 32 hasta 16 como se observa en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Variacion-del-numero"
+
+\end_inset
+
+, en esta figura se muestran de izquierda a derecha los resultados con 32
+ , 28, 24, 20, y 16 nodos .
+ El esqueleto modelo contaba con un numero de 21 nodos
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename papers/img/simplificacion.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Variacion-del-numero"
+
+\end_inset
+
+Variación del numero de nodos
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Los resultados de este análisis se pueden observar en la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Variacion-del-numero"
+
+\end_inset
+
+ donde se muestran 5 columnas que representan la siguiente información,
+ en la columna 
+\series bold
+Nodos
+\series default
+ se muestra el numero de vértices que se desean obtener después del proceso
+ de simplificación, en la columna 
+\series bold
+Validos
+\series default
+ se muestra el numero de nodos que están correctamente localizados y que
+ representaban uniones en el esqueleto, en la columna 
+\series bold
+Erróneos
+\series default
+ se muestra el numero de nodos que están ocupando espacios que no corresponden
+ a uniones en la jerarquía, o que están sobre una linea entre dos uniones
+ reales del esqueleto, por ultimo en la columna 
+\series bold
+Faltantes
+\series default
+ se muestra el numero de nodos que hicieron falta para la correcta reconstrucció
+n de un esqueleto valido para este modelo.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float table
+placement htbp
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Variacion-del-numero"
+
+\end_inset
+
+Variación del numero de nodos en el proceso de simplificación.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="4">
+<features>
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Nodes
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Valid
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Erroneous
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Missing 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+13
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+17
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+24
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+28
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+32
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+11
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La segunda etapa del experimento consistía en la realización de extracciones
+ del esqueleto en distintas momentos de la animación y observar la correspondenc
+ia topológica entre los esqueletos obtenidos para así observar como se comporta
+ el método frente a transformaciones isométricas de la geometría de un cuerpo.En
+ esta etapa se realizaron 13 iteraciones durante el proceso de contracción
+ y se usaron 24 nodos en el proceso de simplificación.
+ Se utilizo el mismo modelo del experimento anterior, se utilizaron distintas
+ poses de este modelo tomadas cada 40 cuadros para un total de 6 poses,
+ Cada pose representa una posición distinta de la persona durante la caminata,
+ como se observa en la figura 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Distintas-posiciones-del"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename papers/img/poses.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Distintas-posiciones-del"
+
+\end_inset
+
+Distintas posiciones del mismo cuerpo.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Cambios-isometricos"
+
+\end_inset
+
+ se observan los resultados obtenidos al realizar cambios isométricas sobre
+ la geometría del personaje estos cambios representan las distintas poses
+ que tomaba la geometría del personaje en distintos momentos de la caminata.
+ En la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Cambios-isometricos"
+
+\end_inset
+
+ la columna 
+\series bold
+Cuadro
+\series default
+ representa el momento en el tiempo en el cual se realizo la captura de
+ la geometría, las demás columnas representan la misma información que en
+ la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Variacion-del-numero"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement htbp
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Cambios-isometricos"
+
+\end_inset
+
+Cambios isométricas sobre la geometría.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="4">
+<features>
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Frame
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Valid
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Erroneous
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Missing 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+40
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+18
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+80
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+19
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+120
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+160
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+200
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+17
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+240
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+20
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Resultados Experimentales
+\end_layout
+
+\begin_layout Standard
+El método de extracción del esqueleto por contracción con suavizado Laplaciano
+ recupera de forma óptima el esqueleto de un cuerpo bajo transformaciones
+ isométricas, según se observa en la tabla 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Resultados-isometric"
+
+\end_inset
+
+, donde se recuperaron en promedio 19.71 nodos de los 21 necesarios para
+ reconstruir el esqueleto en diferentes momentos del tiempo.
+ Se observa también que el método posiciona mal 4.83 nodos en promedio, provocand
+o que se usen mas nodos de los necesario para reconstruir el esqueleto.
+ Por ultimo en esta tabla observamos que el método no pudo recuperar 1.86
+ nodos de los necesarios para la reconstrucción del esqueleto siendo necesario
+ la intervención manual del usuario para recuperar el esqueleto en su totalidad.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="4">
+<features>
+<column alignment="left" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<column alignment="right" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Valid
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Erroneous
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Missing
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Mean
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+19.71
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4.83
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.86
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Standard deviation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.47
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.47
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.47
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Minimun
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+17
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Maximun
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Resultados-isometric"
+
+\end_inset
+
+Resultados obtenidos al realizar transformaciones isométricas
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Durante la fase de simplificación el método presenta un comportamiento claro
+ como se puede observar en la gráfica 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Grafico-simplificacion"
+
+\end_inset
+
+, en donde los nodos validos, luego de hacer la recuperación total de los
+ 21 nodos del esqueleto no sufren perdida ni son sensibles al usar mas de
+ 24 nodos (blue line).
+ El método una vez alcanza su numero óptimo de nodos para realizar la recuperaci
+ón, los demás nodos que se añadan serán puestos en localizaciones erróneas,
+ además el método parece siempre tener un numero mínimo de 3 nodos recuperados
+ erróneamente como se observa el la linea rojo del gráfico 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Grafico-simplificacion"
+
+\end_inset
+
+.
+ La linea verde en el gráfico 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Grafico-simplificacion"
+
+\end_inset
+
+ describe el numero de nodos que hacen falta para recuperar el modelo, se
+ observa que 24 es el numero de nodos requeridos para recuperar por completo
+ el esqueleto, y que el uso de mas nodos no implica perdida en la recuperación
+ del esqueleto.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename papers/img/graficoSimplificacion2.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Grafico-simplificacion"
+
+\end_inset
+
+Gráfico de la variación de nodos validos, erróneos y faltantes durante la
+ fase de simplificación
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Sistema de Captura con Videocamaras
+\end_layout
+
+\begin_layout Standard
+La 
+\begin_inset Quotes eld
+\end_inset
+
+Captura de Movimiento
+\begin_inset Quotes erd
+\end_inset
+
+ es el nombre que reciben los sistemas que registran el movimiento y lo
+ traducen dentro de un modelo digital 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hemayed2003"
+
+\end_inset
+
+.
+ Hoy día se utilizan distintos métodos para realizar la captura de movimiento,
+ los mas ampliamente usados son los Sistemas Ópticos de Captura los cuales
+ utilizan videocámaras para registrar las acciones de un actor durante cierto
+ tiempo y luego usan técnicas fotométricas que permiten estimar información
+ tridimensional del cuerpo en movimiento.
+\end_layout
+
+\begin_layout Standard
+Estos sistemas opticos utilizan por lo general un arreglo de camaras dispuestas
+ en diferentes posiciones y orientaciones, estos sistemas requieren calibrar
+ las camaras de forma geometrica, fotometrica y temporal
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Lei2009"
+
+\end_inset
+
+, para poder utilizar la informacion de la calibracion en las subsecuentes
+ etapas del proceso de captura.
+\end_layout
+
+\begin_layout Section
+Ubicación de las Cámaras
+\end_layout
+
+\begin_layout Section
+Calibración de Cámaras
+\end_layout
+
+\begin_layout Section
+Captura Sincronizada de Vídeos
+\end_layout
+
+\begin_layout Section
+Resultados Experimentales
+\end_layout
+
+\begin_layout Chapter
+Extracción de las Siluetas Mediante el Método 
+\begin_inset Formula $\Sigma-\triangle$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Sustracción de Fondo
+\end_layout
+
+\begin_layout Section
+Extracción de Fondo Estático 
+\begin_inset Formula $\Sigma-\triangle$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Segmentación de Vídeo
+\end_layout
+
+\begin_layout Section
+Resultados Experimentales
+\end_layout
+
+\begin_layout Chapter
+Extracción de Puntos Característicos
+\end_layout
+
+\begin_layout Section
+Puntos Característicos
+\end_layout
+
+\begin_layout Section
+Segmentación de Puntos Característicos
+\end_layout
+
+\begin_layout Section
+Seguimiento de Puntos Característicos
+\end_layout
+
+\begin_layout Section
+Resultados Experimentales
+\end_layout
+
+\begin_layout Chapter
+Reconstrucción Tridimensional del Cuerpo
+\end_layout
+
+\begin_layout Section
+Reconstrucción Estereoscópico
+\end_layout
+
+\begin_layout Section
+Triangulación de Delaunay
+\end_layout
+
+\begin_layout Section
+Forma desde las siluetas
+\end_layout
+
+\begin_layout Section
+Resultados Experimentales
+\end_layout
+
+\begin_layout Chapter
+Seguimiento del Esqueleto
+\end_layout
+
+\begin_layout Section
+Coherencia espacial y Temporal
+\end_layout
+
+\begin_layout Section
+Estimación de Pose
+\end_layout
+
+\begin_layout Section
+Comparación Experimental
+\end_layout
+
+\begin_layout Section
+Resultados Experimentales
+\end_layout
+
+\begin_layout Chapter
+Programa de Computadora Desarrollado
+\end_layout
+
+\begin_layout Section
+Sistema de Visualizacion
+\end_layout
+
+\begin_layout Section
+Diseño del Sistema
+\end_layout
+
+\begin_layout Section
+Descripcion de la Implementacion
+\end_layout
+
+\begin_layout Chapter
+Conclusiones
+\end_layout
+
+\begin_layout Section
+Trabajo Futuro
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "bibliografia/listado_inicial"
+options "bibtotoc,plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
