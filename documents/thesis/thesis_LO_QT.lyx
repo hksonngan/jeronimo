@@ -655,22 +655,29 @@ numberline{}Abstract}
 
 \begin_layout Standard
 In the last two decades three-dimensional modeling methods have been evolving
- and developing rapidly, thanks in part to the use of vector operators of
- differential geometry.
- The Laplacian operator has been one of the most widely studied and used
- thanks to the properties exhibited by their eigenvectors in novel applications
- such as noise reduction, enhancement, remeshing, UV mapping, posed, skeletoniza
-tion, among other.
- The differential operator is defined in a continuous and smooth domain
- named manifold, manifolds are often approximated by discrete polygon meshes
- composed by triangles and quadrangles which represent the real world three-dime
-nsional objects.
- In these meshes spectral structure is calculated using a discrete Laplacian
+ and developing rapidly in part for the use of vector operators of differential
+ geometry how the Laplacian operator, this operator is defined in a continuous
+ and smooth domain named manifold, manifolds are often approximated by discrete
+ polygon meshes composed by triangles and quadrangles which represent the
+ real world three-dimensional objects.
+ 
+\end_layout
+
+\begin_layout Standard
+In these meshes spectral structure is calculated using a discrete Laplacian
  operator, the discrete version of the Laplacian operator given by Pinkall
  in 1993 works only with meshes of triangles, and Xiong in 2011 working
  exclusively with quads.
  This thesis proposes an original extension of the Laplacian operator that
- allows to work with hybrid meshes composed by triangles and quadrangles.
+ allows working with hybrid meshes composed by triangles and quadrangles.
+\end_layout
+
+\begin_layout Standard
+operator has been one of the most widely studied and used thanks to the
+ properties exhibited by their eigenvectors in novel applications such as
+ noise reduction, enhancement, remeshing, UV mapping, posed, skeletonization,
+ among other.
+ The Laplacian 
 \end_layout
 
 \begin_layout Standard
@@ -699,11 +706,11 @@ Resumen
 \begin_layout Standard
 En las dos últimas décadas los métodos de modelado tridimensional han ido
  evolucionando y desarrollándose rápidamente, en parte gracias al uso de
- operadores vectoriales de geometría diferencial.
- El operador Laplaciano ha sido uno de los más ampliamente estudiado y usado
- gracias a las propiedades exhibidas por sus vectores propios en novedosas
- aplicaciones como: reducción de ruido, realce, remallado, mapeo UV, posado,
- esqueletonización, entre otras.
+ operadores vectoriales de geometría diferencial como el operador Laplaciano
+ ha sido uno de los más ampliamente estudiado y usado gracias a las propiedades
+ exhibidas por sus vectores propios en novedosas aplicaciones como: reducción
+ de ruido, realce, remallado, mapeo UV, posado, esqueletonización, entre
+ otras.
  Este operador diferencial es definido en un dominio continuo y suave llamado
  variedad, las variedades son a menudo aproximadas por mallas discretas
  de polígonos compuestas por triángulos y cuadrángulos que a su vez representan
