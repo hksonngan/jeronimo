@@ -654,30 +654,22 @@ numberline{}Abstract}
 \end_layout
 
 \begin_layout Standard
-In the last two decades three-dimensional modeling methods have been evolving
- and developing rapidly in part for the use of vector operators of differential
- geometry how the Laplacian operator, this operator is defined in a continuous
- and smooth domain named manifold, manifolds are often approximated by discrete
+In the last two decades three-dimensional modeling methods used by artist
+ have been evolving and developing rapidly thanks to the use of vector operators
+ of differential geometry how the Laplacian operator this operator allows
+ to model in a simple way the behavior of complex applications such as noise
+ reduction, enhancement, remeshing, UV mapping, posed, skeletonization,
+ among other.
+ The Laplacian operator is theoretically defined in a continuous and smooth
+ domain named manifold in practice manifolds are often approximated by discrete
  polygon meshes composed by triangles and quadrangles which represent the
- real world three-dimensional objects.
- 
-\end_layout
-
-\begin_layout Standard
-In these meshes spectral structure is calculated using a discrete Laplacian
+ real world three-dimensional objects that artists work.
+ In these meshes spectral structure is calculated using a discrete Laplacian
  operator, the discrete version of the Laplacian operator given by Pinkall
- in 1993 works only with meshes of triangles, and Xiong in 2011 working
- exclusively with quads.
+ in 1993 works only with triangle meshes, and Xiong in 2011 working exclusively
+ with quads meshes.
  This thesis proposes an original extension of the Laplacian operator that
  allows working with hybrid meshes composed by triangles and quadrangles.
-\end_layout
-
-\begin_layout Standard
-operator has been one of the most widely studied and used thanks to the
- properties exhibited by their eigenvectors in novel applications such as
- noise reduction, enhancement, remeshing, UV mapping, posed, skeletonization,
- among other.
- The Laplacian 
 \end_layout
 
 \begin_layout Standard
@@ -966,24 +958,17 @@ This work presents an extension of the Laplace Beltrami Operator for hybrid
 This work is organized as follows: Chapter 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "sub:1.1-Related-work"
-
-\end_inset
-
- presents works related to the Laplacian operator, applications in digital
- sculpting, deformation, and offsetting methods for polygonal meshes; In
- chapter 
-\begin_inset CommandInset ref
-LatexCommand ref
 reference "chap:Mathematical-foundation"
 
 \end_inset
 
-, it is described the theoretical framework of the Laplacian operator for
+ presents works related to the Laplacian operator, applications in digital
+ sculpting, deformation, and offsetting methods for polygonal meshes also
+ it is described the theoretical framework of the Laplacian operator for
  polygon meshes; In chapter 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "sec:Proposed-Method"
+reference "PAPER:sec:Proposed-Method"
 
 \end_inset
 
@@ -996,14 +981,45 @@ reference "sec:Proposed-Method"
 \end_layout
 
 \begin_layout Chapter
-Related work
+Mathematical Foundation and Background
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:1.1-Related-work"
+name "chap:Mathematical-foundation"
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This chapter studies basic mathematical foundation on differential geometry
+ to understand the differential operators and the Laplace beltrami operator.
+\end_layout
+
+\begin_layout Standard
+The differential geometry studies curvatures and geodesics 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Hahne2006"
+
+\end_inset
+
+.
+ The differential operators show a deep relationships betwen the geoemetry
+ (curvatures, geodesics) and topology of the manifold.
+ This differential operators are very used in applications on computer geometric
+ modelling over the last years 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rosenberg1997,Alexa2011"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Related work
 \end_layout
 
 \begin_layout Standard
@@ -1390,44 +1406,6 @@ key "Au2008"
  remove high frecuencies.
 \end_layout
 
-\begin_layout Chapter
-Mathematical foundation
-\begin_inset CommandInset label
-LatexCommand label
-name "chap:Mathematical-foundation"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-This chapter studies basic mathematical foundation on differential geometry
- to understand the differential operators and the Laplace beltrami operator.
-\end_layout
-
-\begin_layout Standard
-The differential geometry studies curvatures and geodesics 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Hahne2006"
-
-\end_inset
-
-.
- The differential operators show a deep relationships betwen the geoemetry
- (curvatures, geodesics) and topology of the manifold.
- This differential operators are very used in applications on computer geometric
- modelling over the last years 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Rosenberg1997,Alexa2011"
-
-\end_inset
-
-.
-\end_layout
-
 \begin_layout Section
 Manifolds
 \end_layout
@@ -1774,7 +1752,7 @@ key "Pinkall1993,Desbrun1999,Meyer2003"
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
@@ -1917,6 +1895,1475 @@ key "Pinkall1993"
 \end_layout
 
 \begin_layout Chapter
+Shape Inflation With an Adapted Laplacian Operator For Hybrid Quad/Triangle
+ Meshes
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+Alexander Pinzon, Eduardo Romero
+\begin_inset Newline newline
+\end_inset
+
+Cimalab Research Group
+\begin_inset Newline newline
+\end_inset
+
+Universidad Nacional de Colombia
+\begin_inset Newline newline
+\end_inset
+
+Bogota-Colombia
+\begin_inset Newline newline
+\end_inset
+
+Email: apinzonf@unal.edu.co, edromero@unal.edu.co
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/spectrum.pdf
+	lyxscale 30
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Spectrum-1"
+
+\end_inset
+
+A set of 48 successive shapes enhanced, from 
+\begin_inset Formula $\lambda=0.0$
+\end_inset
+
+ in blue to 
+\begin_inset Formula $\lambda=-240.0$
+\end_inset
+
+ in red, with steps of 
+\begin_inset Formula $-5.0$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This paper was accepted and presented in the Brazilian Symposium on Computer
+ Graphics and Image Processing SIBGRAPI 2013.
+ The conference was held on August 5-8 of 2013, in the city of Arequipa,
+ Perú 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pinzon2013"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section*
+Abstract
+\end_layout
+
+\begin_layout Standard
+This paper proposes a novel modeling method for a hybrid quad/triangle mesh
+ that allows to set a family of possible shapes by controlling a single
+ parameter, the global curvature.
+ The method uses an original extension of the Laplace Beltrami operator
+ that efficiently estimates a curvature parameter which is used to define
+ an inflated shape after a particular operation performed in certain mesh
+ points.
+ Along with the method, this work presents new applications in sculpting
+ and modeling, with subdivision of surfaces and weight vertex groups.
+ A series of graphics examples demonstrates the quality, predictability
+ and flexibility of the method in a real production environment with software
+ Blender.
+\end_layout
+
+\begin_layout Description
+keywords- laplacian smooth; curvature; sculpting; subdivision surface
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Over the last years several, modeling techniques able to generate a variety
+ of realistic shapes, have been developed 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Botsch2006"
+
+\end_inset
+
+.
+ Editing techniques have evolved from affine transformations to advanced
+ tools like sculpting 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Coquillart1990,Galyean1991,Stanculescu2011}
+\end_layout
+
+\end_inset
+
+, editing, creation from sketches 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Igarashi1999,Gonen2012}
+\end_layout
+
+\end_inset
+
+, and complex interpolation techniques 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Sorkine2004,Zhou2005}
+\end_layout
+
+\end_inset
+
+.
+ Catmull-Clark based methods however require to interact with a small number
+ of control points for any operation to be efficient, or in other words,
+ a unicity condition is introduced by demanding a smooth surface after any
+ of these shape operations.
+ Hence, traditional modeling methods for subdividing surfaces from coarse
+ geometry have become widely popular 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Catmull1978,Stam1998}
+\end_layout
+
+\end_inset
+
+.
+ These works have generalized a uniform B-cubic spline knot insertion to
+ meshes, some of them adding some type of control, for instance with the
+ use of creases to produce sharp edges 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{DeRose1998}
+\end_layout
+
+\end_inset
+
+, or the modification of some vertex weights to locally control the zone
+ of influence 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Biermann2000}
+\end_layout
+
+\end_inset
+
+.
+ Nevertheless these methods are difficult to deal with since they require
+ a large number of parameters and a very tedious customization.
+ Instead, the presented method requires a single parameter that controls
+ the global curvature, which is used to maintain realistic shapes, creating
+ a family of different versions of the same object and therefore preserving
+ the detail of the original model and a realistic appearance.
+ 
+\end_layout
+
+\begin_layout Standard
+Interest in meshes composed of triangles and quads has lately increased
+ because of the flexibility of modeling tools such as Blender 3D 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{blender}
+\end_layout
+
+\end_inset
+
+.
+ Nowadays, many artists use a manual connection of a couple of vertices
+ to perform animation processes and interpolation 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Mullen2007}
+\end_layout
+
+\end_inset
+
+.
+ It is then of paramount importance to develop operators that easily interact
+ with such meshes, eliminating the need of preprocessing the mesh to convert
+ it to triangles.
+ The shape inflation and shape exaggeration can thus be used as such brush
+ in the sculpting process, when inflating a shape since current brushes
+ end up by losing detail when moving vertices 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Stanculescu2011}
+\end_layout
+
+\end_inset
+
+.
+ In contrast, the presented method inflates a mesh by moving the vertices
+ towards the reverse curvature direction, conserving the shape and sharp
+ features of the model.
+\end_layout
+
+\begin_layout Subsection*
+Contributions 
+\end_layout
+
+\begin_layout Standard
+This work presents an extension of the Laplace Beltrami operator for hybrid
+ quad/triangle meshes, representing a larger mesh spectrum from what has
+ been presented so far.
+ The method eliminates the need of preprocessing and allows preservation
+ of the original topology.
+ Likewise, along with this operator, it is proposed a method to generate
+ a family of parametrized shapes, in a robust and predictable way.
+ This method enables customization of the smoothness and curvature, obtained
+ during the subdivision surfaces process.
+ Finally, it is proposed a new brush for inflating the silhouette mesh features
+ in modeling and sculpting.
+\end_layout
+
+\begin_layout Standard
+This work is organized as follows: Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Related-work"
+
+\end_inset
+
+ presents works related to the Laplacian mesh processing, digital sculpting,
+ and offsetting methods for polygonal meshes; In section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Laplacian-Smooth"
+
+\end_inset
+
+, it is described the theoretical framework of the Laplacian operator for
+ polygon meshes; In section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:sec:Proposed-Method"
+
+\end_inset
+
+, it is presented the method for shape inflation and applications of subdivision
+ of surfaces and sculpting; finally some Laplacian operator results, to
+ hybrid quad/triangle meshes are graphically shown as well as results of
+ the shape inflation applications in sculpting, subdivision and modeling.
+\end_layout
+
+\begin_layout Section
+Related work
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Related-work"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Many tools have been developed for modeling, based on the Laplacian mesh
+ processing.
+ Thanks to the advantages of the Laplacian operator, these different tools
+ preserve the surface geometric details when using them for different processes
+ such as free-form deformation, fusion, morphing and other applications
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Sorkine2004}
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Offset methods for polygon meshing, based on the curvature defined by the
+ Laplace Beltrami operator, have been developed.
+ These methods adjust the shape offset by a constant distance, with enough
+ precision.
+ Nevertheless, these methods fail to conserve sufficient detail because
+ of the smoothing, a crucial issue which depends on the offset size 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Zhuo2012}
+\end_layout
+
+\end_inset
+
+.
+ In volumetric approaches, in case of point-based representations, the offset
+ boundary computation is based on the distance field and therefore when
+ calculating such offset, the topology of the model may be different to
+ the original 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Chen2011}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Gal2009}
+\end_layout
+
+\end_inset
+
+ propose automatic feature detection and shape edition with feature inter-relati
+onship preservation.
+ They define salient surface features like ridges and valleys, characerized
+ by their first and second order curvature derivatives, see 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Ohtake2004}
+\end_layout
+
+\end_inset
+
+, and angle-based threshold.
+ Likewise, curves have been also classified as planar or non-planar, approximate
+d by lines, circles, ellipses and other complex shapes.
+ In such case, the user defines an initial change over several features
+ which is propagated towards other features, based on the classified shapes
+ and the inter-relationships between them.
+ This method works well with objects that have sharp edges, composed of
+ basic geometric shapes such as lines, circles or ellipses.
+ However, the method is very limited when models are smooth since it cannot
+ find the proper features to edit.
+\end_layout
+
+\begin_layout Standard
+Digital sculpting have been traditionally approached either under a polygonal
+ representation or a voxel grid-based method.
+ Brushes for inflation operations only depend on the vertex normal 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Stanculescu2011}
+\end_layout
+
+\end_inset
+
+.
+ In grid-based sculpting, some other operations have allowed to add or remove
+ voxels since production of polygonal meshes require a processing of isosurfaces
+ from a volume 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Galyean1991}
+\end_layout
+
+\end_inset
+
+.
+ The drawback comes from the difficulty of maintaining the surface details
+ during larger scale deformations.
+ 
+\end_layout
+
+\begin_layout Section
+Laplacian Smooth
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Laplacian-Smooth"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Computer objects, reconstructed from the real world, are usually noisy.
+ Laplacian Smooth techniques allow a proper noise reduction on the mesh
+ surface with minimal shape changes, while still preserving a desirable
+ geometry as well as the original shape.
+ 
+\end_layout
+
+\begin_layout Standard
+Many smoothing Laplacian functionals regularize the surface energy by controllin
+g the total surface curvature 
+\begin_inset Formula $S$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $E\left(S\right)=\int_{S}\kappa_{1}^{2}+\kappa_{2}^{2}dS$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $\kappa_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\kappa_{2}$
+\end_inset
+
+ are the two principal curvatures of the surface 
+\begin_inset Formula $S$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Gradient of Voronoi Area
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/voronoi_region.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:voronoi_region-1"
+
+\end_inset
+
+Area of the Voronoi region around 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ in dark blue.
+\begin_inset Formula $v_{j}$
+\end_inset
+
+ belong to the first neighborhood around 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+ 
+\begin_inset Formula $\alpha_{j}$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta_{j}$
+\end_inset
+
+ opposite angles to edge 
+\begin_inset Formula $\overrightarrow{v_{j}-v_{i}}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Consider a surface 
+\begin_inset Formula $S$
+\end_inset
+
+ composed of a set of triangles around vertex 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+ Let us define the 
+\shape slanted
+Voronoi region
+\shape default
+ of 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ as show in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:voronoi_region-1"
+
+\end_inset
+
+, The area change produced by the movement of 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ is called the gradient of 
+\shape slanted
+Voronoi region
+\shape default
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Pinkall1993,Desbrun1999,Meyer2003}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\nabla A=\frac{1}{2}\underset{j}{\sum}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\label{PAPER:eq:eq_gradient_voronoi_area}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If the gradient in equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:eq_gradient_voronoi_area"
+
+\end_inset
+
+) is normalized by the total area of the 
+\begin_inset Formula $1$
+\end_inset
+
+-ring neighborhood around 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, the 
+\shape slanted
+discrete mean curvature normal
+\shape default
+ of a surface 
+\begin_inset Formula $S$
+\end_inset
+
+ is obtained, as shown in equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:discrete_mean_curvature_normal"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+2\kappa\mathbf{n}=\frac{\nabla A}{A}\label{PAPER:eq:discrete_mean_curvature_normal}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Laplace Beltrami Operator
+\end_layout
+
+\begin_layout Standard
+The 
+\shape slanted
+Laplace Beltrami operator
+\shape default
+ LBO noted as 
+\begin_inset Formula $\triangle$
+\end_inset
+
+ is used for measuring the mean curvature normal to the Surface 
+\begin_inset Formula $S$
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Pinkall1993}
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\triangle S=2\kappa\mathbf{n}\label{PAPER:eq:def_LBO}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The LBO has desirable properties: the LBO points out to the direction of
+ the minimal surface area.
+\end_layout
+
+\begin_layout Section
+Proposed Method
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:sec:Proposed-Method"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This method exaggerates a shape using a Laplacian smoothing operator in
+ the reverse direction, i.e., the new shape is a modified version in which
+ those areas with larger curvature are magnified.
+ The operator amounts to a generator of a set of models which conserves
+ the basic silhouette of the original shape.
+ In addition, the presented approach can be easily mixed with traditional
+ or uniform subdivision of surfaces.
+ This method is based on an original extension of the Laplace Beltrami operator
+ for hybrid quad/triangle meshes, mixing arbitrary types of meshes, exploiting
+ the basic geometrical relationships and ensuring good results with few
+ algorithm iterations.
+ 
+\end_layout
+
+\begin_layout Subsection
+Laplace Beltrami Operator for Hybrid Quad/Triangle Meshes TQLBO
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:sub:Laplace-Beltrami-Operator"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Given a mesh 
+\begin_inset Formula $M=\left(V,Q,T\right)$
+\end_inset
+
+, with vertices 
+\begin_inset Formula $V$
+\end_inset
+
+, quads 
+\begin_inset Formula $Q$
+\end_inset
+
+, triangles 
+\begin_inset Formula $T$
+\end_inset
+
+.
+ The area of 
+\begin_inset Formula $1$
+\end_inset
+
+-ring neighborhood 
+\begin_inset Formula $A\left(v_{i}\right)$
+\end_inset
+
+ corresponds to a sum of the quad faces 
+\begin_inset Formula $A\left(Q_{v_{i}}\right)$
+\end_inset
+
+ and the areas of the triangular faces 
+\begin_inset Formula $\ensuremath{A\left(T_{v_{i}}\right)}$
+\end_inset
+
+ adjacent to vertex 
+\begin_inset Formula $\ensuremath{v_{i}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\ensuremath{A\left(v_{i}\right)=A\left(Q_{v_{i}}\right)+A\left(T_{v_{i}}\right)}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/quad_xiong.pdf
+	lyxscale 30
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:fig:quad_xiong"
+
+\end_inset
+
+
+\begin_inset Formula $t_{j1}^{*}\equiv\vartriangle v_{i}v_{j}v_{j}^{\prime},\, t_{j2}^{*}\equiv\vartriangle v_{i}v_{j}^{\prime}v_{j+1},\, t_{j3}^{*}\equiv\vartriangle v_{i}v_{j}v_{j+1}$
+\end_inset
+
+ Triangulations of the quad with common vertex 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ proposed by [Xiong 2011] to define Mean LBO.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Applying the mean average area, according to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Xiong2011}
+\end_layout
+
+\end_inset
+
+, from all possible triangulations, as show in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:quad_xiong"
+
+\end_inset
+
+, the area for quads 
+\begin_inset Formula $\ensuremath{A\left(Q_{v_{i}}\right)}$
+\end_inset
+
+ and triangles 
+\begin_inset Formula $A\left(T_{v_{i}}\right)$
+\end_inset
+
+ is.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $A\left(v_{i}\right)=\frac{1}{2^{m}}\overset{m}{\underset{j=1}{\sum}}2^{m-1}A\left(q_{j}\right)+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $q_{1},q_{2},...,q_{j},...,q_{m}\in Q_{v_{i}}$
+\end_inset
+
+ and 
+\begin_inset Formula $t_{1},t_{2},...,t_{k},...,t_{r}\in T_{v_{i}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[A\left(t_{j1}^{*}\right)+A\left(t_{j2}^{*}\right)+A\left(t_{j3}^{*}\right)\right]+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)\label{PAPER:eq:area_1_ring_triangles_quads}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Applying the gradient operator to (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:area_1_ring_triangles_quads"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\nabla A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[\nabla A\left(t_{j1}^{*}\right)+\nabla A\left(t_{j2}^{*}\right)+\nabla A\left(t_{j3}^{*}\right)\right]+\overset{r}{\underset{k=1}{\sum}}\nabla A\left(t_{k}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+According to (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:eq_gradient_voronoi_area"
+
+\end_inset
+
+), we have
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\nabla A\left(t_{j1}^{*}\right)=\frac{\cot\theta_{j3}\left(v_{j}-v_{i}\right)+\cot\theta_{j2}\left(v_{j}^{\prime}-v_{i}\right)}{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\nabla A\left(t_{j2}^{*}\right)=\frac{\cot\theta_{j5}\left(v_{j}^{\prime}-v_{i}\right)+\cot\theta_{j4}\left(v_{j+1}-v_{i}\right)}{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\nabla A\left(t_{j3}^{*}\right)=\frac{\cot\theta_{j6}\left(v_{j}-v_{i}\right)+\cot\theta_{j1}\left(v_{j+1}-v_{i}\right)}{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\nabla A\left(t_{k}\right)=\frac{\cot\alpha_{k}\left(v_{k}-v_{i}\right)+\cot\beta_{k+1}\left(v_{k+1}-v_{i}\right)}{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/beltrami.pdf
+	lyxscale 50
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:fig:LBO-basic-5-TQ-1"
+
+\end_inset
+
+The 5 basic triangle-quad cases with common vertex 
+\begin_inset Formula $V_{i}$
+\end_inset
+
+ and the relationship with 
+\begin_inset Formula $V_{j}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{j}^{\prime}$
+\end_inset
+
+.
+ (a) Two triangles [Desbrun 1999].
+ (b) (c) Two quads and one quad [Xiong 2011].
+ (d) (e) Triangles and quads (TQLBO) our contribution.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Triangle and quad configurations of the 1-ring neighborhood faces, adjacent
+ to 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, can be simplified to five cases, as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:LBO-basic-5-TQ-1"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+According to equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:discrete_mean_curvature_normal"
+
+\end_inset
+
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:def_LBO"
+
+\end_inset
+
+), and five simple cases defined in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:LBO-basic-5-TQ-1"
+
+\end_inset
+
+ the TQLBO (Triangle-Quad LBO) of 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ is
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\triangle_{S}\left(v_{i}\right)=2\kappa\mathbf{n}=\frac{\nabla A}{A}=\underset{v_{j}\in N_{1}\left(v_{i}\right)}{\frac{1}{2A}\sum}w_{ij}\left(v_{j}-v_{i}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+w_{ij}=\begin{cases}
+\left(\cot\alpha_{j}+\cot\beta_{j}\right) & \mbox{case }\mathit{a.}\\
+\frac{1}{2}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}+\cot\theta_{j3}+\cot\theta_{j6}\right) & \mbox{case \ensuremath{\mathit{b}}.}\\
+\left(\cot\theta_{j2}+\cot\theta_{j5}\right) & \mbox{case \ensuremath{\mathit{c}}.}\\
+\frac{1}{2}\left(\cot\theta_{j3}+\cot\theta_{j6}\right)+\cot\beta_{j} & \mbox{case \ensuremath{\mathit{d}}.}\\
+\frac{1}{2}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}\right)+\cot\alpha_{j} & \mbox{case \ensuremath{\mathit{e}}.}
+\end{cases}\label{PAPER:eq:TQLBO_wij}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We define a TQLBO as a matrix equation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+L\left(i,j\right)=\begin{cases}
+-\frac{1}{2A_{i}}w_{ij} & \mbox{if }j\in N\left(v_{i}\right)\\
+\frac{1}{2A_{i}}\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij} & \mbox{if }i=j\\
+0 & \mbox{otherwise}
+\end{cases}\label{PAPER:eq:TQLBO_Simple_Matrix}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $L$
+\end_inset
+
+ is a 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ matrix, 
+\begin_inset Formula $n$
+\end_inset
+
+ is the number of vertices of a given mesh 
+\begin_inset Formula $M$
+\end_inset
+
+, 
+\begin_inset Formula $w_{ij}$
+\end_inset
+
+ is the TQLBO defined in equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:TQLBO_wij"
+
+\end_inset
+
+), 
+\begin_inset Formula $N\left(v_{i}\right)$
+\end_inset
+
+ is the 1-ring neighborhood with shared face to $v_{i}$, $A_{i}$ is the
+ ring area around 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Normalized equation of the TQLBO
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\begin{equation}
+L\left(i,j\right)=\begin{cases}
+-\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij}} & \mbox{if }j\in N\left(v_{i}\right)\\
+\delta_{ij} & \mbox{otherwise}
+\end{cases}\label{PAPER:eq:TQLBO-Normalized_Matrix}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $\delta_{ij}$
+\end_inset
+
+ being the Kronecker delta function.
+\end_layout
+
+\begin_layout Subsection
+The Shape Inflation
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:sub:Curvature-Enhancing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The shape is inflated by using the reverse direction of the curvature flow,
+ moving the vertices towards those mesh portions with larger curvature.
+ A standard diffusion process is applied:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\frac{\partial V}{\partial t}=\lambda L\left(V\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+To solve this equation, implicit integration is used as well as a normalized
+ version of TQLBO matrix
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\left(I-\left|\lambda dt\right|W_{p}L\right)V^{\prime}=V^{t}\label{PAPER:eq:Lineal_System_with_wp}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $V^{t+1}=V^{t}+\mbox{sign}\left(\lambda\right)\left(V^{\prime}-V^{t}\right)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+The vertices 
+\begin_inset Formula $V^{t+1}$
+\end_inset
+
+ are inflated, along their reverse curvature direction, by solving the linear
+ system: 
+\begin_inset Formula $Ax=b$
+\end_inset
+
+, where 
+\begin_inset Formula $A=I-\left|\lambda dt\right|W_{p}L$
+\end_inset
+
+, 
+\begin_inset Formula $L$
+\end_inset
+
+ is the Normalized TQLBO defined in the equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:TQLBO-Normalized_Matrix"
+
+\end_inset
+
+), 
+\begin_inset Formula $x=V^{\prime}$
+\end_inset
+
+ are the smoothing vertices, 
+\begin_inset Formula $b=V^{t}$
+\end_inset
+
+ are the actual vertices positions, 
+\begin_inset Formula $W_{p}$
+\end_inset
+
+ is a diagonal matrix with vertex weights, and 
+\begin_inset Formula $\lambda dt$
+\end_inset
+
+ is the inflate factor that supports negative and positive values: negative
+ for inflation and positive for smoothing.
+ 
+\end_layout
+
+\begin_layout Standard
+The method was devised to use with weighted vertex groups, which specify
+ the final shape inflation of the solution, meaning $0$ as no changes and
+ 1 when a maximal change is applied.
+ The weights modify the influence zones, where the Laplacian is applied,
+ as shown in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:Lineal_System_with_wp"
+
+\end_inset
+
+ .
+ Interestingly, the generated family of shapes may change substantially
+ with the weights of specific control points.
+\end_layout
+
+\begin_layout Standard
+The curvature cannot be calculated at the boundary of the meshes that are
+ not closed, for that reason we use the scale-dependent operator proposed
+ by Desbrun et al.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Desbrun1999}
+\end_layout
+
+\end_inset
+
+, the inflation factor for boundary is represented by 
+\begin_inset Formula $\lambda_{e}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The model volume increases as the lambda is larger and negative, this can
+ be counteracted with a simple volume preservation.
+ However, the mesh may suffer large displacements when 
+\begin_inset Formula $\lambda<-1.0$
+\end_inset
+
+ or after multiple iterations.
+ A simple volume conservation algorithm is: If 
+\begin_inset Formula $v_{i}^{t+1}$
+\end_inset
+
+ is a mesh vertex of 
+\begin_inset Formula $V^{t+1}$
+\end_inset
+
+ in the 
+\begin_inset Formula $t+1$
+\end_inset
+
+ iteration, we define 
+\begin_inset Formula $\overline{v}$
+\end_inset
+
+ as:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\overline{v}=\frac{1}{n}\underset{v_{i}\in V}{\sum}v_{i}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\overline{v}$
+\end_inset
+
+is the mesh center, 
+\begin_inset Formula $vol_{ini}$
+\end_inset
+
+ is an initial volume, and 
+\begin_inset Formula $vol_{t+1}$
+\end_inset
+
+ is the volume at the iteration 
+\begin_inset Formula $t+1$
+\end_inset
+
+, 
+\begin_inset Formula $n$
+\end_inset
+
+ is the number of vertices, then the scale factor
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\beta=\left(\frac{vol_{ini}}{vol_{t+1}}\right)^{\frac{1}{3}}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+allows to scale the vertices to:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $v_{i\, new}^{t+1}=\beta\left(v_{i}^{t+1}-\overline{v}\right)+\overline{v}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+The shape inflation use a negative curvature flow that is an unstable process
+ when performing many iterations, however, our method uses less than 3 iteration
+s to get good results, and with 3 iterations or less the method behaves
+ stable.
+\end_layout
+
+\begin_layout Chapter
 Proposed Laplacian Operator
 \begin_inset CommandInset label
 LatexCommand label
@@ -2006,7 +3453,7 @@ Given a mesh
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
