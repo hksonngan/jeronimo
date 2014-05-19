@@ -1945,7 +1945,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Spectrum-1"
+name "PAPER:fig:Spectrum"
 
 \end_inset
 
@@ -3363,6 +3363,1083 @@ s to get good results, and with 3 iterations or less the method behaves
  stable.
 \end_layout
 
+\begin_layout Section
+Sculpting
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:sec:Sculpting"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A new sculpting brush is herein proposed and aims to inflate the shape,
+ magnifying the shape curvatures of a polygon mesh in real time.
+ This brush works properly with the stroke method 
+\shape slanted
+Drag Dot
+\shape default
+, allowing to pre-visualize the model changes before the mouse is released.
+ Also, it allows to move the mouse along the model to match the shape zone
+ which is supposed to be inflated.
+\end_layout
+
+\begin_layout Standard
+Brushes that perform a similar inflation can introduce mesh distortions
+ or produce mesh self-intersections, provided these brushes only move the
+ vertices along the normal without any global information.
+ In contrast, the present method searches for a proper inflation while preservin
+g the global curvature, retaining the original shape and main model features.
+ In addition, this method simplifies the work required for the inflation
+ since it needs not different brushes for inflating, softening or styling.
+ The inflated brush can make all these operation in a single step.
+ Real-time brushes require the Laplacian matrix is constructed with the
+ vertices that are within the sphere radius defined by the user, reducing
+ the matrix to be processed, the center of this sphere depending on the
+ place where the user clicks on the canvas and the three-dimensional mesh
+ placed where the click is projected.
+ Special handling is required for the boundary vertices with neighbors that
+ are not within the brush radius: these vertices are marked as boundary
+ and the curvature is not there calculated, but they must be included in
+ the matrix so that every vertex has their corresponding neighbors within
+ the selection.
+ The sculpting Laplacian matrix reads as.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\ensuremath{L\left(i,j\right)=\begin{cases}
+-\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij}} & \mbox{if }\left\Vert v_{i}-u\right\Vert <r\wedge\left\Vert v_{j}-u\right\Vert <r\\
+0 & \mbox{if }\left\Vert v_{i}-u\right\Vert <r\wedge\left\Vert v_{j}-u\right\Vert \geq r\\
+\delta_{ij} & \mbox{otherwise}
+\end{cases}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $v_{j}\in N\left(v_{i}\right)$
+\end_inset
+
+, 
+\begin_inset Formula $u$
+\end_inset
+
+ is the sphere center of radius 
+\begin_inset Formula $r$
+\end_inset
+
+.
+ The matrices should remove rows and columns of vertices that are not within
+ the radius.
+\end_layout
+
+\begin_layout Section
+Subdivision surfaces
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:sec:Subdivision-surfaces"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/teaser_cup.pdf
+	lyxscale 10
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:fig:Subdivision-Cups"
+
+\end_inset
+
+ Family of cups generated with our method, from a coarse model (a), (c):
+ the shape, obtained from the Catmull-Clark Subdivision (b), (d), is inflated.
+ Soft constraints, over the coarse model, is drawn in red and blue (c).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Catmull-Clark subdivision transformation is used to smooth a surface,
+ as the limit of a sequence of subdivision steps 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Stam1998}
+\end_layout
+
+\end_inset
+
+.
+ This process is governed by a B-spline curve 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Loop1987}
+\end_layout
+
+\end_inset
+
+, performing a recursive subdivision transformation that refines the model
+ into a linear interpolation that approximates a smooth surface.
+ The model smoothness is automatically guaranteed 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{DeRose1998}
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Catmull-Clark subdivision surface methods generate smooth and continuous
+ models from a coarse model and produce quick results because of the simplicity
+ of implementation.
+ Nevertheless, changes to the global curvature are hardly implantable.
+ The Catmull-Clark subdivision surfaces together with shape inflation can
+ easily generate families of shapes by changing a single parameter, allowing
+ to handle a model with very few vertices.
+ In practice, this would allow an artist to choose a model from a similar
+ set of options that would meet his/her needs without having to change each
+ of the control vertices.
+ Likewise, the presented method allows the use of vertex weight paint over
+ the control points.
+ The weights can be applied to a coarse model, followed by a Catmull-Clark
+ subdivision where weights are interpolated, producing weights with smooth
+ changes in the influence zones, as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Subdivision-Cups"
+
+\end_inset
+
+.c.
+\end_layout
+
+\begin_layout Standard
+In equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:Lineal_System_with_wp"
+
+\end_inset
+
+, 
+\begin_inset Formula $W_{p}$
+\end_inset
+
+ is a diagonal matrix with weights corresponding to each vertex.
+ Weights at each vertex produce a different solution so that the matrix
+ must be placed in the diffusion equation since families that are generated
+ may change substantially with weighted of specific control points.
+\end_layout
+
+\begin_layout Section
+Results
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:sec:Results"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The results of the shape inflation method with the extension of the Laplace
+ Beltrami operator for hybrid quad/triangle meshes with several example
+ models shown in figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Spectrum"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Subdivision-Cups"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Catmull_Clark"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:TQLBO_test"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:camello_enhanced"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Sculpt_Brush"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Performance-sculpt"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:(a)Monkey"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Animated_Camell"
+
+\end_inset
+
+.
+ The shape inflation was assessed with TQLBO method on a PC with AMD Quad-Core
+ Processor @ 2.40 GHz and 8 GB RAM.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/cruz_lambda4.pdf
+	lyxscale 10
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:fig:Catmull_Clark"
+
+\end_inset
+
+(a) Original Model, (b) Model with Catmull-Clark Subdivision.
+ Models with Laplacian smoothing: (c) and (d).
+ Models with a first Laplacian filtering 
+\begin_inset Formula $\lambda=60.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda_{e}=12.0$
+\end_inset
+
+ and before applying shape inflation: (e) and (f).
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:TQLBO_test"
+
+\end_inset
+
+ shows the results when applying the Laplace Beltrami Operator TQLBO of
+ equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+) in a model with a simple subdivision.
+ In column (c) the Laplacian smoothing was applied to a model consisting
+ of only quads.
+ In column (d) the model was converted to triangles and then the Laplacian
+ smoothing was applied.
+ In column (e) the model was randomly converted from some quads into triangles
+ and then the Laplacian smoothing is applied, showing similar results to
+ those meshes composed only of triangles or quads.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/test_triangles_quads.pdf
+	lyxscale 10
+	height 50theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:fig:TQLBO_test"
+
+\end_inset
+
+(a) Original Model.
+ (b) Simple subdivision.
+ (c), (d) (e) Laplacian smoothing with 
+\begin_inset Formula $\lambda=7$
+\end_inset
+
+ and 2 iterations: (c) for triangles, (d) for quads, (e) for triangles and
+ quads random chosen.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Methods using the Catmull-Clark subdivision surface and the inflation allows
+ to modify the curvature that is obtained with the process of subdivision,
+ as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Subdivision-Cups"
+
+\end_inset
+
+.
+ This test used a coarse cup model, in which the subdivision was performed,
+ followed by a Laplacian smoothing and inflation.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Subdivision-Cups"
+
+\end_inset
+
+.c, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Subdivision-Cups"
+
+\end_inset
+
+.d shows also the use of weight vertex groups over coarse models, with subdivisio
+n surfaces that allowed to generate the weights for the new interpolated
+ vertices.
+ These new weights were used for the inflation obtained on the 6 cups that
+ are at the right of the figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Subdivision-Cups"
+
+\end_inset
+
+.d.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/camello_enhanced2.pdf
+	lyxscale 10
+	height 50theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:fig:camello_enhanced"
+
+\end_inset
+
+Top row: Original camel model in left.
+ Shape inflation with 
+\begin_inset Formula $\lambda=-30.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda=-100.0$
+\end_inset
+
+, 
+\begin_inset Formula $\lambda=-400.0$
+\end_inset
+
+.
+ Bottom row: Shape inflation with weight vertex group, 
+\begin_inset Formula $\lambda=-50.0$
+\end_inset
+
+ and 2 iterations for the legs, 
+\begin_inset Formula $\lambda=-200.0$
+\end_inset
+
+ and 1 iteration for the head and neck.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Laplacian smoothing applied with simple subdivision (see figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Catmull_Clark"
+
+\end_inset
+
+.c.) may produce similar results to those obtained with Catmull-Clark (see
+ figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Catmull_Clark"
+
+\end_inset
+
+.b.), whose models are in average equal triangles.
+ The one obtained with the Laplacian smoothing is shown in panel (c), (d)
+ and those curvature modified versions are in (e) and (f).
+ As can be observed, different versions of the original sketch can be obtained
+ by parameterizing a single model value, a great advantage of the presented
+ method.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:camello_enhanced"
+
+\end_inset
+
+ shows the generation of different versions of a camel according to the
+ 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ parameter.
+ In the top row, it is shown the shape inflation results, as 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ becomes larger and negative, the resultant shape is observed as if the
+ model would inflate the more convex parts, as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Spectrum"
+
+\end_inset
+
+.
+ The larger the 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ parameter the larger the model feature inflations.
+ The bottom row of figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:camello_enhanced"
+
+\end_inset
+
+ shows the use of weighted vertex groups, specifying which areas will be
+ inflated.
+ On the left, the inflation of the camel legs produces an organic aspect,
+ notice that the border is not distorted and smooth.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/camello_walk2.png
+	lyxscale 10
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:fig:Animated_Camell"
+
+\end_inset
+
+The method is pose insensitive.
+ The inflation for the different poses are similar in terms of shape.
+ Top row: Original walk cycle camel model.
+ Bottom row: Shape inflation with weight vertex group, 
+\begin_inset Formula $\lambda=-400$
+\end_inset
+
+ and 
+\begin_inset Formula $2$
+\end_inset
+
+ iterations.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The inflation of the silhouette features is predictable and invariant under
+ isometric transformations, as those classically used in some animations
+ (see Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Animated_Camell"
+
+\end_inset
+
+).
+ In this figure, the animation shows some camel poses during a walk, the
+ inflation is performed at the neck and legs, as shown in the bottom left
+ camel in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Animated_Camell"
+
+\end_inset
+
+.
+ Local modifications produced by the pose interpolation or animation rigging
+ practically do not affect the result.
+ In spite of at any pose of the camel legs there is a clear difference,
+ the inflation method allows a flesh-like shape in the original pattern
+ produced by the artist.
+ This is due to the mesh restricted diffusion process so that small local
+ changes are treated without affecting the global solution.
+ The method therefore is rotation invariant since it depends exclusively
+ on the normal mesh field, which is rotation invariant.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/sculpt_brush.pdf
+	lyxscale 10
+	height 30theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:fig:Sculpt_Brush"
+
+\end_inset
+
+Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
+ Inflate shape brush for leg into red circle.
+ Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
+ Shape inflation brush for fingers in red circle.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/verts_per_second_sculpt.pdf
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:fig:Performance-sculpt"
+
+\end_inset
+
+Performance of our dynamic shape inflation brush in terms of the sculpted
+ vertices per second.
+ Three models with 12K, 40K, 164K vertices used for sculpting in real time.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Sculpt_Brush"
+
+\end_inset
+
+ shows the use of a shape inflation brush for sculpting in real time.
+ One pass was used with the brush, as shown in the figure, with the blue
+ and red radius.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Sculpt_Brush"
+
+\end_inset
+
+.b the camel foot shows the inflation intersection that looks like two bubbles,
+ a similar pattern to what is observed to the fingers on the bottom of the
+ same figure.
+ The silhouette inflation is observed in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Sculpt_Brush"
+
+\end_inset
+
+.c since the main shape is retained together with its finger and foot details.
+ Similar results can be obtained by a user, however it would take several
+ steps and require the use of several brushes, while the shape inflation
+ took a single step.
+ Likewise, this new method can easily inflate organic features like muscles
+ during the sculpting process.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:Performance-sculpt"
+
+\end_inset
+
+ the shape inflation brush performance is illustrated, in this experiment
+ three models with 12K, 40K and 164K vertices, were used.
+ These models were sculpted with the shape inflate brush, at each step the
+ brush sphere containing a variable number of vertices for processing.
+ The processing time for 800 vertices in the camel paw (40k model) only
+ took 0.1 seconds, for 2600 vertices in the leg and neck (model 40k) took
+ 0.5 seconds, these times are suitable in real applications since an artist
+ sculpts a model for parts.
+ %, and each part is represented by an average of about 1800 vertices.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/monkey.pdf
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:fig:(a)Monkey"
+
+\end_inset
+
+(a) Bottom row: Original Model.
+ Top row: Original model scaled by 4.
+ (b) Top and bottom row: inflating with Normalized-TQLBO 
+\begin_inset Formula $\lambda=-50$
+\end_inset
+
+ (c) Top and bottom row: inflating with TQLBO 
+\begin_inset Formula $\lambda=-50$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Tests with the Laplacian operator (equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+) and its normalized version (equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:TQLBO-Normalized_Matrix"
+
+\end_inset
+
+), produce similar results if the triangles or quads that compose the mesh
+ are about the same size.
+ The normalized version is more stable and predictable because it is not
+ divided by the area of the ring which may be very small and causes numeric
+ problems, as shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:(a)Monkey"
+
+\end_inset
+
+.c bottom row.
+ The shape inflation of the model with the normalized Laplacian operator
+ results in a more regular pattern.
+ The model can be deformed with a TQLBO normalized version with large 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ (
+\begin_inset Formula $\lambda>400$
+\end_inset
+
+) while intersecting itself with no peaks.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:(a)Monkey"
+
+\end_inset
+
+.c shows different results due to the quads areas in the model.
+ Quads with larger area have smaller inflation (figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:(a)Monkey"
+
+\end_inset
+
+.c skull), and smaller quads have larger inflations (figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:fig:(a)Monkey"
+
+\end_inset
+
+.c chin).
+\end_layout
+
+\begin_layout Section
+Implementation
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:sec:Implementation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The method was implemented as a modifier for modeling and brush for sculpting,
+ on the Blender software 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blender"
+
+\end_inset
+
+ in C and C++.
+ Working with the Blender allowed to test the method interactively against
+ others, as Catmull-Clark, weight vertex groups and sculpting system in
+ Blender.
+\end_layout
+
+\begin_layout Standard
+To improve the performance, it was worked with the Blender mesh struct,
+ visiting each triangle or quad and storing its corresponding index and
+ the sum of the Laplacian weights of the ring in a list so that only two
+ visits were required for the list of mesh faces and two times the edge
+ list, if the mesh was not closed.
+ This drastically reduced calculations, enabling real-time processing.
+ In the construction of the Laplacian matrix, several index were locked
+ at vertices having face areas or edge lengths with zero value that could
+ cause spikes and bad results.
+\end_layout
+
+\begin_layout Standard
+Under these conditions, the matrix at equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+ is sparse since the number of neighbors per vertex, corresponding to the
+ number of data per row, is smaller compared to the total number of vertices
+ in the mesh.
+ To solve the linear system equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:Lineal_System_with_wp"
+
+\end_inset
+
+ was used OpenNL 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Buatois2007"
+
+\end_inset
+
+ which is a a library for solving sparse linear system.
+\end_layout
+
+\begin_layout Section
+Conclusion and future work
+\begin_inset CommandInset label
+LatexCommand label
+name "PAPER:sec:Conclusion-and-future"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This work presented an extension of the Laplace Beltrami operator for hybrid
+ quad/triangle meshes that can be used in production environments and provides
+ results similar to those obtained by working only with triangles or quads.
+ This paper has introduced a new way to change silhouettes in a mesh for
+ modeling or sculpting in a few steps by means of the curvature model modificati
+on while preserving its overall shape.
+ In addition, a new modeling method has also been presented some possible
+ applications have been illustrated.
+ The method works properly with isometric transformations, opening the possibili
+ty of introducing it on the process of animation.
+\end_layout
+
+\begin_layout Standard
+We show that this tool may work in early modeling stages, case in which
+ coarse models are used, allowing to modify the shape generated by the Catmull-C
+lark subdivision surfaces, and thereby avoiding edition of the vertices
+ with change of a single parameters.
+\end_layout
+
+\begin_layout Standard
+Future work includes the analysis of theoretical relationships between the
+ Catmull-Clark subdivision surfaces and the Laplacian smoothing since they
+ can produce very similar results.
+ 
+\end_layout
+
+\begin_layout Section*
+Acknowledgment
+\end_layout
+
+\begin_layout Standard
+We wold like to thank anonymous friends for their support of our research.
+ 
+\end_layout
+
+\begin_layout Standard
+This work was supported in part by the Blender Foundation, Google Summer
+ of code program at 2012.
+ 
+\end_layout
+
+\begin_layout Standard
+Livingstone elephant model is provided courtesy of INRIA and ISTI by the
+ AIM@SHAPE Shape Repository.
+ Hand model is courtesy of the FarField Technology Ltd.
+ Camel model by Valera Ivanov is licensed under a Creative Commons Attribution
+ 3.0 Unported License.
+ Dinosaur and Monkey models are under public domain, courtesy of Blender
+ Foundation.
+\end_layout
+
 \begin_layout Chapter
 Proposed Laplacian Operator
 \begin_inset CommandInset label
@@ -3994,7 +5071,7 @@ name "sub:Curvature-Enhancing"
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Graphics
