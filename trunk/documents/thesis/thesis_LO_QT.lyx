@@ -3102,8 +3102,15 @@ reference "PAPER:eq:TQLBO_wij"
 \begin_inset Formula $N\left(v_{i}\right)$
 \end_inset
 
- is the 1-ring neighborhood with shared face to $v_{i}$, $A_{i}$ is the
- ring area around 
+ is the 1-ring neighborhood with shared face to 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $A_{i}$
+\end_inset
+
+ is the ring area around 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -4441,529 +4448,7 @@ Livingstone elephant model is provided courtesy of INRIA and ISTI by the
 \end_layout
 
 \begin_layout Chapter
-Proposed Laplacian Operator
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Proposed-Method"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-This thesis propose an original extension of the Laplace Beltrami operator
- for hybrid quad/triangle meshes, mixing arbitrary types of meshes, exploiting
- the basic geometrical relationships and ensuring algorithm convergence.
-\end_layout
-
-\begin_layout Standard
-With the use of the proposed Laplacian Operator this work show succesful
- uses in: Smoothing, Enhancing, Smooth Subdivision, Deformation, Sculpting,
- and Skeletonization.
- 
-\end_layout
-
-\begin_layout Section
-Proposed Laplace Beltrami Operator for Hybrid Quad/Triangle Meshes TQLBO
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:Laplace-Beltrami-operator"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Given a mesh 
-\begin_inset Formula $M=\left(V,Q,T\right)$
-\end_inset
-
-, with vertices 
-\begin_inset Formula $V$
-\end_inset
-
-, quads 
-\begin_inset Formula $Q$
-\end_inset
-
-, triangles 
-\begin_inset Formula $T$
-\end_inset
-
-.
- The area of 
-\begin_inset Formula $1$
-\end_inset
-
--ring neighborhood 
-\begin_inset Formula $A\left(v_{i}\right)$
-\end_inset
-
- corresponds to a sum of the areas of the quad faces 
-\begin_inset Formula $A\left(Q_{i}\right)$
-\end_inset
-
- and the areas of the triangular faces 
-\begin_inset Formula $\ensuremath{A\left(T_{i}\right)}$
-\end_inset
-
- adjacent to vertex 
-\begin_inset Formula $\ensuremath{v_{i}}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $A\left(v_{i}\right)=A\left(Q_{i}\right)+A\left(T_{i}\right)$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename resources/figs/quad_xiong.pdf
-	lyxscale 30
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:quad_xiong"
-
-\end_inset
-
-
-\begin_inset Formula $t_{j1}^{*}\equiv\vartriangle v_{i}v_{j}v_{j}^{\prime},\, t_{j2}^{*}\equiv\vartriangle v_{i}v_{j}^{\prime}v_{j+1},\, t_{j3}^{*}\equiv\vartriangle v_{i}v_{j}v_{j+1}$
-\end_inset
-
- Triangulations of the quad with common vertex 
-\begin_inset Formula $v_{i}$
-\end_inset
-
- proposed by [Xiong 2011] to define Mean LBO.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Applying the mean average area, according to Xiong et.
- al.
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Xiong2011"
-
-\end_inset
-
-, from all possible triangulations, as show in figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:quad_xiong"
-
-\end_inset
-
-, the area for quads 
-\begin_inset Formula $\ensuremath{A\left(Q_{i}\right)}$
-\end_inset
-
- and triangles 
-\begin_inset Formula $A\left(T_{i}\right)$
-\end_inset
-
- is.
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $A\left(v_{i}\right)=\frac{1}{2^{m}}\overset{m}{\underset{j=1}{\sum}}2^{m-1}A\left(q_{j}\right)+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Standard
-Where 
-\begin_inset Formula $q_{1},q_{2},...,q_{j},...,q_{m}\in Q_{i}$
-\end_inset
-
- are quads adjacent to 
-\begin_inset Formula $v_{i}$
-\end_inset
-
-, and 
-\begin_inset Formula $t_{1},t_{2},...,t_{k},...,t_{r}\in T_{i}$
-\end_inset
-
- are triangles adjacent to 
-\begin_inset Formula $v_{i}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Applying triangulations of the quad with common vertex 
-\begin_inset Formula $v_{i}$
-\end_inset
-
- proposed by 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Xiong2011"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\noindent
-\begin_inset Formula 
-\begin{equation}
-A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[A\left(t_{j1}^{*}\right)+A\left(t_{j2}^{*}\right)+A\left(t_{j3}^{*}\right)\right]+\overset{r}{\underset{k=1}{\sum}}A\left(t_{k}\right)\label{eq:area_1_ring_triangles_quads}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Applying the gradient operator to (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:area_1_ring_triangles_quads"
-
-\end_inset
-
-).
-\end_layout
-
-\begin_layout Standard
-\noindent
-
-\size small
-\begin_inset Formula 
-\begin{equation}
-\nabla A\left(v_{i}\right)=\frac{1}{2}\overset{m}{\underset{j=1}{\sum}}\left[\nabla A\left(t_{j1}^{*}\right)+\nabla A\left(t_{j2}^{*}\right)+\nabla A\left(t_{j3}^{*}\right)\right]+\overset{r}{\underset{k=1}{\sum}}\nabla A\left(t_{k}\right)\label{eq:EqGrad}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-According to (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:eq_gradient_voronoi_area"
-
-\end_inset
-
-), we have.
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $\nabla A\left(t_{j1}^{*}\right)=\frac{\cot\theta_{j3}\left(v_{j}-v_{i}\right)+\cot\theta_{j2}\left(v_{j}^{\prime}-v_{i}\right)}{2}$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $\nabla A\left(t_{j2}^{*}\right)=\frac{\cot\theta_{j5}\left(v_{j}^{\prime}-v_{i}\right)+\cot\theta_{j4}\left(v_{j+1}-v_{i}\right)}{2}$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $\nabla A\left(t_{j3}^{*}\right)=\frac{\cot\theta_{j6}\left(v_{j}-v_{i}\right)+\cot\theta_{j1}\left(v_{j+1}-v_{i}\right)}{2}$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $\nabla A\left(t_{k}\right)=\frac{\cot\alpha_{k}\left(v_{k}-v_{i}\right)+\cot\beta_{k+1}\left(v_{k+1}-v_{i}\right)}{2}$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Standard
-Triangle and quad configurations of the 1-ring neighborhood faces, adjacent
- to 
-\begin_inset Formula $v_{i}$
-\end_inset
-
-, can be simplified to five cases, as shown in figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:LBO-basic-5-TQ"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename resources/figs/beltrami.pdf
-	lyxscale 50
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:LBO-basic-5-TQ"
-
-\end_inset
-
-The 5 basic triangle-quad cases with common vertex 
-\begin_inset Formula $V_{i}$
-\end_inset
-
- and the relationship with 
-\begin_inset Formula $V_{j}$
-\end_inset
-
- and 
-\begin_inset Formula $V_{j}^{\prime}$
-\end_inset
-
-.
- (a) Two triangles [Desbrun 1999].
- (b) (c) Two quads and one quad [Xiong 2011].
- (d) (e) Triangles and quads (TQLBO) our contribution.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-According to equation (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:discrete_mean_curvature_normal"
-
-\end_inset
-
-), (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:def_LBO"
-
-\end_inset
-
-), and five simple cases defined in figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:LBO-basic-5-TQ"
-
-\end_inset
-
- the TQLBO (Triangle-Quad LBO) of 
-\begin_inset Formula $v_{i}$
-\end_inset
-
- is.
-\end_layout
-
-\begin_layout Standard
-\noindent
-\begin_inset Formula 
-\begin{equation}
-\triangle_{S}\left(v_{i}\right)=2\kappa\mathbf{n}=\frac{\nabla A}{A}=\underset{v_{j}\in N_{1}\left(v_{i}\right)}{\frac{1}{2A}\sum}w_{ij}\left(v_{j}-v_{i}\right)
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\noindent
-
-\size small
-where
-\begin_inset Formula 
-\begin{equation}
-w_{ij}=\begin{cases}
-\left(\cot\alpha_{j}+\cot\beta_{j}\right) & \mbox{case }\mathit{a.}\\
-\frac{1}{2}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}+\cot\theta_{j3}+\cot\theta_{j6}\right) & \mbox{case \ensuremath{\mathit{b}}.}\\
-\left(\cot\theta_{j2}+\cot\theta_{j5}\right) & \mbox{case \ensuremath{\mathit{c}}.}\\
-\frac{1}{2}\left(\cot\theta_{j3}+\cot\theta_{j6}\right)+\cot\beta_{j} & \mbox{case \ensuremath{\mathit{d}}.}\\
-\frac{1}{2}\left(\cot\theta_{\left(j-1\right)1}+\cot\theta_{\left(j-1\right)4}\right)+\cot\alpha_{j} & \mbox{case \ensuremath{\mathit{e}}.}
-\end{cases}\label{eq:TQLBO_wij}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-We define a Laplacian operator as a matrix equation
-\end_layout
-
-\begin_layout Standard
-\noindent
-\begin_inset Formula 
-\begin{equation}
-L\left(i,j\right)=\begin{cases}
--\frac{1}{2A_{i}}w_{ij} & \mbox{if }j\in N\left(v_{i}\right)\\
-\frac{1}{2A_{i}}\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij} & \mbox{if }i=j\\
-0 & \mbox{otherwise}
-\end{cases}\label{eq:TQLBO_Simple_Matrix}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Where 
-\begin_inset Formula $L$
-\end_inset
-
- is a 
-\begin_inset Formula $n\times n$
-\end_inset
-
- matrix, 
-\begin_inset Formula $n$
-\end_inset
-
- is the number of vertices of a given mesh 
-\begin_inset Formula $M$
-\end_inset
-
-, 
-\begin_inset Formula $w_{ij}$
-\end_inset
-
- is the TQLBO defined in equation (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:TQLBO_wij"
-
-\end_inset
-
-), 
-\begin_inset Formula $N\left(v_{i}\right)$
-\end_inset
-
- is the 1-ring neighborhood with shared face to 
-\begin_inset Formula $v_{i}$
-\end_inset
-
-, 
-\begin_inset Formula $A_{i}$
-\end_inset
-
- is the ring area around 
-\begin_inset Formula $v_{i}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Normalized version of the TQLBO as a matrix equation
-\end_layout
-
-\begin_layout Standard
-\noindent
-\begin_inset Formula 
-\begin{equation}
-L\left(i,j\right)=\begin{cases}
--\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij}} & \mbox{if }j\in N\left(v_{i}\right)\\
-\delta_{ij} & \mbox{otherwise}
-\end{cases}\label{eq:TQLBO-Normalized_Matrix}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Where 
-\begin_inset Formula $\delta_{ij}$
-\end_inset
-
- being the Kronecker delta function.
-\end_layout
-
-\begin_layout Section
-Mesh Smoothing
+Mesh smoothing based on curvature flow operator in a diffusion equation
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Laplacian-Smooth"
@@ -4974,8 +4459,103 @@ name "sub:Laplacian-Smooth"
 \end_layout
 
 \begin_layout Standard
-Computer objects, reconstructed from the real world, are usually noisy.
- A common way to attenueate noise in a polygonal mesh is through a diffusion
+This work was accepted and completed for the software Blender 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blender"
+
+\end_inset
+
+ that is an open source 3D application for modeling, animation, rendering,
+ compositing, video editing and game creation.
+ In the Google Summer of Code 2012 program which was administered for Google
+ Inc.
+\end_layout
+
+\begin_layout Section
+Synopsis
+\end_layout
+
+\begin_layout Standard
+Computer graphics objects reconstructed from real world contain undesirable
+ noise.
+ A Mesh smoothing removes undesirable noise while still preserving desirable
+ geometric and shape of the original model.
+\end_layout
+
+\begin_layout Standard
+This project improving the mesh smoothing tools in blender, based on curvature
+ flow operator in a diffusion equation.
+\end_layout
+
+\begin_layout Standard
+This project allow to work with hybrid meshes composed by triangles and
+ quads based on Laplacian operator proposed by Pinzon and Romero 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pinzon2013"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Benefits to Blender
+\end_layout
+
+\begin_layout Standard
+This project proposes a new and robust mesh smoothing tool for blender user
+ that require improves the appearance of surfaces models.
+\end_layout
+
+\begin_layout Standard
+New methods to scan computer graphics objects using the Kinect ZCam within
+ Blender, need to remove the noise present at the time of capture.
+\end_layout
+
+\begin_layout Standard
+This mesh smoothing method produce higher quality results without shrinkage.
+ The smoothing tool current collapses the mesh after several iterations.
+\end_layout
+
+\begin_layout Standard
+This mesh smoothing method permit uses a hard and soft constraints on the
+ positions of the points in the mesh to maintain control over the shape.
+\end_layout
+
+\begin_layout Standard
+This mesh smoothing method can help to remove noise generated during the
+ sculpting, without removal the desired details of the model.
+\end_layout
+
+\begin_layout Section
+Deliverables 
+\end_layout
+
+\begin_layout Standard
+A new and robust mesh smoothing tool for Blender.
+ 
+\end_layout
+
+\begin_layout Standard
+Some pages of documentation to be included in the manual.
+\end_layout
+
+\begin_layout Standard
+A technical document for developers to improve the method in the future.
+\end_layout
+
+\begin_layout Standard
+A tutorial explaining the use of the tool.
+\end_layout
+
+\begin_layout Section
+Mesh Smoothing
+\end_layout
+
+\begin_layout Standard
+A common way to attenueate noise in a polygonal mesh is through a diffusion
  process 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -5011,14 +4591,7 @@ g a desirable geometry as well as the original shape.
 Where L is the Laplacian matrix defined in equation 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:TQLBO-Normalized_Matrix"
-
-\end_inset
-
- for meshes with regular sampling, and equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:TQLBO_Simple_Matrix"
+reference "eq:LaplacianMatrixForSmoothing"
 
 \end_inset
 
@@ -5047,7 +4620,7 @@ reference "eq:diffusion_process"
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\left(I-\lambda\partial tL\right)V^{n+1}=V^{n}\label{eq:LaplacianSmoothLinearEquationSystem}
+\left(I-\lambda dtL\right)V^{n+1}=V^{n}\label{eq:LaplacianSmoothLinearEquationSystem}
 \end{equation}
 
 \end_inset
@@ -5055,15 +4628,165 @@ reference "eq:diffusion_process"
 
 \end_layout
 
-\begin_layout Section
-The Shape Inflation
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:Curvature-Enhancing"
+\begin_layout Standard
+To permit the user to define the region of interest where the laplacian
+ smooth to be applied, we add a diagonal matrix 
+\begin_inset Formula $W_{p}$
+\end_inset
+
+ to equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:LaplacianSmoothLinearEquationSystem"
+
+\end_inset
+
+ where the every element in the diagonal correspond to the weight for every
+ vertex.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\left(I-\lambda dtW_{p}L\right)V^{n+1}=V^{n}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For non-close meshes or meshes with holes is not posibble to compute the
+ curvature flow.
+ For this reason the system smooths the edges differently within the diffusion
+ process.
+ The bondaries are treated as a one-dimensional curve.
+ In a curve the Laplacian is defined as the weighted difference between
+ the vertex and the two immediate neighbors, thus ensures the curve maintained
+ its original form as much as possible.
+ We define a Laplacian for mesh smoothing as a matrix equation.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula 
+\begin{equation}
+L(i,j)=\begin{cases}
+-\frac{1}{2A_{i}}w_{ij} & \mbox{if }j\in N(v_{i})\wedge v_{i}\notin\mbox{Boundary}\\
+\frac{1}{2A_{i}}\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij} & \mbox{if }i=j\wedge v_{i}\notin\mbox{Boundary}\\
+-e_{ij} & \mbox{if }j\in N(v_{i})\wedge\left\{ v_{i},v_{j}\right\} \in\mbox{Boundary}\\
+\frac{2}{E_{i}}\underset{j\in N\left(v_{i}\right)}{\sum}e_{ij} & \mbox{if }i=j\wedge\left\{ v_{i},v_{j}\right\} \in\mbox{Boundary}\\
+0 & \mbox{otherwise}
+\end{cases}\label{eq:LaplacianMatrixForSmoothing}
+\end{equation}
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $L$
+\end_inset
+
+ is a 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ matrix, 
+\begin_inset Formula $n$
+\end_inset
+
+ is the number of vertices of a given mesh 
+\begin_inset Formula $M$
+\end_inset
+
+, 
+\begin_inset Formula $w_{ij}$
+\end_inset
+
+ is the TQLBO defined in equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:TQLBO_wij"
+
+\end_inset
+
+), 
+\begin_inset Formula $N\left(v_{i}\right)$
+\end_inset
+
+ is the 1-ring neighborhood with shared face to 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $e_{ij}=\frac{1}{\left\Vert v_{i}-v_{j}\right\Vert }$
+\end_inset
+
+ is the inverse length of the edge between vertices 
+\begin_inset Formula $\left\{ v_{i},v_{j}\right\} $
+\end_inset
+
+, 
+\begin_inset Formula $E_{i}=\underset{j\in N\left(v_{i}\right)}{\sum}e_{ij}$
+\end_inset
+
+.
+ 
+\begin_inset Formula $A_{i}$
+\end_inset
+
+ is the ring area around 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Results and Conclusions
+\end_layout
+
+\begin_layout Standard
+The user interface developed to this tool for the software Blender can be
+ seen in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Interface-LaplacianSmoothing"
+
+\end_inset
+
+.
+ This tool allows to set the parameters of 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ for interior points and boundaries.
+ Allows to configure soft constraints using weights defined by vertices
+ in 
+\begin_inset Quotes eld
+\end_inset
+
+Vertex Group
+\begin_inset Quotes erd
+\end_inset
+
+, and allows you to set strong constraints applying the algorithm independently
+ of axis X, Y or Z.
 \end_layout
 
 \begin_layout Standard
@@ -5074,9 +4797,99 @@ sideways false
 status collapsed
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
-	filename resources/figs/teaser_cup.pdf
-	lyxscale 10
+	filename resources/figs/Apinzonf_Diagram_Modifier_Panel.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Interface-LaplacianSmoothing"
+
+\end_inset
+
+Panel inside blender user interface of the Laplacian Smooth modifier tool.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The tool developed can set the parameter 
+\begin_inset Formula $\lambda dt$
+\end_inset
+
+ of equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:LaplacianSmoothLinearEquationSystem"
+
+\end_inset
+
+.
+ Using a small Lambda factor (
+\begin_inset Formula $\lambda<1.0$
+\end_inset
+
+), you can remove noise from the shape without affecting desirable geometry
+ (see figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Factor-LaplacianSmoothing"
+
+\end_inset
+
+.b).
+ Using a large Lambda factor (
+\begin_inset Formula $\lambda>1.0$
+\end_inset
+
+) you get smoothed versions of the shape at the cost of losing fine geometry
+ details (see figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Factor-LaplacianSmoothing"
+
+\end_inset
+
+.c and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Factor-LaplacianSmoothing"
+
+\end_inset
+
+.d).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/LaplacianSmoothingFactor.pdf
 	width 100text%
 
 \end_inset
@@ -5090,62 +4903,38 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Subdivision-Cups"
+name "fig:Factor-LaplacianSmoothing"
 
 \end_inset
 
- Family of cups generated with our method, from a coarse model (a), (c):
- the shape, obtained from the Catmull-Clark Subdivision (b), (d), is inflated.
- Soft constraints, over the coarse model, is drawn in red and blue (c).
-\end_layout
-
+Noise attenuation in face model with Laplacian smoothing tool using only
+ one iteration and changing 
+\begin_inset Formula $\lambda$
 \end_inset
 
-
-\end_layout
-
+.
+ (a) Original Model.
+ (b) Smoothing 
+\begin_inset Formula $\lambda=0.5$
 \end_inset
 
+.
+ (c) Smoothing 
+\begin_inset Formula $\lambda=2.5$
+\end_inset
 
-\end_layout
+ (d) Smoothing with 
+\begin_inset Formula $\lambda=5.0$
+\end_inset
 
-\begin_layout Standard
-This method exaggerates a shape using a Laplacian smoothing operator in
- the reverse direction, i.e., the new shape is a modified version in which
- those areas with larger curvature are magnified.
- The operator amounts to a generator of a set of models which conserves
- the basic silhouette of the original shape.
- In addition, the presented approach can be easily mixed with traditional
- or uniform subdivision of surfaces.
+.
  
 \end_layout
 
-\begin_layout Standard
-The shape is inflated by using the reverse direction of the curvature flow,
- moving the vertices towards those mesh portions with larger curvature.
- A standard diffusion process is applied:
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $\frac{\partial V}{\partial t}=\lambda L\left(V\right)$
 \end_inset
 
- 
-\end_layout
 
-\begin_layout Standard
-To solve this equation, implicit integration is used as well as a normalized
- version of TQLBO matrix.
 \end_layout
-
-\begin_layout Standard
-\noindent
-\begin_inset Formula 
-\begin{equation}
-\left(I-\left|\lambda dt\right|W_{p}L\right)V^{\prime}=V^{t}\label{eq:Lineal_System_with_wp}
-\end{equation}
 
 \end_inset
 
@@ -5153,262 +4942,205 @@ To solve this equation, implicit integration is used as well as a normalized
 \end_layout
 
 \begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $V^{t+1}=V^{t}+\mbox{sign}\left(\lambda\right)\left(V^{\prime}-V^{t}\right)$
+The user can smooth the boundaries configuring the parameter 
+\begin_inset Quotes eld
 \end_inset
 
- 
-\end_layout
 
-\begin_layout Standard
-The vertices 
-\begin_inset Formula $V^{t+1}$
-\end_inset
-
- are inflated, along their reverse curvature direction, by solving the linear
- system: 
-\begin_inset Formula $Ax=b$
-\end_inset
-
-, where 
-\begin_inset Formula $A=I-\left|\lambda dt\right|W_{p}L$
-\end_inset
-
-,
-\begin_inset space ~
-\end_inset
-
- 
-\begin_inset Formula $L$
-\end_inset
-
- is the Normalized TQLBO defined in the equation (
+\shape slanted
+Border
+\shape default
+", seen in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:TQLBO-Normalized_Matrix"
-
-\end_inset
-
-), 
-\begin_inset Formula $x=V^{\prime}$
-\end_inset
-
- are the smoothing vertices, 
-\begin_inset Formula $b=V^{t}$
-\end_inset
-
- are the actual vertices positions, 
-\begin_inset Formula $W_{p}$
-\end_inset
-
- is a diagonal matrix with vertex weights, and 
-\begin_inset Formula $\lambda dt$
-\end_inset
-
- is the inflate factor that supports negative and positive values: negative
- for inflation and positive for smoothing.
-\end_layout
-
-\begin_layout Standard
-The method was devised to use with weighted vertex groups, which specify
- the final shape inflation of the solution, meaning 
-\begin_inset Formula $0$
-\end_inset
-
- as no changes and 1 when a maximal change is applied.
- The weights modify the influence zones, where the Laplacian is applied,
- as shown in equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:Lineal_System_with_wp"
+reference "fig:Interface-LaplacianSmoothing"
 
 \end_inset
 
 .
- Interestingly, the generated family of shapes may change substantially
- with the weights of specific control points.
+ Boundaries are treated differently.
+ There is no way to calculate the curvature flow on them.
+ For this reason the Lambda factor 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Formula $Border$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+ just smooths them.
+ The change of this parameter and the results seen in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Border-LaplacianSmoothing"
+
+\end_inset
+
+, in the figure you can see how the boundary inside the red circle is smoothing.
 \end_layout
 
 \begin_layout Standard
-The curvature cannot be calculted at the boundary of the meshes that are
- not closed, for that reason we use the scale-dependent operator proposed
- by Desbrun et al.
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Desbrun1999"
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
 
-\end_inset
-
-, the inflation factor for boundary is represented by 
-\begin_inset Formula $\lambda_{e}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-The model volume increases as the lambda is larger and negative, this can
- be counteracted with a simple volume preservation.
- However, the mesh may suffer large displacements when 
-\begin_inset Formula $\lambda<-1.0$
-\end_inset
-
- or after multiple iterations.
- A simple volume conservation algorithm is: If 
-\begin_inset Formula $v_{i}^{t+1}$
-\end_inset
-
- is a mesh vertex of 
-\begin_inset Formula $V^{t+1}$
-\end_inset
-
- in the 
-\begin_inset Formula $t+1$
-\end_inset
-
- iteration, we define 
-\begin_inset Formula $\overline{v}$
-\end_inset
-
- as:
-\end_layout
-
-\begin_layout Standard
+\begin_layout Plain Layout
 \noindent
 \align center
-\begin_inset Formula $\overline{v}=\frac{1}{n}\underset{v_{i}\in V}{\sum}v_{i}$
+\begin_inset Graphics
+	filename resources/figs/LaplacianSmoothingBoundary.pdf
+	width 100text%
+
 \end_inset
 
-, 
+
 \end_layout
 
-\begin_layout Standard
-\begin_inset Formula $\overline{v}$
-\end_inset
+\begin_layout Plain Layout
+\begin_inset Caption
 
- is the mesh center, 
-\begin_inset Formula $vol_{ini}$
-\end_inset
-
- is an initial volume, and 
-\begin_inset Formula $vol_{t+1}$
-\end_inset
-
- is the volume at the iteration 
-\begin_inset Formula $t+1$
-\end_inset
-
-, then the scale factor.
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $\beta=\left(\frac{vol_{ini}}{vol_{t+1}}\right)^{\frac{1}{3}}$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Standard
-allows to scale the vertices to:
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $v_{i\, new}^{t+1}=\beta\left(v_{i}^{t+1}-\overline{v}\right)+\overline{v}$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Standard
-The shape inflation use a negative curvature flow that is an unstable process
- when performing many iterations, however, our method uses less than 3 iteration
-s to get good results, and with 3 iterations or less the method behaves
- stable.
-\end_layout
-
-\begin_layout Section
-Sculpting
+\begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "sub:Sculpting"
+name "fig:Border-LaplacianSmoothing"
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-A new sculpting brush is herein proposed and aims to inflate the shape,
- magnifying the shape curvatures of a polygon mesh in real time.
- This brush works properly with the stroke method 
-\shape slanted
-Drag Dot
-\shape default
-, allowing to pre-visualize the model changes before the mouse is released.
- Also, it allows to move the mouse along the model to match the shape zone
- which is supposed to be inflated.
-\end_layout
-
-\begin_layout Standard
-Brushes that perform a similar inflation can introduce mesh distortions
- or produce mesh self-intersections, provided these brushes only move the
- vertices along the normal without any global information.
- In contrast, the present method searches for a proper inflation while preservin
-g the global curvature, retaining the original shape and main model features.
- In addition, this method simplifies the work required for the inflation
- since it needs not different brushes for inflating, softening or styling.
- The inflated brush can make all these operation in a single step.
- Real-time brushes require the Laplacian matrix is constructed with the
- vertices that are within the sphere radius defined by the user, reducing
- the matrix to be processed, the center of this sphere depending on the
- place where the user clicks on the canvas and the three-dimensional mesh
- placed where the click is projected.
- Special handling is required for the boundary vertices with neighbors that
- are not within the brush radius: these vertices are marked as boundary
- and the curvature is not there calculated, but they must be included in
- the matrix so that every vertex has their corresponding neighbors within
- the selection.
- The sculpting Laplacian matrix reads as.
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $L\left(i,j\right)=\begin{cases}
--\frac{w_{ij}}{\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij}} & \mbox{if }\left\Vert v_{i}-u\right\Vert <r\wedge\left\Vert v_{j}-u\right\Vert <r\\
-0 & \mbox{if }\left\Vert v_{i}-u\right\Vert <r\wedge\left\Vert v_{j}-u\right\Vert \geq r\\
-\delta_{ij} & \mbox{otherwise}
-\end{cases}$
+ Smoothing boundary changing 
+\begin_inset Formula $\lambda_{Border}$
 \end_inset
 
- 
-\end_layout
-
-\begin_layout Standard
-Where 
-\begin_inset Formula $v_{j}\in N\left(v_{i}\right)$
-\end_inset
-
-, 
-\begin_inset Formula $u$
-\end_inset
-
- is the sphere center of radius 
-\begin_inset Formula $r$
+ factor.
+ (a) Original Model.
+ (b) Smoothing 
+\begin_inset Formula $\lambda_{Border}=1.0$
 \end_inset
 
 .
- The matrices should remove rows and columns of vertices that are not within
- the radius.
+ (c) Smoothing 
+\begin_inset Formula $\lambda_{Border}=2.5$
+\end_inset
+
+ (d) Smoothing with 
+\begin_inset Formula $\lambda_{Border}=10.0$
+\end_inset
+
+.
+ 
 \end_layout
 
-\begin_layout Section
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The tool allows the user to add soft constraints using weights for each
+ vertex, this allows to define regions of interest where you want to apply
+ the algorithm in the figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:VertexGroup-LaplacianSmoothing"
+
+\end_inset
+
+.c defined in red region where you want it applied the algorithm the results
+ are shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:VertexGroup-LaplacianSmoothing"
+
+\end_inset
+
+.d where only were smoothed vertices in the red region.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/LaplacianSmoothingVertecGroup.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:VertexGroup-LaplacianSmoothing"
+
+\end_inset
+
+Use of weights per vertex to constrain the effect of mesh smoothing.
+ (a) Original Model.
+ (b) Smoothing with 
+\begin_inset Formula $\lambda=1.5$
+\end_inset
+
+ (c) red vertices 
+\begin_inset Formula $weight=1.0$
+\end_inset
+
+, blue vertices 
+\begin_inset Formula $weight=0.0$
+\end_inset
+
+.
+ (d) Smoothing with 
+\begin_inset Formula $\lambda=2.5$
+\end_inset
+
+.
+ Red vertices were only smoothing.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Module was developed as a tool for Blender software to remove noise in the
+ most efficient way as they had been doing.
+\end_layout
+
+\begin_layout Standard
+The methods proposed in the art to remove noise, they could only be applied
+ if the mesh was composed only by triangles, with the developed tool artists
+ can now remove the noise of their models composed of triangles and quadrangles.
+\end_layout
+
+\begin_layout Chapter
 Laplacian Deform
 \begin_inset CommandInset label
 LatexCommand label
@@ -5631,140 +5363,6 @@ reference "eq:DifferentialCoordinate"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Section
-Subdivision surfaces
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:Subdivision-surfaces"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The Catmull-Clark subdivision transformation is used to smooth a surface,
- as the limit of a sequence of subdivision steps 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Stam1998"
-
-\end_inset
-
-.
- This process is governed by a B-spline curve 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Loop1987"
-
-\end_inset
-
-, performing a recursive subdivision transformation that refines the model
- into a linear interpolation that approximates a smooth surface.
- The model smoothness is automatically guaranteed 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "DeRose1998"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename resources/figs/cruz_lambda4.pdf
-	lyxscale 10
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Catmull_Clark"
-
-\end_inset
-
-(a) Original Model, (b) Model with Catmull-Clark Subdivision.
- Models with Laplacian smoothing: (c) and (d).
- Models with a first Laplacian filtering 
-\begin_inset Formula $\lambda=60.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda_{e}=12.0$
-\end_inset
-
- and before applying shape inflation: (e) and (f).
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Catmull-Clark subdivision surface methods generate smooth and continuous
- models from a coarse model and produce quick results because of the simplicity
- of implementation.
- Nevertheless, changes to the global curvature are hardly implantable.
- The Catmull-Clark subdivision surfaces together with shape inflation can
- easily generate families of shapes by changing a single parameter, allowing
- to handle a model with very few vertices.
- In practice, this would allow an artist to choose a model from a similar
- set of options that would meet his/her needs without having to change each
- of the control vertices.
- Likewise, the presented method allows the use of vertex weight paint over
- the control points.
- The weights can be applied to a coarse model, followed by a Catmull-Clark
- subdivision where weights are interpolated, producing weights with smooth
- changes in the influence zones, as shown in figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
-.c.
-\end_layout
-
-\begin_layout Standard
-In equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:Lineal_System_with_wp"
-
-\end_inset
-
-, 
-\begin_inset Formula $W_{p}$
-\end_inset
-
- is a diagonal matrix with weights corresponding to each vertex.
- Weights at each vertex produce a different solution so that the matrix
- must be placed in the diffusion equation since families that are generated
- may change substantially with weighted of specific control points.
 \end_layout
 
 \begin_layout Section
