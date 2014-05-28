@@ -4551,6 +4551,89 @@ A tutorial explaining the use of the tool.
 \end_layout
 
 \begin_layout Section
+Project Details 
+\end_layout
+
+\begin_layout Standard
+The project would divide into four parts:
+\end_layout
+
+\begin_layout Standard
+To implement mesh smoothing algorithm based on curvature flow operator in
+ a diffusion equation for blender geometric structures.
+\end_layout
+
+\begin_layout Enumerate
+Initialize data and necessary structures.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Compute the Laplacian Matrix.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Define the sparse linear system.
+\end_layout
+
+\begin_layout Enumerate
+Solving the sparse linear system, we can use a preconditioned bi-conjugated
+ gradient numerical library.
+ 
+\end_layout
+
+\begin_layout Standard
+Integrate or use numerical library present in Blender to solve sparse linear
+ system
+\end_layout
+
+\begin_layout Standard
+Generation of the documentation and tutorials.
+\end_layout
+
+\begin_layout Section
+Project Schedule
+\end_layout
+
+\begin_layout Itemize
+3 weeks: Understanding the Blender source code and identify the key points
+ for the project.
+\end_layout
+
+\begin_layout Itemize
+1 week: Define the data structures necessary to work with the architecture
+ of blender.
+\end_layout
+
+\begin_layout Itemize
+1 week: Implement methods for the initial configuration needed for the smoothing
+ algorithm.
+ Implement the method that calculates the Laplacian matrix.
+\end_layout
+
+\begin_layout Itemize
+2 week: Integrate or use numerical library.
+\end_layout
+
+\begin_layout Itemize
+2 week: Define the sparse linear system and implement the method to solve
+ sparse linear system.
+\end_layout
+
+\begin_layout Itemize
+3 weeks: Define and implement graphical user integration.
+\end_layout
+
+\begin_layout Itemize
+2 weeks: Testing the tool.
+\end_layout
+
+\begin_layout Itemize
+3 weeks: Generation of the documentation and tutorials
+\end_layout
+
+\begin_layout Section
 Mesh Smoothing
 \end_layout
 
@@ -5141,7 +5224,7 @@ The methods proposed in the art to remove noise, they could only be applied
 \end_layout
 
 \begin_layout Chapter
-Laplacian Deform
+Mesh Editing with Laplacian Deform
 \begin_inset CommandInset label
 LatexCommand label
 name "sub:Laplacian-Deform"
@@ -5149,6 +5232,176 @@ name "sub:Laplacian-Deform"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This work was accepted and completed for the software Blender 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blender"
+
+\end_inset
+
+ that is an open source 3D application for modeling, animation, rendering,
+ compositing, video editing and game creation.
+ In the Google Summer of Code 2013 program which was administered for Google
+ Inc.
+\end_layout
+
+\begin_layout Section
+Synopsis
+\end_layout
+
+\begin_layout Standard
+The mesh editing is generally done with affine transformations, Blender3D
+ offers some tools to transform the vertices as “proportional editing object
+ mode” with which the transformation of some vertices is interpolated to
+ the other vertices connected with the use of simple distance functions.
+\end_layout
+
+\begin_layout Standard
+This project proposes to implement a method for mesh editing based on sketching
+ lines defines by user and preserving the geometric details of the surface.
+\end_layout
+
+\begin_layout Standard
+This method captures the geometric details using a differential coordinates
+ representations.
+ The differential coordinates captures the local geometric information (curvatur
+e and direction) of the vertex based on its neighbors.
+ This method allows you to retrieve the best possible original model after
+ changing the positions of some vertices using the differential coordinates
+ of the original model.
+\end_layout
+
+\begin_layout Section
+Benefits to Blender
+\end_layout
+
+\begin_layout Standard
+This project proposes a new tool for blender user that requires preserve
+ the geometric details of the surface during a modeling, transformation,
+ definition of the shape keys of the mesh vertices.
+\end_layout
+
+\begin_layout Standard
+The method will allow novice users to edit any polygon mesh preserving the
+ surface details.
+\end_layout
+
+\begin_layout Standard
+This method allows the user to define new shape keys in a most fast and
+ intuitive way.
+\end_layout
+
+\begin_layout Section
+Deliverables
+\end_layout
+
+\begin_layout Itemize
+A new mesh editing tool for Blender.
+ 
+\end_layout
+
+\begin_layout Itemize
+Some pages of documentation to be included in the manual 
+\end_layout
+
+\begin_layout Itemize
+A technical document for developers to improve the method in the future.
+ 
+\end_layout
+
+\begin_layout Itemize
+A tutorial explaining the use of the tool.
+\end_layout
+
+\begin_layout Section
+Project Details
+\end_layout
+
+\begin_layout Standard
+The project would divide into several parts:
+\end_layout
+
+\begin_layout Enumerate
+Calculate the differential coordinates.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Store the fixed vertices (Hard constraints).
+ 
+\end_layout
+
+\begin_layout Enumerate
+Store positions of the edited vertices.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Store the more representative vertex for retrieve rotation of every differential
+ coordinate.
+\end_layout
+
+\begin_layout Enumerate
+Solve the initial solution – in least-squares sense.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Rotate the differential coordinates with base on initial solution and more
+ representative vertex.
+\end_layout
+
+\begin_layout Enumerate
+Reconstruct the surface – in least-squares sense.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Generation of the documentation and tutorials.
+\end_layout
+
+\begin_layout Section
+Project Schedule
+\end_layout
+
+\begin_layout Itemize
+2 Weeks: Calculate the differential coordinates.
+\end_layout
+
+\begin_layout Itemize
+2 Weeks: Store the fixed vertexes (Hard constraints).
+\end_layout
+
+\begin_layout Itemize
+2 Weeks: Store positions of the edited vertexes.
+\end_layout
+
+\begin_layout Itemize
+2 Weeks: Compute initial solution.
+\end_layout
+
+\begin_layout Itemize
+2 Weeks: Rotate differential coordinates.
+\end_layout
+
+\begin_layout Itemize
+2 Weeks: Reconstruct the surface – in least-squares sense.
+ 
+\end_layout
+
+\begin_layout Itemize
+1 Weeks: Testing the tool and Define and implement graphical user integration.
+\end_layout
+
+\begin_layout Itemize
+2 Weeks: Generation of the documentation and tutorials.
+\end_layout
+
+\begin_layout Section
+Laplacian Deform
 \end_layout
 
 \begin_layout Standard
@@ -5162,7 +5415,7 @@ The Laplacian deform allows to pose a mesh while preserving geometric details
 \end_layout
 
 \begin_layout Standard
-This thesis adapt the method proposed by Sorkine 
+This work adapt the method proposed by Sorkine 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sorkine2004"
@@ -5191,6 +5444,7 @@ reference "fig:DifferentialCoor"
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
@@ -5282,7 +5536,7 @@ Where
  defined in equation 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:TQLBO_wij"
+reference "PAPER:eq:TQLBO_wij"
 
 \end_inset
 
@@ -5324,7 +5578,7 @@ Where
  was defined in equation 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:TQLBO_Simple_Matrix"
+reference "PAPER:eq:TQLBO_Simple_Matrix"
 
 \end_inset
 
@@ -5366,1554 +5620,13 @@ reference "eq:DifferentialCoordinate"
 \end_layout
 
 \begin_layout Section
-Skeleton Extraction
-\end_layout
-
-\begin_layout Standard
-Skelton extraction reduces the dimensionality and represents a three-dimensional
- object as a uni-dimensional structure 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Cornea2007"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-The skeleton extraction use the natural shrink produced by the laplacian
- smoothing 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Meyer2003"
-
-\end_inset
-
-, to contratc iteratively the mesh until the volume inside the surface is
- near to zero (see figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:MeshContracted"
-
-\end_inset
-
-).
- The method stretch the shrink mesh to warranty that object preservers the
- best at posibble the original topology with the use of attraction constraint
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Au2008"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename resources/figs/contraccion.png
-	lyxscale 30
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:MeshContracted"
-
-\end_inset
-
-From left to right iterative mesh contraction.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The laplacian smooth proccess move the vertices in the direction of the
- Laplacian, if cotangent laplacian operator is used, the vertices move in
- the direction of minimal surface 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Pinkall1993"
-
-\end_inset
-
- following the curvature flow of the mesh surface.
-\end_layout
-
-\begin_layout Standard
-In the work of Au 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Au2008"
-
-\end_inset
-
- is proposed the next system of equation to iteratively contratc the mesh
- until a skeleton.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-\left[\begin{array}{c}
-W_{L}L\\
-W_{H}
-\end{array}\right]X_{t+1}=\left[\begin{array}{c}
-0\\
-W_{H}X_{t}
-\end{array}\right]\label{eq:SkeletonExtraction}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $L$
-\end_inset
-
- is the Laplacian matrix describe in equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:TQLBO_Simple_Matrix"
-
-\end_inset
-
-, 
-\begin_inset Formula $W_{L}$
-\end_inset
-
- is the factor for smoothing, 
-\begin_inset Formula $W_{H}$
-\end_inset
-
- is the factor for attraction constraint.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $W_{L}$
-\end_inset
-
- and 
-\begin_inset Formula $W_{H}$
-\end_inset
-
- are changing in every iteration.
- The contraction and smoothing constraint 
-\begin_inset Formula $W_{L}^{t+1}=S_{L}W_{L}^{t}$
-\end_inset
-
- with 
-\begin_inset Formula $S_{L}=2.0$
-\end_inset
-
-.
- The attraction constraint 
-\begin_inset Formula $W_{H,i}^{t+1}=W_{H,i}^{0}\sqrt{\frac{A_{i}^{0}}{A_{i}^{t}}}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $A_{i}^{t}$
-\end_inset
-
- y 
-\begin_inset Formula $A_{i}^{0}$
-\end_inset
-
- are the current area and initial aerea of the ring surrounding 
-\begin_inset Formula $x_{i}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-In this thesis an additional constraint is proposed which seeks the vertices
- and the skeleton does not shrink, to eliminate the need to adjust the final
- skeleton taking each skeleton node and move to the center of your local
- mesh region.
-\end_layout
-
-\begin_layout Standard
-The basic idea is move the vertices along of the normal line estimated on
- every vertex based on the avergage of the faces normals.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename resources/figs/LineConstraintSkeleton.pdf
-	lyxscale 10
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:LineConstraint"
-
-\end_inset
-
-Left: The vertex 
-\begin_inset Formula $x_{i}$
-\end_inset
-
- move along line constraint.
- Right: the distance of vertex 
-\begin_inset Formula $x_{i}$
-\end_inset
-
- to plane 1 and plane 2 when change the position in every iteration.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-This line can be see as intersection of two planes (see figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:LineConstraint"
-
-\end_inset
-
-) created with the information of the vertex 
-\begin_inset Formula $x_{i}$
-\end_inset
-
-, the normal 
-\begin_inset Formula $\overrightarrow{\mathbf{n}_{i}}$
-\end_inset
-
- and neighboors 
-\begin_inset Formula $x_{j}$
-\end_inset
-
- of 
-\begin_inset Formula $x_{i}$
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-The equation of the plane.
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $a\mathbf{x}+b_{0}\mathbf{y}+c_{0}\mathbf{z}+d_{0}=0$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-There is varios methods to build a equation of the plane based on three
- non-collinear points, we choose this three points based on vertex 
-\begin_inset Formula $x_{i}$
-\end_inset
-
-, the normal 
-\begin_inset Formula $\overrightarrow{\mathbf{n}_{i}}$
-\end_inset
-
- and neighboors 
-\begin_inset Formula $x_{j}$
-\end_inset
-
- of 
-\begin_inset Formula $x_{i}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $P_{1}=x_{i}$
-\end_inset
-
-, 
-\begin_inset Formula $P_{2}=x_{j}$
-\end_inset
-
- when 
-\begin_inset Formula $x_{j}\in Neighboors\left(x_{i}\right)$
-\end_inset
-
- and 
-\begin_inset Formula $P_{3}=P_{1}-\overrightarrow{\mathbf{n}_{i}}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-To build a equation plane only need three non-collinear points 
-\begin_inset Formula $\left\{ P_{1},P_{2},P_{3}\right\} $
-\end_inset
-
- and solve the next systems of equations for variables 
-\begin_inset Formula $a,b,c$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $\begin{array}{c}
-ax_{1}+by_{1}+cz_{1}+d=0\\
-ax_{2}+by_{2}+cz_{2}+d=0\\
-ax_{3}+by_{3}+cz_{3}+d=0
-\end{array}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The distance of point 
-\begin_inset Formula $P_{0}=\{x_{0},y_{0},z_{0}\}$
-\end_inset
-
- to a plane 
-\begin_inset Formula $\Pi=a\mathbf{x}+b_{0}\mathbf{y}+c_{0}\mathbf{z}+d_{0}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $\left|\Pi-P_{0}\right|=\frac{\left|ax_{0}+by_{0}+cz_{0}+d\right|}{\sqrt{a^{2}+b^{2}+c^{2}}}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-In the equation above, every point 
-\begin_inset Formula $P_{0}=\{x_{0},y_{0},z_{0}\}$
-\end_inset
-
- that belong to plane made the equation zero.
- If the point 
-\begin_inset Formula $P_{0}$
-\end_inset
-
- is not in the plane the value of the equation of the plane change, and
- the absolute value is increased if 
-\begin_inset Formula $P_{0}$
-\end_inset
-
- is more distant of the plane.
- Let us use this simple relation to build a valid constraint that can be
- put in the form of linear equation 
-\begin_inset Formula $Ax=B$
-\end_inset
-
-.
- Where 
-\begin_inset Formula $A$
-\end_inset
-
- is the matrix with values 
-\begin_inset Formula $\begin{vmatrix}a & b & c\end{vmatrix}$
-\end_inset
-
- the 
-\begin_inset Formula $x$
-\end_inset
-
- value correspond to every vertex in mesh 
-\begin_inset Formula $\{x_{0},y_{0},z_{0}\}$
-\end_inset
-
- and 
-\begin_inset Formula $B$
-\end_inset
-
- correspond to 
-\begin_inset Formula $d$
-\end_inset
-
- value of the plane equation.
- How the linear system presented in equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:SkeletonExtraction"
-
-\end_inset
-
- don't has a unique solution, the system solve it in the least-squares sense.
- With the new constraint the system then try to minimize the distance betwen
- the new vertex positions and the two planes.
- 
-\end_layout
-
-\begin_layout Standard
-The new system of equations proposed
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\begin{equation}
-\left[\begin{array}{c}
-W_{L}L\\
-W_{H}\\
-W_{D}\Pi_{1}\\
-W_{D}\Pi_{2}
-\end{array}\right]X_{t+1}=\left[\begin{array}{c}
-0\\
-W_{H}X_{t}\\
--D_{1}\\
--D_{2}
-\end{array}\right]\label{eq:SkeletonExtractionDistance}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-where 
-\begin_inset Formula $W_{D}$
-\end_inset
-
- is the weigth to new constraints, that forced the vertices to move along
- of the normal line of every vertex.
- 
-\begin_inset Formula $\Pi_{1}$
-\end_inset
-
- and 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
-
-\begin_inset Formula $\Pi_{2}$
-\end_inset
-
- are matrix that contains 
-\begin_inset Formula $a,b,c$
-\end_inset
-
- values of the equation of the plane for every vertex.
- 
-\begin_inset Formula $D_{1}$
-\end_inset
-
- and 
-\begin_inset Formula $D_{2}$
-\end_inset
-
- are the vector with 
-\begin_inset Formula $d$
-\end_inset
-
- values of the equations of the planes for every vertex.
-\end_layout
-
-\begin_layout Chapter
-Results
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Results"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-This chapter show the results of the Laplace Beltrami operator for hybrid
- quad/triangle meshes with several example models (see figures 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Spectrum"
-
-\end_inset
-
-, 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
-, 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Catmull_Clark"
-
-\end_inset
-
-, 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:TQLBO_test"
-
-\end_inset
-
-, 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:camello_enhanced"
-
-\end_inset
-
-, 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Sculpt_Brush"
-
-\end_inset
-
-, 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Performance-sculpt"
-
-\end_inset
-
-, 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:(a)Monkey"
-
-\end_inset
-
-, 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Animated_Camell"
-
-\end_inset
-
-).
- It first show a comparisson of the Laplacian Operator in meshes composed
- by triangles, by quads and hybrid meshes composed by triangles/quads.
- Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Customizing-Curvature-by"
-
-\end_inset
-
- show the use of TQLBO in applications of Shape Inflation and Subdivision
- Surfaces on normal meshes and meshes change with isometric transformations.
- It Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Shape-Inflation-Brush"
-
-\end_inset
-
- show a novel shape inflation brush for sculpting systems that works in
- real time.
- It Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Posing-Meshes-with"
-
-\end_inset
-
- show mesh deformations and posing applications using differential coordinates
- defined with the TQLBO.
- It Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Laplace-Operator-and"
-
-\end_inset
-
- discusses the differences betwen common version and normalized version
- of the TQLBO.
- It Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Performance-Testing-of"
-
-\end_inset
-
- describe a performance comparison of differents numericals solvers used
- to solve a Laplacian linear equation system.
- Finally discusses some especific technical aspect about the implementation
- of the TQLBO on several computer systems at Section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Conclusion-and-future"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:TQLBO_test"
-
-\end_inset
-
- shows the results when applying the Laplace Beltrami Operator TQLBO of
- equation (
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:TQLBO_Simple_Matrix"
-
-\end_inset
-
-) in a model with a simple subdivision.
- In column (c) the Laplacian smoothing was applied to a model consisting
- of only quads.
- In column (d) the model was converted to triangles and then the Laplacian
- smoothing was applied.
- In column (e) the model was randomly converted from some quads into triangles
- and then the Laplacian smoothing is applied, showing similar results to
- those meshes composed only of triangles or quads.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename resources/figs/test_triangles_quads.pdf
-	lyxscale 10
-	height 50theight%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:TQLBO_test"
-
-\end_inset
-
-(a) Original Model.
- (b) Simple subdivision.
- (c), (d) (e) Laplacian smoothing with 
-\begin_inset Formula $\lambda=7$
-\end_inset
-
- and 2 iterations: (c) for triangles, (d) for quads, (e) for triangles and
- quads random chosen.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Customizing Curvature by Shape Inflation.
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Customizing-Curvature-by"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename resources/figs/spectrum.pdf
-	lyxscale 30
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Spectrum"
-
-\end_inset
-
-A set of 48 successive shapes enhanced, from 
-\begin_inset Formula $\lambda=0.0$
-\end_inset
-
- in blue to 
-\begin_inset Formula $\lambda=-240.0$
-\end_inset
-
- in red, with steps of 
-\begin_inset Formula $-5.0$
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The shape inflation was assessed with TQLBO method on a PC with AMD Quad-Core
- Processor @ 2.40 GHz and 8 GB RAM.
-\end_layout
-
-\begin_layout Standard
-Methods using the Catmull-Clark subdivision surface and the inflation allows
- to modify the curvature that is obtained with the process of subdivision,
- as shown in figure 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
-.
- This test used a coarse cup model, in which the subdivision was performed,
- followed by a Laplacian smoothing and inflation.
- In figure 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
-.c, 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
-.d shows also the use of weight vertex groups over coarse models, with subdivisio
-n surfaces that allowed to generate the weights for the new interpolated
- vertices.
- These new weights were used for the inflation obtained on the 6 cups that
- are at the right of the figure 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "fig:Subdivision-Cups"
-
-\end_inset
-
-.d.
-\end_layout
-
-\begin_layout Standard
-Laplacian smoothing applied with simple subdivision (see figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Catmull_Clark"
-
-\end_inset
-
-.b.) may produce similar results to those obtained with Catmull-Clark (see
- figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Catmull_Clark"
-
-\end_inset
-
-.c.), whose models are in average equal triangles.
- The one obtained with the Laplacian smoothing is shown in panel (c), (d)
- and those curvature modified versions are in (e) and (f).
- As can be observed, different versions of the original sketch can be obtained
- by parameterizing a single model value, a great advantage of the presented
- method.
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:camello_enhanced"
-
-\end_inset
-
- shows the generation of different versions of a camel according to the
- 
-\begin_inset Formula $\lambda$
-\end_inset
-
- parameter.
- In the top row, it is shown the shape inflation results, as 
-\begin_inset Formula $\lambda$
-\end_inset
-
- becomes larger and negative, the resultant shape is observed as if the
- model would inflate the more convex parts, as shown in figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Spectrum"
-
-\end_inset
-
-.
- The larger the 
-\begin_inset Formula $\lambda$
-\end_inset
-
- parameter the larger the model feature inflations.
- The bottom row of figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:camello_enhanced"
-
-\end_inset
-
- shows the use of weighted vertex groups, specifying which areas will be
- inflated.
- On the left, the inflation of the camel legs produces an organic aspect,
- notice that the border is not distorted and smooth.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename resources/figs/camello_enhanced2.pdf
-	lyxscale 10
-	height 50theight%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:camello_enhanced"
-
-\end_inset
-
-Top row: Original camel model in left.
- Shape inflation with 
-\begin_inset Formula $\lambda=-30.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda=-100.0$
-\end_inset
-
-, 
-\begin_inset Formula $\lambda=-400.0$
-\end_inset
-
-.
- Bottom row: Shape inflation with weight vertex group, 
-\begin_inset Formula $\lambda=-50.0$
-\end_inset
-
- and 2 iterations for the legs, 
-\begin_inset Formula $\lambda=-200.0$
-\end_inset
-
- and 1 iteration for the head and neck.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The inflation of the silhouette features is predictable and invariant under
- isometric transformations, as those classically used in some animations
- (see Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Animated_Camell"
-
-\end_inset
-
-).
- In this figure, the animation shows some camel poses during a walk, the
- inflation is performed at the neck and legs, as shown in the bottom left
- camel in figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Animated_Camell"
-
-\end_inset
-
-.
- Local modifications produced by the pose interpolation or animation rigging
- practically do not affect the result.
- In spite of at any pose of the camel legs there is a clear difference,
- the inflation method allows a flesh-like shape in the original pattern
- produced by the artist.
- This is due to the mesh restricted diffusion process so that small local
- changes are treated without affecting the global solution.
- The method therefore is rotation invariant since it depends exclusively
- on the normal mesh field, which is rotation invariant.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename resources/figs/camello_walk2.png
-	lyxscale 10
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Animated_Camell"
-
-\end_inset
-
-The method is pose insensitive.
- The inflation for the different poses are similar in terms of shape.
- Top row: Original walk cycle camel model.
- Bottom row: Shape inflation with weight vertex group, 
-\begin_inset Formula $\lambda=-400$
-\end_inset
-
- and 
-\begin_inset Formula $2$
-\end_inset
-
- iterations.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Shape Inflation Brush in Real Time
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Shape-Inflation-Brush"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Sculpt_Brush"
-
-\end_inset
-
- shows the use of a shape inflation brush for sculpting in real time.
- One pass was used with the brush, as shown in the figure, with the blue
- and red radius.
- In figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Sculpt_Brush"
-
-\end_inset
-
-.b the camel foot shows the inflation intersection that looks like two bubbles,
- a similar pattern to what is observed to the fingers on the bottom of the
- same figure.
- The silhouette inflation is observed in figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Sculpt_Brush"
-
-\end_inset
-
-.c since the main shape is retained together with its finger and foot details.
- Similar results can be obtained by a user, however it would take several
- steps and require the use of several brushes, while the shape inflation
- took a single step.
- Likewise, this new method can easily inflate organic features like muscles
- during the sculpting process.
- In figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:Performance-sculpt"
-
-\end_inset
-
- the shape inflation brush performance is illustrated, in this experiment
- three models with 12K, 40K and 164K vertices, were used.
- These models were sculpted with the shape inflate brush, at each step the
- brush sphere containing a variable number of vertices for processing.
- The processing time for 800 vertices in the camel paw (40k model) only
- took 0.1 seconds, for 2600 vertices in the leg and neck (model 40k) took
- 0.5 seconds, these times are suitable in real applications since an artist
- sculpts a model for parts.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename resources/figs/sculpt_brush.pdf
-	lyxscale 10
-	height 30theight%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Sculpt_Brush"
-
-\end_inset
-
-Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
- Inflate shape brush for leg into red circle.
- Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
- Shape inflation brush for fingers in red circle.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename resources/figs/verts_per_second_sculpt.pdf
-	lyxscale 10
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Performance-sculpt"
-
-\end_inset
-
-Performance of our dynamic shape inflation brush in terms of the sculpted
- vertices per second.
- Three models with 12K, 40K, 164K vertices used for sculpting in real time.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Posing Meshes with Laplacian Deform
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Posing-Meshes-with"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename resources/figs/Armadillo.pdf
-	lyxscale 10
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Armadillo"
-
-\end_inset
-
-Anchor vertices in blue color.
- (a) Original Model, (b,c,d) new poses change only anchor vertices, system
- find positions for vertices in yellow color.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Figure 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "fig:Armadillo"
-
-\end_inset
-
- shows the Laplacian Deform applied in a model with 173K vertices, only
- anchor vertices was used and are represented in blue color, when the user
- apply several transformation (location, rotation, scale) over this anchors
- vertices, the system find a solution and estimate the position of the vetices
- in yellow color.
- This method work in real time, to achieve this the matrix 
-\begin_inset Formula $\begin{bmatrix}w_{l}L\\
-W_{c}
-\end{bmatrix}$
-\end_inset
-
- in the equation 
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:LaplacianDefomSystem"
-
-\end_inset
-
- is decomposed in matrix 
-\begin_inset Formula $LU$
-\end_inset
-
- with LU factorization only one time when the system init.
- Once the matrix is factorized the system can solve the unknowns in a fast
- way in term of miliseconds.
- For get better results the method permits solve several times the system
- of equations, and not need factorize matriz LU could be that at every iteration
-, only the differential coordinates are adjust since the differential coordinate
-s can be rotated at every iteration and get bettter results.
- In the figure only four iterations were used, but the system find good
- solutions with only one iteration when the angle of rotations are less
- that 
-\begin_inset Formula $\pi$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Section
-Laplace Operator and Normalized Version 
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Laplace-Operator-and"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Tests with the Laplacian operator (equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:TQLBO_Simple_Matrix"
-
-\end_inset
-
-) and its normalized version (equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:TQLBO-Normalized_Matrix"
-
-\end_inset
-
-), produce similar results if the triangles or quads that compose the mesh
- are about the same size.
- The normalized version is more stable and predictable because it is not
- divided by the area of the ring which may be very small and causes numeric
- problems, as shown in figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:(a)Monkey"
-
-\end_inset
-
-.c bottom row.
- The shape inflation of the model with the normalized Laplacian operator
- results in a more regular pattern.
- The model can be deformed with a TQLBO normalized version with large 
-\begin_inset Formula $\lambda$
-\end_inset
-
- (
-\begin_inset Formula $\lambda>400$
-\end_inset
-
-) while intersecting itself with no peaks.
- Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:(a)Monkey"
-
-\end_inset
-
-.c shows different results due to the quads areas in the model.
- Quadss with larger area have smaller inflation (figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:(a)Monkey"
-
-\end_inset
-
-.c skull), and smaller quads have larger inflations (figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:(a)Monkey"
-
-\end_inset
-
-.c chin).
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename resources/figs/monkey.pdf
-	lyxscale 10
-	width 100col%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:(a)Monkey"
-
-\end_inset
-
-(a) Bottom row: Original Model.
- Top row: Original model scaled by 4.
- (b) Top and bottom row: inflating with Normalized-TQLBO 
-\begin_inset Formula $\lambda=-50$
-\end_inset
-
- (c) Top and bottom row: inflating with TQLBO 
-\begin_inset Formula $\lambda=-50$
-\end_inset
-
-.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Skeletonizer
-\end_layout
-
-\begin_layout Standard
-Skeletonizer is a product of software that permits the proccessing, visualizatio
-n and extraction of the skeleton from polygonal meshes.
- The software was designed with base in a plugin system and pipe-filters
- paradigm.
- This software implement the method for skeleton extraction describe in
- equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:SkeletonExtractionDistance"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-The software is called sjSkeletonizer and use the following computacional
- frameworks and libraries.
-\end_layout
-
-\begin_layout Description
-CGAL Computational Geometry Algorithms Library 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cgal"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Description
-Graphite is a research platform for computer graphics, 3D modeling and numerical
- geometry 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "graphite"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Description
-QT is a cross-platform application and UI framework 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "qt"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename resources/figs/poses.png
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Skeleton-extraction-poses"
-
-\end_inset
-
- Model with different poses and skeleton obtained with our skeleton extraction
- software.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
 Performance Testing of Solvers 
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Performance-Testing-of"
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
-Performance evaluation of some numerical solvers for compute Laplacian Smooth
- system.
+Fot this project we choose a numerical solver to be included in Blender
+ software with base in a performance evaluation of computation of the initial
+ factorization of the Laplacian deform system.
 \end_layout
 
 \begin_layout Standard
@@ -6921,46 +5634,16 @@ Linear equation system to solve
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $\frac{\partial V}{\partial t}=\lambda L\left(V\right)$
+\noindent
+\align center
+\begin_inset Formula $\begin{bmatrix}w_{l}L\\
+W_{c}
+\end{bmatrix}X=\begin{bmatrix}\delta\\
+W_{c}C
+\end{bmatrix}$
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-Integrating the diffusion equation with a explicit Euler scheme
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $\left(I-\lambda\partial tL\right)V^{n+1}=V^{n}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Where 
-\begin_inset Formula $V^{n+1}$
-\end_inset
-
- is the actual position of vertices, and 
-\begin_inset Formula $V^{t+1}$
-\end_inset
-
- are the vertices after Laplacian Smoothing.
- 
-\begin_inset Formula $\lambda\partial t$
-\end_inset
-
- is the smoothing factor.
- L is the Laplacian Matrix defined in equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:TQLBO_Simple_Matrix"
-
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Standard
@@ -6968,6 +5651,8 @@ Solving the sparse linear system
 \end_layout
 
 \begin_layout Standard
+\noindent
+\align center
 \begin_inset Formula $Ax=b$
 \end_inset
 
@@ -6979,21 +5664,31 @@ Where:
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $A=\left(I-\lambda\partial tL\right)$
+\noindent
+\align center
+\begin_inset Formula $A=\begin{bmatrix}w_{l}L\\
+W_{c}
+\end{bmatrix}$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $x=V^{n+1}$
+\noindent
+\align center
+\begin_inset Formula $x=V$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $b=V^{n}$
+\noindent
+\align center
+\begin_inset Formula $b=\begin{bmatrix}\delta\\
+W_{c}C
+\end{bmatrix}$
 \end_inset
 
 
@@ -7077,23 +5772,30 @@ key "Levy2005"
 .
  We choose the implementacion of LU factorizacion in a OpenNL-SuperLU library,
  because this method show the better performance for the computacion of
- a solution for a Laplacian Smoothing linear system of equations presented
+ a solution for a Laplacian Deform linear system of equations presented
  in equation 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "eq:LaplacianSmoothLinearEquationSystem"
+reference "eq:LaplacianDefomSystem"
 
 \end_inset
 
- how see in the table 
+ how see in the table and plot 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:TimeVsSolvers"
 
 \end_inset
 
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Plot-IniFactor"
+
+\end_inset
+
 .
- OpenNLSuper allow works with the Graphics Unit Proccesor GPU, for exploit
+ OpenNL SuperLU allow works with the Graphics Unit Proccesor GPU, for exploit
  the capacity of GPU to work with parallel structures, more fast that traditiona
 l CPU.
 \end_layout
@@ -7652,7 +6354,7 @@ name "tab:TimeVsSolvers"
 
 \end_inset
 
-Vertices Vs Seconds, Laplacian Smoothing performance.
+Vertices Vs Seconds, Laplacian Deform initial factorization performance.
 \end_layout
 
 \end_inset
@@ -7686,7 +6388,410 @@ status collapsed
 \begin_inset Caption
 
 \begin_layout Plain Layout
-asdas
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Plot-IniFactor"
+
+\end_inset
+
+Plot of Vertices Vs Seconds, Initial factorization performance.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Results
+\end_layout
+
+\begin_layout Standard
+The user interface for software Blender can be seen in figure 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Panel-LaplacianDeform"
+
+\end_inset
+
+.
+ In this tool the user define the anchor vertices with the use of vertex
+ groups a feature offered by Blender, the user configure this name in the
+ field 
+\shape slanted
+Anchors Vertex Group
+\shape default
+.
+ The 
+\shape slanted
+Bind
+\shape default
+ option init the system and capture the geometry details in form of differential
+ coordinates and compute the factorization of the linear system, after that
+ the system is ready to repose meshes in real-time user interaction session.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/Apinzonf_Diagram_Deform_Modifier_Panel_01.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Panel-LaplacianDeform"
+
+\end_inset
+
+Panel inside blender user interface of the Laplacian Deform modifier tool.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Armadillo"
+
+\end_inset
+
+ shows the Laplacian Deform applied in a model with 173K vertices, only
+ anchor vertices was used and are represented in blue color, when the user
+ apply several transformation (location, rotation, scale) over this anchors
+ vertices, the system find a solution and estimate the position of the vetices
+ in yellow color.
+ This method work in real time, to achieve this the matrix 
+\begin_inset Formula $\begin{bmatrix}w_{l}L\\
+W_{c}
+\end{bmatrix}$
+\end_inset
+
+ in the equation 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:LaplacianDefomSystem"
+
+\end_inset
+
+ is decomposed in matrix 
+\begin_inset Formula $LU$
+\end_inset
+
+ with LU factorization only one time when the system init.
+ Once the matrix is factorized the system can solve the unknowns in a fast
+ way in term of miliseconds.
+ For get better results the method permits solve several times the system
+ of equations, and not need factorize matriz LU could be that at every iteration
+, only the differential coordinates are adjust since the differential coordinate
+s can be rotated at every iteration and get bettter results.
+ In the figure only four iterations were used, but the system find good
+ solutions with only one iteration when the angle of rotations are less
+ that 
+\begin_inset Formula $\pi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/Armadillo.pdf
+	lyxscale 10
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Armadillo"
+
+\end_inset
+
+Anchor vertices in blue color.
+ (a) Original Model, (b,c,d) new poses change only anchor vertices, system
+ find positions for vertices in yellow color.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Cactus"
+
+\end_inset
+
+ show a comparison after made a one simple transformation that consist in
+ rotate 
+\begin_inset Formula $70º$
+\end_inset
+
+ to right the parts in blue color.
+ between traditional method to interpolate the changes made in some parts
+ of the mesh to entire model.
+ The results for simple interpolation is show in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Cactus"
+
+\end_inset
+
+.b and show how the main trunk loss your shape and is rotated.
+ The propagation of changes made with Laplacian deform (figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Cactus"
+
+\end_inset
+
+.c) for the same transformation show better results and how the details and
+ shape of the original model are preserve as best as possible.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/cactus.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Cactus"
+
+\end_inset
+
+(a) Original cactus model.
+ (b) Rotate 70º to right the blue segments with basic interpolation (c)
+ Rotate 70º to right the blue segments with Laplacian deform tool.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Laplacian Deform tool allow a user to repose a model while preserve
+ the geometry details in the figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Horse"
+
+\end_inset
+
+.b y 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Horse"
+
+\end_inset
+
+c you can see the new pose of he horse after five transformations and rotation
+ of the head, in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Horse"
+
+\end_inset
+
+.b you was use basic interpolation and the shape and details are lost with
+ every change made.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Horse"
+
+\end_inset
+
+..c yo can see how the new pose of the horse look more natural, and how the
+ body and neck, of the horse preserve the original shape, this comparison
+ show that method allow to apply any number of transformations without lost
+ details, could be the system try to recover geometry details with base
+ in the original pose of the model.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/horse.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Horse"
+
+\end_inset
+
+(a) Original Horse model.
+ (b) Translate and rotate the blue segments with basic interpolation (c)
+ Translate and rotate the blue segments with Laplacian deform tool.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Skeleton Extraction
+\end_layout
+
+\begin_layout Standard
+Part of this work was accepted and presented as a poster with name 
+\shape slanted
+Software para la Extracción del Esqueleto por Contracción y Suavizado
+\shape default
+ at 7th International Seminar on Medical Image Processing and Analysis SIPAIM
+ 2011.
+ The conference was held on December 6-8 of 2011, in the city of Bucaramanga,
+ Colombia 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pinzon2011"
+
+\end_inset
+
+, the thumbnail of the poster is show in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:PosterSIPAIM2011"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename poster/SIPAIM2011/PosterSIPAIM2011.pdf
+	width 90text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:PosterSIPAIM2011"
+
+\end_inset
+
+Poster 
+\shape slanted
+Software para la Extracción del Esqueleto por Contracción y Suavizado
+\shape default
+ presented at 7th International Seminar on Medical Image Processing and
+ Analysis SIPAIM 2011.
 \end_layout
 
 \end_inset
@@ -7703,63 +6808,687 @@ asdas
 
 \end_layout
 
-\begin_layout Section
-Implementation
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Implementation"
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Standard
-The method was implemented as a modifier for modeling and brush for sculpting,
- on the Blender software 
+Part of this work was accepted and presented as a poster with name 
+\shape slanted
+Análisis Experimental de la Extracción del Esqueleto por Contracción con
+ Suavizado Laplaciano
+\shape default
+ at 6th International Seminar on Medical Image Processing and Analysis SIPAIM
+ 2010.
+ The conference was held on December 1-4 of 2011, in the city of Bogotá,
+ Colombia 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "blender"
+key "Pinzon2010"
 
 \end_inset
 
- in C and C++.
- Working with the Blender allowed to test the method interactively against
- others, as Catmull-Clark, weight vertex groups and sculpting system in
- Blender.
+, the thumbnail of the poster is show in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:PosterSIPAIM2010"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-To improve the performance, it was worked with the Blender mesh struct,
- visiting each triangle or quad and storing its corresponding index and
- the sum of the Laplacian weights of the ring in a list so that only two
- visits were required for the list of mesh faces and two times the edge
- list, if the mesh was not closed.
- This drastically reduced calculations, enabling real-time processing.
- In the construction of the Laplacian matrix, several index were locked
- at vertices having face areas or edge lengths with zero value that could
- cause spikes and bad results.
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename poster/SIPAIM2010/FINAL/PosteraA0-150dpi.pdf
+	width 90text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:PosterSIPAIM2010"
+
+\end_inset
+
+Poster 
+\shape slanted
+Análisis Experimental de la Extracción del Esqueleto por Contracción con
+ Suavizado Laplaciano
+\shape default
+ presented at 6th International Seminar on Medical Image Processing and
+ Analysis SIPAIM 2010.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Under these conditions, the matrix at equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:TQLBO_Simple_Matrix"
+Skelton extraction reduces the dimensionality and represents a three-dimensional
+ object as a uni-dimensional structure 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Cornea2007"
 
 \end_inset
 
- is sparse since the number of neighbors per vertex, corresponding to the
- number of data per row, is smaller compared to the total number of vertices
- in the mesh.
- To solve the linear system equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:Lineal_System_with_wp"
+.
+\end_layout
+
+\begin_layout Standard
+The skeleton extraction use the natural shrink produced by the laplacian
+ smoothing 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Meyer2003"
 
 \end_inset
 
- was used OpenNL which is a a library for solving sparse linear system.
+, to contratc iteratively the mesh until the volume inside the surface is
+ near to zero (see figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:MeshContracted"
+
+\end_inset
+
+).
+ The method stretch the shrink mesh to warranty that object preservers the
+ best at posibble the original topology with the use of attraction constraint
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/contraccion.png
+	lyxscale 30
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:MeshContracted"
+
+\end_inset
+
+From left to right iterative mesh contraction.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The laplacian smooth proccess move the vertices in the direction of the
+ Laplacian, if cotangent laplacian operator is used, the vertices move in
+ the direction of minimal surface 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pinkall1993"
+
+\end_inset
+
+ following the curvature flow of the mesh surface.
+\end_layout
+
+\begin_layout Standard
+In the work of Au 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+ is proposed the next system of equation to iteratively contratc the mesh
+ until a skeleton.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{c}
+W_{L}L\\
+W_{H}
+\end{array}\right]X_{t+1}=\left[\begin{array}{c}
+0\\
+W_{H}X_{t}
+\end{array}\right]\label{eq:SkeletonExtraction}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $L$
+\end_inset
+
+ is the Laplacian matrix describe in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+, 
+\begin_inset Formula $W_{L}$
+\end_inset
+
+ is the factor for smoothing, 
+\begin_inset Formula $W_{H}$
+\end_inset
+
+ is the factor for attraction constraint.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $W_{L}$
+\end_inset
+
+ and 
+\begin_inset Formula $W_{H}$
+\end_inset
+
+ are changing in every iteration.
+ The contraction and smoothing constraint 
+\begin_inset Formula $W_{L}^{t+1}=S_{L}W_{L}^{t}$
+\end_inset
+
+ with 
+\begin_inset Formula $S_{L}=2.0$
+\end_inset
+
+.
+ The attraction constraint 
+\begin_inset Formula $W_{H,i}^{t+1}=W_{H,i}^{0}\sqrt{\frac{A_{i}^{0}}{A_{i}^{t}}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $A_{i}^{t}$
+\end_inset
+
+ y 
+\begin_inset Formula $A_{i}^{0}$
+\end_inset
+
+ are the current area and initial aerea of the ring surrounding 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In this thesis an additional constraint is proposed which seeks the vertices
+ and the skeleton does not shrink, to eliminate the need to adjust the final
+ skeleton taking each skeleton node and move to the center of your local
+ mesh region.
+\end_layout
+
+\begin_layout Standard
+The basic idea is move the vertices along of the normal line estimated on
+ every vertex based on the avergage of the faces normals.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/LineConstraintSkeleton.pdf
+	lyxscale 10
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:LineConstraint"
+
+\end_inset
+
+Left: The vertex 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ move along line constraint.
+ Right: the distance of vertex 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ to plane 1 and plane 2 when change the position in every iteration.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This line can be see as intersection of two planes (see figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:LineConstraint"
+
+\end_inset
+
+) created with the information of the vertex 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+, the normal 
+\begin_inset Formula $\overrightarrow{\mathbf{n}_{i}}$
+\end_inset
+
+ and neighboors 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ of 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The equation of the plane.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $a\mathbf{x}+b_{0}\mathbf{y}+c_{0}\mathbf{z}+d_{0}=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There is varios methods to build a equation of the plane based on three
+ non-collinear points, we choose this three points based on vertex 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+, the normal 
+\begin_inset Formula $\overrightarrow{\mathbf{n}_{i}}$
+\end_inset
+
+ and neighboors 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ of 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $P_{1}=x_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $P_{2}=x_{j}$
+\end_inset
+
+ when 
+\begin_inset Formula $x_{j}\in Neighboors\left(x_{i}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $P_{3}=P_{1}-\overrightarrow{\mathbf{n}_{i}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To build a equation plane only need three non-collinear points 
+\begin_inset Formula $\left\{ P_{1},P_{2},P_{3}\right\} $
+\end_inset
+
+ and solve the next systems of equations for variables 
+\begin_inset Formula $a,b,c$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\begin{array}{c}
+ax_{1}+by_{1}+cz_{1}+d=0\\
+ax_{2}+by_{2}+cz_{2}+d=0\\
+ax_{3}+by_{3}+cz_{3}+d=0
+\end{array}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The distance of point 
+\begin_inset Formula $P_{0}=\{x_{0},y_{0},z_{0}\}$
+\end_inset
+
+ to a plane 
+\begin_inset Formula $\Pi=a\mathbf{x}+b_{0}\mathbf{y}+c_{0}\mathbf{z}+d_{0}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\left|\Pi-P_{0}\right|=\frac{\left|ax_{0}+by_{0}+cz_{0}+d\right|}{\sqrt{a^{2}+b^{2}+c^{2}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the equation above, every point 
+\begin_inset Formula $P_{0}=\{x_{0},y_{0},z_{0}\}$
+\end_inset
+
+ that belong to plane made the equation zero.
+ If the point 
+\begin_inset Formula $P_{0}$
+\end_inset
+
+ is not in the plane the value of the equation of the plane change, and
+ the absolute value is increased if 
+\begin_inset Formula $P_{0}$
+\end_inset
+
+ is more distant of the plane.
+ Let us use this simple relation to build a valid constraint that can be
+ put in the form of linear equation 
+\begin_inset Formula $Ax=B$
+\end_inset
+
+.
+ Where 
+\begin_inset Formula $A$
+\end_inset
+
+ is the matrix with values 
+\begin_inset Formula $\begin{vmatrix}a & b & c\end{vmatrix}$
+\end_inset
+
+ the 
+\begin_inset Formula $x$
+\end_inset
+
+ value correspond to every vertex in mesh 
+\begin_inset Formula $\{x_{0},y_{0},z_{0}\}$
+\end_inset
+
+ and 
+\begin_inset Formula $B$
+\end_inset
+
+ correspond to 
+\begin_inset Formula $d$
+\end_inset
+
+ value of the plane equation.
+ How the linear system presented in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:SkeletonExtraction"
+
+\end_inset
+
+ don't has a unique solution, the system solve it in the least-squares sense.
+ With the new constraint the system then try to minimize the distance betwen
+ the new vertex positions and the two planes.
+ 
+\end_layout
+
+\begin_layout Standard
+The new system of equations proposed
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{c}
+W_{L}L\\
+W_{H}\\
+W_{D}\Pi_{1}\\
+W_{D}\Pi_{2}
+\end{array}\right]X_{t+1}=\left[\begin{array}{c}
+0\\
+W_{H}X_{t}\\
+-D_{1}\\
+-D_{2}
+\end{array}\right]\label{eq:SkeletonExtractionDistance}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $W_{D}$
+\end_inset
+
+ is the weigth to new constraints, that forced the vertices to move along
+ of the normal line of every vertex.
+ 
+\begin_inset Formula $\Pi_{1}$
+\end_inset
+
+ and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Pi_{2}$
+\end_inset
+
+ are matrix that contains 
+\begin_inset Formula $a,b,c$
+\end_inset
+
+ values of the equation of the plane for every vertex.
+ 
+\begin_inset Formula $D_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $D_{2}$
+\end_inset
+
+ are the vector with 
+\begin_inset Formula $d$
+\end_inset
+
+ values of the equations of the planes for every vertex.
+\end_layout
+
+\begin_layout Section
+Results
+\end_layout
+
+\begin_layout Standard
+As a result of this work was developing the software Skeletonizer that permits
+ the proccessing, visualization and extraction of the skeleton from polygonal
+ hybrid meshes composed by triangles and quads.
+ The software was designed with base in a plugin system and pipe-filters
+ paradigm.
+ This software implement the method for skeleton extraction describe in
+ equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:SkeletonExtractionDistance"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The software is called sjSkeletonizer and use the following computacional
+ frameworks and libraries.
+\end_layout
+
+\begin_layout Description
+CGAL Computational Geometry Algorithms Library 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cgal"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+Graphite is a research platform for computer graphics, 3D modeling and numerical
+ geometry 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "graphite"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+QT is a cross-platform application and UI framework 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "qt"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/poses.png
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Skeleton-extraction-poses-1"
+
+\end_inset
+
+ Model with different poses and skeleton obtained with our skeleton extraction
+ software.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chapter
