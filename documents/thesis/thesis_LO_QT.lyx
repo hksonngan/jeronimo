@@ -968,16 +968,31 @@ reference "chap:Mathematical-foundation"
  polygon meshes; In chapter 
 \begin_inset CommandInset ref
 LatexCommand ref
-reference "PAPER:sec:Proposed-Method"
+reference "chap:SibgrapiPaper"
 
 \end_inset
 
-, it is presented the extension of the Laplacian Operator for hybrid meshes
- and applications of shape inflation ,subdivision of surfaces , deformation,
- skelenotization and sculpting; finally some Laplacian Operator results,
- to hybrid quad/triangle meshes are graphically shown as well as results
- of the shape inflation applications in sculpting, subdivision, deformation,
- skelenotization and modeling.
+, it is presented a paper that show the extension of the Laplacian Operator
+ for hybrid meshes and applications of shape inflation ,subdivision of surfaces
+ and sculpting; In chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Laplacian-Smooth"
+
+\end_inset
+
+, present an application for mesh smoothing of the the Laplacian operator
+ extension proposed, inside a real world industry software for computer
+ modelling; Finally in chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Laplacian-Deform"
+
+\end_inset
+
+, it is presented an succesfullly application for mesh deformation and reposing
+ of models, with base on differential coordinates and addaptation of this
+ method to work with our Laplacian operator extension.
 \end_layout
 
 \begin_layout Chapter
@@ -1688,215 +1703,16 @@ are the weights between the vertex
 .
 \end_layout
 
-\begin_layout Subsection
-Gradient of Voronoi Area
-\end_layout
-
-\begin_layout Standard
-Consider a surface 
-\begin_inset Formula $S$
-\end_inset
-
- composed of a set of triangles around vertex 
-\begin_inset Formula $v_{i}$
-\end_inset
-
-.
- Let us define the 
-\shape slanted
-Voronoi Region
-\shape default
- of 
-\begin_inset Formula $v_{i}$
-\end_inset
-
- as show in figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:voronoi_region"
-
-\end_inset
-
-, The area change produced by the movement of 
-\begin_inset Formula $v_{i}$
-\end_inset
-
- is called the gradient of 
-\shape slanted
-Voronoi region
-\shape default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Pinkall1993,Desbrun1999,Meyer2003"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\noindent
-\begin_inset Formula 
-\begin{align}
-\nabla A & =\frac{1}{2}\underset{j}{\sum}\left(\cot\alpha_{j}+\cot\beta_{j}\right)\left(v_{i}-v_{j}\right)\label{eq:eq_gradient_voronoi_area}
-\end{align}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-placement H
-wide false
-sideways false
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename resources/figs/voronoi_region.pdf
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:voronoi_region"
-
-\end_inset
-
-Area of the Voronoi region around 
-\begin_inset Formula $v_{i}$
-\end_inset
-
- in dark blue.
-\begin_inset Formula $v_{j}$
-\end_inset
-
- belong to the first neighborhood around 
-\begin_inset Formula $v_{i}$
-\end_inset
-
-.
- 
-\begin_inset Formula $\alpha_{j}$
-\end_inset
-
- and 
-\begin_inset Formula $\beta_{j}$
-\end_inset
-
- opposite angles to edge 
-\begin_inset Formula $\overrightarrow{v_{j}-v_{i}}$
-\end_inset
-
-.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-If the gradient in equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:eq_gradient_voronoi_area"
-
-\end_inset
-
- is normalized by the total area of the 1-ring neighborhood around 
-\begin_inset Formula $v_{i}$
-\end_inset
-
-, the 
-\shape slanted
-discrete mean curvature normal
-\shape default
- of a surface 
-\begin_inset Formula $S$
-\end_inset
-
- is obtained, as shown in equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:discrete_mean_curvature_normal"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\noindent
-\begin_inset Formula 
-\begin{equation}
-2\kappa\mathbf{n}=\frac{\nabla A}{A}\label{eq:discrete_mean_curvature_normal}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Laplace Beltrami Operator
-\end_layout
-
-\begin_layout Standard
-The 
-\shape italic
-Laplace Beltrami operator
-\shape default
- LBO noted as 
-\begin_inset Formula $\Delta$
-\end_inset
-
- is used for measuring the mean curvature normal to the Surface 
-\begin_inset Formula $S$
-\end_inset
-
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Pinkall1993"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\noindent
-\begin_inset Formula 
-\begin{equation}
-\Delta_{\mbox{S}}=2\kappa\mathbf{n}\label{eq:def_LBO}
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Chapter
 Shape Inflation With an Adapted Laplacian Operator For Hybrid Quad/Triangle
  Meshes
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:SibgrapiPaper"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -7396,63 +7212,112 @@ Results
 \end_layout
 
 \begin_layout Standard
-As a result of this work was developing the software Skeletonizer that permits
- the proccessing, visualization and extraction of the skeleton from polygonal
- hybrid meshes composed by triangles and quads.
- The software was designed with base in a plugin system and pipe-filters
- paradigm.
- This software implement the method for skeleton extraction describe in
- equation 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:SkeletonExtractionDistance"
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/Skeletonizer_1.pdf
+	width 100text%
 
 \end_inset
 
-.
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Skeletonizer-interface"
+
+\end_inset
+
+Skeletonizer interface.
+ (a) Open and display mesh.
+ (b) Mesh contracted after 4 iterations.
+ (c) Skeleton get after surface simplification.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-The software is called sjSkeletonizer and use the following computacional
- frameworks and libraries.
-\end_layout
-
-\begin_layout Description
-CGAL Computational Geometry Algorithms Library 
+As a result of this work was developing the software 
+\shape slanted
+sjSkeletonizer
+\shape default
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "cgal"
+key "Pinzon2012"
 
 \end_inset
 
-.
-\end_layout
-
-\begin_layout Description
-Graphite is a research platform for computer graphics, 3D modeling and numerical
- geometry 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "graphite"
+ that permits the proccessing, visualization and extraction of the skeleton
+ from polygonal hybrid meshes composed by triangles and quads.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Skeletonizer-interface"
 
 \end_inset
 
-.
-\end_layout
-
-\begin_layout Description
-QT is a cross-platform application and UI framework 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "qt"
+ you can see the interace of the software.
+ The software sjSkeletonizer allow to open and display meshes in a interactive
+ viewer.
+ This software allow to contract a mesh with the use of two different Laplacian
+ operator: The contangent operator and umbrella operator, the user can customize
+ the number of iterations of the contraction step.
+ The software allow a user to visualize the original mesh and contracted
+ mesh after every iteration (figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Skeletonizer-interface"
 
 \end_inset
 
-.
+.b).
+ In the final step of the process, the software simplify the mesh (figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Skeletonizer-interface"
+
+\end_inset
+
+.c) using the same method proposed by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Au2008"
+
+\end_inset
+
+ that consist in a modification version of quadric error metrics of Garland
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Garland1997"
+
+\end_inset
+
+ .
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
@@ -7473,7 +7338,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:Skeleton-extraction-poses-1"
+name "fig:Skeleton-extraction-poses"
 
 \end_inset
 
@@ -7491,8 +7356,82 @@ name "fig:Skeleton-extraction-poses-1"
 
 \end_layout
 
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Skeleton-extractedModels"
+
+\end_inset
+
+ show the skeleton extracted from differents models using our method.
+ Every skeleton represent very good the topology and geometry of the original
+ meshes.
+ The extracted skeltons are homotopic to the original shapes.
+ Our method permits simplify the skeleton until the user required and guaranteed
+ that every node in the skeleton represents as best as posible every core
+ part othe original model.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/Skeletonizer_2.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Skeleton-extractedModels"
+
+\end_inset
+
+Skeleton extracted from different models.
+ (a) Dog model (b) Character model.
+ (c) Person model.
+ (d) Clay model.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The method proposed is robust under isometric transformation ( figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Skeleton-extraction-poses"
+
+\end_inset
+
+) then if some global transformatios how rotations of core parts of the
+ mesh are made, the extracted skeletons to be similar could be to the properties
+ of the Laplacian operator.
+ In the figure shown similar skeletons for different poses of the same model,
+ these skeletons show identical branching structure.
+\end_layout
+
 \begin_layout Chapter
-Conclusion and future work
+Conclusion 
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Conclusion-and-future"
@@ -7503,30 +7442,23 @@ name "sec:Conclusion-and-future"
 \end_layout
 
 \begin_layout Standard
-This work presented an extension of the Laplace Beltrami operator for hybrid
- quad/triangle meshes that can be used in production environments and provides
- results similar to those obtained by working only with triangles or quads.
- This paper has introduced a new way to change silhouettes in a mesh for
- modeling or sculpting in a few steps by means of the curvature model modificati
-on while preserving its overall shape.
- In addition, a new modeling method has also been presented some possible
- applications have been illustrated.
- The method works properly with isometric transformations, opening the possibili
-ty of introducing it on the process of animation.
+In this work, we present a novel extension of the Laplace Beltrami operator
+ for hybrid quad/triangle meshes TQLBO, and the successfully applications
+ in different type of problems in computer geometric modelling how smoothing,
+ enhancing, sculpting, deformation, reposing and skeleton extraction.
 \end_layout
 
 \begin_layout Standard
-We show that this tool may work in early modeling stages, case in which
- coarse models are used, allowing to modify the shape generated by the Catmull-C
-lark subdivision surfaces, and thereby avoiding edition of the vertices
- with change of a single parameters.
+We demostrate the good performance, stability and robustnes of the extension
+ proposed throughout all the results shown in the paper, posters and internships.
 \end_layout
 
 \begin_layout Standard
-Future work includes the analysis of theoretical relationships between the
- Catmull-Clark subdivision surfaces and the Laplacian smoothing since they
- can produce very similar results.
- 
+This novel extension of the Laplace Beltrami operator was introduced in
+ computer modelling industry inside the Blender software, that allow to
+ many artist to work with differents tools developed with base on TQLBO,
+ for any kind of meshes, triangular meshes, quadrilateral meshes or hybrid
+ meshes.
 \end_layout
 
 \begin_layout Standard
