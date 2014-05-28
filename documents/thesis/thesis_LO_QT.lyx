@@ -247,7 +247,7 @@ Universidad Nacional de Colombia
 \end_layout
 
 \begin_layout Standard
-Facultad de Ingenieria, Departamento de Sistemas e Industrial
+Facultad de Ingeniería, Departamento de Sistemas e Industrial
 \end_layout
 
 \begin_layout Standard
@@ -410,7 +410,7 @@ Universidad Nacional de Colombia
 \begin_inset Newline newline
 \end_inset
 
-Facultad de Ingenieria, Departamento de Sistemas e Industrial
+Facultad de Ingeniería, Departamento de Sistemas e Industrial
 \begin_inset Newline newline
 \end_inset
 
@@ -523,7 +523,7 @@ Beatriz Fernandez Vargas
 \end_layout
 
 \begin_layout Plain Layout
-Campo Elias Pinzon Rojas
+Campo Elias Pinzón Rojas
 \end_layout
 
 \end_inset
@@ -558,7 +558,7 @@ thispagestyle{empty}
 
 \series bold
 \size largest
-Acknowledgement
+Acknowledgment
 \end_layout
 
 \begin_layout Standard
@@ -804,9 +804,9 @@ key "Pinkall1993"
 \end_inset
 
  was introduced the cotangent version of Laplace operator, that allow to
- find the minimal surface when compute a discete harmonic map with the Laplacian
- operator, this version has been widely studied and applied in various problems
- of computer geometric modeling.
+ find the minimal surface when compute a discrete harmonic map with the
+ Laplacian operator, this version has been widely studied and applied in
+ various problems of computer geometric modeling.
  The manifolds that are continuous domains homeomorphic to 
 \begin_inset Formula $\mathbb{R}^{n}$
 \end_inset
@@ -880,7 +880,7 @@ key "Sorkine2004,Zhou2005"
 \end_inset
 
 .
- Catmull-Clark based methods however require to interact with a minimun
+ Catmull-Clark based methods however require to interact with a minimum
  number of control points for any operation to be efficient, or in other
  words, a unicity condition is introduced by demanding a smooth surface
  after any of these shape operations.
@@ -911,7 +911,7 @@ key "Biermann2000"
 \end_inset
 
 .
- Neverteless these methods are difficult to deal with since they require
+ Nevertheless  these methods are difficult to deal with since they require
  a large number of parameters and a very tedious customization.
  Instead, the presented applications requires a single parameter that controls
  the global curvature, which is used to maintain realistic shapes, creating
@@ -990,8 +990,8 @@ reference "sub:Laplacian-Deform"
 
 \end_inset
 
-, it is presented an succesfullly application for mesh deformation and reposing
- of models, with base on differential coordinates and addaptation of this
+, it is presented an successfully application for mesh deformation and reposing
+ of models, with base on differential coordinates and adaptation of this
  method to work with our Laplacian operator extension.
 \end_layout
 
@@ -1008,7 +1008,7 @@ name "chap:Mathematical-foundation"
 
 \begin_layout Standard
 This chapter studies basic mathematical foundation on differential geometry
- to understand the differential operators and the Laplace beltrami operator.
+ to understand the differential operators and the Laplace Beltrami operator.
 \end_layout
 
 \begin_layout Standard
@@ -1020,7 +1020,7 @@ key "Hahne2006"
 \end_inset
 
 .
- The differential operators show a deep relationships betwen the geoemetry
+ The differential operators show a deep relationships between the geometry
  (curvatures, geodesics) and topology of the manifold.
  This differential operators are very used in applications on computer geometric
  modelling over the last years 
@@ -1111,7 +1111,7 @@ Where
 \begin_inset Formula $N_{1}$
 \end_inset
 
-is the 1-ring neighboorhood, 
+is the 1-ring neighborhood, 
 \begin_inset Formula $\alpha$
 \end_inset
 
@@ -1158,8 +1158,8 @@ key "Taubin1995"
 
 \end_inset
 
- for first time treat the problem of noise reduction in digital poligonal
- meshes from signal proccessing point of view.
+ for first time treat the problem of noise reduction in digital polygonal
+ meshes from signal processing point of view.
  Taubin extends Fourier analysis to signals defined on polygonal meshes,
  Taubin observe that Fourier transform is a decomposition of the signal
  into an eigenvectors of the Laplacian operator, and reconstruct the signal
@@ -1176,10 +1176,10 @@ key "Desbrun1999"
 \begin_inset Formula $\bar{\kappa}\mathbf{n}$
 \end_inset
 
-) based on cotangen Laplace operator version for noise reduction over a
- difussion process.
- This it's the most important and popular Laplace Beltrami opertator discretizat
-ion 
+) based on cotangent Laplace operator version for noise reduction over a
+ diffusion process.
+ This it's the most important and popular Laplace Beltrami operator discretizati
+on 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu2008"
@@ -1233,7 +1233,7 @@ Where
 \begin_inset Formula $X$
 \end_inset
 
- over a difussion process.
+ over a diffusion process.
 \end_layout
 
 \begin_layout Standard
@@ -1293,12 +1293,12 @@ key "Sorkine2006"
 \end_layout
 
 \begin_layout Standard
-The differential coordinates represents the difference between the absolut
+The differential coordinates represents the difference between the absolute
  coordinate of 
 \begin_inset Formula $v_{i}$
 \end_inset
 
-and the center of mass of its immediate neighboors.
+and the center of mass of its immediate neighbors.
 \end_layout
 
 \begin_layout Standard
@@ -1337,7 +1337,7 @@ key "Gal2009"
 
  propose automatic feature detection and shape edition with feature inter-relati
 onship preservation.
- They define salient surface features like ridges and valleys, characerized
+ They define salient surface features like ridges and valleys, characterized
  by their first and second order curvature derivatives, see 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1413,12 +1413,12 @@ key "Au2008"
 
 \end_inset
 
- present a skeleton extraction method based on iterative smooothing-contraction,
- in this method the several constraints are used to waranty that the process
- converge to skeleton formed by branchs and joins, the constraints based
+ present a skeleton extraction method based on iterative smoothing-contraction,
+ in this method the several constraints are used to warranty that the process
+ converge to skeleton formed by branches and joins, the constraints based
  on laplacian operator, the low frequencies of the mesh are preserving with
- the use of attractor to original mesh, while the iterative smoothin process
- remove high frecuencies.
+ the use of attractor to original mesh, while the iterative smoothing process
+ remove high frequencies.
 \end_layout
 
 \begin_layout Section
@@ -1467,7 +1467,7 @@ key "Spivak1-1999"
 
 \begin_layout Standard
 This work is related to manifolds that represent a surface in an three-dimension
-al Eucliddean Space.
+al Euclidean Space.
  This manifolds are homeomorphic to 
 \family roman
 \series medium
@@ -1488,8 +1488,8 @@ al Eucliddean Space.
 \end_layout
 
 \begin_layout Standard
-The manifols are represented by polygonal meshes with points connected by
- triangles and quads.
+The manifolds are represented by polygonal meshes with points connected
+ by triangles and quads.
 \end_layout
 
 \begin_layout Section
@@ -1718,7 +1718,7 @@ name "chap:SibgrapiPaper"
 \begin_layout Standard
 \noindent
 \align center
-Alexander Pinzon, Eduardo Romero
+Alexander Pinzón, Eduardo Romero
 \begin_inset Newline newline
 \end_inset
 
@@ -1884,7 +1884,7 @@ cite{Sorkine2004,Zhou2005}
 .
  Catmull-Clark based methods however require to interact with a small number
  of control points for any operation to be efficient, or in other words,
- a unicity condition is introduced by demanding a smooth surface after any
+ a unity  condition is introduced by demanding a smooth surface after any
  of these shape operations.
  Hence, traditional modeling methods for subdividing surfaces from coarse
  geometry have become widely popular 
@@ -2129,9 +2129,9 @@ cite{Gal2009}
 
 \end_inset
 
- propose automatic feature detection and shape edition with feature inter-relati
-onship preservation.
- They define salient surface features like ridges and valleys, characerized
+ proposes automatic feature detection and shape edition with feature inter-relat
+ionship preservation.
+ They define salient surface features like ridges and valleys, characterized
  by their first and second order curvature derivatives, see 
 \begin_inset ERT
 status open
@@ -2149,7 +2149,7 @@ cite{Ohtake2004}
  Likewise, curves have been also classified as planar or non-planar, approximate
 d by lines, circles, ellipses and other complex shapes.
  In such case, the user defines an initial change over several features
- which is propagated towards other features, based on the classified shapes
+ which are propagated towards other features, based on the classified shapes
  and the inter-relationships between them.
  This method works well with objects that have sharp edges, composed of
  basic geometric shapes such as lines, circles or ellipses.
@@ -2158,7 +2158,7 @@ d by lines, circles, ellipses and other complex shapes.
 \end_layout
 
 \begin_layout Standard
-Digital sculpting have been traditionally approached either under a polygonal
+Digital sculpting has been traditionally approached either under a polygonal
  representation or a voxel grid-based method.
  Brushes for inflation operations only depend on the vertex normal 
 \begin_inset ERT
@@ -4161,7 +4161,7 @@ key "blender"
 \end_layout
 
 \begin_layout Standard
-To improve the performance, it was worked with the Blender mesh struct,
+To improve the performance, it was worked with the Blender mesh structure,
  visiting each triangle or quad and storing its corresponding index and
  the sum of the Laplacian weights of the ring in a list so that only two
  visits were required for the list of mesh faces and two times the edge
@@ -4305,8 +4305,8 @@ This project improving the mesh smoothing tools in blender, based on curvature
 \end_layout
 
 \begin_layout Standard
-This project allow to work with hybrid meshes composed by triangles and
- quads based on Laplacian operator proposed by Pinzon and Romero 
+This project allows working with hybrid meshes composed by triangles and
+ quads based on Laplacian operator proposed by Pinzón and Romero 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Pinzon2013"
@@ -4454,7 +4454,7 @@ Mesh Smoothing
 \end_layout
 
 \begin_layout Standard
-A common way to attenueate noise in a polygonal mesh is through a diffusion
+A common way to attenuate noise in a polygonal mesh is through a diffusion
  process 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -4467,11 +4467,11 @@ key "Taubin1995,Desbrun1999"
  reduction on the mesh surface with minimal shape changes, while still preservin
 g a desirable geometry as well as the original shape.
  The simple idea is that the vertices are moved in the direction of the
- Laplacian when we use the contangent version the vertices are moved in
- the direction of the curvature flow.
+ Laplacian when we use the cotangent version the vertices are moved in the
+ direction of the curvature flow.
  The complexity of Laplacian smoothing can be linear in time and space with
- a fast convergence and the diffussion proccess can attenuate noise with
- only one iteration due the sparseness of the laplacian operator.
+ a fast convergence and the diffusion process can attenuate noise with only
+ one iteration due the sparseness of the laplacian operator.
 \end_layout
 
 \begin_layout Standard
@@ -4494,13 +4494,13 @@ reference "eq:LaplacianMatrixForSmoothing"
 
 \end_inset
 
- for meshes composed by triangles or quads with differents size or irregular
+ for meshes composed by triangles or quads with different size or irregular
  sampling.
  
 \begin_inset Formula $\lambda$
 \end_inset
 
- is a scalar that control the diffussion proccess, and smoothing factor.
+ is a scalar that control the diffusion process, and smoothing factor.
 \end_layout
 
 \begin_layout Standard
@@ -4566,11 +4566,11 @@ reference "eq:LaplacianSmoothLinearEquationSystem"
 \end_layout
 
 \begin_layout Standard
-For non-close meshes or meshes with holes is not posibble to compute the
+For non-close meshes or meshes with holes is not possible to compute the
  curvature flow.
- For this reason the system smooths the edges differently within the diffusion
+ For this reason the system smooth the edges differently within the diffusion
  process.
- The bondaries are treated as a one-dimensional curve.
+ The boundaries are treated as a one-dimensional curve.
  In a curve the Laplacian is defined as the weighted difference between
  the vertex and the two immediate neighbors, thus ensures the curve maintained
  its original form as much as possible.
@@ -5291,7 +5291,7 @@ name "fig:DifferentialCoor"
 \begin_inset Formula $v_{i}$
 \end_inset
 
- and the center of mass of its neighboors 
+ and the center of mass of its neighbors 
 \begin_inset Formula $v_{1},...,v$
 \end_inset
 
@@ -5333,7 +5333,7 @@ Where
 \begin_inset Formula $v_{j}$
 \end_inset
 
- are the inmediate neighoors of 
+ are the immediate neighbors of 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -5341,7 +5341,7 @@ Where
 \begin_inset Formula $w_{ij}$
 \end_inset
 
- is the weigth betwen vertex 
+ is the weight between vertex 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -5383,7 +5383,7 @@ Where
 \begin_inset Formula $w_{l}$
 \end_inset
 
- is the weigth for Laplacian Matrix 
+ is the weight for Laplacian Matrix 
 \begin_inset Formula $L$
 \end_inset
 
@@ -5403,12 +5403,12 @@ reference "PAPER:eq:TQLBO_Simple_Matrix"
 \begin_inset Formula $Wc$
 \end_inset
 
- is a matrix that containts ones int the indexes of anchors vertices.
+ is a matrix that contains ones int the indexes of anchors vertices.
  
 \begin_inset Formula $C$
 \end_inset
 
- is a vector with coordinates of anchors vertices after several transformatios.
+ is a vector with coordinates of anchors vertices after several transformations.
  
 \family roman
 \series medium
@@ -5440,7 +5440,7 @@ Performance Testing of Solvers
 \end_layout
 
 \begin_layout Standard
-Fot this project we choose a numerical solver to be included in Blender
+For this project we choose a numerical solver to be included in Blender
  software with base in a performance evaluation of computation of the initial
  factorization of the Laplacian deform system.
 \end_layout
@@ -5577,8 +5577,8 @@ CHOLMOD: Supernodal sparse Cholesky factorization.
 \end_layout
 
 \begin_layout Standard
-LU factorization is a numerical method that works with large, sparse, nonsymmetr
-ic systems of linear equations 
+LU factorization is a numerical method that works with large, sparse, non-symmet
+ric systems of linear equations 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Levy2005"
@@ -5586,8 +5586,8 @@ key "Levy2005"
 \end_inset
 
 .
- We choose the implementacion of LU factorizacion in a OpenNL-SuperLU library,
- because this method show the better performance for the computacion of
+ We choose the implementation of LU factorization in a OpenNL-SuperLU library,
+ because this method show the better performance for the computation of
  a solution for a Laplacian Deform linear system of equations presented
  in equation 
 \begin_inset CommandInset ref
@@ -5611,7 +5611,7 @@ reference "fig:Plot-IniFactor"
 \end_inset
 
 .
- OpenNL SuperLU allow works with the Graphics Unit Proccesor GPU, for exploit
+ OpenNL SuperLU allow works with the Graphics Unit Processor GPU, for exploit
  the capacity of GPU to work with parallel structures, more fast that traditiona
 l CPU.
 \end_layout
@@ -6247,9 +6247,10 @@ Anchors Vertex Group
 \shape slanted
 Bind
 \shape default
- option init the system and capture the geometry details in form of differential
- coordinates and compute the factorization of the linear system, after that
- the system is ready to repose meshes in real-time user interaction session.
+ option initiate the system and capture the geometry details in form of
+ differential coordinates and compute the factorization of the linear system,
+ after that the system is ready to repose meshes in real-time user interaction
+ session.
 \end_layout
 
 \begin_layout Standard
@@ -6306,7 +6307,7 @@ reference "fig:Armadillo"
  shows the Laplacian Deform applied in a model with 173K vertices, only
  anchor vertices was used and are represented in blue color, when the user
  apply several transformation (location, rotation, scale) over this anchors
- vertices, the system find a solution and estimate the position of the vetices
+ vertices, the system find a solution and estimate the position of the vertices
  in yellow color.
  This method work in real time, to achieve this the matrix 
 \begin_inset Formula $\begin{bmatrix}w_{l}L\\
@@ -6325,13 +6326,13 @@ reference "eq:LaplacianDefomSystem"
 \begin_inset Formula $LU$
 \end_inset
 
- with LU factorization only one time when the system init.
+ with LU factorization only one time when the system initiate.
  Once the matrix is factorized the system can solve the unknowns in a fast
- way in term of miliseconds.
+ way in term of milliseconds.
  For get better results the method permits solve several times the system
- of equations, and not need factorize matriz LU could be that at every iteration
+ of equations, and not need factorize matrix LU could be that at every iteration
 , only the differential coordinates are adjust since the differential coordinate
-s can be rotated at every iteration and get bettter results.
+s can be rotated at every iteration and get better results.
  In the figure only four iterations were used, but the system find good
  solutions with only one iteration when the angle of rotations are less
  that 
@@ -6698,8 +6699,8 @@ Análisis Experimental de la Extracción del Esqueleto por Contracción con
 \end_layout
 
 \begin_layout Standard
-Skelton extraction reduces the dimensionality and represents a three-dimensional
- object as a uni-dimensional structure 
+Skeleton extraction reduces the dimensionality and represents a three-dimensiona
+l object as a uni-dimensional structure 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Cornea2007"
@@ -6718,7 +6719,7 @@ key "Meyer2003"
 
 \end_inset
 
-, to contratc iteratively the mesh until the volume inside the surface is
+, to contract iteratively the mesh until the volume inside the surface is
  near to zero (see figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -6728,7 +6729,7 @@ reference "fig:MeshContracted"
 
 ).
  The method stretch the shrink mesh to warranty that object preservers the
- best at posibble the original topology with the use of attraction constraint
+ best at possible the original topology with the use of attraction constraint
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -6781,9 +6782,9 @@ From left to right iterative mesh contraction.
 \end_layout
 
 \begin_layout Standard
-The laplacian smooth proccess move the vertices in the direction of the
- Laplacian, if cotangent laplacian operator is used, the vertices move in
- the direction of minimal surface 
+The laplacian smooth process move the vertices in the direction of the Laplacian
+, if cotangent laplacian operator is used, the vertices move in the direction
+ of minimal surface 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Pinkall1993"
@@ -6801,7 +6802,7 @@ key "Au2008"
 
 \end_inset
 
- is proposed the next system of equation to iteratively contratc the mesh
+ is proposed the next system of equation to iteratively contract the mesh
  until a skeleton.
 \end_layout
 
@@ -6878,7 +6879,7 @@ reference "PAPER:eq:TQLBO_Simple_Matrix"
 \begin_inset Formula $A_{i}^{0}$
 \end_inset
 
- are the current area and initial aerea of the ring surrounding 
+ are the current area and initial area of the ring surrounding 
 \begin_inset Formula $x_{i}$
 \end_inset
 
@@ -6894,7 +6895,7 @@ In this thesis an additional constraint is proposed which seeks the vertices
 
 \begin_layout Standard
 The basic idea is move the vertices along of the normal line estimated on
- every vertex based on the avergage of the faces normals.
+ every vertex based on the average of the faces normals.
  
 \end_layout
 
@@ -6964,7 +6965,7 @@ reference "fig:LineConstraint"
 \begin_inset Formula $\overrightarrow{\mathbf{n}_{i}}$
 \end_inset
 
- and neighboors 
+ and neighbors 
 \begin_inset Formula $x_{j}$
 \end_inset
 
@@ -6990,7 +6991,7 @@ The equation of the plane.
 \end_layout
 
 \begin_layout Standard
-There is varios methods to build a equation of the plane based on three
+There is various methods to build a equation of the plane based on three
  non-collinear points, we choose this three points based on vertex 
 \begin_inset Formula $x_{i}$
 \end_inset
@@ -6999,7 +7000,7 @@ There is varios methods to build a equation of the plane based on three
 \begin_inset Formula $\overrightarrow{\mathbf{n}_{i}}$
 \end_inset
 
- and neighboors 
+ and neighbors 
 \begin_inset Formula $x_{j}$
 \end_inset
 
@@ -7130,7 +7131,7 @@ reference "eq:SkeletonExtraction"
 \end_inset
 
  don't has a unique solution, the system solve it in the least-squares sense.
- With the new constraint the system then try to minimize the distance betwen
+ With the new constraint the system then try to minimize the distance between
  the new vertex positions and the two planes.
  
 \end_layout
@@ -7165,7 +7166,7 @@ where
 \begin_inset Formula $W_{D}$
 \end_inset
 
- is the weigth to new constraints, that forced the vertices to move along
+ is the weight to new constraints, that forced the vertices to move along
  of the normal line of every vertex.
  
 \begin_inset Formula $\Pi_{1}$
@@ -7237,7 +7238,7 @@ name "fig:Skeletonizer-interface"
 
 \end_inset
 
-Skeletonizer interface.
+sjSkeletonizer interface.
  (a) Open and display mesh.
  (b) Mesh contracted after 4 iterations.
  (c) Skeleton get after surface simplification.
@@ -7265,7 +7266,7 @@ key "Pinzon2012"
 
 \end_inset
 
- that permits the proccessing, visualization and extraction of the skeleton
+ that permits the processing, visualization and extraction of the skeleton
  from polygonal hybrid meshes composed by triangles and quads.
  In figure 
 \begin_inset CommandInset ref
@@ -7274,11 +7275,11 @@ reference "fig:Skeletonizer-interface"
 
 \end_inset
 
- you can see the interace of the software.
+ you can see the interface of the software.
  The software sjSkeletonizer allow to open and display meshes in a interactive
  viewer.
  This software allow to contract a mesh with the use of two different Laplacian
- operator: The contangent operator and umbrella operator, the user can customize
+ operator: The cotangent operator and umbrella operator, the user can customize
  the number of iterations of the contraction step.
  The software allow a user to visualize the original mesh and contracted
  mesh after every iteration (figure 
@@ -7364,13 +7365,13 @@ reference "fig:Skeleton-extractedModels"
 
 \end_inset
 
- show the skeleton extracted from differents models using our method.
+ show the skeleton extracted from different models using our method.
  Every skeleton represent very good the topology and geometry of the original
  meshes.
- The extracted skeltons are homotopic to the original shapes.
+ The extracted skeletons are homotopic to the original shapes.
  Our method permits simplify the skeleton until the user required and guaranteed
- that every node in the skeleton represents as best as posible every core
- part othe original model.
+ that every node in the skeleton represents as best as possible every core
+ part of the original model.
 \end_layout
 
 \begin_layout Standard
@@ -7423,7 +7424,7 @@ reference "fig:Skeleton-extraction-poses"
 
 \end_inset
 
-) then if some global transformatios how rotations of core parts of the
+) then if some global transformations how rotations of core parts of the
  mesh are made, the extracted skeletons to be similar could be to the properties
  of the Laplacian operator.
  In the figure shown similar skeletons for different poses of the same model,
@@ -7449,14 +7450,14 @@ In this work, we present a novel extension of the Laplace Beltrami operator
 \end_layout
 
 \begin_layout Standard
-We demostrate the good performance, stability and robustnes of the extension
+We demonstrate the good performance, stability and robustness of the extension
  proposed throughout all the results shown in the paper, posters and internships.
 \end_layout
 
 \begin_layout Standard
 This novel extension of the Laplace Beltrami operator was introduced in
  computer modelling industry inside the Blender software, that allow to
- many artist to work with differents tools developed with base on TQLBO,
+ many artist to work with different tools developed with base on TQLBO,
  for any kind of meshes, triangular meshes, quadrilateral meshes or hybrid
  meshes.
 \end_layout
