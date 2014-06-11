@@ -4275,17 +4275,17 @@ name "sub:Laplacian-Smooth"
 \end_layout
 
 \begin_layout Standard
-This work was accepted and completed for the software Blender 
+This work was accepted as part of the software Blender 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blender"
 
 \end_inset
 
- that is an open source 3D application for modeling, animation, rendering,
- compositing, video editing and game creation.
- In the Google Summer of Code 2012 program which was administered for Google
- Inc.
+, an open source 3D application for modeling, animation, rendering, compositing,
+ video editing and game creation.
+ The work was supported by an awarded internship of the Google Summer of
+ Code 2012 program, administered for Google Inc.
 \end_layout
 
 \begin_layout Section
@@ -6698,6 +6698,10 @@ Análisis Experimental de la Extracción del Esqueleto por Contracción con
 
 \end_layout
 
+\begin_layout Section
+Background
+\end_layout
+
 \begin_layout Standard
 Skeleton extraction reduces the dimensionality and represents a three-dimensiona
 l object as a uni-dimensional structure 
@@ -6884,6 +6888,10 @@ reference "PAPER:eq:TQLBO_Simple_Matrix"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Section
+Contribution
 \end_layout
 
 \begin_layout Standard
@@ -7209,7 +7217,7 @@ where
 \end_layout
 
 \begin_layout Section
-Results
+Results and Conclusions
 \end_layout
 
 \begin_layout Standard
