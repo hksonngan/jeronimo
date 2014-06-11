@@ -1,0 +1,920 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass scrbook
+\begin_preamble
+%\documentclass[12pt,spanish,fleqn,openany,letterpaper,pagesize]{scrbook}
+
+%\usepackage[ansinew]{inputenc}
+%\usepackage[spanish]{babel}
+\usepackage{fancyhdr}
+\usepackage{epsfig}
+\usepackage{epic}
+\usepackage{eepic}
+\usepackage{amsmath}
+\usepackage{threeparttable}
+\usepackage{amscd}
+\usepackage{here}
+\usepackage{graphicx}
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{subfigure}
+\usepackage{longtable}
+
+
+\usepackage{rotating} %Para rotar texto, objetos y tablas seite. No se ve en DVI solo en PS. Seite 328 Hundebuch
+                        %se usa junto con \rotate, \sidewidestable ....
+
+
+\renewcommand{\theequation}{\thechapter-\arabic{equation}}
+\renewcommand{\thefigure}{\textbf{\thechapter-\arabic{figure}}}
+\renewcommand{\thetable}{\textbf{\thechapter-\arabic{table}}}
+
+
+\pagestyle{fancyplain}%\addtolength{\headwidth}{\marginparwidth}
+\textheight22.5cm \topmargin0cm \textwidth16.5cm
+\oddsidemargin0.5cm \evensidemargin-0.5cm%
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter\; #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\; #1}}
+\lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\rightmark}}
+\rhead[\fancyplain{}{\leftmark}]{\fancyplain{}{\thepage}}
+\fancyfoot{}
+\thispagestyle{fancy}%
+
+
+\addtolength{\headwidth}{0cm}
+\unitlength1mm %Define la unidad LE para Figuras
+%\mathindent0cm %Define la distancia de las formulas al texto,  fleqn las descentra
+\marginparwidth0cm
+\parindent0cm %Define la distancia de la primera linea de un parrafo a la margen
+
+%Para tablas,  redefine el backschlash en tablas donde se define la posici\'{o}n del texto en las
+%casillas (con \centering \raggedright o \raggedleft)
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\let\PBS=\PreserveBackslash
+
+%Espacio entre lineas
+\renewcommand{\baselinestretch}{1.1}
+
+%Neuer Befehl f\"{u}r die Tabelle Eigenschaften der Aktivkohlen
+\newcommand{\arr}[1]{\raisebox{1.5ex}[0cm][0cm]{#1}}
+
+%Neue Kommandos
+\usepackage{resources/Befehle}
+
+
+%Trennungsliste
+\hyphenation {Reaktor-ab-me-ssun-gen Gas-zu-sa-mmen-set-zung
+Raum-gesch-win-dig-keit Durch-fluss Stick-stoff-gemisch
+Ad-sorp-tions-tem-pe-ra-tur Klein-schmidt
+Kohlen-stoff-Mole-kular-siebe Py-rolysat-aus-beu-te
+Trans-port-vor-gan-ge}
+
+%\pagenumbering{roman}
+%\let\myTOC\tableofcontents
+%\renewcommand\tableofcontents{%
+%\myTOC
+%\clearpage
+%\pagenumbering{arabic}
+%}
+\end_preamble
+\options 12pt,english,openany,letterpaper,pagesize
+\use_default_options true
+\begin_modules
+theorems-ams
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize letterpaper
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Índice
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Mesh smoothing based on curvature flow operator in a diffusion equation
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Laplacian-Smooth"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This work was accepted as part of the software Blender 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blender"
+
+\end_inset
+
+, an open source 3D application for modeling, animation, rendering, compositing,
+ video editing and game creation.
+ The work was supported by an awarded internship of the Google Summer of
+ Code 2012 program, administered for Google Inc.
+\end_layout
+
+\begin_layout Section
+Synopsis
+\end_layout
+
+\begin_layout Standard
+Computer graphics objects reconstructed from real world contain undesirable
+ noise.
+ A Mesh smoothing removes undesirable noise while still preserving desirable
+ geometric and shape of the original model.
+\end_layout
+
+\begin_layout Standard
+This project improving the mesh smoothing tools in blender, based on curvature
+ flow operator in a diffusion equation.
+\end_layout
+
+\begin_layout Standard
+This project allows working with hybrid meshes composed by triangles and
+ quads based on Laplacian operator proposed by Pinzón and Romero 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pinzon2013"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Benefits to Blender
+\end_layout
+
+\begin_layout Standard
+This project proposes a new and robust mesh smoothing tool for blender user
+ that require improves the appearance of surfaces models.
+\end_layout
+
+\begin_layout Standard
+New methods to scan computer graphics objects using the Kinect ZCam within
+ Blender, need to remove the noise present at the time of capture.
+\end_layout
+
+\begin_layout Standard
+This mesh smoothing method produce higher quality results without shrinkage.
+ The smoothing tool current collapses the mesh after several iterations.
+\end_layout
+
+\begin_layout Standard
+This mesh smoothing method permit uses a hard and soft constraints on the
+ positions of the points in the mesh to maintain control over the shape.
+\end_layout
+
+\begin_layout Standard
+This mesh smoothing method can help to remove noise generated during the
+ sculpting, without removal the desired details of the model.
+\end_layout
+
+\begin_layout Section
+Deliverables 
+\end_layout
+
+\begin_layout Standard
+A new and robust mesh smoothing tool for Blender.
+ 
+\end_layout
+
+\begin_layout Standard
+Some pages of documentation to be included in the manual.
+\end_layout
+
+\begin_layout Standard
+A technical document for developers to improve the method in the future.
+\end_layout
+
+\begin_layout Standard
+A tutorial explaining the use of the tool.
+\end_layout
+
+\begin_layout Section
+Project Details 
+\end_layout
+
+\begin_layout Standard
+The project would divide into four parts:
+\end_layout
+
+\begin_layout Standard
+To implement mesh smoothing algorithm based on curvature flow operator in
+ a diffusion equation for blender geometric structures.
+\end_layout
+
+\begin_layout Enumerate
+Initialize data and necessary structures.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Compute the Laplacian Matrix.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Define the sparse linear system.
+\end_layout
+
+\begin_layout Enumerate
+Solving the sparse linear system, we can use a preconditioned bi-conjugated
+ gradient numerical library.
+ 
+\end_layout
+
+\begin_layout Standard
+Integrate or use numerical library present in Blender to solve sparse linear
+ system
+\end_layout
+
+\begin_layout Standard
+Generation of the documentation and tutorials.
+\end_layout
+
+\begin_layout Section
+Project Schedule
+\end_layout
+
+\begin_layout Itemize
+3 weeks: Understanding the Blender source code and identify the key points
+ for the project.
+\end_layout
+
+\begin_layout Itemize
+1 week: Define the data structures necessary to work with the architecture
+ of blender.
+\end_layout
+
+\begin_layout Itemize
+1 week: Implement methods for the initial configuration needed for the smoothing
+ algorithm.
+ Implement the method that calculates the Laplacian matrix.
+\end_layout
+
+\begin_layout Itemize
+2 week: Integrate or use numerical library.
+\end_layout
+
+\begin_layout Itemize
+2 week: Define the sparse linear system and implement the method to solve
+ sparse linear system.
+\end_layout
+
+\begin_layout Itemize
+3 weeks: Define and implement graphical user integration.
+\end_layout
+
+\begin_layout Itemize
+2 weeks: Testing the tool.
+\end_layout
+
+\begin_layout Itemize
+3 weeks: Generation of the documentation and tutorials
+\end_layout
+
+\begin_layout Section
+Mesh Smoothing
+\end_layout
+
+\begin_layout Standard
+A common way to attenuate noise in a polygonal mesh is through a diffusion
+ process 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Taubin1995,Desbrun1999"
+
+\end_inset
+
+.
+ Laplacian smooth techniques over a diffusion process allow a proper noise
+ reduction on the mesh surface with minimal shape changes, while still preservin
+g a desirable geometry as well as the original shape.
+ The simple idea is that the vertices are moved in the direction of the
+ Laplacian when we use the cotangent version the vertices are moved in the
+ direction of the curvature flow.
+ The complexity of Laplacian smoothing can be linear in time and space with
+ a fast convergence and the diffusion process can attenuate noise with only
+ one iteration due the sparseness of the laplacian operator.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial V}{\partial t}=\lambda L\left(V\right)\label{eq:diffusion_process}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where L is the Laplacian matrix defined in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:LaplacianMatrixForSmoothing"
+
+\end_inset
+
+ for meshes composed by triangles or quads with different size or irregular
+ sampling.
+ 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ is a scalar that control the diffusion process, and smoothing factor.
+\end_layout
+
+\begin_layout Standard
+The equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:diffusion_process"
+
+\end_inset
+
+ can be linearly approximated using implicit integration with a Laplacian
+ Operator version of TQLBO, the use of implicit integration permit the system
+ to be more stability.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\left(I-\lambda dtL\right)V^{n+1}=V^{n}\label{eq:LaplacianSmoothLinearEquationSystem}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To permit the user to define the region of interest where the laplacian
+ smooth to be applied, we add a diagonal matrix 
+\begin_inset Formula $W_{p}$
+\end_inset
+
+ to equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:LaplacianSmoothLinearEquationSystem"
+
+\end_inset
+
+ where the every element in the diagonal correspond to the weight for every
+ vertex.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\left(I-\lambda dtW_{p}L\right)V^{n+1}=V^{n}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For non-close meshes or meshes with holes is not possible to compute the
+ curvature flow.
+ For this reason the system smooth the edges differently within the diffusion
+ process.
+ The boundaries are treated as a one-dimensional curve.
+ In a curve the Laplacian is defined as the weighted difference between
+ the vertex and the two immediate neighbors, thus ensures the curve maintained
+ its original form as much as possible.
+ We define a Laplacian for mesh smoothing as a matrix equation.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula 
+\begin{equation}
+L(i,j)=\begin{cases}
+-\frac{1}{2A_{i}}w_{ij} & \mbox{if }j\in N(v_{i})\wedge v_{i}\notin\mbox{Boundary}\\
+\frac{1}{2A_{i}}\underset{j\in N\left(v_{i}\right)}{\sum}w_{ij} & \mbox{if }i=j\wedge v_{i}\notin\mbox{Boundary}\\
+-e_{ij} & \mbox{if }j\in N(v_{i})\wedge\left\{ v_{i},v_{j}\right\} \in\mbox{Boundary}\\
+\frac{2}{E_{i}}\underset{j\in N\left(v_{i}\right)}{\sum}e_{ij} & \mbox{if }i=j\wedge\left\{ v_{i},v_{j}\right\} \in\mbox{Boundary}\\
+0 & \mbox{otherwise}
+\end{cases}\label{eq:LaplacianMatrixForSmoothing}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $L$
+\end_inset
+
+ is a 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ matrix, 
+\begin_inset Formula $n$
+\end_inset
+
+ is the number of vertices of a given mesh 
+\begin_inset Formula $M$
+\end_inset
+
+, 
+\begin_inset Formula $w_{ij}$
+\end_inset
+
+ is the TQLBO defined in equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:TQLBO_wij"
+
+\end_inset
+
+), 
+\begin_inset Formula $N\left(v_{i}\right)$
+\end_inset
+
+ is the 1-ring neighborhood with shared face to 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $e_{ij}=\frac{1}{\left\Vert v_{i}-v_{j}\right\Vert }$
+\end_inset
+
+ is the inverse length of the edge between vertices 
+\begin_inset Formula $\left\{ v_{i},v_{j}\right\} $
+\end_inset
+
+, 
+\begin_inset Formula $E_{i}=\underset{j\in N\left(v_{i}\right)}{\sum}e_{ij}$
+\end_inset
+
+.
+ 
+\begin_inset Formula $A_{i}$
+\end_inset
+
+ is the ring area around 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Results and Conclusions
+\end_layout
+
+\begin_layout Standard
+The user interface developed to this tool for the software Blender can be
+ seen in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Interface-LaplacianSmoothing"
+
+\end_inset
+
+.
+ This tool allows to set the parameters of 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ for interior points and boundaries.
+ Allows to configure soft constraints using weights defined by vertices
+ in 
+\begin_inset Quotes eld
+\end_inset
+
+Vertex Group
+\begin_inset Quotes erd
+\end_inset
+
+, and allows you to set strong constraints applying the algorithm independently
+ of axis X, Y or Z.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/Apinzonf_Diagram_Modifier_Panel.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Interface-LaplacianSmoothing"
+
+\end_inset
+
+Panel inside blender user interface of the Laplacian Smooth modifier tool.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The tool developed can set the parameter 
+\begin_inset Formula $\lambda dt$
+\end_inset
+
+ of equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:LaplacianSmoothLinearEquationSystem"
+
+\end_inset
+
+.
+ Using a small Lambda factor (
+\begin_inset Formula $\lambda<1.0$
+\end_inset
+
+), you can remove noise from the shape without affecting desirable geometry
+ (see figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Factor-LaplacianSmoothing"
+
+\end_inset
+
+.b).
+ Using a large Lambda factor (
+\begin_inset Formula $\lambda>1.0$
+\end_inset
+
+) you get smoothed versions of the shape at the cost of losing fine geometry
+ details (see figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Factor-LaplacianSmoothing"
+
+\end_inset
+
+.c and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Factor-LaplacianSmoothing"
+
+\end_inset
+
+.d).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/LaplacianSmoothingFactor.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Factor-LaplacianSmoothing"
+
+\end_inset
+
+Noise attenuation in face model with Laplacian smoothing tool using only
+ one iteration and changing 
+\begin_inset Formula $\lambda$
+\end_inset
+
+.
+ (a) Original Model.
+ (b) Smoothing 
+\begin_inset Formula $\lambda=0.5$
+\end_inset
+
+.
+ (c) Smoothing 
+\begin_inset Formula $\lambda=2.5$
+\end_inset
+
+ (d) Smoothing with 
+\begin_inset Formula $\lambda=5.0$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The user can smooth the boundaries configuring the parameter 
+\begin_inset Quotes eld
+\end_inset
+
+
+\shape slanted
+Border
+\shape default
+", seen in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Interface-LaplacianSmoothing"
+
+\end_inset
+
+.
+ Boundaries are treated differently.
+ There is no way to calculate the curvature flow on them.
+ For this reason the Lambda factor 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Formula $Border$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+ just smooths them.
+ The change of this parameter and the results seen in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Border-LaplacianSmoothing"
+
+\end_inset
+
+, in the figure you can see how the boundary inside the red circle is smoothing.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/LaplacianSmoothingBoundary.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Border-LaplacianSmoothing"
+
+\end_inset
+
+ Smoothing boundary changing 
+\begin_inset Formula $\lambda_{Border}$
+\end_inset
+
+ factor.
+ (a) Original Model.
+ (b) Smoothing 
+\begin_inset Formula $\lambda_{Border}=1.0$
+\end_inset
+
+.
+ (c) Smoothing 
+\begin_inset Formula $\lambda_{Border}=2.5$
+\end_inset
+
+ (d) Smoothing with 
+\begin_inset Formula $\lambda_{Border}=10.0$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The tool allows the user to add soft constraints using weights for each
+ vertex, this allows to define regions of interest where you want to apply
+ the algorithm in the figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:VertexGroup-LaplacianSmoothing"
+
+\end_inset
+
+.c defined in red region where you want it applied the algorithm the results
+ are shown in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:VertexGroup-LaplacianSmoothing"
+
+\end_inset
+
+.d where only were smoothed vertices in the red region.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/LaplacianSmoothingVertecGroup.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:VertexGroup-LaplacianSmoothing"
+
+\end_inset
+
+Use of weights per vertex to constrain the effect of mesh smoothing.
+ (a) Original Model.
+ (b) Smoothing with 
+\begin_inset Formula $\lambda=1.5$
+\end_inset
+
+ (c) red vertices 
+\begin_inset Formula $weight=1.0$
+\end_inset
+
+, blue vertices 
+\begin_inset Formula $weight=0.0$
+\end_inset
+
+.
+ (d) Smoothing with 
+\begin_inset Formula $\lambda=2.5$
+\end_inset
+
+.
+ Red vertices were only smoothing.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Module was developed as a tool for Blender software to remove noise in the
+ most efficient way as they had been doing.
+\end_layout
+
+\begin_layout Standard
+The methods proposed in the art to remove noise, they could only be applied
+ if the mesh was composed only by triangles, with the developed tool artists
+ can now remove the noise of their models composed of triangles and quadrangles.
+\end_layout
+
+\end_body
+\end_document
