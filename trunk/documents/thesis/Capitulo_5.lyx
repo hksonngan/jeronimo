@@ -1,0 +1,1671 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass scrbook
+\begin_preamble
+%\documentclass[12pt,spanish,fleqn,openany,letterpaper,pagesize]{scrbook}
+
+%\usepackage[ansinew]{inputenc}
+%\usepackage[spanish]{babel}
+\usepackage{fancyhdr}
+\usepackage{epsfig}
+\usepackage{epic}
+\usepackage{eepic}
+\usepackage{amsmath}
+\usepackage{threeparttable}
+\usepackage{amscd}
+\usepackage{here}
+\usepackage{graphicx}
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{subfigure}
+\usepackage{longtable}
+
+
+\usepackage{rotating} %Para rotar texto, objetos y tablas seite. No se ve en DVI solo en PS. Seite 328 Hundebuch
+                        %se usa junto con \rotate, \sidewidestable ....
+
+
+\renewcommand{\theequation}{\thechapter-\arabic{equation}}
+\renewcommand{\thefigure}{\textbf{\thechapter-\arabic{figure}}}
+\renewcommand{\thetable}{\textbf{\thechapter-\arabic{table}}}
+
+
+\pagestyle{fancyplain}%\addtolength{\headwidth}{\marginparwidth}
+\textheight22.5cm \topmargin0cm \textwidth16.5cm
+\oddsidemargin0.5cm \evensidemargin-0.5cm%
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter\; #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\; #1}}
+\lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\rightmark}}
+\rhead[\fancyplain{}{\leftmark}]{\fancyplain{}{\thepage}}
+\fancyfoot{}
+\thispagestyle{fancy}%
+
+
+\addtolength{\headwidth}{0cm}
+\unitlength1mm %Define la unidad LE para Figuras
+%\mathindent0cm %Define la distancia de las formulas al texto,  fleqn las descentra
+\marginparwidth0cm
+\parindent0cm %Define la distancia de la primera linea de un parrafo a la margen
+
+%Para tablas,  redefine el backschlash en tablas donde se define la posici\'{o}n del texto en las
+%casillas (con \centering \raggedright o \raggedleft)
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\let\PBS=\PreserveBackslash
+
+%Espacio entre lineas
+\renewcommand{\baselinestretch}{1.1}
+
+%Neuer Befehl f\"{u}r die Tabelle Eigenschaften der Aktivkohlen
+\newcommand{\arr}[1]{\raisebox{1.5ex}[0cm][0cm]{#1}}
+
+%Neue Kommandos
+\usepackage{resources/Befehle}
+
+
+%Trennungsliste
+\hyphenation {Reaktor-ab-me-ssun-gen Gas-zu-sa-mmen-set-zung
+Raum-gesch-win-dig-keit Durch-fluss Stick-stoff-gemisch
+Ad-sorp-tions-tem-pe-ra-tur Klein-schmidt
+Kohlen-stoff-Mole-kular-siebe Py-rolysat-aus-beu-te
+Trans-port-vor-gan-ge}
+
+%\pagenumbering{roman}
+%\let\myTOC\tableofcontents
+%\renewcommand\tableofcontents{%
+%\myTOC
+%\clearpage
+%\pagenumbering{arabic}
+%}
+\end_preamble
+\options 12pt,english,openany,letterpaper,pagesize
+\use_default_options true
+\begin_modules
+theorems-ams
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize letterpaper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Índice
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Mesh Editing with Laplacian Deform
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Laplacian-Deform"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This work was accepted and completed for the software Blender 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "blender"
+
+\end_inset
+
+ that is an open source 3D application for modeling, animation, rendering,
+ compositing, video editing and game creation.
+ In the Google Summer of Code 2013 program which was administered for Google
+ Inc.
+\end_layout
+
+\begin_layout Section
+Synopsis
+\end_layout
+
+\begin_layout Standard
+The mesh editing is generally done with affine transformations, Blender3D
+ offers some tools to transform the vertices as “proportional editing object
+ mode” with which the transformation of some vertices is interpolated to
+ the other vertices connected with the use of simple distance functions.
+\end_layout
+
+\begin_layout Standard
+This project proposes to implement a method for mesh editing based on sketching
+ lines defines by user and preserving the geometric details of the surface.
+\end_layout
+
+\begin_layout Standard
+This method captures the geometric details using a differential coordinates
+ representations.
+ The differential coordinates captures the local geometric information (curvatur
+e and direction) of the vertex based on its neighbors.
+ This method allows you to retrieve the best possible original model after
+ changing the positions of some vertices using the differential coordinates
+ of the original model.
+\end_layout
+
+\begin_layout Section
+Benefits to Blender
+\end_layout
+
+\begin_layout Standard
+This project proposes a new tool for blender user that requires preserve
+ the geometric details of the surface during a modeling, transformation,
+ definition of the shape keys of the mesh vertices.
+\end_layout
+
+\begin_layout Standard
+The method will allow novice users to edit any polygon mesh preserving the
+ surface details.
+\end_layout
+
+\begin_layout Standard
+This method allows the user to define new shape keys in a most fast and
+ intuitive way.
+\end_layout
+
+\begin_layout Section
+Deliverables
+\end_layout
+
+\begin_layout Itemize
+A new mesh editing tool for Blender.
+ 
+\end_layout
+
+\begin_layout Itemize
+Some pages of documentation to be included in the manual 
+\end_layout
+
+\begin_layout Itemize
+A technical document for developers to improve the method in the future.
+ 
+\end_layout
+
+\begin_layout Itemize
+A tutorial explaining the use of the tool.
+\end_layout
+
+\begin_layout Section
+Project Details
+\end_layout
+
+\begin_layout Standard
+The project would divide into several parts:
+\end_layout
+
+\begin_layout Enumerate
+Calculate the differential coordinates.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Store the fixed vertices (Hard constraints).
+ 
+\end_layout
+
+\begin_layout Enumerate
+Store positions of the edited vertices.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Store the more representative vertex for retrieve rotation of every differential
+ coordinate.
+\end_layout
+
+\begin_layout Enumerate
+Solve the initial solution – in least-squares sense.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Rotate the differential coordinates with base on initial solution and more
+ representative vertex.
+\end_layout
+
+\begin_layout Enumerate
+Reconstruct the surface – in least-squares sense.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Generation of the documentation and tutorials.
+\end_layout
+
+\begin_layout Section
+Project Schedule
+\end_layout
+
+\begin_layout Itemize
+2 Weeks: Calculate the differential coordinates.
+\end_layout
+
+\begin_layout Itemize
+2 Weeks: Store the fixed vertexes (Hard constraints).
+\end_layout
+
+\begin_layout Itemize
+2 Weeks: Store positions of the edited vertexes.
+\end_layout
+
+\begin_layout Itemize
+2 Weeks: Compute initial solution.
+\end_layout
+
+\begin_layout Itemize
+2 Weeks: Rotate differential coordinates.
+\end_layout
+
+\begin_layout Itemize
+2 Weeks: Reconstruct the surface – in least-squares sense.
+ 
+\end_layout
+
+\begin_layout Itemize
+1 Weeks: Testing the tool and Define and implement graphical user integration.
+\end_layout
+
+\begin_layout Itemize
+2 Weeks: Generation of the documentation and tutorials.
+\end_layout
+
+\begin_layout Section
+Laplacian Deform
+\end_layout
+
+\begin_layout Standard
+The Laplacian deform allows to pose a mesh while preserving geometric details
+ of the surface.
+ This method allows to defines a set of anchor vertices, and then moves
+ some of them around.
+ The system keeps the rest of the anchor vertices in fixed positions, and
+ calculates the best possible locations of all the remaining vertices to
+ preserve the original geometric details.
+\end_layout
+
+\begin_layout Standard
+This work adapt the method proposed by Sorkine 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Sorkine2004"
+
+\end_inset
+
+ for mesh deformations, delete the use of static vertices and allow application
+ of this system in hybrid meshes composes by triangles and quads with the
+ TQLBO proposed.
+\end_layout
+
+\begin_layout Standard
+This method captures the geometric details using a differential coordinates
+ representations.
+ The differential coordinates captures the local geometric information (curvatur
+e and direction) of the vertex based on its neighbors how show in figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:DifferentialCoor"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/DifferentialCoordinates.pdf
+	width 70col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:DifferentialCoor"
+
+\end_inset
+
+ Difference between 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ and the center of mass of its neighbors 
+\begin_inset Formula $v_{1},...,v$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\delta_{i}=\overset{m}{\underset{j=1}{\sum}}w_{ij}\left(v_{i}-v_{j}\right)\label{eq:DifferentialCoordinate}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $\delta_{i}$
+\end_inset
+
+ is the differential coordinate for vertex 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+ The 
+\begin_inset Formula $v_{j}$
+\end_inset
+
+ are the immediate neighbors of 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+, and 
+\begin_inset Formula $w_{ij}$
+\end_inset
+
+ is the weight between vertex 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $v_{j}$
+\end_inset
+
+ defined in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:TQLBO_wij"
+
+\end_inset
+
+ that is TQLBO.
+\end_layout
+
+\begin_layout Standard
+Then the linear systems for find the new pose of a mesh is.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{bmatrix}w_{l}L\\
+W_{c}
+\end{bmatrix}X=\begin{bmatrix}\delta\\
+W_{c}C
+\end{bmatrix}\label{eq:LaplacianDefomSystem}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $w_{l}$
+\end_inset
+
+ is the weight for Laplacian Matrix 
+\begin_inset Formula $L$
+\end_inset
+
+, the Laplacian matrix 
+\begin_inset Formula $L$
+\end_inset
+
+ was defined in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "PAPER:eq:TQLBO_Simple_Matrix"
+
+\end_inset
+
+ .
+ 
+\begin_inset Formula $Wc$
+\end_inset
+
+ is a matrix that contains ones int the indexes of anchors vertices.
+ 
+\begin_inset Formula $C$
+\end_inset
+
+ is a vector with coordinates of anchors vertices after several transformations.
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\delta$
+\end_inset
+
+ are the differential coordinates defined in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:DifferentialCoordinate"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Performance Testing of Solvers 
+\end_layout
+
+\begin_layout Standard
+For this project we choose a numerical solver to be included in Blender
+ software with base in a performance evaluation of computation of the initial
+ factorization of the Laplacian deform system.
+\end_layout
+
+\begin_layout Standard
+Linear equation system to solve
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $\begin{bmatrix}w_{l}L\\
+W_{c}
+\end{bmatrix}X=\begin{bmatrix}\delta\\
+W_{c}C
+\end{bmatrix}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Solving the sparse linear system
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $Ax=b$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $A=\begin{bmatrix}w_{l}L\\
+W_{c}
+\end{bmatrix}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $x=V$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Formula $b=\begin{bmatrix}\delta\\
+W_{c}C
+\end{bmatrix}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Hardware Specification 
+\end_layout
+
+\begin_layout Itemize
+Processor: AMD Quad-Core 2.40 GHz 
+\end_layout
+
+\begin_layout Itemize
+RAM: 8.0 GB 
+\end_layout
+
+\begin_layout Itemize
+OS: Windows 7 Professional 
+\end_layout
+
+\begin_layout Itemize
+Graphics controller: NVIDIA Quadro FX 570
+\end_layout
+
+\begin_layout Subsection
+Software Specification 
+\end_layout
+
+\begin_layout Description
+CGAL Computational Geometry Algorithms Library 
+\end_layout
+
+\begin_layout Description
+Graphite Research platform for computer graphics
+\end_layout
+
+\begin_layout Subsection
+Numeric Solvers Used 
+\end_layout
+
+\begin_layout Description
+CG: Conjugate gradient method.
+ 
+\end_layout
+
+\begin_layout Description
+BICGSTAB: Biconjugate gradient stabilized method.
+ 
+\end_layout
+
+\begin_layout Description
+GMRES: Generalized minimal residual method.
+ 
+\end_layout
+
+\begin_layout Description
+SUPERLU: Sparse Direct Solver, LU decomposition with partial pivoting.
+ 
+\end_layout
+
+\begin_layout Description
+TAUCS_LDLT: A library of sparse linear solvers with LDLT factorization.
+ 
+\end_layout
+
+\begin_layout Description
+CHOLMOD: Supernodal sparse Cholesky factorization.
+ 
+\end_layout
+
+\begin_layout Standard
+LU factorization is a numerical method that works with large, sparse, non-symmet
+ric systems of linear equations 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Levy2005"
+
+\end_inset
+
+.
+ We choose the implementation of LU factorization in a OpenNL-SuperLU library,
+ because this method show the better performance for the computation of
+ a solution for a Laplacian Deform linear system of equations presented
+ in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:LaplacianDefomSystem"
+
+\end_inset
+
+ how see in the table and plot 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:TimeVsSolvers"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Plot-IniFactor"
+
+\end_inset
+
+.
+ OpenNL SuperLU allow works with the Graphics Unit Processor GPU, for exploit
+ the capacity of GPU to work with parallel structures, more fast that traditiona
+l CPU.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="8">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Model
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Vertices
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CG
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+BICGSTAB
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GMRES
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+SUPERLU
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TAUCS
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CHOLMOD
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Cross
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+24
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.05
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.05
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.04
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.04
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.05
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.05
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+King
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+538
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.83
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.63
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.71
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.61
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.68
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.79
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+YModel
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4770
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+19.60
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16.44
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16.93
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16.06
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16.88
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+17.95
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Man
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10002
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+33.43
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+27.76
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+29.91
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+28.54
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+29.53
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+30.80
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Neptune
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+28052
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+133.97
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+136.46
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+136.39
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+133.21
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+142.87
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+142.76
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Armadillo
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+34594
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+194.48
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+174.88
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+175.80
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+169.92
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+181.70
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+183.49
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:TimeVsSolvers"
+
+\end_inset
+
+Vertices Vs Seconds, Laplacian Deform initial factorization performance.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Data/Benchmark.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Plot-IniFactor"
+
+\end_inset
+
+Plot of Vertices Vs Seconds, Initial factorization performance.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Results
+\end_layout
+
+\begin_layout Standard
+The user interface for software Blender can be seen in figure 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Panel-LaplacianDeform"
+
+\end_inset
+
+.
+ In this tool the user define the anchor vertices with the use of vertex
+ groups a feature offered by Blender, the user configure this name in the
+ field 
+\shape slanted
+Anchors Vertex Group
+\shape default
+.
+ The 
+\shape slanted
+Bind
+\shape default
+ option initiate the system and capture the geometry details in form of
+ differential coordinates and compute the factorization of the linear system,
+ after that the system is ready to repose meshes in real-time user interaction
+ session.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/Apinzonf_Diagram_Deform_Modifier_Panel_01.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Panel-LaplacianDeform"
+
+\end_inset
+
+Panel inside blender user interface of the Laplacian Deform modifier tool.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Armadillo"
+
+\end_inset
+
+ shows the Laplacian Deform applied in a model with 173K vertices, only
+ anchor vertices was used and are represented in blue color, when the user
+ apply several transformation (location, rotation, scale) over this anchors
+ vertices, the system find a solution and estimate the position of the vertices
+ in yellow color.
+ This method work in real time, to achieve this the matrix 
+\begin_inset Formula $\begin{bmatrix}w_{l}L\\
+W_{c}
+\end{bmatrix}$
+\end_inset
+
+ in the equation 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:LaplacianDefomSystem"
+
+\end_inset
+
+ is decomposed in matrix 
+\begin_inset Formula $LU$
+\end_inset
+
+ with LU factorization only one time when the system initiate.
+ Once the matrix is factorized the system can solve the unknowns in a fast
+ way in term of milliseconds.
+ For get better results the method permits solve several times the system
+ of equations, and not need factorize matrix LU could be that at every iteration
+, only the differential coordinates are adjust since the differential coordinate
+s can be rotated at every iteration and get better results.
+ In the figure only four iterations were used, but the system find good
+ solutions with only one iteration when the angle of rotations are less
+ that 
+\begin_inset Formula $\pi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename resources/figs/Armadillo.pdf
+	lyxscale 10
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Armadillo"
+
+\end_inset
+
+Anchor vertices in blue color.
+ (a) Original Model, (b,c,d) new poses change only anchor vertices, system
+ find positions for vertices in yellow color.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Cactus"
+
+\end_inset
+
+ show a comparison after made a one simple transformation that consist in
+ rotate 
+\begin_inset Formula $70º$
+\end_inset
+
+ to right the parts in blue color.
+ between traditional method to interpolate the changes made in some parts
+ of the mesh to entire model.
+ The results for simple interpolation is show in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Cactus"
+
+\end_inset
+
+.b and show how the main trunk loss your shape and is rotated.
+ The propagation of changes made with Laplacian deform (figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Cactus"
+
+\end_inset
+
+.c) for the same transformation show better results and how the details and
+ shape of the original model are preserve as best as possible.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/cactus.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Cactus"
+
+\end_inset
+
+(a) Original cactus model.
+ (b) Rotate 70º to right the blue segments with basic interpolation (c)
+ Rotate 70º to right the blue segments with Laplacian deform tool.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Laplacian Deform tool allow a user to repose a model while preserve
+ the geometry details in the figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Horse"
+
+\end_inset
+
+.b y 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Horse"
+
+\end_inset
+
+c you can see the new pose of he horse after five transformations and rotation
+ of the head, in figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Horse"
+
+\end_inset
+
+.b you was use basic interpolation and the shape and details are lost with
+ every change made.
+ In figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Horse"
+
+\end_inset
+
+..c yo can see how the new pose of the horse look more natural, and how the
+ body and neck, of the horse preserve the original shape, this comparison
+ show that method allow to apply any number of transformations without lost
+ details, could be the system try to recover geometry details with base
+ in the original pose of the model.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename resources/figs/horse.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Horse"
+
+\end_inset
+
+(a) Original Horse model.
+ (b) Translate and rotate the blue segments with basic interpolation (c)
+ Translate and rotate the blue segments with Laplacian deform tool.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "bibliografia/listado_inicial,TQLBO-paper/template,D:/src/blender/GSoC/GSOC2013/bibliography_mesh_editing,SIBGRAPI2013/template"
+options "bibtotoc,plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
