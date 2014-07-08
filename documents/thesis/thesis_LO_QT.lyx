@@ -4306,20 +4306,14 @@ Synopsis
 \end_layout
 
 \begin_layout Standard
-Computer graphics objects reconstructed from real world contain undesirable
- noise.
- A Mesh smoothing removes undesirable noise while still preserving desirable
- geometric and shape of the original model.
-\end_layout
-
-\begin_layout Standard
-This project improving the mesh smoothing tools in blender, based on curvature
- flow operator in a diffusion equation.
-\end_layout
-
-\begin_layout Standard
-This project allows working with hybrid meshes composed by triangles and
- quads based on Laplacian operator proposed by Pinzón and Romero 
+Objects reconstructed from the real world contain undesirable noise in many
+ applications of computer graphics.
+ A Mesh smoothing may remove that noise while still preserving the geometry
+ and shape of the original model.
+ This project aims to improve the mesh smoothing tools uses by software
+ Blender, using curvature flow operator in a diffusion equation, allowing
+ to work with hybrid meshes composed of triangles and quads, using the Laplacian
+ operator proposed by Pinzón and Romero 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Pinzon2013"
@@ -4334,48 +4328,42 @@ Benefits to Blender
 \end_layout
 
 \begin_layout Standard
-This project proposes a new and robust mesh smoothing tool for blender user
- that require improves the appearance of surfaces models.
+This project proposes a new and robust mesh smoothing tool that improves
+ the appearance of surfaces models.
+ Usually, methods to scan computer graphics objects using the Kinect ZCam
+ need to remove the noise present at the time of capture.
+ This mesh smoothing method produces higher quality results without shrinkage,
+ while the usually used smoothing tool collapses after several iterations.
 \end_layout
 
 \begin_layout Standard
-New methods to scan computer graphics objects using the Kinect ZCam within
- Blender, need to remove the noise present at the time of capture.
-\end_layout
-
-\begin_layout Standard
-This mesh smoothing method produce higher quality results without shrinkage.
- The smoothing tool current collapses the mesh after several iterations.
-\end_layout
-
-\begin_layout Standard
-This mesh smoothing method permit uses a hard and soft constraints on the
- positions of the points in the mesh to maintain control over the shape.
-\end_layout
-
-\begin_layout Standard
-This mesh smoothing method can help to remove noise generated during the
- sculpting, without removal the desired details of the model.
+This mesh smoothing method allows hard and soft constraints on the positions
+ of the mesh points to maintain control over the shape, facilitating to
+ remove the noise generated during the sculpting, without eliminating the
+ desired details of the model.
+ 
 \end_layout
 
 \begin_layout Section
 Deliverables 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 A new and robust mesh smoothing tool for Blender.
  
 \end_layout
 
-\begin_layout Standard
-Some pages of documentation to be included in the manual.
+\begin_layout Itemize
+Some documentation pages to be included in the manual.
+ 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 A technical document for developers to improve the method in the future.
+ 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Itemize
 A tutorial explaining the use of the tool.
 \end_layout
 
@@ -4384,41 +4372,35 @@ Project Details
 \end_layout
 
 \begin_layout Standard
-The project would divide into four parts:
-\end_layout
-
-\begin_layout Standard
-To implement mesh smoothing algorithm based on curvature flow operator in
- a diffusion equation for blender geometric structures.
+The mesh smoothing algorithm was implemented as a diffusion equation for
+ specific geometric structures.
+ The project was divided in four parts:
 \end_layout
 
 \begin_layout Enumerate
-Initialize data and necessary structures.
- 
+Initialization of data and necessary structures.
 \end_layout
 
 \begin_layout Enumerate
-Compute the Laplacian Matrix.
- 
+Computation of the Laplacian Matrix.
 \end_layout
 
 \begin_layout Enumerate
-Define the sparse linear system.
+Definition of the sparse linear system.
 \end_layout
 
 \begin_layout Enumerate
-Solving the sparse linear system, we can use a preconditioned bi-conjugated
+Solution of the sparse linear system, using a preconditioned bi-conjugated
  gradient numerical library.
- 
 \end_layout
 
 \begin_layout Standard
-Integrate or use numerical library present in Blender to solve sparse linear
- system
+Integration of the numerical library present in Blender to solve the sparse
+ linear system
 \end_layout
 
 \begin_layout Standard
-Generation of the documentation and tutorials.
+Generation of documentation and tutorials.
 \end_layout
 
 \begin_layout Section
@@ -4426,32 +4408,32 @@ Project Schedule
 \end_layout
 
 \begin_layout Itemize
-3 weeks: Understanding the Blender source code and identify the key points
+3 weeks: Understanding the Blender source code and identifying the key points
  for the project.
 \end_layout
 
 \begin_layout Itemize
-1 week: Define the data structures necessary to work with the architecture
- of blender.
+1 week: Definition of the data structures necessary to work with the Blender
+ architecture.
 \end_layout
 
 \begin_layout Itemize
-1 week: Implement methods for the initial configuration needed for the smoothing
- algorithm.
- Implement the method that calculates the Laplacian matrix.
+1 week: Implementation of the methods for the initial configuration of the
+ smoothing algorithm.
+ Implementation of the Laplacian matrix calculation.
 \end_layout
 
 \begin_layout Itemize
-2 week: Integrate or use numerical library.
+2 week: Integration of the numerical library.
 \end_layout
 
 \begin_layout Itemize
-2 week: Define the sparse linear system and implement the method to solve
- sparse linear system.
+2 week: formulation of the sparse linear system and implementation of the
+ numerical method to solve it.
 \end_layout
 
 \begin_layout Itemize
-3 weeks: Define and implement graphical user integration.
+3 weeks: Formulation and implementation of the graphical user interface.
 \end_layout
 
 \begin_layout Itemize
@@ -4459,7 +4441,7 @@ Project Schedule
 \end_layout
 
 \begin_layout Itemize
-3 weeks: Generation of the documentation and tutorials
+3 weeks: Generation of the documentation and tutorials.
 \end_layout
 
 \begin_layout Section
@@ -4467,7 +4449,7 @@ Mesh Smoothing
 \end_layout
 
 \begin_layout Standard
-A common way to attenuate noise in a polygonal mesh is through a diffusion
+A common way of attenuating noise in a polygonal mesh is by a diffusion
  process 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -4476,15 +4458,15 @@ key "Taubin1995,Desbrun1999"
 \end_inset
 
 .
- Laplacian smooth techniques over a diffusion process allow a proper noise
- reduction on the mesh surface with minimal shape changes, while still preservin
-g a desirable geometry as well as the original shape.
- The simple idea is that the vertices are moved in the direction of the
- Laplacian when we use the cotangent version the vertices are moved in the
- direction of the curvature flow.
- The complexity of Laplacian smoothing can be linear in time and space with
- a fast convergence and the diffusion process can attenuate noise with only
- one iteration due the sparseness of the laplacian operator.
+ Laplacian smooth techniques allow a proper noise reduction of the mesh
+ surface with minimal shape changes.
+ The simple idea consists in moving the vertices in the Laplacian direction.
+ When the cotangent version is used, the vertices are moved in the direction
+ of the curvature flow.
+ The complexity of the Laplacian smoothing can be linear in time and space
+ with a fast convergence.
+ The diffusion process can attenuate noise with only one iteration due the
+ sparseness of the laplacian operator.
 \end_layout
 
 \begin_layout Standard
@@ -4500,24 +4482,24 @@ g a desirable geometry as well as the original shape.
 \end_layout
 
 \begin_layout Standard
-Where L is the Laplacian matrix defined in equation 
+Where 
+\begin_inset Formula $L$
+\end_inset
+
+ is the Laplacian matrix defined in equation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:LaplacianMatrixForSmoothing"
 
 \end_inset
 
- for meshes composed by triangles or quads with different size or irregular
- sampling.
- 
+ for meshes composed of triangles or quads with different sizes or irregular
+ sampling and 
 \begin_inset Formula $\lambda$
 \end_inset
 
- is a scalar that control the diffusion process, and smoothing factor.
-\end_layout
-
-\begin_layout Standard
-The equation 
+ is a scalar that controls the diffusion process, and smoothing factor.
+ The equation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:diffusion_process"
@@ -4525,8 +4507,8 @@ reference "eq:diffusion_process"
 \end_inset
 
  can be linearly approximated using implicit integration with a Laplacian
- Operator version of TQLBO, the use of implicit integration permit the system
- to be more stability.
+ Operator version of TQLBO, the use of implicit integration makes the system
+ is more stable.
 \end_layout
 
 \begin_layout Standard
@@ -4541,8 +4523,9 @@ reference "eq:diffusion_process"
 \end_layout
 
 \begin_layout Standard
-To permit the user to define the region of interest where the laplacian
- smooth to be applied, we add a diagonal matrix 
+The user may define the region of interest where the laplacian smooth needs
+ to be applied.
+ For doing so, we add a diagonal matrix 
 \begin_inset Formula $W_{p}$
 \end_inset
 
@@ -4553,7 +4536,7 @@ reference "eq:LaplacianSmoothLinearEquationSystem"
 
 \end_inset
 
- where the every element in the diagonal correspond to the weight for every
+, where every element in the diagonal correspond to the weight for every
  vertex.
 \end_layout
 
@@ -4579,14 +4562,13 @@ reference "eq:LaplacianSmoothLinearEquationSystem"
 \end_layout
 
 \begin_layout Standard
-For non-close meshes or meshes with holes is not possible to compute the
- curvature flow.
- For this reason the system smooth the edges differently within the diffusion
- process.
- The boundaries are treated as a one-dimensional curve.
- In a curve the Laplacian is defined as the weighted difference between
- the vertex and the two immediate neighbors, thus ensures the curve maintained
- its original form as much as possible.
+For non-closed meshes or meshes with holes, the curvature flow can not be
+ computed.
+ For this reason, the system smoothes out the edges only in the direction
+ of the diffusion process.
+ The boundaries are treated as a one-dimensional curve, where the Laplacian
+ is defined as the weighted difference between the vertex and the two immediate
+ neighbors, ensuring the curve maintains its original form as much as possible.
  We define a Laplacian for mesh smoothing as a matrix equation.
 \end_layout
 
@@ -4674,8 +4656,7 @@ Results and Conclusions
 \end_layout
 
 \begin_layout Standard
-The user interface developed to this tool for the software Blender can be
- seen in figure 
+The developed user interface can be seen in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Interface-LaplacianSmoothing"
@@ -4683,13 +4664,12 @@ reference "fig:Interface-LaplacianSmoothing"
 \end_inset
 
 .
- This tool allows to set the parameters of 
+ This tool allows to set the 
 \begin_inset Formula $\lambda$
 \end_inset
 
- for interior points and boundaries.
- Allows to configure soft constraints using weights defined by vertices
- in 
+ parameters for inner points and boundaries, to configure soft constraints
+ using weights defined by vertices in 
 \begin_inset Quotes eld
 \end_inset
 
@@ -4697,8 +4677,8 @@ Vertex Group
 \begin_inset Quotes erd
 \end_inset
 
-, and allows you to set strong constraints applying the algorithm independently
- of axis X, Y or Z.
+ and to set strong constraints by independently applying the algorithm in
+ the axis X, Y or Z.
 \end_layout
 
 \begin_layout Standard
@@ -4743,11 +4723,11 @@ Panel inside blender user interface of the Laplacian Smooth modifier tool.
 \end_layout
 
 \begin_layout Standard
-The tool developed can set the parameter 
+The tool developed can set the 
 \begin_inset Formula $\lambda dt$
 \end_inset
 
- of equation 
+ parameter of equation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:LaplacianSmoothLinearEquationSystem"
@@ -4759,20 +4739,19 @@ reference "eq:LaplacianSmoothLinearEquationSystem"
 \begin_inset Formula $\lambda<1.0$
 \end_inset
 
-), you can remove noise from the shape without affecting desirable geometry
- (see figure 
+), noise can be removed without significantly affecting the geometry (see
+ figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Factor-LaplacianSmoothing"
 
 \end_inset
 
-.b).
- Using a large Lambda factor (
+.b), while a large Lambda factor (
 \begin_inset Formula $\lambda>1.0$
 \end_inset
 
-) you get smoothed versions of the shape at the cost of losing fine geometry
+) smoothed versions can be obtained at the cost of losing fine geometry
  details (see figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -4854,7 +4833,7 @@ Noise attenuation in face model with Laplacian smoothing tool using only
 \end_layout
 
 \begin_layout Standard
-The user can smooth the boundaries configuring the parameter 
+The user can smooth the boundaries by configuring the parameter 
 \begin_inset Quotes eld
 \end_inset
 
@@ -4862,7 +4841,11 @@ The user can smooth the boundaries configuring the parameter
 \shape slanted
 Border
 \shape default
-", seen in figure 
+
+\begin_inset Quotes erd
+\end_inset
+
+, seen in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Interface-LaplacianSmoothing"
@@ -4870,16 +4853,16 @@ reference "fig:Interface-LaplacianSmoothing"
 \end_inset
 
 .
- Boundaries are treated differently.
- There is no way to calculate the curvature flow on them.
+ Boundaries are treated differently since there is no way to calculate the
+ boundary curvature flow.
  For this reason the Lambda factor 
 \begin_inset Quotes eld
 \end_inset
 
 
-\begin_inset Formula $Border$
-\end_inset
-
+\shape slanted
+Border
+\shape default
 
 \begin_inset Quotes erd
 \end_inset
@@ -4892,7 +4875,7 @@ reference "fig:Border-LaplacianSmoothing"
 
 \end_inset
 
-, in the figure you can see how the boundary inside the red circle is smoothing.
+, illustrate how the boundary inside the red circle is smoothed.
 \end_layout
 
 \begin_layout Standard
@@ -4960,22 +4943,22 @@ name "fig:Border-LaplacianSmoothing"
 \begin_layout Standard
 The tool allows the user to add soft constraints using weights for each
  vertex, this allows to define regions of interest where you want to apply
- the algorithm in the figure 
+ the algorithm.
+ In figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:VertexGroup-LaplacianSmoothing"
 
 \end_inset
 
-.c defined in red region where you want it applied the algorithm the results
- are shown in figure 
+.c, the red region corresponds to the desired region and figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:VertexGroup-LaplacianSmoothing"
 
 \end_inset
 
-.d where only were smoothed vertices in the red region.
+.d stands for those smoothed vertices in the red region.
 \end_layout
 
 \begin_layout Standard
@@ -5042,14 +5025,11 @@ Use of weights per vertex to constrain the effect of mesh smoothing.
 \end_layout
 
 \begin_layout Standard
-Module was developed as a tool for Blender software to remove noise in the
- most efficient way as they had been doing.
-\end_layout
-
-\begin_layout Standard
-The methods proposed in the art to remove noise, they could only be applied
- if the mesh was composed only by triangles, with the developed tool artists
- can now remove the noise of their models composed of triangles and quadrangles.
+This module was developed as a tool for the Blender software to remove noise
+ in the most efficient way.
+ The state-of-the-art methods remove noise only if the mesh is composed
+ by triangles, in contrast, with the developed tool, artists can now remove
+ the noise even if the mesh is composed of triangles and quadrangles.
 \end_layout
 
 \begin_layout Chapter
