@@ -5221,34 +5221,26 @@ Laplacian Deform
 \end_layout
 
 \begin_layout Standard
-The Laplacian deform allows to pose a mesh while preserving geometric details
- of the surface.
- This method allows to defines a set of anchor vertices, and then moves
- some of them around.
- The system keeps the rest of the anchor vertices in fixed positions, and
- calculates the best possible locations of all the remaining vertices to
- preserve the original geometric details.
-\end_layout
-
-\begin_layout Standard
-This work adapt the method proposed by Sorkine 
+The Laplacian deformation facilitates mesh visualization while it preserves
+ the geometric surface details.
+ This method allows to define a set of anchor vertices which serve as a
+ repair to move the mesh by translating some of them.
+ The system keeps the anchor vertices in fixed positions and calculates
+ the best possible locations of the other vertices for the shape to preserve
+ the original geometric details.
+ This work adapts the method proposed by Sorkine
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sorkine2004"
 
 \end_inset
 
- for mesh deformations, delete the use of static vertices and allow application
- of this system in hybrid meshes composes by triangles and quads with the
- TQLBO proposed.
-\end_layout
-
-\begin_layout Standard
-This method captures the geometric details using a differential coordinates
- representations.
- The differential coordinates captures the local geometric information (curvatur
-e and direction) of the vertex based on its neighbors how show in figure
- 
+ for mesh deformations at deleting the use of static vertices.
+ The method has been in addition applied to hybrid meshes composed by triangles
+ and quads, using the proposed TQLBO.
+ In particular, the geometric details are captured using differential coordinate
+ representations that contain the local geometric information (curvature
+ and direction) of the vertex and its neighbors, as shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:DifferentialCoor"
@@ -5360,7 +5352,7 @@ reference "PAPER:eq:TQLBO_wij"
 \end_layout
 
 \begin_layout Standard
-Then the linear systems for find the new pose of a mesh is.
+Then the linear system for finding the new pose of a mesh is.
 \end_layout
 
 \begin_layout Standard
@@ -5383,11 +5375,11 @@ Where
 \begin_inset Formula $w_{l}$
 \end_inset
 
- is the weight for Laplacian Matrix 
+ is the Laplacian Matrix weight 
 \begin_inset Formula $L$
 \end_inset
 
-, the Laplacian matrix 
+, and the Laplacian matrix 
 \begin_inset Formula $L$
 \end_inset
 
@@ -5436,13 +5428,13 @@ reference "eq:DifferentialCoordinate"
 \end_layout
 
 \begin_layout Section
-Performance Testing of Solvers 
+Testing Solvers 
 \end_layout
 
 \begin_layout Standard
-For this project we choose a numerical solver to be included in Blender
- software with base in a performance evaluation of computation of the initial
- factorization of the Laplacian deform system.
+For this project we chose a numerical solver to be included in the Blender
+ software after an evaluation of the initial factorization of the Laplacian
+ deformation system.
 \end_layout
 
 \begin_layout Standard
@@ -6228,17 +6220,17 @@ Results
 \end_layout
 
 \begin_layout Standard
-The user interface for software Blender can be seen in figure 
+The user interface for the software Blender can be seen in figure 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "fig:Panel-LaplacianDeform"
 
 \end_inset
 
-.
- In this tool the user define the anchor vertices with the use of vertex
- groups a feature offered by Blender, the user configure this name in the
- field 
+}.
+ In this tool, the user defines the anchor vertices and, with the use of
+ a vertex, groups the features offered by Blender.
+ The user configures this name in the field 
 \shape slanted
 Anchors Vertex Group
 \shape default
@@ -6247,9 +6239,9 @@ Anchors Vertex Group
 \shape slanted
 Bind
 \shape default
- option initiate the system and capture the geometry details in form of
- differential coordinates and compute the factorization of the linear system,
- after that the system is ready to repose meshes in real-time user interaction
+ option initiates the system and captures the geometry details in form of
+ differential coordinates and computes the factorization of the linear system,
+ after that the system is ready to pose meshes in a real-time interaction
  session.
 \end_layout
 
@@ -6304,38 +6296,43 @@ reference "fig:Armadillo"
 
 \end_inset
 
- shows the Laplacian Deform applied in a model with 173K vertices, only
- anchor vertices was used and are represented in blue color, when the user
- apply several transformation (location, rotation, scale) over this anchors
- vertices, the system find a solution and estimate the position of the vertices
- in yellow color.
- This method work in real time, to achieve this the matrix 
+ shows the Laplacian Deformation applied to a model with 173K vertices,
+ only anchor vertices were used and are represented in blue color.
+ When the user applies several transformations (location, rotation, scale)
+ to this anchors vertices, the system finds a solution and estimates the
+ position of the vertices (in yellow).
+ This method works in real time and for doing so the matrix 
 \begin_inset Formula $\begin{bmatrix}w_{l}L\\
 W_{c}
 \end{bmatrix}$
 \end_inset
 
- in the equation 
+ in equation 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "eq:LaplacianDefomSystem"
 
 \end_inset
 
- is decomposed in matrix 
+ is 
 \begin_inset Formula $LU$
 \end_inset
 
- with LU factorization only one time when the system initiate.
- Once the matrix is factorized the system can solve the unknowns in a fast
- way in term of milliseconds.
- For get better results the method permits solve several times the system
- of equations, and not need factorize matrix LU could be that at every iteration
-, only the differential coordinates are adjust since the differential coordinate
-s can be rotated at every iteration and get better results.
- In the figure only four iterations were used, but the system find good
- solutions with only one iteration when the angle of rotations are less
- that 
+ decomposed only once, with LU factorization,, when the system initiates.
+ Once the matrix is factorized, the system can solve the unknowns in the
+ order of milliseconds.
+ Results are improved by solving several times the system of equations,
+ without LU factorization at every iteration, just the differential coordinates
+ are adjusted since the differential coordinates can be rotated.
+ Only four iterations were necessary for obtaining figure 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:Armadillo"
+
+\end_inset
+
+ but the system finds proper solutions with only one iteration, when the
+ angle of rotations are less that
 \begin_inset Formula $\pi$
 \end_inset
 
@@ -6388,38 +6385,35 @@ Anchor vertices in blue color.
 \end_layout
 
 \begin_layout Standard
-In figure 
+Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Cactus"
 
 \end_inset
 
- show a comparison after made a one simple transformation that consist in
- rotate 
+ shows a comparison after making a single transformation that consists in
+ rotating 
 \begin_inset Formula $70º$
 \end_inset
 
- to right the parts in blue color.
- between traditional method to interpolate the changes made in some parts
- of the mesh to entire model.
- The results for simple interpolation is show in 
+ to the right the parts, in blue color.
+ Results using a bicubic interpolation are shown in 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Cactus"
 
 \end_inset
 
-.b and show how the main trunk loss your shape and is rotated.
- The propagation of changes made with Laplacian deform (figure 
+.b observe how the main trunk losses its shape when rotated.
+ The propagation of changes made by the Laplacian deformation (figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Cactus"
 
 \end_inset
 
-.c) for the same transformation show better results and how the details and
- shape of the original model are preserve as best as possible.
+.c) for the same transformation, shows better results.
 \end_layout
 
 \begin_layout Standard
@@ -6465,8 +6459,8 @@ name "fig:Cactus"
 \end_layout
 
 \begin_layout Standard
-The Laplacian Deform tool allow a user to repose a model while preserve
- the geometry details in the figure 
+The Laplacian Deformation tool allows an user to pose a model while preserve
+ the geometry details, in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Horse"
@@ -6480,28 +6474,27 @@ reference "fig:Horse"
 
 \end_inset
 
-c you can see the new pose of he horse after five transformations and rotation
- of the head, in figure 
+.c Observe the horse new pose after five transformations and rotation of
+ the head, in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Horse"
 
 \end_inset
 
-.b you was use basic interpolation and the shape and details are lost with
- every change made.
- In figure 
+.b using basic interpolation, the shape and details are lost at every change.
+ In constrast, figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Horse"
 
 \end_inset
 
-..c yo can see how the new pose of the horse look more natural, and how the
- body and neck, of the horse preserve the original shape, this comparison
- show that method allow to apply any number of transformations without lost
- details, could be the system try to recover geometry details with base
- in the original pose of the model.
+..c illustrates how the new pose of the horse looks more natural, above all
+ for the body and neck.
+ This comparison indicates this method allows to apply any transformation
+ without loss of details.
+ 
 \end_layout
 
 \begin_layout Standard
