@@ -227,7 +227,7 @@ thispagestyle{empty}
 
 \series bold
 \size huge
-Adapted Laplacian Operator For Hybrid Quad/Triangle Meshes
+An Adapted Laplacian Operator For Hybrid Quad/Triangle Meshes
 \end_layout
 
 \begin_layout Standard
@@ -330,7 +330,7 @@ vspace*{0cm}
 
 \series bold
 \size huge
-Adapted Laplacian Operator For Hybrid Quad/Triangle Meshes
+An Adapted Laplacian Operator For Hybrid Quad/Triangle Meshes
 \end_layout
 
 \begin_layout Standard
@@ -598,8 +598,8 @@ numberline{}Acknowledgement}
 \end_layout
 
 \begin_layout Standard
-I wold like to thank my advisor professor Eduardo Romero and CIM&LAB research
- group for his support in this thesis.
+I wold like to thank my advisor professor Eduardo Romero and the CIM&LAB
+ research group for their support in this thesis.
  
 \end_layout
 
@@ -628,7 +628,7 @@ I would like to thank all the workers in Colombia who fund the public education
 
 \begin_layout Standard
 This work was supported in part by the Blender Foundation, Google Summer
- of code program at 2012 - 2013.
+ of code program 2012 and 2013.
  
 \end_layout
 
@@ -667,36 +667,39 @@ numberline{}Abstract}
 \end_layout
 
 \begin_layout Standard
-In the last two decades three-dimensional modeling methods used by artist
+In the last two decades three-dimensional modeling methods used by artists
  have been evolving and developing rapidly thanks to the use of vector operators
- of differential geometry how the Laplacian operator this operator allows
- to model in a simple way the behavior of complex applications such as noise
- reduction, enhancement, remeshing, UV mapping, posed, skeletonization,
- among other.
+ of differential geometry such as the Laplacian operator.
+ This operator allows to model in a simple way the behavior of complex applicati
+ons such as noise reduction, enhancement, remeshing, UV mapping, posing
+ and skeletonization, among others.
  The Laplacian operator is theoretically defined in a continuous and smooth
- domain named manifold in practice manifolds are often approximated by discrete
- polygon meshes composed by triangles and quadrangles which represent the
- real world three-dimensional objects that artists work.
+ domain named manifold.
+ In practice manifolds are often approximated by discrete polygon meshes
+ composed by triangles and quadrangles which represent the real world three-dime
+nsional objects with wich the artists work.
  In these meshes spectral structure is calculated using a discrete Laplacian
- operator, the discrete version of the Laplacian operator given by Pinkall
- in 1993 works only with triangle meshes, and Xiong in 2011 working exclusively
- with quads meshes.
+ operator, i.e.
+ the discrete version of the Laplacian operator given by Pinkall in 1993.
+ This approach only worked with triangle meshes.
+ In 2011 Xiong extended the operator to work exclusively with quad meshes.
  This thesis proposes an original extension of the Laplacian operator that
  allows working with hybrid meshes composed by triangles and quadrangles.
 \end_layout
 
 \begin_layout Standard
 Along with the operator, this work presents new sculpting and modeling applicati
-ons with base on the enhancement, applications on subdivision surfaces using
- smoothing, mesh posing using differential coordinates and skeletonization
- using iterative contraction.
+ons based on enhancement.
+ Additionally applications on subdivision surfaces using smoothing, mesh
+ posing using differential coordinates and skeletonization using iterative
+ contraction are develop.
  This series of applications demonstrates the quality, predictability and
  flexibility of the proposed operator.
 \end_layout
 
 \begin_layout Standard
-The proposed operator was successfully used in real production environments
- within software Blender how new tools.
+The proposed operator was successfully used in new software tools in real
+ production environment within 3D computer graphics software Blender.
  Currently these tools are available as open source software.
  
 \end_layout
@@ -807,52 +810,56 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-The discrete versions of Laplace Beltrami Operator have been used in the
- last years for the develop of new geometric modeling tools.
- In the work of Pinkall 
+The discrete versions of the Laplace Beltrami Operator have been used in
+ the last years for the development of new geometric modeling tools.
+ Pinkall 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Pinkall1993"
 
 \end_inset
 
- was introduced the cotangent version of Laplace operator, that allow to
- find the minimal surface when compute a discrete harmonic map with the
- Laplacian operator, this version has been widely studied and applied in
- various problems of computer geometric modeling.
- The manifolds that are continuous domains homeomorphic to 
+ introduced the cotangent version of the Laplace operator, that allowed
+ finding the minimal surface when computing a discrete harmonic map with
+ the Laplacian operator.
+ This version has been widely studied and applied in various problems of
+ computer geometric modeling.
+ This type of operator was defined over manifolds, i.e.
+ continuous domains homeomorphic to 
 \begin_inset Formula $\mathbb{R}^{n}$
 \end_inset
 
- are represented in computers by polygon meshes.
- These polygons are generally composed of triangles and quadrangles, while
- work with laplacian operator in this hybrid composition are not a mathematical
- challenge, most research uses only meshes composed by triangles 
+ that are represented in pratice by polygon meshes.
+ These polygons are generally composed of triangles and quadrangles.
+ While working with Laplacian operator in this hybrid composition is not
+ a mathematical challenge, most research only uses meshes composed by triangles
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Pinkall1993,Desbrun1999,Meyer2003,Sorkine2004,Au2008,Belkin2008,Hahne2006"
 
 \end_inset
 
-, in other recent studies 
+.
+ In recent studies 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu2008,Xiong2011"
 
 \end_inset
 
- the Laplacian operator is working exclusively with quadrangles.
- But in the artistic scope topology and the way the edges are distributed,
- the triangle and quadrangles, directly affects the processes of animation,
- interpolation, textured, etc.
- As discussed by 
+, the Laplacian operator may be use in meshes composed exclusively by quadrangle
+s.
+ However, from artistic point of view, the topology and the way the edges,
+ triangles and quadrangles are distributed directly affects the processes
+ of animation, interpolation, texturing, etc., as discussed by 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Mullen2007"
 
 \end_inset
 
- who use a manual connection of a couple of vertices to perform animation
+ who uses a manual connection of a pair of vertices to perform animation
  processes and interpolation.
  It is then of paramount importance to develop operators that easily interact
  with such meshes, eliminating the need of preprocessing the mesh to convert
@@ -861,8 +868,8 @@ key "Mullen2007"
 \end_layout
 
 \begin_layout Standard
-Modeling techniques able to generate a variety of realistic shapes, have
- been developed 
+Presently there are available modeling techniques able to generate a variety
+ of realistic shapes 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Botsch2006"
@@ -6544,21 +6551,21 @@ Skeleton Extraction
 \end_layout
 
 \begin_layout Standard
-Part of this work was accepted and presented as a poster with name 
+Part of this work was accepted and presented as a poster titled
 \shape slanted
-Software para la Extracción del Esqueleto por Contracción y Suavizado
+ Software para la Extracción del Esqueleto por Contracción y Suavizado
 \shape default
  at 7th International Seminar on Medical Image Processing and Analysis SIPAIM
  2011.
- The conference was held on December 6-8 of 2011, in the city of Bucaramanga,
- Colombia 
+ The conference was held on December 6-8 of 2011, in Bucaramanga, Colombia
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Pinzon2011"
 
 \end_inset
 
-, the thumbnail of the poster is show in figure 
+, the poster thumbnail is shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:PosterSIPAIM2011"
@@ -6619,9 +6626,9 @@ Software para la Extracción del Esqueleto por Contracción y Suavizado
 \end_layout
 
 \begin_layout Standard
-Part of this work was accepted and presented as a poster with name 
+Part of this work was accepted and presented as a poster titled
 \shape slanted
-Análisis Experimental de la Extracción del Esqueleto por Contracción con
+ Análisis Experimental de la Extracción del Esqueleto por Contracción con
  Suavizado Laplaciano
 \shape default
  at 6th International Seminar on Medical Image Processing and Analysis SIPAIM
@@ -6634,7 +6641,7 @@ key "Pinzon2010"
 
 \end_inset
 
-, the thumbnail of the poster is show in figure 
+, the poster thumbnail is shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:PosterSIPAIM2010"
@@ -6696,8 +6703,8 @@ Background
 \end_layout
 
 \begin_layout Standard
-Skeleton extraction reduces the dimensionality and represents a three-dimensiona
-l object as a uni-dimensional structure 
+Skeleton extraction not only reduces the dimensionality but rather it represents
+ a three-dimensional object as a uni-dimensional structure 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Cornea2007"
@@ -6716,8 +6723,8 @@ key "Meyer2003"
 
 \end_inset
 
-, to contract iteratively the mesh until the volume inside the surface is
- near to zero (see figure 
+, to iteratively contract the mesh until the volume inside the surface is
+ about zero (see figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:MeshContracted"
@@ -6725,9 +6732,8 @@ reference "fig:MeshContracted"
 \end_inset
 
 ).
- The method stretch the shrink mesh to warranty that object preservers the
- best at possible the original topology with the use of attraction constraint
- 
+ The method stretches the mesh to warranty that object preserves, as much
+ as possible, the original topology constraint 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Au2008"
@@ -6779,9 +6785,9 @@ From left to right iterative mesh contraction.
 \end_layout
 
 \begin_layout Standard
-The laplacian smooth process move the vertices in the direction of the Laplacian
-, if cotangent laplacian operator is used, the vertices move in the direction
- of minimal surface 
+The laplacian smooth process moves the vertices in the direction of the
+ Laplacian, if the cotangent laplacian operator is used, the vertices move
+ in the direction of minimal surface 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Pinkall1993"
@@ -6792,15 +6798,15 @@ key "Pinkall1993"
 \end_layout
 
 \begin_layout Standard
-In the work of Au 
+In 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Au2008"
 
 \end_inset
 
- is proposed the next system of equation to iteratively contract the mesh
- until a skeleton.
+ it is proposed the next system of equations to iteratively contract the
+ mesh until a skeleton.
 \end_layout
 
 \begin_layout Standard
@@ -6836,11 +6842,11 @@ reference "PAPER:eq:TQLBO_Simple_Matrix"
 \begin_inset Formula $W_{L}$
 \end_inset
 
- is the factor for smoothing, 
+ is the smoothing factor, 
 \begin_inset Formula $W_{H}$
 \end_inset
 
- is the factor for attraction constraint.
+ is the attraction constraint factor.
 \end_layout
 
 \begin_layout Standard
@@ -6851,7 +6857,7 @@ reference "PAPER:eq:TQLBO_Simple_Matrix"
 \begin_inset Formula $W_{H}$
 \end_inset
 
- are changing in every iteration.
+ are changing at every iteration.
  The contraction and smoothing constraint 
 \begin_inset Formula $W_{L}^{t+1}=S_{L}W_{L}^{t}$
 \end_inset
@@ -6888,15 +6894,16 @@ Contribution
 \end_layout
 
 \begin_layout Standard
-In this thesis an additional constraint is proposed which seeks the vertices
- and the skeleton does not shrink, to eliminate the need to adjust the final
- skeleton taking each skeleton node and move to the center of your local
- mesh region.
+This work proposed an additional constraint which seeks the vertices while
+ the skeleton does not shrink.
+ Such constraint eliminates the need of adjusting the final skeleton, taking
+ each skeleton node and move it to the center of the local mesh region.
+ 
 \end_layout
 
 \begin_layout Standard
-The basic idea is move the vertices along of the normal line estimated on
- every vertex based on the average of the faces normals.
+The basic idea is move the vertices along of the normal line, estimated
+ at every vertex, based on the average of the normals of the faces.
  
 \end_layout
 
@@ -6979,7 +6986,7 @@ reference "fig:LineConstraint"
 \end_layout
 
 \begin_layout Standard
-The equation of the plane.
+The plane equation.
 \end_layout
 
 \begin_layout Standard
@@ -6992,8 +6999,9 @@ The equation of the plane.
 \end_layout
 
 \begin_layout Standard
-There is various methods to build a equation of the plane based on three
- non-collinear points, we choose this three points based on vertex 
+There are various methods that build a plane equation using three non-collinear
+ points.
+ These three points were herein chosen using the vertex 
 \begin_inset Formula $x_{i}$
 \end_inset
 
@@ -7032,15 +7040,16 @@ There is various methods to build a equation of the plane based on three
 \end_layout
 
 \begin_layout Standard
-To build a equation plane only need three non-collinear points 
+A equation plane only requires three non-collinear points
 \begin_inset Formula $\left\{ P_{1},P_{2},P_{3}\right\} $
 \end_inset
 
- and solve the next systems of equations for variables 
+ and solve the next systems of equations for the 
 \begin_inset Formula $a,b,c$
 \end_inset
 
-.
+ variables.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -7082,19 +7091,19 @@ In the equation above, every point
 \begin_inset Formula $P_{0}=\{x_{0},y_{0},z_{0}\}$
 \end_inset
 
- that belong to plane made the equation zero.
+ that belongs to the plane defined when this equation is null.
  If the point 
 \begin_inset Formula $P_{0}$
 \end_inset
 
- is not in the plane the value of the equation of the plane change, and
- the absolute value is increased if 
+ is not in the plane, the value of the plane equation changes, and the absolute
+ value is increased if 
 \begin_inset Formula $P_{0}$
 \end_inset
 
- is more distant of the plane.
+ is farther with respect to the plane.
  Let us use this simple relation to build a valid constraint that can be
- put in the form of linear equation 
+ put in the form of the linear equation 
 \begin_inset Formula $Ax=B$
 \end_inset
 
@@ -7119,21 +7128,21 @@ In the equation above, every point
 \begin_inset Formula $B$
 \end_inset
 
- correspond to 
+ stands for the 
 \begin_inset Formula $d$
 \end_inset
 
  value of the plane equation.
- How the linear system presented in equation 
+ Provided that the linear system presented in equation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:SkeletonExtraction"
 
 \end_inset
 
- don't has a unique solution, the system solve it in the least-squares sense.
- With the new constraint the system then try to minimize the distance between
- the new vertex positions and the two planes.
+ has many solutions, the system solves it in the least-squares sense.
+ With the new constraint, the system then tries to minimize the distance
+ between the new vertex positions and the two planes.
  
 \end_layout
 
@@ -7256,9 +7265,9 @@ sjSkeletonizer interface.
 \end_layout
 
 \begin_layout Standard
-As a result of this work was developing the software 
+As a result of this work, the software
 \shape slanted
-sjSkeletonizer
+ sjSkeletonizer
 \shape default
  
 \begin_inset CommandInset citation
@@ -7267,8 +7276,8 @@ key "Pinzon2012"
 
 \end_inset
 
- that permits the processing, visualization and extraction of the skeleton
- from polygonal hybrid meshes composed by triangles and quads.
+ permits the processing, visualization and extraction of the skeleton from
+ polygonal hybrid meshes composed of triangles and quads.
  In figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -7276,14 +7285,14 @@ reference "fig:Skeletonizer-interface"
 
 \end_inset
 
- you can see the interface of the software.
- The software sjSkeletonizer allow to open and display meshes in a interactive
+, the software interface of can be observed.
+ The software Skeletonizer allows to open and display meshes in an interactive
  viewer.
- This software allow to contract a mesh with the use of two different Laplacian
- operator: The cotangent operator and umbrella operator, the user can customize
+ This software contracts a mesh with the use of two different Laplacian
+ operators: The cotangent operator and umbrella operator, the user can customize
  the number of iterations of the contraction step.
- The software allow a user to visualize the original mesh and contracted
- mesh after every iteration (figure 
+ The software allows an user to visualize the original mesh and contract
+ mesh after a particular number of iterations (figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Skeletonizer-interface"
@@ -7291,7 +7300,7 @@ reference "fig:Skeletonizer-interface"
 \end_inset
 
 .b).
- In the final step of the process, the software simplify the mesh (figure
+ In the final step of the process, the software simplifies the mesh (figure
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -7359,20 +7368,20 @@ name "fig:Skeleton-extraction-poses"
 \end_layout
 
 \begin_layout Standard
-In figure 
+Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Skeleton-extractedModels"
 
 \end_inset
 
- show the skeleton extracted from different models using our method.
- Every skeleton represent very good the topology and geometry of the original
+ shows the skeleton extracted from different models using our method.
+ Every skeleton accurately represents the topology and geometry of the original
  meshes.
  The extracted skeletons are homotopic to the original shapes.
- Our method permits simplify the skeleton until the user required and guaranteed
- that every node in the skeleton represents as best as possible every core
- part of the original model.
+ Our method permits also to simplify the skeleton until the user is required
+ to guarantee that every node in the skeleton represents as much as possible
+ every core part of the original model.
 \end_layout
 
 \begin_layout Standard
@@ -7418,17 +7427,17 @@ Skeleton extracted from different models.
 \end_layout
 
 \begin_layout Standard
-The method proposed is robust under isometric transformation ( figure 
+The method proposed is robust to isometric transformations ( figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Skeleton-extraction-poses"
 
 \end_inset
 
-) then if some global transformations how rotations of core parts of the
- mesh are made, the extracted skeletons to be similar could be to the properties
- of the Laplacian operator.
- In the figure shown similar skeletons for different poses of the same model,
+) so that if some global transformations like rotations of central parts
+ of the mesh are made, the extracted skeletons are similar.
+ probably because of the properties of the Laplacian operator.
+ The figure shows similar skeletons for different poses of the same model,
  these skeletons show identical branching structure.
 \end_layout
 
@@ -7444,23 +7453,21 @@ name "sec:Conclusion-and-future"
 \end_layout
 
 \begin_layout Standard
-In this work, we present a novel extension of the Laplace Beltrami operator
- for hybrid quad/triangle meshes TQLBO, and the successfully applications
- in different type of problems in computer geometric modelling how smoothing,
- enhancing, sculpting, deformation, reposing and skeleton extraction.
+This work presented a novel extension of the Laplace Beltrami operator for
+ hybrid quad/triangle meshes TQLBO, and the successful applications of such
+ principle in different type of problems in computer geometric modelling
+ like smoothing, enhancing, sculpting, deformation, reposing and skeleton
+ extraction.
 \end_layout
 
 \begin_layout Standard
-We demonstrate the good performance, stability and robustness of the extension
- proposed throughout all the results shown in the paper, posters and internships.
-\end_layout
-
-\begin_layout Standard
-This novel extension of the Laplace Beltrami operator was introduced in
- computer modelling industry inside the Blender software, that allow to
- many artist to work with different tools developed with base on TQLBO,
- for any kind of meshes, triangular meshes, quadrilateral meshes or hybrid
- meshes.
+We have largely demonstrated a good performance, stability and robustness
+ of the extension proposed.
+ This novel extension of the Laplace Beltrami operator was introduced in
+ the computer modeling industry inside the 3D computer graphics software
+ Blender, thereby facilitating artists to work with different tools developed
+ using TQLBO, for any kind of meshes, i.e., triangular meshes, quadrilateral
+ meshes or hybrid meshes.
 \end_layout
 
 \begin_layout Standard
