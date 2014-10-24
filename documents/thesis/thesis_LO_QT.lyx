@@ -677,7 +677,7 @@ ons such as noise reduction, enhancement, remeshing, UV mapping, posing
  domain named manifold.
  In practice manifolds are often approximated by discrete polygon meshes
  composed by triangles and quadrangles which represent the real world three-dime
-nsional objects with wich the artists work.
+nsional objects with which the artists work.
  In these meshes spectral structure is calculated using a discrete Laplacian
  operator, i.e.
  the discrete version of the Laplacian operator given by Pinkall in 1993.
@@ -712,17 +712,18 @@ Resumen
 \end_layout
 
 \begin_layout Standard
-En las dos últimas décadas los métodos de modelado tridimensional han ido
- evolucionando y desarrollándose rápidamente, en parte gracias al uso de
- operadores vectoriales de geometría diferencial como el operador Laplaciano
- ha sido uno de los más ampliamente estudiado y usado gracias a las propiedades
- exhibidas por sus vectores propios en novedosas aplicaciones como: reducción
- de ruido, realce, remallado, mapeo UV, posado, esqueletonización, entre
- otras.
- Este operador diferencial es definido en un dominio continuo y suave llamado
- variedad, las variedades son a menudo aproximadas por mallas discretas
- de polígonos compuestas por triángulos y cuadrángulos que a su vez representan
- objetos tridimensionales del mundo real.
+En las dos últimas décadas los métodos de modelado tridimensional utilizadas
+ por los artistas han ido evolucionando y desarrollándose rápidamente, en
+ parte gracias al uso de operadores vectoriales de geometría diferencial,
+ como el operador de Laplace.
+ Este operador permite modelar de una manera sencilla el comportamiento
+ de aplicaciones complejas tales como la reducción de ruido, realce, remallado,
+ mapeado UV, posado y esqueletonización, entre otros.
+ Este operador Laplaciano es teóricamente definido en un dominio continuo
+ y suave llamado variedad, las variedades son a menudo aproximadas por mallas
+ discretas de polígonos compuestas por triángulos y cuadrángulos que a su
+ vez representan objetos tridimensionales del mundo real que los artistas
+ trabajan.
  En estas mallas se calcula la estructura espectral con el uso de algún
  operador Laplaciano discreto, la versión discreta del operador Laplaciano
  propuesta por Pinkall en el 1993 trabaja únicamente con mallas compuestas
@@ -742,10 +743,11 @@ les y esqueletonización usando contracción iterativa.
 \end_layout
 
 \begin_layout Standard
-El operador propuesto fue usado de forma exitosa en ambientes reales de
- producción dentro del software Blender como nuevas herramientas.
+El operador propuesto fue usado con exitoso en las nuevas herramientas del
+ software para gráficos 3D por computadora Blender.
  Actualmente estas herramientas están disponibles como programas de código
  abierto.
+ 
 \end_layout
 
 \begin_layout Standard
