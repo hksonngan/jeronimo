@@ -916,15 +916,16 @@ key "Catmull1978,Stam1998"
 
 .
  These works have generalized a uniform B-cubic spline knot insertion to
- meshes, some of them adding some type of control, for instance with the
- use of creases to produce sharp edges 
+ meshes.
+ Some of these adds some type of control; for instance with the use of creases
+ to produce sharp edges 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "DeRose1998"
 
 \end_inset
 
-, or the modification of some vertex weights to locally control the zone
+ or the modification of some vertex weights to locally control the zone
  of influence 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -933,19 +934,25 @@ key "Biermann2000"
 \end_inset
 
 .
- Nevertheless  these methods are difficult to deal with since they require
- a large number of parameters and a very tedious customization.
- Instead, the presented applications requires a single parameter that controls
- the global curvature, which is used to maintain realistic shapes, creating
- a family of different versions of the same object and therefore preserving
- the detail of the original model and a realistic appearance.
+ Nevertheless  these methods are difficult to use as they require a large
+ number of parameters and a very tedious customization.
  
 \end_layout
 
 \begin_layout Standard
-The shape inflation and shape exaggeration can thus be used as such brush
- in the sculpting process, when inflating a shape since current brushes
- end up by losing detail when moving vertices 
+On the other hand, the proposed applications requires a single parameter
+ that controls the global curvature, which is used to maintain realistic
+ shapes, creating a family of different versions of the same object and
+ therefore preserving the detail of the original model and a realistic appearanc
+e.
+ 
+\end_layout
+
+\begin_layout Standard
+The shape inflation and shape exaggeration can thus be used as a type of
+ brush in the sculpting process.
+ When inflating a shape with other brushes the former ends up losing detail
+ when moving vertices 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Stanculescu2011"
@@ -964,20 +971,20 @@ Contributions
 
 \begin_layout Standard
 This work presents an extension of the Laplace Beltrami Operator for hybrid
- quad/triangle meshes, representing a larger mesh spectrum from what has
- been presented so far.
+ quad/triangle meshes that have a larger mesh functionality spectrum than
+ common triangular or quadrangular meshes.
  The method eliminates the need of preprocessing and allows preservation
  of the original topology.
- Likewise, along with this operator, it is proposed a method to generate
- a family of parameterized shapes, in a robust and predictable way.
- This method enables customization of the smoothness and curvature, obtained
+ Along with this operator, we propose a method to generate a family of parameter
+ized shapes, in a robust and predictable way.
+ This method enables customization of the smoothness and curvature obtained
  during the subdivision surfaces process.
- Finally, it is proposed a new brush for inflating the silhouette mesh features
- in modeling and sculpting.
+ Finally, a new brush for inflating the silhouette mesh features in modeling
+ and sculpting is proposed.
 \end_layout
 
 \begin_layout Standard
-This work is organized as follows: Chapter 
+The work is organized as follows: Chapter 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "chap:Mathematical-foundation"
@@ -985,8 +992,8 @@ reference "chap:Mathematical-foundation"
 \end_inset
 
  presents works related to the Laplacian operator, applications in digital
- sculpting, deformation, and offsetting methods for polygonal meshes also
- it is described the theoretical framework of the Laplacian operator for
+ sculpting, deformation, and offsetting methods for polygonal meshes.
+ It also describes the theoretical framework of the Laplacian operator for
  polygon meshes; In chapter 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -994,27 +1001,27 @@ reference "chap:SibgrapiPaper"
 
 \end_inset
 
-, it is presented a paper that show the extension of the Laplacian Operator
- for hybrid meshes and applications of shape inflation ,subdivision of surfaces
- and sculpting; In chapter 
+, we show the extension of the Laplacian Operator for hybrid meshes and
+ the applications of shape inflation ,subdivision of surfaces and sculpting;
+ In chapter 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sub:Laplacian-Smooth"
 
 \end_inset
 
-, present an application for mesh smoothing of the the Laplacian operator
- extension proposed, inside a real world industry software for computer
- modelling; Finally in chapter 
+, we present an application for mesh smoothing of the the Laplacian operator
+ extension proposed implemented in a well known software for computer modelling.
+ Finally in chapter 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sub:Laplacian-Deform"
 
 \end_inset
 
-, it is presented an successfully application for mesh deformation and reposing
- of models, with base on differential coordinates and adaptation of this
- method to work with our Laplacian operator extension.
+, we present a successfull application for mesh deformation and model re-posing
+ based on differential coordinates and the adaptation of this method to
+ work with our Laplacian operator extension.
 \end_layout
 
 \begin_layout Chapter
@@ -1042,10 +1049,10 @@ key "Hahne2006"
 \end_inset
 
 .
- The differential operators show a deep relationships between the geometry
+ These differential operators show a deep relationship between the geometry
  (curvatures, geodesics) and topology of the manifold.
- This differential operators are very used in applications on computer geometric
- modelling over the last years 
+ They have been commonly used in computer geometric modelling applications
+ over the last years 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Rosenberg1997,Alexa2011"
@@ -1060,11 +1067,11 @@ Related work
 \end_layout
 
 \begin_layout Standard
-Many tools have been developed for modeling, based on the Laplacian mesh
+Many tools have been developed for modeling based on the Laplacian mesh
  processing.
- These different tools preserve the surface geometric details when using
- laplacian operators for different processes such as smoothing, enhancing,
- free-form deformation, fusion, morphing and other applications 
+ These tools preserve the surface geometric details when using laplacian
+ operators for different processes such as smoothing, enhancing, free-form
+ deformation, fusion, morphing and other applications 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ranjan2012"
@@ -1150,7 +1157,7 @@ is the 1-ring neighborhood,
 \end_inset
 
 .
- In this work the discretize laplacian operator was used to find the minimal
+ In this work the discrete laplacian operator is used to find the minimal
  surface based on minimization energy strategy using the Dirichlet's energy
  of the function 
 \begin_inset Formula $u$
@@ -1173,35 +1180,35 @@ is the 1-ring neighborhood,
 \end_layout
 
 \begin_layout Standard
-Then Taubin works 
+Taubin 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Taubin1995"
 
 \end_inset
 
- for first time treat the problem of noise reduction in digital polygonal
+ treats for the first time the problem of noise reduction in digital polygonal
  meshes from signal processing point of view.
- Taubin extends Fourier analysis to signals defined on polygonal meshes,
- Taubin observe that Fourier transform is a decomposition of the signal
- into an eigenvectors of the Laplacian operator, and reconstruct the signal
- with a linear combination of these eigenvectors.
- Desbrun works 
+ He extends Fourier analysis to signals defined on polygonal meshes and
+ observes that Fourier transform is a decomposition of the signal into eigenvect
+ors of the Laplacian operator and reconstructs the signal with a linear
+ combination of these eigenvectors.
+ Desbrun et al.
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Desbrun1999"
 
 \end_inset
 
- consider the same approach of Taubin, but Desbrun use a curvature normal
- (
+ consider the same approach of Taubin, but they use a curvature normal (
 \begin_inset Formula $\bar{\kappa}\mathbf{n}$
 \end_inset
 
 ) based on cotangent Laplace operator version for noise reduction over a
  diffusion process.
- This it's the most important and popular Laplace Beltrami operator discretizati
-on 
+ This is the most famous and popular Laplace Beltrami operator discretization
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu2008"
@@ -1209,14 +1216,14 @@ key "Liu2008"
 \end_inset
 
 , many works for mesh smoothing and fairing have been developed based on
- this LBO discretization 
+ his Laplace Beltrami Operator (LBO) discretization 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Desbrun2000,Meyer2003,Schneider2001,Nealen2006"
 
 \end_inset
 
-.
+:
 \end_layout
 
 \begin_layout Standard
@@ -1238,7 +1245,7 @@ key "Desbrun2000,Meyer2003,Schneider2001,Nealen2006"
 \end_layout
 
 \begin_layout Standard
-Where 
+where 
 \begin_inset Formula $A$
 \end_inset
 
@@ -1251,7 +1258,7 @@ Where
 \begin_inset Formula $L$
 \end_inset
 
- was used for reduce the noise in a mesh 
+ was used to reduce the noise in a mesh 
 \begin_inset Formula $X$
 \end_inset
 
@@ -1260,27 +1267,29 @@ Where
 
 \begin_layout Standard
 The convergence of the Laplace Beltrami operator has been very important
- in fields how numerical analysis, given that implications in the simulation
+ in fields such as numerical analysis, given its implications in the simulation
  process and geometric partial differentials equations.
- In the works of 
+ Xu et al.
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Xu2004"
 
 \end_inset
 
- is established the convergence of several discrete Laplace Beltrami operators
+ established the convergence of several discrete Laplace Beltrami operators
  over triangulated meshes with numerical results that support the theoretical
  analysis.
- Over quadrilateral meshes Liu 
+ Over quadrilateral meshes Liu et al.
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Liu2008"
 
 \end_inset
 
- presents a discrete Laplace Beltrami Operator based on a bilinear interpolation
- and its convergence over this type of meshes composed only by quads.
+ present a discrete Laplace Beltrami Operator based on a bilinear interpolation
+ and its convergence over meshes composed only by quads.
  
 \end_layout
 
@@ -1292,9 +1301,9 @@ key "Sorkine2006"
 
 \end_inset
 
- the laplacian operator was used to repose a meshes while preserving geometry
+ the laplacian operator was used to re-pose a mesh while preserving geometry
  details of the surface.
- The details was stored in differential coordinates 
+ The details were stored in differential coordinates 
 \begin_inset Formula $\delta_{i}$
 \end_inset
 
@@ -1315,7 +1324,7 @@ key "Sorkine2006"
 \end_layout
 
 \begin_layout Standard
-The differential coordinates represents the difference between the absolute
+The differential coordinates represent the difference between the absolute
  coordinate of 
 \begin_inset Formula $v_{i}$
 \end_inset
@@ -1326,7 +1335,7 @@ and the center of mass of its immediate neighbors.
 \begin_layout Standard
 Offset methods for polygon meshing, based on the curvature defined by the
  Laplace Beltrami operator, have been developed.
- These methods adjust the shape offset by a constant distance, with enough
+ These methods adjust the shape offset by a constant distance, with high
  precision.
  Nevertheless, these methods fail to conserve sufficient detail because
  of the smoothing, a crucial issue which depends on the offset size 
@@ -1351,6 +1360,8 @@ key "Chen2011"
 \end_layout
 
 \begin_layout Standard
+Gal et al.
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Gal2009"
@@ -1360,17 +1371,17 @@ key "Gal2009"
  propose automatic feature detection and shape edition with feature inter-relati
 onship preservation.
  They define salient surface features like ridges and valleys, characterized
- by their first and second order curvature derivatives, see 
+ by their first and second order curvature derivatives (see 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ohtake2004"
 
 \end_inset
 
-, and angle-based threshold.
+) and angle-based thresholds.
  Likewise, curves have been also classified as planar or non-planar, approximate
 d by lines, circles, ellipses and other complex shapes.
- In such case, the user defines an initial change over several features
+ In each case, the user defines an initial change over several features
  which is propagated towards other features, based on the classified shapes
  and the inter-relationships between them.
  This method works well with objects that have sharp edges, composed of
@@ -1380,7 +1391,7 @@ d by lines, circles, ellipses and other complex shapes.
 \end_layout
 
 \begin_layout Standard
-Digital sculpting have been traditionally approached either under a polygonal
+Digital sculpting has been traditionally approached either under a polygonal
  representation or a voxel grid-based method.
  Brushes for inflation operations only depend on the vertex normal 
 \begin_inset CommandInset citation
@@ -1406,8 +1417,8 @@ key "Galyean1991"
 
 \begin_layout Standard
 In the literature, several studies have described the skeleton extraction
- systems and different metrics that identify appropriate methods given an
- application specific 
+ systems and different metrics that identify appropriate methods given a
+ specific application 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Attali2007"
@@ -1416,10 +1427,10 @@ key "Attali2007"
 
 .
  One of the best methods reported in the literature for the extraction of
- the skeleton is the Laplacian smoothing method for its advantages of homotopy
- representation and hierarchical connections between parts.
- The Skeleton extraction methods permits simplify the dimension of the object
- preserving the topological structure 
+ the skeleton is the Laplacian smoothing method given its advantages of
+ homotopy representation and hierarchical connections between parts.
+ The skeleton extraction methods permit simplifying the dimension of the
+ object preserving the topological structure 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Cornea2007"
@@ -1435,12 +1446,12 @@ key "Au2008"
 
 \end_inset
 
- present a skeleton extraction method based on iterative smoothing-contraction,
- in this method the several constraints are used to warranty that the process
- converge to skeleton formed by branches and joins, the constraints based
- on laplacian operator, the low frequencies of the mesh are preserving with
- the use of attractor to original mesh, while the iterative smoothing process
- remove high frequencies.
+ present a skeleton extraction method based on iterative smoothing-contraction.
+ In this method several constraints are used to warrant that the process
+ converges to a skeleton formed by branches and joints.
+ The constraints are based on laplacian operator; the low frequencies of
+ the mesh are preserved with the use of an attractor to the original mesh,
+ while the iterative smoothing process removes high frequencies.
 \end_layout
 
 \begin_layout Section
@@ -1488,8 +1499,8 @@ key "Spivak1-1999"
 \end_layout
 
 \begin_layout Standard
-This work is related to manifolds that represent a surface in an three-dimension
-al Euclidean Space.
+Our work is related to manifolds that represent a surface in an three-dimensiona
+l Euclidean Space.
  This manifolds are homeomorphic to 
 \family roman
 \series medium
