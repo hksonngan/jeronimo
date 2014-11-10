@@ -598,7 +598,7 @@ numberline{}Acknowledgement}
 \end_layout
 
 \begin_layout Standard
-I wold like to thank my advisor professor Eduardo Romero and the CIM&LAB
+I would like to thank my advisor professor Eduardo Romero and the CIM&LAB
  research group for their support in this thesis.
  
 \end_layout
@@ -613,7 +613,7 @@ I wold like to thank my advisor professor Eduardo Romero and the CIM&LAB
 \end_layout
 
 \begin_layout Standard
-I would like to thank all the workers in Colombia who fund the public education
+I would like to thank all the workers in Colombia who fund public education
  with their work.
 \end_layout
 
@@ -627,8 +627,8 @@ I would like to thank all the workers in Colombia who fund the public education
 \end_layout
 
 \begin_layout Standard
-This work was supported in part by the Blender Foundation, Google Summer
- of code program 2012 and 2013.
+This work was supported in part by the Blender Foundation and the Google
+ Summer of Code program 2012 and 2013.
  
 \end_layout
 
@@ -670,15 +670,15 @@ numberline{}Abstract}
 In the last two decades three-dimensional modeling methods used by artists
  have been evolving and developing rapidly thanks to the use of vector operators
  of differential geometry such as the Laplacian operator.
- This operator allows to model in a simple way the behavior of complex applicati
-ons such as noise reduction, enhancement, remeshing, UV mapping, posing
- and skeletonization, among others.
+ This operator allows modeling the behavior of complex applications such
+ as noise reduction, enhancement, remeshing, UV mapping, posing and skeletonizat
+ion, among others, in a simple way.
  The Laplacian operator is theoretically defined in a continuous and smooth
- domain named manifold.
+ domain, named manifold.
  In practice manifolds are often approximated by discrete polygon meshes
  composed by triangles and quadrangles which represent the real world three-dime
 nsional objects with which the artists work.
- In these meshes spectral structure is calculated using a discrete Laplacian
+ In these meshes, spectral structure is calculated using a discrete Laplacian
  operator, i.e.
  the discrete version of the Laplacian operator given by Pinkall in 1993.
  This approach only worked with triangle meshes.
@@ -690,9 +690,9 @@ nsional objects with which the artists work.
 \begin_layout Standard
 Along with the operator, this work presents new sculpting and modeling applicati
 ons based on enhancement.
- Additionally applications on subdivision surfaces using smoothing, mesh
- posing using differential coordinates and skeletonization using iterative
- contraction are develop.
+ Additionally, applications on subdivision surfaces which use smoothing,
+ mesh posing which use differential coordinates and skeletonization which
+ use iterative contractions are developed.
  This series of applications demonstrates the quality, predictability and
  flexibility of the proposed operator.
 \end_layout
@@ -813,7 +813,7 @@ Introduction
 
 \begin_layout Standard
 The discrete versions of the Laplace Beltrami Operator have been used in
- the last years for the development of new geometric modeling tools.
+ recent years for the development of new geometric modeling tools.
  Pinkall 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -821,7 +821,7 @@ key "Pinkall1993"
 
 \end_inset
 
- introduced the cotangent version of the Laplace operator, that allowed
+ introduced the cotangent version of the Laplace operator, which allowed
  finding the minimal surface when computing a discrete harmonic map with
  the Laplacian operator.
  This version has been widely studied and applied in various problems of
@@ -833,8 +833,8 @@ key "Pinkall1993"
 
  that are represented in pratice by polygon meshes.
  These polygons are generally composed of triangles and quadrangles.
- While working with Laplacian operator in this hybrid composition is not
- a mathematical challenge, most research only uses meshes composed by triangles
+ Working with the Laplacian operator in this hybrid composition is not a
+ mathematical challenge, most research only uses meshes composed by triangles
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -850,10 +850,10 @@ key "Liu2008,Xiong2011"
 
 \end_inset
 
-, the Laplacian operator may be use in meshes composed exclusively by quadrangle
-s.
- However, from artistic point of view, the topology and the way the edges,
- triangles and quadrangles are distributed directly affects the processes
+, the Laplacian operator may be used in meshes composed exclusively by quadrangl
+es.
+ However, from an artistic point of view, the topology and the way the edges,
+ triangles and quadrangles are distributed, directly affects the processes
  of animation, interpolation, texturing, etc., as discussed by 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -861,7 +861,7 @@ key "Mullen2007"
 
 \end_inset
 
- who uses a manual connection of a pair of vertices to perform animation
+, who uses a manual connection of a pair of vertices to perform animation
  processes and interpolation.
  It is then of paramount importance to develop operators that easily interact
  with such meshes, eliminating the need of preprocessing the mesh to convert
@@ -870,17 +870,17 @@ key "Mullen2007"
 \end_layout
 
 \begin_layout Standard
-Presently there are available modeling techniques able to generate a variety
- of realistic shapes 
+Presently, modeling techniques that are able to generate a variety of realistic
+ shapes are available 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Botsch2006"
 
 \end_inset
 
-.
+ .
  Editing techniques have evolved from affine transformations to advanced
- tools like sculpting 
+ tools such as sculpting 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Coquillart1990,Galyean1991,Stanculescu2011"
@@ -902,7 +902,7 @@ key "Sorkine2004,Zhou2005"
 \end_inset
 
 .
- Catmull-Clark based methods however require to interact with a minimum
+ Catmull-Clark based methods however require interaction with a minimum
  number of control points for any operation to be efficient, or in other
  words, a unicity condition is introduced by demanding a smooth surface
  after any of these shape operations.
@@ -917,7 +917,7 @@ key "Catmull1978,Stam1998"
 .
  These works have generalized a uniform B-cubic spline knot insertion to
  meshes.
- Some of these adds some type of control; for instance with the use of creases
+ Some of these add some type of control; for instance with the use of creases
  to produce sharp edges 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -934,13 +934,13 @@ key "Biermann2000"
 \end_inset
 
 .
- Nevertheless  these methods are difficult to use as they require a large
+ Nevertheless, these methods are difficult to use as they require a large
  number of parameters and a very tedious customization.
  
 \end_layout
 
 \begin_layout Standard
-On the other hand, the proposed applications requires a single parameter
+On the other hand, the proposed applications require a single parameter
  that controls the global curvature, which is used to maintain realistic
  shapes, creating a family of different versions of the same object and
  therefore preserving the detail of the original model and a realistic appearanc
@@ -984,7 +984,7 @@ ized shapes, in a robust and predictable way.
 \end_layout
 
 \begin_layout Standard
-The work is organized as follows: Chapter 
+The work is organized as follows: chapter 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "chap:Mathematical-foundation"
@@ -994,7 +994,7 @@ reference "chap:Mathematical-foundation"
  presents works related to the Laplacian operator, applications in digital
  sculpting, deformation, and offsetting methods for polygonal meshes.
  It also describes the theoretical framework of the Laplacian operator for
- polygon meshes; In chapter 
+ polygon meshes; in chapter 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "chap:SibgrapiPaper"
@@ -1003,23 +1003,24 @@ reference "chap:SibgrapiPaper"
 
 , we show the extension of the Laplacian Operator for hybrid meshes and
  the applications of shape inflation ,subdivision of surfaces and sculpting;
- In chapter 
+ in chapter 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sub:Laplacian-Smooth"
 
 \end_inset
 
-, we present an application for mesh smoothing of the the Laplacian operator
- extension proposed implemented in a well known software for computer modelling.
- Finally in chapter 
+, we present an application for mesh smoothing of the Laplacian operator
+ extension here proposed, and implemented into a well known software for
+ computer modelling.
+ Finally, in chapter 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sub:Laplacian-Deform"
 
 \end_inset
 
-, we present a successfull application for mesh deformation and model re-posing
+, we present a successful application for mesh deformation and model re-posing
  based on differential coordinates and the adaptation of this method to
  work with our Laplacian operator extension.
 \end_layout
@@ -1036,7 +1037,7 @@ name "chap:Mathematical-foundation"
 \end_layout
 
 \begin_layout Standard
-This chapter studies basic mathematical foundation on differential geometry
+This chapter studies basic mathematical foundations on differential geometry
  to understand the differential operators and the Laplace Beltrami operator.
 \end_layout
 
@@ -1051,8 +1052,8 @@ key "Hahne2006"
 .
  These differential operators show a deep relationship between the geometry
  (curvatures, geodesics) and topology of the manifold.
- They have been commonly used in computer geometric modelling applications
- over the last years 
+ They have been commonly used in computer geometric modeling applications
+ over recent years 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Rosenberg1997,Alexa2011"
@@ -1067,9 +1068,9 @@ Related work
 \end_layout
 
 \begin_layout Standard
-Many tools have been developed for modeling based on the Laplacian mesh
- processing.
- These tools preserve the surface geometric details when using laplacian
+Many tools, based on the Laplacian mesh processing, have been developed
+ for modeling.
+ These tools preserve the surface geometric details when using Laplacian
  operators for different processes such as smoothing, enhancing, free-form
  deformation, fusion, morphing and other applications 
 \begin_inset CommandInset citation
@@ -1157,8 +1158,8 @@ is the 1-ring neighborhood,
 \end_inset
 
 .
- In this work the discrete laplacian operator is used to find the minimal
- surface based on minimization energy strategy using the Dirichlet's energy
+ In this work the discrete Laplacian operator is used to find the minimal
+ surface based on energy minimization strategy using the Dirichlet's energy
  of the function 
 \begin_inset Formula $u$
 \end_inset
@@ -1187,12 +1188,12 @@ key "Taubin1995"
 
 \end_inset
 
- treats for the first time the problem of noise reduction in digital polygonal
- meshes from signal processing point of view.
- He extends Fourier analysis to signals defined on polygonal meshes and
- observes that Fourier transform is a decomposition of the signal into eigenvect
-ors of the Laplacian operator and reconstructs the signal with a linear
- combination of these eigenvectors.
+ was the first to treat the problem of noise reduction in digital polygonal
+ meshes from a signal processing point of view.
+ He extended Fourier analysis to signals defined on polygonal meshes, and
+ observed that Fourier transformation is a decomposition of the signal into
+ eigenvectors of the Laplacian operator and reconstructs the signal with
+ a linear combination of these eigenvectors.
  Desbrun et al.
  
 \begin_inset CommandInset citation
@@ -1201,12 +1202,13 @@ key "Desbrun1999"
 
 \end_inset
 
- consider the same approach of Taubin, but they use a curvature normal (
+ considered the same approach as Taubin, but they used a curvature normal
+ (
 \begin_inset Formula $\bar{\kappa}\mathbf{n}$
 \end_inset
 
-) based on cotangent Laplace operator version for noise reduction over a
- diffusion process.
+) based on a cotangent Laplacian operator version for noise reduction over
+ a diffusion process.
  This is the most famous and popular Laplace Beltrami operator discretization
  
 \begin_inset CommandInset citation
@@ -1215,8 +1217,8 @@ key "Liu2008"
 
 \end_inset
 
-, many works for mesh smoothing and fairing have been developed based on
- his Laplace Beltrami Operator (LBO) discretization 
+; many works for mesh smoothing and fairing have been developed based on
+ this Laplace Beltrami Operator (LBO) discretization 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Desbrun2000,Meyer2003,Schneider2001,Nealen2006"
@@ -1254,7 +1256,7 @@ where
 \end_inset
 
 .
- This laplacian operator 
+ This Laplacian operator 
 \begin_inset Formula $L$
 \end_inset
 
@@ -1280,7 +1282,7 @@ key "Xu2004"
  established the convergence of several discrete Laplace Beltrami operators
  over triangulated meshes with numerical results that support the theoretical
  analysis.
- Over quadrilateral meshes Liu et al.
+ Over quadrilateral meshes, Liu et al.
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1288,20 +1290,21 @@ key "Liu2008"
 
 \end_inset
 
- present a discrete Laplace Beltrami Operator based on a bilinear interpolation
- and its convergence over meshes composed only by quads.
+ presented a discrete Laplace Beltrami Operator based on a bilinear interpolatio
+n and its convergence over meshes composed only by quads.
  
 \end_layout
 
 \begin_layout Standard
-In the work of Sorkine 
+In the work of Sorkine et al.
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sorkine2006"
 
 \end_inset
 
- the laplacian operator was used to re-pose a mesh while preserving geometry
+ the Laplacian operator was used to re-pose a mesh while preserving geometry
  details of the surface.
  The details were stored in differential coordinates 
 \begin_inset Formula $\delta_{i}$
@@ -1346,7 +1349,7 @@ key "Zhuo2012"
 \end_inset
 
 .
- In volumetric approaches, in case of point-based representations, the offset
+ In volumetric approaches, when using point-based representations, the offset
  boundary computation is based on the distance field and therefore when
  calculating such offset, the topology of the model may be different to
  the original 
@@ -1368,9 +1371,9 @@ key "Gal2009"
 
 \end_inset
 
- propose automatic feature detection and shape edition with feature inter-relati
-onship preservation.
- They define salient surface features like ridges and valleys, characterized
+ proposed automatic feature detection and shape edition with feature inter-relat
+ionship preservation.
+ They defined salient surface features like ridges and valleys, characterized
  by their first and second order curvature derivatives (see 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1379,7 +1382,7 @@ key "Ohtake2004"
 \end_inset
 
 ) and angle-based thresholds.
- Likewise, curves have been also classified as planar or non-planar, approximate
+ Likewise, curves have also been classified as planar or non-planar, approximate
 d by lines, circles, ellipses and other complex shapes.
  In each case, the user defines an initial change over several features
  which is propagated towards other features, based on the classified shapes
@@ -1391,8 +1394,8 @@ d by lines, circles, ellipses and other complex shapes.
 \end_layout
 
 \begin_layout Standard
-Digital sculpting has been traditionally approached either under a polygonal
- representation or a voxel grid-based method.
+Traditionally, digital sculpting has been approached under a polygonal represent
+ation or a voxel grid-based method.
  Brushes for inflation operations only depend on the vertex normal 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1401,9 +1404,9 @@ key "Stanculescu2011"
 \end_inset
 
 .
- In grid-based sculpting, some other operations have allowed to add or remove
- voxels since production of polygonal meshes require a processing of isosurfaces
- from a volume 
+ In grid-based sculpting, other operations allow the addition or removal
+ of voxels, since production of polygonal meshes requires a processing of
+ isosurfaces from volume 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Galyean1991"
@@ -1416,9 +1419,9 @@ key "Galyean1991"
 \end_layout
 
 \begin_layout Standard
-In the literature, several studies have described the skeleton extraction
- systems and different metrics that identify appropriate methods given a
- specific application 
+In literature, several studies have described the skeleton extraction systems
+ and different metrics that identify appropriate methods given a specific
+ application 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Attali2007"
@@ -1426,18 +1429,19 @@ key "Attali2007"
 \end_inset
 
 .
- One of the best methods reported in the literature for the extraction of
- the skeleton is the Laplacian smoothing method given its advantages of
- homotopy representation and hierarchical connections between parts.
- The skeleton extraction methods permit simplifying the dimension of the
- object preserving the topological structure 
+ One of the best methods reported in literature for the extraction of the
+ skeleton is the Laplacian smoothing method given its advantages of homotopy
+ representation and hierarchical connections between parts.
+ The skeleton extraction method permits the simplification of the dimension
+ of the object while preserving the topological structure 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Cornea2007"
 
 \end_inset
 
-, Au et.
+.
+ Au et.
  al.
  
 \begin_inset CommandInset citation
@@ -1447,11 +1451,11 @@ key "Au2008"
 \end_inset
 
  present a skeleton extraction method based on iterative smoothing-contraction.
- In this method several constraints are used to warrant that the process
+ In this method several constraints are used to guarantee that the process
  converges to a skeleton formed by branches and joints.
- The constraints are based on laplacian operator; the low frequencies of
- the mesh are preserved with the use of an attractor to the original mesh,
- while the iterative smoothing process removes high frequencies.
+ The constraints are based on the Laplacian operator; the low frequencies
+ of the mesh are preserved with the use of an attractor to the original
+ mesh, while the iterative smoothing process removes high frequencies.
 \end_layout
 
 \begin_layout Section
@@ -1501,7 +1505,7 @@ key "Spivak1-1999"
 \begin_layout Standard
 Our work is related to manifolds that represent a surface in an three-dimensiona
 l Euclidean Space.
- This manifolds are homeomorphic to 
+ These manifolds are homeomorphic to 
 \family roman
 \series medium
 \shape up
@@ -1538,8 +1542,8 @@ key "Ranjan2012"
 
 \end_inset
 
-, then is necessary to define a discrete laplacian operator that act on
- functions defined on such meshes.
+, it is therefore necessary to define a discrete Laplacian operator that
+ acts on functions defined by such meshes.
 \end_layout
 
 \begin_layout Standard
@@ -1647,8 +1651,8 @@ Discrete Laplace Operator Setting
 
 \begin_layout Standard
 Discrete Laplacian operators are linear operators that act on functions
- defines on meshes.
- These functions are specified by their values at the vertices.
+ defined by meshes.
+ These functions are defined by their values at the vertices.
  
 \end_layout
 
@@ -1684,13 +1688,13 @@ key "Ranjan2012"
 \end_layout
 
 \begin_layout Standard
-The Laplacian operator locally takes the difference between the value of
+Locally, the Laplacian operator takes the difference between the value of
  a function at a vertex and a weighted average of its values at the first-order
- or one-ring neighbor vertices, then a Laplacian matrix 
+ or one-ring neighbor vertices, therefore a Laplacian matrix 
 \begin_inset Formula $L$
 \end_inset
 
- has a local form given by
+ has a local form that is given by
 \end_layout
 
 \begin_layout Standard
@@ -1703,7 +1707,7 @@ The Laplacian operator locally takes the difference between the value of
 \end_layout
 
 \begin_layout Standard
-Where 
+where 
 \begin_inset Formula $w_{ij}$
 \end_inset
 
@@ -1720,7 +1724,7 @@ are the weights between the vertex
 \begin_inset Formula $b_{i}^{-1}$
 \end_inset
 
- are the factors depending of the boundary region over vertex 
+ are the factors depending on the boundary region over vertex 
 \begin_inset Formula $i$
 \end_inset
 
@@ -1729,7 +1733,7 @@ are the weights between the vertex
 \begin_inset Formula $N\left(i\right)$
 \end_inset
 
- are the neighbors that share a edge with vertex 
+ denotes the neighbors that share an edge with vertex 
 \begin_inset Formula $i$
 \end_inset
 
@@ -1846,14 +1850,13 @@ This paper proposes a novel modeling method for a hybrid quad/triangle mesh
  that allows to set a family of possible shapes by controlling a single
  parameter, the global curvature.
  The method uses an original extension of the Laplace Beltrami operator
- that efficiently estimates a curvature parameter which is used to define
+ that efficiently estimates a curvature parameter, which is used to define
  an inflated shape after a particular operation performed in certain mesh
  points.
  Along with the method, this work presents new applications in sculpting
- and modeling, with subdivision of surfaces and weight vertex groups.
- A series of graphics examples demonstrates the quality, predictability
- and flexibility of the method in a real production environment with software
- Blender.
+ and modeling, with the subdivision of surfaces and weight vertex groups.
+ A series of graphics demonstrates the quality, predictability and flexibility
+ of the method in a real production environment with software Blender.
 \end_layout
 
 \begin_layout Description
@@ -1865,8 +1868,8 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-Over the last years several, modeling techniques able to generate a variety
- of realistic shapes, have been developed 
+Over the last several years, modeling techniques that are able to generate
+ a variety of realistic shapes, have been developed 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Botsch2006"
@@ -1915,7 +1918,7 @@ cite{Sorkine2004,Zhou2005}
 \end_inset
 
 .
- Catmull-Clark based methods however require to interact with a small number
+ Catmull-Clark based methods however require interaction with a small number
  of control points for any operation to be efficient, or in other words,
  a unity  condition is introduced by demanding a smooth surface after any
  of these shape operations.
@@ -1964,7 +1967,7 @@ cite{Biermann2000}
 \end_inset
 
 .
- Nevertheless these methods are difficult to deal with since they require
+ Nevertheless, these methods are difficult to deal with since they require
  a large number of parameters and a very tedious customization.
  Instead, the presented method requires a single parameter that controls
  the global curvature, which is used to maintain realistic shapes, creating
@@ -2007,9 +2010,9 @@ cite{Mullen2007}
  It is then of paramount importance to develop operators that easily interact
  with such meshes, eliminating the need of preprocessing the mesh to convert
  it to triangles.
- The shape inflation and shape exaggeration can thus be used as such brush
- in the sculpting process, when inflating a shape since current brushes
- end up by losing detail when moving vertices 
+ The shape inflation and shape exaggeration can thus be used as a brush
+ in the sculpting process, when inflating a shape, since current brushes
+ end up losing detail when moving vertices 
 \begin_inset ERT
 status open
 
@@ -2038,12 +2041,12 @@ This work presents an extension of the Laplace Beltrami operator for hybrid
  been presented so far.
  The method eliminates the need of preprocessing and allows preservation
  of the original topology.
- Likewise, along with this operator, it is proposed a method to generate
+ Likewise, along with this operator, a method has been proposed to generate
  a family of parametrized shapes, in a robust and predictable way.
- This method enables customization of the smoothness and curvature, obtained
+ This method enables customization of the smoothness and curvature obtained
  during the subdivision surfaces process.
- Finally, it is proposed a new brush for inflating the silhouette mesh features
- in modeling and sculpting.
+ Finally, a new brush has been proposed for inflating the silhouette mesh
+ features in modeling and sculpting.
 \end_layout
 
 \begin_layout Standard
@@ -2055,24 +2058,24 @@ reference "sec:Related-work"
 \end_inset
 
  presents works related to the Laplacian mesh processing, digital sculpting,
- and offsetting methods for polygonal meshes; In section 
+ and offsetting methods for polygonal meshes; in section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Laplacian-Smooth"
 
 \end_inset
 
-, it is described the theoretical framework of the Laplacian operator for
- polygon meshes; In section 
+, the theoretical framework of the Laplacian operator for polygon meshes
+ is described; in section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "PAPER:sec:Proposed-Method"
 
 \end_inset
 
-, it is presented the method for shape inflation and applications of subdivision
- of surfaces and sculpting; finally some Laplacian operator results, to
- hybrid quad/triangle meshes are graphically shown as well as results of
+, the method for shape inflation and applications of subdivision of surfaces
+ and sculpting is presented; finally some Laplacian operator results using
+ hybrid quad/triangle meshes are shown graphically, as well as results of
  the shape inflation applications in sculpting, subdivision and modeling.
 \end_layout
 
@@ -2091,7 +2094,7 @@ name "sec:Related-work"
 Many tools have been developed for modeling, based on the Laplacian mesh
  processing.
  Thanks to the advantages of the Laplacian operator, these different tools
- preserve the surface geometric details when using them for different processes
+ preserve the surface geometric details when being used for different processes
  such as free-form deformation, fusion, morphing and other applications
  
 \begin_inset ERT
@@ -2113,8 +2116,8 @@ cite{Sorkine2004}
 \begin_layout Standard
 Offset methods for polygon meshing, based on the curvature defined by the
  Laplace Beltrami operator, have been developed.
- These methods adjust the shape offset by a constant distance, with enough
- precision.
+ With enough precision, these methods adjust the shape offset by a constant
+ distance.
  Nevertheless, these methods fail to conserve sufficient detail because
  of the smoothing, a crucial issue which depends on the offset size 
 \begin_inset ERT
@@ -2130,10 +2133,10 @@ cite{Zhuo2012}
 \end_inset
 
 .
- In volumetric approaches, in case of point-based representations, the offset
- boundary computation is based on the distance field and therefore when
- calculating such offset, the topology of the model may be different to
- the original 
+ In volumetric approaches, in the case of point-based representations, the
+ offset boundary computation is based on the distance field, and therefore
+ when calculating such offset the topology of the model may be different
+ to the original 
 \begin_inset ERT
 status open
 
@@ -2181,7 +2184,7 @@ cite{Ohtake2004}
 , and angle-based threshold.
  Likewise, curves have been also classified as planar or non-planar, approximate
 d by lines, circles, ellipses and other complex shapes.
- In such case, the user defines an initial change over several features
+ In such cases, the user defines an initial change over several features
  which are propagated towards other features, based on the classified shapes
  and the inter-relationships between them.
  This method works well with objects that have sharp edges, composed of
@@ -2191,8 +2194,8 @@ d by lines, circles, ellipses and other complex shapes.
 \end_layout
 
 \begin_layout Standard
-Digital sculpting has been traditionally approached either under a polygonal
- representation or a voxel grid-based method.
+Traditionally, digital sculpting has been approached under a polygonal represent
+ation or a voxel grid-based method.
  Brushes for inflation operations only depend on the vertex normal 
 \begin_inset ERT
 status open
@@ -2207,9 +2210,9 @@ cite{Stanculescu2011}
 \end_inset
 
 .
- In grid-based sculpting, some other operations have allowed to add or remove
- voxels since production of polygonal meshes require a processing of isosurfaces
- from a volume 
+ In grid-based sculpting, some other operations have allowed the addition
+ or removal of voxels since production of polygonal meshes requires a processing
+ of isosurfaces from volume 
 \begin_inset ERT
 status open
 
@@ -2266,7 +2269,7 @@ g the total surface curvature
 \end_layout
 
 \begin_layout Standard
-Where 
+where 
 \begin_inset Formula $\kappa_{1}$
 \end_inset
 
@@ -2333,7 +2336,7 @@ Area of the Voronoi region around
 \begin_inset Formula $\beta_{j}$
 \end_inset
 
- opposite angles to edge 
+ are opposite angles to edge 
 \begin_inset Formula $\overrightarrow{v_{j}-v_{i}}$
 \end_inset
 
@@ -2369,14 +2372,15 @@ Voronoi region
 \begin_inset Formula $v_{i}$
 \end_inset
 
- as show in figure 
+ as shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:voronoi_region-1"
 
 \end_inset
 
-, The area change produced by the movement of 
+.
+ The area change produced by the movement of 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -2502,8 +2506,8 @@ cite{Pinkall1993}
 \end_layout
 
 \begin_layout Standard
-The LBO has desirable properties: the LBO points out to the direction of
- the minimal surface area.
+The LBO has desirable properties: the LBO points to the reverse direction
+ of the minimal surface area.
 \end_layout
 
 \begin_layout Section
@@ -2521,7 +2525,7 @@ name "PAPER:sec:Proposed-Method"
 This method exaggerates a shape using a Laplacian smoothing operator in
  the reverse direction, i.e., the new shape is a modified version in which
  those areas with larger curvature are magnified.
- The operator amounts to a generator of a set of models which conserves
+ The operator amounts to a generator of a set of models, which conserves
  the basic silhouette of the original shape.
  In addition, the presented approach can be easily mixed with traditional
  or uniform subdivision of surfaces.
@@ -2671,7 +2675,7 @@ reference "PAPER:fig:quad_xiong"
 \begin_inset Formula $A\left(T_{v_{i}}\right)$
 \end_inset
 
- is.
+ is
 \end_layout
 
 \begin_layout Standard
@@ -2684,7 +2688,7 @@ reference "PAPER:fig:quad_xiong"
 \end_layout
 
 \begin_layout Standard
-Where 
+where 
 \begin_inset Formula $q_{1},q_{2},...,q_{j},...,q_{m}\in Q_{v_{i}}$
 \end_inset
 
@@ -2920,7 +2924,7 @@ L\left(i,j\right)=\begin{cases}
 \end_layout
 
 \begin_layout Standard
-Where 
+where 
 \begin_inset Formula $L$
 \end_inset
 
@@ -2951,11 +2955,11 @@ reference "PAPER:eq:TQLBO_wij"
 \begin_inset Formula $N\left(v_{i}\right)$
 \end_inset
 
- is the 1-ring neighborhood with shared face to 
+ is the 1-ring neighborhood with a shared face to 
 \begin_inset Formula $v_{i}$
 \end_inset
 
-, 
+ and 
 \begin_inset Formula $A_{i}$
 \end_inset
 
@@ -2986,11 +2990,11 @@ L\left(i,j\right)=\begin{cases}
 \end_layout
 
 \begin_layout Standard
-Where 
+where 
 \begin_inset Formula $\delta_{ij}$
 \end_inset
 
- being the Kronecker delta function.
+ is the Kronecker delta function.
 \end_layout
 
 \begin_layout Subsection
@@ -3005,7 +3009,7 @@ name "PAPER:sub:Curvature-Enhancing"
 \end_layout
 
 \begin_layout Standard
-The shape is inflated by using the reverse direction of the curvature flow,
+The shape is inflated using the reverse direction of the curvature flow,
  moving the vertices towards those mesh portions with larger curvature.
  A standard diffusion process is applied:
 \end_layout
@@ -3092,8 +3096,11 @@ reference "PAPER:eq:TQLBO-Normalized_Matrix"
 
 \begin_layout Standard
 The method was devised to use with weighted vertex groups, which specify
- the final shape inflation of the solution, meaning $0$ as no changes and
- 1 when a maximal change is applied.
+ the final shape inflation of the solution, meaning 
+\begin_inset Formula $0$
+\end_inset
+
+ for no changes and 1 when a maximal change is applied.
  The weights modify the influence zones, where the Laplacian is applied,
  as shown in equation 
 \begin_inset CommandInset ref
@@ -3132,14 +3139,14 @@ cite{Desbrun1999}
 \end_layout
 
 \begin_layout Standard
-The model volume increases as the lambda is larger and negative, this can
- be counteracted with a simple volume preservation.
+The model volume increases proportionally as the lambda becomes larger and
+ negative, this can be counteracted with a simple volume preservation.
  However, the mesh may suffer large displacements when 
 \begin_inset Formula $\lambda<-1.0$
 \end_inset
 
  or after multiple iterations.
- A simple volume conservation algorithm is: If 
+ A simple volume conservation algorithm is: if 
 \begin_inset Formula $v_{i}^{t+1}$
 \end_inset
 
@@ -3213,10 +3220,10 @@ allows to scale the vertices to:
 \end_layout
 
 \begin_layout Standard
-The shape inflation use a negative curvature flow that is an unstable process
+The shape inflation uses a negative curvature flow that is an unstable process
  when performing many iterations, however, our method uses less than 3 iteration
 s to get good results, and with 3 iterations or less the method behaves
- stable.
+ in a stable way.
 \end_layout
 
 \begin_layout Section
@@ -3233,34 +3240,37 @@ name "PAPER:sec:Sculpting"
 \begin_layout Standard
 A new sculpting brush is herein proposed and aims to inflate the shape,
  magnifying the shape curvatures of a polygon mesh in real time.
- This brush works properly with the stroke method 
+ This brush works best with the stroke method 
 \shape slanted
 Drag Dot
 \shape default
-, allowing to pre-visualize the model changes before the mouse is released.
- Also, it allows to move the mouse along the model to match the shape zone
- which is supposed to be inflated.
+, allowing the user to pre-visualize the model changes before the mouse
+ is released.
+ Also, it allows movement of the mouse along the model to match the shape
+ zone which is supposed to be inflated.
 \end_layout
 
 \begin_layout Standard
 Brushes that perform a similar inflation can introduce mesh distortions
- or produce mesh self-intersections, provided these brushes only move the
- vertices along the normal without any global information.
- In contrast, the present method searches for a proper inflation while preservin
-g the global curvature, retaining the original shape and main model features.
+ or produce mesh self-intersections, provided that these brushes only move
+ the vertices along the normal without any global information.
+ In contrast, the present method searches for an improved inflation while
+ preserving the global curvature, retaining the original shape and main
+ model features.
  In addition, this method simplifies the work required for the inflation
- since it needs not different brushes for inflating, softening or styling.
- The inflated brush can make all these operation in a single step.
- Real-time brushes require the Laplacian matrix is constructed with the
+ since it does not need different brushes for inflating, softening or styling.
+ The inflated brush can do all these operations in a single step.
+ Real-time brushes require the Laplacian matrix to be constructed with the
  vertices that are within the sphere radius defined by the user, reducing
- the matrix to be processed, the center of this sphere depending on the
- place where the user clicks on the canvas and the three-dimensional mesh
- placed where the click is projected.
+ the matrix to be processed.
+ The center of this sphere depends on the place where the user clicks on
+ the canvas and also where the click is projected on the three-dimensional
+ mesh.
  Special handling is required for the boundary vertices with neighbors that
- are not within the brush radius: these vertices are marked as boundary
- and the curvature is not there calculated, but they must be included in
- the matrix so that every vertex has their corresponding neighbors within
- the selection.
+ are not within the brush radius: these vertices mark the boundary though
+ the curvature is not calculated there, but they must be included in the
+ matrix so that every vertex has their corresponding neighbors within the
+ selection.
  The sculpting Laplacian matrix reads as.
 \end_layout
 
@@ -3278,7 +3288,7 @@ g the global curvature, retaining the original shape and main model features.
 \end_layout
 
 \begin_layout Standard
-Where 
+where 
 \begin_inset Formula $v_{j}\in N\left(v_{i}\right)$
 \end_inset
 
@@ -3350,7 +3360,7 @@ name "PAPER:fig:Subdivision-Cups"
 \end_layout
 
 \begin_layout Standard
-The Catmull-Clark subdivision transformation is used to smooth a surface,
+The Catmull-Clark subdivision transformation is used to smoothen a surface,
  as the limit of a sequence of subdivision steps 
 \begin_inset ERT
 status open
@@ -3402,11 +3412,11 @@ Catmull-Clark subdivision surface methods generate smooth and continuous
  models from a coarse model and produce quick results because of the simplicity
  of implementation.
  Nevertheless, changes to the global curvature are hardly implantable.
- The Catmull-Clark subdivision surfaces together with shape inflation can
- easily generate families of shapes by changing a single parameter, allowing
- to handle a model with very few vertices.
+ The Catmull-Clark Subdivision Surfaces, together with shape inflation,
+ can easily generate families of shapes by changing a single parameter,
+ allowing a model with very few vertices to be handled.
  In practice, this would allow an artist to choose a model from a similar
- set of options that would meet his/her needs without having to change each
+ set of options that would meet their needs without having to change each
  of the control vertices.
  Likewise, the presented method allows the use of vertex weight paint over
  the control points.
@@ -3436,8 +3446,8 @@ reference "PAPER:eq:Lineal_System_with_wp"
 
  is a diagonal matrix with weights corresponding to each vertex.
  Weights at each vertex produce a different solution so that the matrix
- must be placed in the diffusion equation since families that are generated
- may change substantially with weighted of specific control points.
+ must be placed in the diffusion equation, since families that are generated
+ may change substantially with the weight of specific control points.
 \end_layout
 
 \begin_layout Section
@@ -3454,7 +3464,7 @@ name "PAPER:sec:Results"
 \begin_layout Standard
 The results of the shape inflation method with the extension of the Laplace
  Beltrami operator for hybrid quad/triangle meshes with several example
- models shown in figures 
+ models shown in figures: 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "PAPER:fig:Spectrum"
@@ -3598,7 +3608,7 @@ reference "PAPER:eq:TQLBO_Simple_Matrix"
  In column (d) the model was converted to triangles and then the Laplacian
  smoothing was applied.
  In column (e) the model was randomly converted from some quads into triangles
- and then the Laplacian smoothing is applied, showing similar results to
+ and then the Laplacian smoothing was applied, showing similar results to
  those meshes composed only of triangles or quads.
 \end_layout
 
@@ -3614,7 +3624,7 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename resources/figs/test_triangles_quads.pdf
-	lyxscale 10
+	lyxscale 60
 	height 50theight%
 
 \end_inset
@@ -3639,7 +3649,7 @@ name "PAPER:fig:TQLBO_test"
 \end_inset
 
  and 2 iterations: (c) for triangles, (d) for quads, (e) for triangles and
- quads random chosen.
+ quads chosen randomly.
 \end_layout
 
 \end_inset
@@ -3653,9 +3663,8 @@ name "PAPER:fig:TQLBO_test"
 \end_layout
 
 \begin_layout Standard
-Methods using the Catmull-Clark subdivision surface and the inflation allows
- to modify the curvature that is obtained with the process of subdivision,
- as shown in figure 
+Methods using the Catmull-Clark Subdivision Surface and inflation allow
+ the modification of the curvature, as shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "PAPER:fig:Subdivision-Cups"
@@ -3664,8 +3673,8 @@ reference "PAPER:fig:Subdivision-Cups"
 
 .
  This test used a coarse cup model, in which the subdivision was performed,
- followed by a Laplacian smoothing and inflation.
- In figure 
+ followed by Laplacian smoothing and inflation.
+ Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "PAPER:fig:Subdivision-Cups"
@@ -3679,9 +3688,8 @@ reference "PAPER:fig:Subdivision-Cups"
 
 \end_inset
 
-.d shows also the use of weight vertex groups over coarse models, with subdivisio
-n surfaces that allowed to generate the weights for the new interpolated
- vertices.
+.d also shows the use of weight vertex groups over coarse models, with subdivisio
+n surfaces that generate weights for the new interpolated vertices.
  These new weights were used for the inflation obtained on the 6 cups that
  are at the right of the figure 
 \begin_inset CommandInset ref
@@ -3705,7 +3713,7 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename resources/figs/camello_enhanced2.pdf
-	lyxscale 10
+	lyxscale 80
 	height 50theight%
 
 \end_inset
@@ -3774,9 +3782,9 @@ reference "PAPER:fig:Catmull_Clark"
 
 \end_inset
 
-.b.), whose models are in average equal triangles.
+.b.), whose models have average equal triangles.
  The one obtained with the Laplacian smoothing is shown in panel (c), (d)
- and those curvature modified versions are in (e) and (f).
+ and the curvature modified versions are in (e) and (f).
  As can be observed, different versions of the original sketch can be obtained
  by parameterizing a single model value, a great advantage of the presented
  method.
@@ -3793,12 +3801,13 @@ reference "PAPER:fig:camello_enhanced"
 \end_inset
 
  parameter.
- In the top row, it is shown the shape inflation results, as 
+ In the top row the shape inflation results are shown.
+ As 
 \begin_inset Formula $\lambda$
 \end_inset
 
- becomes larger and negative, the resultant shape is observed as if the
- model would inflate the more convex parts, as shown in figure 
+ becomes larger and negative, the resultant shape was inflated on the more
+ convex parts, as shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "PAPER:fig:Spectrum"
@@ -3810,7 +3819,7 @@ reference "PAPER:fig:Spectrum"
 \begin_inset Formula $\lambda$
 \end_inset
 
- parameter the larger the model feature inflations.
+ parameter, the larger the model feature inflations.
  The bottom row of figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -3834,7 +3843,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename resources/figs/camello_walk2.png
-	lyxscale 10
+	lyxscale 40
 	width 100text%
 
 \end_inset
@@ -3878,8 +3887,8 @@ The method is pose insensitive.
 \end_layout
 
 \begin_layout Standard
-The inflation of the silhouette features is predictable and invariant under
- isometric transformations, as those classically used in some animations
+The inflation of the silhouette's features is predictable and invariant
+ under isometric transformations, like those classically used in some animations
  (see Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -3888,9 +3897,9 @@ reference "PAPER:fig:Animated_Camell"
 \end_inset
 
 ).
- In this figure, the animation shows some camel poses during a walk, the
- inflation is performed at the neck and legs, as shown in the bottom left
- camel in figure 
+ In this figure, the animation shows some camel poses during a walk.
+ The inflation is performed at the neck and legs, as shown in the bottom
+ left camel in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "PAPER:fig:Animated_Camell"
@@ -3900,13 +3909,12 @@ reference "PAPER:fig:Animated_Camell"
 .
  Local modifications produced by the pose interpolation or animation rigging
  practically do not affect the result.
- In spite of at any pose of the camel legs there is a clear difference,
- the inflation method allows a flesh-like shape in the original pattern
- produced by the artist.
- This is due to the mesh restricted diffusion process so that small local
- changes are treated without affecting the global solution.
+ There is a clear difference despite the pose of the camel's legs.
+ The inflation method allows a flesh-like shape in the original pattern
+ produced by the artist, this is due to the mesh restricted diffusion process
+ so that small local changes are treated without affecting the global solution.
  The method therefore is rotation invariant since it depends exclusively
- on the normal mesh field, which is rotation invariant.
+ on the normal mesh field.
  
 \end_layout
 
@@ -3922,7 +3930,7 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename resources/figs/sculpt_brush.pdf
-	lyxscale 10
+	lyxscale 70
 	height 30theight%
 
 \end_inset
@@ -3940,10 +3948,10 @@ name "PAPER:fig:Sculpt_Brush"
 
 \end_inset
 
-Top row: (a) Leg Camel, (b) Inflate brush for leg into blue circle, (c)
- Inflate shape brush for leg into red circle.
- Bottom row: (a) Hand, (b) Inflate brush for fingers into blue circle, (c)
- Shape inflation brush for fingers in red circle.
+Top row: (a) Original camel leg, (b) Inflate Brush used on leg within blue
+ circle, (c) Enhance Brush used on leg within red circle.
+ Bottom row: (a) Original hand, (b) Inflate Brush used on fingers within
+ blue circle, (c) Enhance Brush used on fingers within red circle.
 \end_layout
 
 \end_inset
@@ -3968,7 +3976,7 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename resources/figs/verts_per_second_sculpt.pdf
-	lyxscale 10
+	lyxscale 50
 	width 100col%
 
 \end_inset
@@ -3986,8 +3994,8 @@ name "PAPER:fig:Performance-sculpt"
 
 \end_inset
 
-Performance of our dynamic shape inflation brush in terms of the sculpted
- vertices per second.
+Performance of our dynamic Enhance Brush in terms of the sculpted vertices
+ per second.
  Three models with 12K, 40K, 164K vertices used for sculpting in real time.
 \end_layout
 
@@ -4009,9 +4017,8 @@ reference "PAPER:fig:Sculpt_Brush"
 
 \end_inset
 
- shows the use of a shape inflation brush for sculpting in real time.
- One pass was used with the brush, as shown in the figure, with the blue
- and red radius.
+ shows the use of the Enhance Brush for sculpting in real time.
+ One pass was used with the brush, shown by the blue and red radius.
  In figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -4019,9 +4026,9 @@ reference "PAPER:fig:Sculpt_Brush"
 
 \end_inset
 
-.b the camel foot shows the inflation intersection that looks like two bubbles,
- a similar pattern to what is observed to the fingers on the bottom of the
- same figure.
+.b the camel hoof shows the inflation intersection, which looks like two
+ bubbles, a similar pattern that is observed on the fingers on the bottom
+ row of the same figure.
  The silhouette inflation is observed in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -4029,12 +4036,12 @@ reference "PAPER:fig:Sculpt_Brush"
 
 \end_inset
 
-.c since the main shape is retained together with its finger and foot details.
- Similar results can be obtained by a user, however it would take several
- steps and require the use of several brushes, while the shape inflation
- took a single step.
- Likewise, this new method can easily inflate organic features like muscles
- during the sculpting process.
+.c the main shape is retained together with either its finger or hoof details.
+ Similar results can be obtained by using different brushes, however it
+ would take several steps, while the Enhance Brush for shape inflation takes
+ only a single step.
+ For this reason, this new method can easily inflate organic features like
+ muscles during the sculpting process.
  In figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -4042,15 +4049,16 @@ reference "PAPER:fig:Performance-sculpt"
 
 \end_inset
 
- the shape inflation brush performance is illustrated, in this experiment
- three models with 12K, 40K and 164K vertices, were used.
- These models were sculpted with the shape inflate brush, at each step the
- brush sphere containing a variable number of vertices for processing.
- The processing time for 800 vertices in the camel paw (40k model) only
- took 0.1 seconds, for 2600 vertices in the leg and neck (model 40k) took
- 0.5 seconds, these times are suitable in real applications since an artist
- sculpts a model for parts.
- %, and each part is represented by an average of about 1800 vertices.
+ the Enhance Brush performance is illustrated.
+ In this experiment three models with 12K, 40K and 164K vertices, were used.
+ These models were sculpted with the Enhance Brush, each time the user selected
+ a variable number of vertices for processing.
+ The processing time for 800 vertices in the camel hoof (40k model) only
+ took 0.1 seconds, for 2600 vertices in the leg and neck (model 40k) it took
+ 0.5 seconds.
+ These times are suitable in real applications since an artist sculpts a
+ model by parts and each part is represented by an average of about 1800
+ vertices.
 \end_layout
 
 \begin_layout Standard
@@ -4063,7 +4071,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename resources/figs/monkey.pdf
-	lyxscale 10
+	lyxscale 60
 	width 100col%
 
 \end_inset
@@ -4083,15 +4091,15 @@ name "PAPER:fig:(a)Monkey"
 
 (a) Bottom row: Original Model.
  Top row: Original model scaled by 4.
- (b) Top and bottom row: inflating with Normalized-TQLBO 
+ (b) Top and bottom row: inflated with Normalized-TQLBO 
 \begin_inset Formula $\lambda=-50$
 \end_inset
 
- (c) Top and bottom row: inflating with TQLBO 
+ from (a) respectively (c) Top and bottom row: inflated with TQLBO 
 \begin_inset Formula $\lambda=-50$
 \end_inset
 
-.
+ from (a) respectively.
 \end_layout
 
 \end_inset
@@ -4122,7 +4130,7 @@ reference "PAPER:eq:TQLBO-Normalized_Matrix"
 ), produce similar results if the triangles or quads that compose the mesh
  are about the same size.
  The normalized version is more stable and predictable because it is not
- divided by the area of the ring which may be very small and causes numeric
+ divided by the area of the ring, which may be very small and cause numerical
  problems, as shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -4133,7 +4141,8 @@ reference "PAPER:fig:(a)Monkey"
 .c bottom row.
  The shape inflation of the model with the normalized Laplacian operator
  results in a more regular pattern.
- The model can be deformed with a TQLBO normalized version with large 
+ The model can be deformed with a normalized version of TQLBO with large
+ 
 \begin_inset Formula $\lambda$
 \end_inset
 
@@ -4141,7 +4150,7 @@ reference "PAPER:fig:(a)Monkey"
 \begin_inset Formula $\lambda>400$
 \end_inset
 
-) while intersecting itself with no peaks.
+) that can intersect itself but without any peaks.
  Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -4149,8 +4158,8 @@ reference "PAPER:fig:(a)Monkey"
 
 \end_inset
 
-.c shows different results due to the quads areas in the model.
- Quads with larger area have smaller inflation (figure 
+.c shows different results due to the quads' areas in the model.
+ Quads with larger areas have smaller inflations (figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "PAPER:fig:(a)Monkey"
@@ -4180,33 +4189,33 @@ name "PAPER:sec:Implementation"
 
 \begin_layout Standard
 The method was implemented as a modifier for modeling and brush for sculpting,
- on the Blender software 
+ on Blender software 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blender"
 
 \end_inset
 
- in C and C++.
- Working with the Blender allowed to test the method interactively against
- others, as Catmull-Clark, weight vertex groups and sculpting system in
- Blender.
+ in C and C++ language programming.
+ Working with Blender allowed the method to be tested interactively against
+ other methods, such as Catmull-Clark, Weight Vertex Groups and Sculpting
+ System.
 \end_layout
 
 \begin_layout Standard
 To improve the performance, it was worked with the Blender mesh structure,
  visiting each triangle or quad and storing its corresponding index and
  the sum of the Laplacian weights of the ring in a list so that only two
- visits were required for the list of mesh faces and two times the edge
+ visits were required for the list of mesh faces and two times for the edge
  list, if the mesh was not closed.
  This drastically reduced calculations, enabling real-time processing.
- In the construction of the Laplacian matrix, several index were locked
- at vertices having face areas or edge lengths with zero value that could
- cause spikes and bad results.
+ In the construction of the Laplacian matrix, several indices were locked
+ at vertices, which had face areas or edge lengths with zero value that
+ could cause spikes and bad results.
 \end_layout
 
 \begin_layout Standard
-Under these conditions, the matrix at equation 
+Under these conditions, the matrix of the equation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "PAPER:eq:TQLBO_Simple_Matrix"
@@ -4223,14 +4232,14 @@ reference "PAPER:eq:Lineal_System_with_wp"
 
 \end_inset
 
- was used OpenNL 
+ OpenNL 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Buatois2007"
 
 \end_inset
 
- which is a a library for solving sparse linear system.
+ was used, which is a a library for solving sparse linear systems.
 \end_layout
 
 \begin_layout Section
@@ -4251,17 +4260,17 @@ This work presented an extension of the Laplace Beltrami operator for hybrid
  This paper has introduced a new way to change silhouettes in a mesh for
  modeling or sculpting in a few steps by means of the curvature model modificati
 on while preserving its overall shape.
- In addition, a new modeling method has also been presented some possible
+ In addition, a new modeling method has also been presented and some possible
  applications have been illustrated.
  The method works properly with isometric transformations, opening the possibili
-ty of introducing it on the process of animation.
+ty of introducing it to the process of animation.
 \end_layout
 
 \begin_layout Standard
-We show that this tool may work in early modeling stages, case in which
- coarse models are used, allowing to modify the shape generated by the Catmull-C
-lark subdivision surfaces, and thereby avoiding edition of the vertices
- with change of a single parameters.
+We show that this tool may work in early modeling stages, when coarse models
+ are used, allowing the shape generated by the Catmull-Clark subdivision
+ surfaces to be modified and thereby avoiding edition of the vertices with
+ a change of a single parameter.
 \end_layout
 
 \begin_layout Standard
@@ -4276,22 +4285,22 @@ Acknowledgment
 \end_layout
 
 \begin_layout Standard
-We wold like to thank anonymous friends for their support of our research.
+We would like to thank anonymous friends for their support of our research.
  
 \end_layout
 
 \begin_layout Standard
 This work was supported in part by the Blender Foundation, Google Summer
- of code program at 2012.
+ of Code program in 2012.
  
 \end_layout
 
 \begin_layout Standard
 Livingstone elephant model is provided courtesy of INRIA and ISTI by the
  AIM@SHAPE Shape Repository.
- Hand model is courtesy of the FarField Technology Ltd.
- Camel model by Valera Ivanov is licensed under a Creative Commons Attribution
- 3.0 Unported License.
+ The Hand model is courtesy of the FarField Technology Ltd.
+ The Camel model by Valera Ivanov is licensed under a Creative Commons Attributi
+on 3.0 Unported License.
  Dinosaur and Monkey models are under public domain, courtesy of Blender
  Foundation.
 \end_layout
@@ -4308,17 +4317,17 @@ name "sub:Laplacian-Smooth"
 \end_layout
 
 \begin_layout Standard
-This work was accepted as part of the software Blender 
+This work was accepted as part of the Blender 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blender"
 
 \end_inset
 
-, an open source 3D application for modeling, rendering, compositing, video
- editing and game creation.
+ software, an open source 3D application for modeling, rendering, composing,
+ video editing and game creation.
  The work was supported by an awarded internship of the Google Summer of
- Code 2012 program, administered for Google Inc.
+ Code 2012 program, administered by Google Inc.
 \end_layout
 
 \begin_layout Section
@@ -4327,13 +4336,13 @@ Synopsis
 
 \begin_layout Standard
 Objects reconstructed from the real world contain undesirable noise in many
- applications of computer graphics.
+ computer graphics applications.
  A Mesh smoothing may remove that noise while still preserving the geometry
  and shape of the original model.
- This project aims to improve the mesh smoothing tools uses by software
- Blender, using curvature flow operator in a diffusion equation, allowing
- to work with hybrid meshes composed of triangles and quads, using the Laplacian
- operator proposed by Pinzón and Romero 
+ This project aims to improve the mesh smoothing tools uses by Blender software,
+ using curvature flow operator in a diffusion equation, allowing hybrid
+ meshes composed of triangles and quads to be worked with, and using the
+ Laplacian operator proposed by Pinzón and Romero 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Pinzon2013"
@@ -4349,18 +4358,18 @@ Benefits to Blender
 
 \begin_layout Standard
 This project proposes a new and robust mesh smoothing tool that improves
- the appearance of surfaces models.
+ the appearance of the surfaces of models.
  Usually, methods to scan computer graphics objects using the Kinect ZCam
  need to remove the noise present at the time of capture.
  This mesh smoothing method produces higher quality results without shrinkage,
- while the usually used smoothing tool collapses after several iterations.
+ while the smoothing tool currently used collapses after several iterations.
 \end_layout
 
 \begin_layout Standard
 This mesh smoothing method allows hard and soft constraints on the positions
- of the mesh points to maintain control over the shape, facilitating to
- remove the noise generated during the sculpting, without eliminating the
- desired details of the model.
+ of the mesh points in order to maintain control over the shape, which facilitat
+es the removal of noise generated during the sculpting, but without eliminating
+ the desired details of the model.
  
 \end_layout
 
@@ -4444,11 +4453,11 @@ Project Schedule
 \end_layout
 
 \begin_layout Itemize
-2 week: Integration of the numerical library.
+2 weeks: Integration of the numerical library.
 \end_layout
 
 \begin_layout Itemize
-2 week: formulation of the sparse linear system and implementation of the
+2 weeks: Formulation of the sparse linear system and implementation of the
  numerical method to solve it.
 \end_layout
 
@@ -4528,7 +4537,20 @@ reference "eq:diffusion_process"
 
  can be linearly approximated using implicit integration with a Laplacian
  Operator version of TQLBO, the use of implicit integration makes the system
- is more stable.
+ more stable.
+\end_layout
+
+\begin_layout Standard
+Computation of the Laplacian Matrix:
+\end_layout
+
+\begin_layout Enumerate
+Definition of the sparse linear system.
+\end_layout
+
+\begin_layout Enumerate
+Solution of the sparse linear system, using a preconditioned bi-conjugated
+ gradient numerical library.
 \end_layout
 
 \begin_layout Standard
@@ -4543,7 +4565,7 @@ reference "eq:diffusion_process"
 \end_layout
 
 \begin_layout Standard
-The user may define the region of interest where the laplacian smooth needs
+The user may define the region of interest where the Laplacian smooth needs
  to be applied.
  For doing so, we add a diagonal matrix 
 \begin_inset Formula $W_{p}$
@@ -4556,7 +4578,7 @@ reference "eq:LaplacianSmoothLinearEquationSystem"
 
 \end_inset
 
-, where every element in the diagonal correspond to the weight for every
+, where every element in the diagonal corresponds to the weight for every
  vertex.
 \end_layout
 
@@ -4582,7 +4604,7 @@ reference "eq:LaplacianSmoothLinearEquationSystem"
 \end_layout
 
 \begin_layout Standard
-For non-closed meshes or meshes with holes, the curvature flow can not be
+For non-closed meshes or meshes with holes, the curvature flow cannot be
  computed.
  For this reason, the system smoothes out the edges only in the direction
  of the diffusion process.
@@ -4612,7 +4634,7 @@ L(i,j)=\begin{cases}
 \end_layout
 
 \begin_layout Standard
-Where 
+where 
 \begin_inset Formula $L$
 \end_inset
 
@@ -4643,7 +4665,7 @@ reference "PAPER:eq:TQLBO_wij"
 \begin_inset Formula $N\left(v_{i}\right)$
 \end_inset
 
- is the 1-ring neighborhood with shared face to 
+ is the 1-ring neighborhood which has a shared face with 
 \begin_inset Formula $v_{i}$
 \end_inset
 
@@ -4684,12 +4706,12 @@ reference "fig:Interface-LaplacianSmoothing"
 \end_inset
 
 .
- This tool allows to set the 
+ This tool allows the 
 \begin_inset Formula $\lambda$
 \end_inset
 
- parameters for inner points and boundaries, to configure soft constraints
- using weights defined by vertices in 
+ parameters for inner points and boundaries to be set, as well as to configure
+ soft constraints using weights defined by vertices in 
 \begin_inset Quotes eld
 \end_inset
 
@@ -4697,8 +4719,8 @@ Vertex Group
 \begin_inset Quotes erd
 \end_inset
 
- and to set strong constraints by independently applying the algorithm in
- the axis X, Y or Z.
+ and also to set strong constraints by independently applying the algorithm
+ in the axis X, Y or Z.
 \end_layout
 
 \begin_layout Standard
@@ -4767,7 +4789,7 @@ reference "fig:Factor-LaplacianSmoothing"
 
 \end_inset
 
-.b), while a large Lambda factor (
+.b), while using a large Lambda factor (
 \begin_inset Formula $\lambda>1.0$
 \end_inset
 
@@ -4962,8 +4984,8 @@ name "fig:Border-LaplacianSmoothing"
 
 \begin_layout Standard
 The tool allows the user to add soft constraints using weights for each
- vertex, this allows to define regions of interest where you want to apply
- the algorithm.
+ vertex, this allows regions of interest where you want to apply the algorithm
+ to be defined.
  In figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -4978,7 +5000,7 @@ reference "fig:VertexGroup-LaplacianSmoothing"
 
 \end_inset
 
-.d stands for those smoothed vertices in the red region.
+.d stands for those smoothened vertices in the red region.
 \end_layout
 
 \begin_layout Standard
@@ -4993,6 +5015,7 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename resources/figs/LaplacianSmoothingVertecGroup.pdf
+	lyxscale 50
 	width 100text%
 
 \end_inset
@@ -5030,8 +5053,7 @@ Use of weights per vertex to constrain the effect of mesh smoothing.
 \end_inset
 
 .
- Red vertices were only smoothing.
- 
+ The red vertices were the only vertices smoothed.
 \end_layout
 
 \end_inset
@@ -5045,7 +5067,7 @@ Use of weights per vertex to constrain the effect of mesh smoothing.
 \end_layout
 
 \begin_layout Standard
-This module was developed as a tool for the Blender software to remove noise
+This module was developed as a tool for Blender software to remove noise
  in the most efficient way.
  The state-of-the-art methods remove noise only if the mesh is composed
  by triangles, in contrast, with the developed tool, artists can now remove
@@ -5064,16 +5086,16 @@ name "sub:Laplacian-Deform"
 \end_layout
 
 \begin_layout Standard
-This work was accepted and completed for the software Blender 
+This work was accepted and completed for Blender 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "blender"
 
 \end_inset
 
- that is an open source 3D application for modeling, animation, rendering,
- compositing, video editing and game creation.
- In the Google Summer of Code 2013 program which was administered for Google
+ software, which is an open source 3D application for modeling, animation,
+ rendering, composing, video editing and game creation.
+ In the Google Summer of Code 2013 program which was administered by Google
  Inc.
 \end_layout
 
@@ -5082,24 +5104,25 @@ Synopsis
 \end_layout
 
 \begin_layout Standard
-The mesh editing is generally done with affine transformations, Blender3D
- offers some tools to transform the vertices as “proportional editing object
- mode” with which the transformation of some vertices is interpolated to
- the other vertices connected with the use of simple distance functions.
+The mesh editing is generally done with affine transformations.
+ Blender3D offers some tools that can transform vertices, such as “proportional
+ editing object mode” with which the transformation of some vertices is
+ interpolated with the other vertices that are connected with the use of
+ simple distance functions.
 \end_layout
 
 \begin_layout Standard
 This project proposes to implement a method for mesh editing based on sketching
- lines defines by user and preserving the geometric details of the surface.
+ lines defined by the user and preserving the geometric details of the surface.
 \end_layout
 
 \begin_layout Standard
-This method captures the geometric details using a differential coordinates
+This method captures the geometric details using differential coordinates
  representations.
  The differential coordinates captures the local geometric information (curvatur
 e and direction) of the vertex based on its neighbors.
  This method allows you to retrieve the best possible original model after
- changing the positions of some vertices using the differential coordinates
+ changing the positions of some vertices by using the differential coordinates
  of the original model.
 \end_layout
 
@@ -5108,8 +5131,8 @@ Benefits to Blender
 \end_layout
 
 \begin_layout Standard
-This project proposes a new tool for blender user that requires preserve
- the geometric details of the surface during a modeling, transformation,
+This project proposes a new tool for Blender users that requires the preservatio
+n of geometric details of the surface during modeling, transformation and
  definition of the shape keys of the mesh vertices.
 \end_layout
 
@@ -5119,7 +5142,7 @@ The method will allow novice users to edit any polygon mesh preserving the
 \end_layout
 
 \begin_layout Standard
-This method allows the user to define new shape keys in a most fast and
+This method allows the user to define new shape keys in a faster and more
  intuitive way.
 \end_layout
 
@@ -5150,7 +5173,7 @@ Project Details
 \end_layout
 
 \begin_layout Standard
-The project would divide into several parts:
+The project is divided into eight parts:
 \end_layout
 
 \begin_layout Enumerate
@@ -5169,7 +5192,7 @@ Store positions of the edited vertices.
 \end_layout
 
 \begin_layout Enumerate
-Store the more representative vertex for retrieve rotation of every differential
+Store the most representative vertex to retrieve rotation of every differential
  coordinate.
 \end_layout
 
@@ -5179,7 +5202,7 @@ Solve the initial solution – in least-squares sense.
 \end_layout
 
 \begin_layout Enumerate
-Rotate the differential coordinates with base on initial solution and more
+Rotate the differential coordinates based on initial solution and the most
  representative vertex.
 \end_layout
 
@@ -5201,11 +5224,11 @@ Project Schedule
 \end_layout
 
 \begin_layout Itemize
-2 Weeks: Store the fixed vertexes (Hard constraints).
+2 Weeks: Store the fixed vertices (Hard constraints).
 \end_layout
 
 \begin_layout Itemize
-2 Weeks: Store positions of the edited vertexes.
+2 Weeks: Store positions of the edited vertices.
 \end_layout
 
 \begin_layout Itemize
@@ -5222,7 +5245,7 @@ Project Schedule
 \end_layout
 
 \begin_layout Itemize
-1 Weeks: Testing the tool and Define and implement graphical user integration.
+1 Week: Testing the tool and Define and implement graphical user integration.
 \end_layout
 
 \begin_layout Itemize
@@ -5234,25 +5257,26 @@ Laplacian Deform
 \end_layout
 
 \begin_layout Standard
-The Laplacian deformation facilitates mesh visualization while it preserves
+The Laplacian deformation facilitates mesh visualization while preserving
  the geometric surface details.
- This method allows to define a set of anchor vertices which serve as a
- repair to move the mesh by translating some of them.
+ In this method the user defines a set of anchor vertices which serve to
+ re-pose the mesh by translating some of them.
  The system keeps the anchor vertices in fixed positions and calculates
- the best possible locations of the other vertices for the shape to preserve
+ the best possible locations of the other vertices so that the shape preserves
  the original geometric details.
- This work adapts the method proposed by Sorkine
+ This work adapts the method proposed by Sorkine et al.
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Sorkine2004"
 
 \end_inset
 
- for mesh deformations at deleting the use of static vertices.
- The method has been in addition applied to hybrid meshes composed by triangles
+ for mesh deformations by deleting the use of static vertices.
+ The method has also been applied to hybrid meshes composed of triangles
  and quads, using the proposed TQLBO.
  In particular, the geometric details are captured using differential coordinate
- representations that contain the local geometric information (curvature
+s representations that contain the local geometric information (curvature
  and direction) of the vertex and its neighbors, as shown in figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -5325,7 +5349,7 @@ name "fig:DifferentialCoor"
 \end_layout
 
 \begin_layout Standard
-Where 
+where 
 \begin_inset Formula $\delta_{i}$
 \end_inset
 
@@ -5408,12 +5432,12 @@ reference "PAPER:eq:TQLBO_Simple_Matrix"
 \begin_inset Formula $Wc$
 \end_inset
 
- is a matrix that contains ones int the indexes of anchors vertices.
+ is a matrix that has only ones in the indices of anchor vertices.
  
 \begin_inset Formula $C$
 \end_inset
 
- is a vector with coordinates of anchors vertices after several transformations.
+ is a vector with coordinates of anchor vertices after several transformations.
  
 \family roman
 \series medium
@@ -5591,24 +5615,24 @@ key "Levy2005"
 \end_inset
 
 .
- We choose the implementation of LU factorization in a OpenNL-SuperLU library,
- because this method show the better performance for the computation of
- a solution for a Laplacian Deform linear system of equations presented
- in equation 
+ We chose the implementation of LU factorization in an OpenNL-SuperLU library
+ because this method showed better performance in the computation of a solution
+ for a Laplacian Deform linear system of equations presented in equation
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:LaplacianDefomSystem"
 
 \end_inset
 
- how see in the table and plot 
+ which can be seen in the table and plots 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "tab:TimeVsSolvers"
 
 \end_inset
 
-, 
+ and 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Plot-IniFactor"
@@ -5616,9 +5640,9 @@ reference "fig:Plot-IniFactor"
 \end_inset
 
 .
- OpenNL SuperLU allow works with the Graphics Unit Processor GPU, for exploit
- the capacity of GPU to work with parallel structures, more fast that traditiona
-l CPU.
+ OpenNL SuperLU can function with the Graphics Unit Processor GPU in order
+ to exploit the capacity of GPU to be able to work with parallel structures,
+ faster than a traditional CPU.
 \end_layout
 
 \begin_layout Standard
@@ -5626,7 +5650,7 @@ l CPU.
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Tabular
@@ -6357,14 +6381,14 @@ reference "fig:Armadillo"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Graphics
 	filename resources/figs/Armadillo.pdf
-	lyxscale 10
+	lyxscale 50
 	width 100text%
 
 \end_inset
