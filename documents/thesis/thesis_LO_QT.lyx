@@ -6257,14 +6257,14 @@ Results
 \end_layout
 
 \begin_layout Standard
-The user interface for the software Blender can be seen in figure 
+The user interface for Blender software can be seen in figure 
 \begin_inset CommandInset ref
 LatexCommand eqref
 reference "fig:Panel-LaplacianDeform"
 
 \end_inset
 
-}.
+.
  In this tool, the user defines the anchor vertices and, with the use of
  a vertex, groups the features offered by Blender.
  The user configures this name in the field 
@@ -6276,10 +6276,10 @@ Anchors Vertex Group
 \shape slanted
 Bind
 \shape default
- option initiates the system and captures the geometry details in form of
- differential coordinates and computes the factorization of the linear system,
- after that the system is ready to pose meshes in a real-time interaction
- session.
+ option initiates the system and captures the geometry details in the form
+ of differential coordinates and computes the factorization of the linear
+ system, after that the system is ready to pose meshes in a real-time interactio
+n session.
 \end_layout
 
 \begin_layout Standard
@@ -6312,7 +6312,7 @@ name "fig:Panel-LaplacianDeform"
 
 \end_inset
 
-Panel inside blender user interface of the Laplacian Deform modifier tool.
+Panel inside Blender user interface of the Laplacian Deform modifier tool.
 \end_layout
 
 \end_inset
@@ -6334,9 +6334,9 @@ reference "fig:Armadillo"
 \end_inset
 
  shows the Laplacian Deformation applied to a model with 173K vertices,
- only anchor vertices were used and are represented in blue color.
+ only anchor vertices were used and are represented in blue.
  When the user applies several transformations (location, rotation, scale)
- to this anchors vertices, the system finds a solution and estimates the
+ to these anchor-vertices, the system finds a solution and estimates the
  position of the vertices (in yellow).
  This method works in real time and for doing so the matrix 
 \begin_inset Formula $\begin{bmatrix}w_{l}L\\
@@ -6355,10 +6355,10 @@ reference "eq:LaplacianDefomSystem"
 \begin_inset Formula $LU$
 \end_inset
 
- decomposed only once, with LU factorization,, when the system initiates.
- Once the matrix is factorized, the system can solve the unknowns in the
- order of milliseconds.
- Results are improved by solving several times the system of equations,
+ decomposed only once, with LU factorization, when the system initiates.
+ Once the matrix is factorized, the system can solve the unknown variables
+ in the order of milliseconds.
+ Results are improved by solving the system of equations several times,
  without LU factorization at every iteration, just the differential coordinates
  are adjusted since the differential coordinates can be rotated.
  Only four iterations were necessary for obtaining figure 
@@ -6369,7 +6369,7 @@ reference "fig:Armadillo"
 \end_inset
 
  but the system finds proper solutions with only one iteration, when the
- angle of rotations are less that
+ angle of rotations are less than
 \begin_inset Formula $\pi$
 \end_inset
 
@@ -6406,9 +6406,9 @@ name "fig:Armadillo"
 
 \end_inset
 
-Anchor vertices in blue color.
- (a) Original Model, (b,c,d) new poses change only anchor vertices, system
- find positions for vertices in yellow color.
+Anchor vertices in blue.
+ (a) Original Model, (b,c,d) new poses only change the anchor-vertices,
+ the system finds positions for vertices in yellow.
 \end_layout
 
 \end_inset
@@ -6429,12 +6429,12 @@ reference "fig:Cactus"
 
 \end_inset
 
- shows a comparison after making a single transformation that consists in
- rotating 
+ shows a comparison after making a single transformation that rotates the
+ parts in blue 
 \begin_inset Formula $70º$
 \end_inset
 
- to the right the parts, in blue color.
+ to the right.
  Results using a bicubic interpolation are shown in 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -6442,7 +6442,7 @@ reference "fig:Cactus"
 
 \end_inset
 
-.b observe how the main trunk losses its shape when rotated.
+.b observe how the main trunk loses its shape when rotated.
  The propagation of changes made by the Laplacian deformation (figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -6463,6 +6463,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename resources/figs/cactus.pdf
+	lyxscale 50
 	width 100text%
 
 \end_inset
@@ -6481,8 +6482,10 @@ name "fig:Cactus"
 \end_inset
 
 (a) Original cactus model.
- (b) Rotate 70º to right the blue segments with basic interpolation (c)
- Rotate 70º to right the blue segments with Laplacian deform tool.
+ (b) Blue segments are rotated 70º to the right and afterwards a basic interpola
+tion is applied to the parts in yellow (c) Blue segments are rotated 70º
+ to the right and afterwards a Laplacian deform tool is applied to the parts
+ in yellow.
 \end_layout
 
 \end_inset
@@ -6496,30 +6499,31 @@ name "fig:Cactus"
 \end_layout
 
 \begin_layout Standard
-The Laplacian Deformation tool allows an user to pose a model while preserve
- the geometry details, in figure 
+The Laplacian Deformation tool allows the user to change the model's pose
+ while preserving the geometry details.
+ In figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Horse"
 
 \end_inset
 
-.b y 
+.b and 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Horse"
 
 \end_inset
 
-.c Observe the horse new pose after five transformations and rotation of
- the head, in figure 
+.c observe the horse's new pose after five transformations and one head rotation.
+ In figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Horse"
 
 \end_inset
 
-.b using basic interpolation, the shape and details are lost at every change.
+.b the shape and details are lost at every change using basic interpolation.
  In constrast, figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -6529,8 +6533,8 @@ reference "fig:Horse"
 
 ..c illustrates how the new pose of the horse looks more natural, above all
  for the body and neck.
- This comparison indicates this method allows to apply any transformation
- without loss of details.
+ This comparison indicates that the Laplacian Deform method allows any transform
+ation to be applied without any loss of detail.
  
 \end_layout
 
@@ -6544,6 +6548,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename resources/figs/horse.pdf
+	lyxscale 60
 	width 100text%
 
 \end_inset
@@ -6562,8 +6567,9 @@ name "fig:Horse"
 \end_inset
 
 (a) Original Horse model.
- (b) Translate and rotate the blue segments with basic interpolation (c)
- Translate and rotate the blue segments with Laplacian deform tool.
+ (b) The blue segments are translated and rotated and then basic interpolation
+ is applied to the yellow parts (c) The blue segments are translated and
+ rotated and then the Laplacian Deform tool is applied to the yellow parts.
 \end_layout
 
 \end_inset
@@ -6585,8 +6591,8 @@ Part of this work was accepted and presented as a poster titled
 \shape slanted
  Software para la Extracción del Esqueleto por Contracción y Suavizado
 \shape default
- at 7th International Seminar on Medical Image Processing and Analysis SIPAIM
- 2011.
+ [Software for Skeleton Extraction by Contraction and Smoothing] at 7th
+ International Seminar on Medical Image Processing and Analysis SIPAIM 2011.
  The conference was held on December 6-8 of 2011, in Bucaramanga, Colombia
  
 \begin_inset CommandInset citation
@@ -6616,6 +6622,7 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename poster/SIPAIM2011/PosterSIPAIM2011.pdf
+	lyxscale 50
 	width 90text%
 
 \end_inset
@@ -6635,10 +6642,11 @@ name "fig:PosterSIPAIM2011"
 
 Poster 
 \shape slanted
-Software para la Extracción del Esqueleto por Contracción y Suavizado
+Software para la Extracción del Esqueleto por Contracción y Suavizado 
 \shape default
- presented at 7th International Seminar on Medical Image Processing and
- Analysis SIPAIM 2011.
+[Software for Skeleton Extraction by Contraction and Smoothing] presented
+ at the 7th International Seminar on Medical Image Processing and Analysis
+ SIPAIM 2011.
 \end_layout
 
 \end_inset
@@ -6661,9 +6669,10 @@ Part of this work was accepted and presented as a poster titled
  Análisis Experimental de la Extracción del Esqueleto por Contracción con
  Suavizado Laplaciano
 \shape default
- at 6th International Seminar on Medical Image Processing and Analysis SIPAIM
- 2010.
- The conference was held on December 1-4 of 2011, in the city of Bogotá,
+ [Experimental Analysis of Skeleton Extraction by Contraction and Laplacian
+ Smoothing] at the 6th International Seminar on Medical Image Processing
+ and Analysis SIPAIM 2010.
+ The conference was held on December 1-4 of 2010, in the city of Bogotá,
  Colombia 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -6692,6 +6701,7 @@ status collapsed
 \align center
 \begin_inset Graphics
 	filename poster/SIPAIM2010/FINAL/PosteraA0-150dpi.pdf
+	lyxscale 50
 	width 90text%
 
 \end_inset
@@ -6712,10 +6722,11 @@ name "fig:PosterSIPAIM2010"
 Poster 
 \shape slanted
 Análisis Experimental de la Extracción del Esqueleto por Contracción con
- Suavizado Laplaciano
+ Suavizado Laplaciano 
 \shape default
- presented at 6th International Seminar on Medical Image Processing and
- Analysis SIPAIM 2010.
+[Experimental Analysis of Skeleton Extraction by Contraction and Laplacian
+ Smoothing] presented at the 6th International Seminar on Medical Image
+ Processing and Analysis SIPAIM 2010.
 \end_layout
 
 \end_inset
@@ -6733,7 +6744,7 @@ Background
 \end_layout
 
 \begin_layout Standard
-Skeleton extraction not only reduces the dimensionality but rather it represents
+Skeleton extraction not only reduces the dimensionality but also represents
  a three-dimensional object as a uni-dimensional structure 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -6745,8 +6756,8 @@ key "Cornea2007"
 \end_layout
 
 \begin_layout Standard
-The skeleton extraction use the natural shrink produced by the laplacian
- smoothing 
+Skeleton extraction uses the natural shrink produced by Laplacian smoothing
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Meyer2003"
@@ -6762,8 +6773,8 @@ reference "fig:MeshContracted"
 \end_inset
 
 ).
- The method stretches the mesh to warranty that object preserves, as much
- as possible, the original topology constraint 
+ This method stretches the mesh to guarantee that the object preserves,
+ as much as possible, the original topology constraint 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Au2008"
@@ -6815,9 +6826,10 @@ From left to right iterative mesh contraction.
 \end_layout
 
 \begin_layout Standard
-The laplacian smooth process moves the vertices in the direction of the
- Laplacian, if the cotangent laplacian operator is used, the vertices move
- in the direction of minimal surface 
+The Laplacian smooth process moves the vertices in the direction of the
+ Laplacian.
+ If the cotangent Laplacian operator is used, the vertices move in the direction
+ of minimal surface 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Pinkall1993"
@@ -6828,15 +6840,16 @@ key "Pinkall1993"
 \end_layout
 
 \begin_layout Standard
-In 
+Au et al.
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Au2008"
 
 \end_inset
 
- it is proposed the next system of equations to iteratively contract the
- mesh until a skeleton.
+ propose the next system of equations to iteratively contract the mesh until
+ the volume is zero and a skeleton appears.
 \end_layout
 
 \begin_layout Standard
@@ -6861,7 +6874,7 @@ where
 \begin_inset Formula $L$
 \end_inset
 
- is the Laplacian matrix describe in equation 
+ is the Laplacian matrix described in equation 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "PAPER:eq:TQLBO_Simple_Matrix"
@@ -6872,7 +6885,7 @@ reference "PAPER:eq:TQLBO_Simple_Matrix"
 \begin_inset Formula $W_{L}$
 \end_inset
 
- is the smoothing factor, 
+ is the smoothing factor and 
 \begin_inset Formula $W_{H}$
 \end_inset
 
@@ -6887,7 +6900,7 @@ reference "PAPER:eq:TQLBO_Simple_Matrix"
 \begin_inset Formula $W_{H}$
 \end_inset
 
- are changing at every iteration.
+ change at every iteration.
  The contraction and smoothing constraint 
 \begin_inset Formula $W_{L}^{t+1}=S_{L}W_{L}^{t}$
 \end_inset
@@ -6924,16 +6937,16 @@ Contribution
 \end_layout
 
 \begin_layout Standard
-This work proposed an additional constraint which seeks the vertices while
- the skeleton does not shrink.
- Such constraint eliminates the need of adjusting the final skeleton, taking
- each skeleton node and move it to the center of the local mesh region.
+This work proposes an additional constraint: it seeks to move the vertices
+ along a normal line.
+ This constraint eliminates the need to adjust the final skeleton, taking
+ each skeleton node and moving it to the center of the local mesh region.
  
 \end_layout
 
 \begin_layout Standard
-The basic idea is move the vertices along of the normal line, estimated
- at every vertex, based on the average of the normals of the faces.
+The basic idea is to move the vertices along a normal line, estimated at
+ every vertex, based on the average of the normals of the faces.
  
 \end_layout
 
@@ -6947,7 +6960,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename resources/figs/LineConstraintSkeleton.pdf
-	lyxscale 10
+	lyxscale 200
 	width 100text%
 
 \end_inset
@@ -6969,12 +6982,12 @@ Left: The vertex
 \begin_inset Formula $x_{i}$
 \end_inset
 
- move along line constraint.
+ moves along the line constraint.
  Right: the distance of vertex 
 \begin_inset Formula $x_{i}$
 \end_inset
 
- to plane 1 and plane 2 when change the position in every iteration.
+ to plane 1 and plane 2 when the position in every iteration changes.
 \end_layout
 
 \end_inset
@@ -6988,7 +7001,7 @@ Left: The vertex
 \end_layout
 
 \begin_layout Standard
-This line can be see as intersection of two planes (see figure 
+This line can be seen as an intersection of two planes (see figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:LineConstraint"
@@ -7059,7 +7072,7 @@ There are various methods that build a plane equation using three non-collinear
 \end_inset
 
  when 
-\begin_inset Formula $x_{j}\in Neighboors\left(x_{i}\right)$
+\begin_inset Formula $x_{j}\in Neighbors\left(x_{i}\right)$
 \end_inset
 
  and 
@@ -7070,11 +7083,11 @@ There are various methods that build a plane equation using three non-collinear
 \end_layout
 
 \begin_layout Standard
-A equation plane only requires three non-collinear points
+An equation plane only requires three non-collinear points
 \begin_inset Formula $\left\{ P_{1},P_{2},P_{3}\right\} $
 \end_inset
 
- and solve the next systems of equations for the 
+ and we can solve the next system of equations to find the 
 \begin_inset Formula $a,b,c$
 \end_inset
 
@@ -7108,9 +7121,11 @@ The distance of point
 \end_layout
 
 \begin_layout Standard
-\noindent
-\align center
-\begin_inset Formula $\left|\Pi-P_{0}\right|=\frac{\left|ax_{0}+by_{0}+cz_{0}+d\right|}{\sqrt{a^{2}+b^{2}+c^{2}}}$
+\begin_inset Formula 
+\begin{equation}
+\left|\Pi-P_{0}\right|=\frac{\left|ax_{0}+by_{0}+cz_{0}+d\right|}{\sqrt{a^{2}+b^{2}+c^{2}}}\label{eq:Plane_distance_equation}
+\end{equation}
+
 \end_inset
 
 
@@ -7121,19 +7136,32 @@ In the equation above, every point
 \begin_inset Formula $P_{0}=\{x_{0},y_{0},z_{0}\}$
 \end_inset
 
- that belongs to the plane defined when this equation is null.
+ that belongs to the plane exists when equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Plane_distance_equation"
+
+\end_inset
+
+) is null.
  If the point 
 \begin_inset Formula $P_{0}$
 \end_inset
 
- is not in the plane, the value of the plane equation changes, and the absolute
- value is increased if 
+ is not in the plane, the value of the plane equation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Plane_distance_equation"
+
+\end_inset
+
+) changes, and the absolute value is increased if 
 \begin_inset Formula $P_{0}$
 \end_inset
 
- is farther with respect to the plane.
- Let us use this simple relation to build a valid constraint that can be
- put in the form of the linear equation 
+ is far from the plane.
+ Let us use this simple relationship to build a valid constraint that can
+ be put in the form of the linear equation 
 \begin_inset Formula $Ax=B$
 \end_inset
 
@@ -7150,7 +7178,7 @@ In the equation above, every point
 \begin_inset Formula $x$
 \end_inset
 
- value correspond to every vertex in mesh 
+ value corresponds to every vertex in mesh 
 \begin_inset Formula $\{x_{0},y_{0},z_{0}\}$
 \end_inset
 
@@ -7206,8 +7234,40 @@ where
 \begin_inset Formula $W_{D}$
 \end_inset
 
- is the weight to new constraints, that forced the vertices to move along
- of the normal line of every vertex.
+ is the weight for 
+\begin_inset Formula $\Pi_{1}$
+\end_inset
+
+ and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\Pi_{2}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ constraints, which forces the vertices to move along the normal line of
+ every vertex.
  
 \begin_inset Formula $\Pi_{1}$
 \end_inset
@@ -7228,7 +7288,7 @@ where
 \begin_inset Formula $\Pi_{2}$
 \end_inset
 
- are matrix that contains 
+ are matrix that contain 
 \begin_inset Formula $a,b,c$
 \end_inset
 
@@ -7241,7 +7301,7 @@ where
 \begin_inset Formula $D_{2}$
 \end_inset
 
- are the vector with 
+ are the vectors with 
 \begin_inset Formula $d$
 \end_inset
 
@@ -7281,7 +7341,7 @@ name "fig:Skeletonizer-interface"
 sjSkeletonizer interface.
  (a) Open and display mesh.
  (b) Mesh contracted after 4 iterations.
- (c) Skeleton get after surface simplification.
+ (c) Skeleton obtained after surface simplification.
 \end_layout
 
 \end_inset
@@ -7315,13 +7375,13 @@ reference "fig:Skeletonizer-interface"
 
 \end_inset
 
-, the software interface of can be observed.
- The software Skeletonizer allows to open and display meshes in an interactive
- viewer.
+, the software interface can be observed.
+ The sjSkeletonizer software allows meshes in an interactive viewer to be
+ opened and displayed.
  This software contracts a mesh with the use of two different Laplacian
- operators: The cotangent operator and umbrella operator, the user can customize
- the number of iterations of the contraction step.
- The software allows an user to visualize the original mesh and contract
+ operators: the cotangent operator and umbrella operator, where the user
+ can customize the number of iterations.
+ The software allows a user to visualize the original mesh and contract
  mesh after a particular number of iterations (figure 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -7338,14 +7398,16 @@ reference "fig:Skeletonizer-interface"
 
 \end_inset
 
-.c) using the same method proposed by 
+.c) using the same method proposed by Au et al.
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Au2008"
 
 \end_inset
 
- that consist in a modification version of quadric error metrics of Garland
+ that consists of a modified version of quadric error metrics by Garland
+ et al.
  
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -7409,8 +7471,8 @@ reference "fig:Skeleton-extractedModels"
  Every skeleton accurately represents the topology and geometry of the original
  meshes.
  The extracted skeletons are homotopic to the original shapes.
- Our method permits also to simplify the skeleton until the user is required
- to guarantee that every node in the skeleton represents as much as possible
+ Our method also allows the skeleton to be simplified to the user's requirement
+ in order to guarantee that every node in the skeleton closely represents
  every core part of the original model.
 \end_layout
 
@@ -7423,6 +7485,7 @@ status collapsed
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename resources/figs/Skeletonizer_2.pdf
+	lyxscale 50
 	width 100text%
 
 \end_inset
@@ -7457,16 +7520,16 @@ Skeleton extracted from different models.
 \end_layout
 
 \begin_layout Standard
-The method proposed is robust to isometric transformations ( figure 
+The method proposed is robust under isometric transformations ( figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:Skeleton-extraction-poses"
 
 \end_inset
 
-) so that if some global transformations like rotations of central parts
- of the mesh are made, the extracted skeletons are similar.
- probably because of the properties of the Laplacian operator.
+) so that if some global transformations, such as rotations of central parts
+ of the mesh, are made, the extracted skeletons will be similar because
+ the Laplacian operator properties are invariant under rotations.
  The figure shows similar skeletons for different poses of the same model,
  these skeletons show identical branching structure.
 \end_layout
@@ -7484,20 +7547,19 @@ name "sec:Conclusion-and-future"
 
 \begin_layout Standard
 This work presented a novel extension of the Laplace Beltrami operator for
- hybrid quad/triangle meshes TQLBO, and the successful applications of such
- principle in different type of problems in computer geometric modelling
- like smoothing, enhancing, sculpting, deformation, reposing and skeleton
- extraction.
+ hybrid quad/triangle meshes, and the successful application of such principles
+ in different types of problems in computer geometric modelling like smoothing,
+ enhancing, sculpting, deformation, reposing and skeleton extraction.
 \end_layout
 
 \begin_layout Standard
-We have largely demonstrated a good performance, stability and robustness
- of the extension proposed.
+We have largely demonstrated that our method has good performance, stability
+ and robustness of the extension proposed.
  This novel extension of the Laplace Beltrami operator was introduced in
- the computer modeling industry inside the 3D computer graphics software
- Blender, thereby facilitating artists to work with different tools developed
- using TQLBO, for any kind of meshes, i.e., triangular meshes, quadrilateral
- meshes or hybrid meshes.
+ the computer modeling industry inside the Blender 3D computer graphics
+ software, in order to facilitate artists who work with different tools
+ developed using TQLBO, for any kinds of meshes, i.e., triangular meshes,
+ quadrilateral meshes or hybrid meshes.
 \end_layout
 
 \begin_layout Standard
